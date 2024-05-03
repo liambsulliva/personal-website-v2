@@ -12,7 +12,6 @@ interface ImageProps {
 
 const { title, description, img, viewBtn, demoBtn } = Astro.props;
 ---
-
 <div class="max-w-xs shadow rounded-lg border-2 border-white">
     <a href={demoBtn} aria-label={title} target="_blank">
         <Image class="rounded-t-lg" src={img} alt={title} />
