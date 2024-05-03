@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import Button from "./CardButton.astro";
+
+interface ImageProps {
+    title: string;
+    description: string;
+    img: any;
+    viewBtn: string;
+    demoBtn: string;
+}
+
+const { title, description, img, viewBtn, demoBtn } = Astro.props;
+---
+
+<div class="max-w-xs shadow rounded-lg border-2 border-white">
+    <a href={demoBtn} aria-label={title} target="_blank">
+        <Image class="rounded-t-lg" src={img} alt={title} />
+    </a>
+    <div class="p-5 drop-shadow-lg">
+        <div>
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">{title}</h5>
+        </div>
+        <p class="mb-3 font-normal text-gray-400">{description}</p>
+        <div class="flex flex-column gap-4">
+            <Button label="View Project" href={viewBtn} target="_blank"/>
+            <Button label="Live Demo" href={demoBtn} target="_blank"/>
+        </div>
+    </div>
+</div>

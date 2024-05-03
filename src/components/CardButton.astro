@@ -1,0 +1,44 @@
+---
+interface ButtonProps {
+	href: string;
+	label: string;
+	icon: string;
+}
+
+const { href, label, icon } = Astro.props;
+---
+
+<a href={href} class="button" target="_blank">
+    <p>{label}</p>
+</a>
+
+<style>
+	:root {
+		--button-color: #fff;
+		--new-button-color: #282935;
+		--fill: #fff;
+	}
+
+	.button {
+		margin: auto;
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+		position: relative;
+		padding: 0.75rem 1rem;
+		background-color: var(--new-button-color);
+		border-radius: 25px;
+		transition: all 0.3s;
+		box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+	}
+
+	.button p {
+		color: var(--fill);
+		transition: all 0.3s;
+	}
+
+	.button:active {
+		transform: scale(0.95);
+	}
+
+</style>
