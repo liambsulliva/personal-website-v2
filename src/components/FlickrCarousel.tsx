@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
+interface FlickrCarouselProps {
+    apiKey: string;
+    userId: string;
+}
+
 // TODO: Lazy load photos one at a time to improve performance
-const FlickrCarousel: React.FC = () => {
+const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     const [photos, setPhotos] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchPhotos = async () => {
-            const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
-            const userId = process.env.REACT_APP_FLICKR_USER_ID;
             let flickrSize = 'z';
 
             const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=500&format=json&nojsoncallback=1`);

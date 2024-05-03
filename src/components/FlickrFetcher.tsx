@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 
+interface FlickrFetcherProps {
+  apiKey: string;
+  userId: string;
+}
+
 // TODO: Lazy load pages at a time so we can animate photos in as they load
-const FlickrFetcher = () => {
+const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
     const [flickrData, setFlickrData] = useState<{ src: string, title: string }[]>([]);
   
     useEffect(() => {
       const fetchFlickrData = async () => {
-        const apiKey = process.env.REACT_APP_FLICKR_API_KEY;
-        const userId = process.env.REACT_APP_FLICKR_USER_ID;
         const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1`;
   
         const response = await fetch(url);

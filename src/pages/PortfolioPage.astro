@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/BackButton.astro';
 import FlickrFetcher from '../components/FlickrFetcher.jsx';
+const apiKey = import.meta.env.FLICKR_API_KEY;
+const userId = import.meta.env.FLICKR_USER_ID;
 ---
 
 <Layout title='Portfolio'>
@@ -9,7 +11,7 @@ import FlickrFetcher from '../components/FlickrFetcher.jsx';
         <div class="btn-container">
             <Button label="Back" href="/"/>
         </div>
-        <FlickrFetcher client:load/>
+        <FlickrFetcher {apiKey} {userId} client:load/>
     </div>
 </Layout>
 
