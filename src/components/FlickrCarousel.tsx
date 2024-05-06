@@ -18,7 +18,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
             const data = await response.json();
     
             const photosArray = data.photos.photo;
-            console.log(data);
+            //console.log(data);
             const randomPhotos: string[] = [];
     
             let indexes;
@@ -31,7 +31,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     
             let count = 0;
             while (randomPhotos.length < 5) {
-                console.log(indexes[count])
+                //console.log(indexes[count])
                 const randomPhoto = photosArray[indexes[count]];
                 const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_${photoQuality}.jpg`;
                 if (!randomPhotos.includes(photoUrl)) {
@@ -73,10 +73,10 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
 
     const updateQuality = () => {
         if (photoQuality === 'n') {
-            console.log('Setting to Medium!');
+            //console.log('Setting to Medium!');
             setPhotoQuality('z');
         } else if (photoQuality === 'z') {
-            console.log('Setting to Large!')
+            //console.log('Setting to Large!')
             setPhotoQuality('c');
         }
     }
