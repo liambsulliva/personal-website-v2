@@ -8,11 +8,11 @@ interface FlickrCarouselProps {
 // TODO: Lazy load photos one at a time to improve performance
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     const [photos, setPhotos] = useState<string[]>([]);
+    const [photoQuality, setPhotoQuality] = useState('n');
+    const photoIndex: number[] = [];
 
     useEffect(() => {
         const fetchPhotos = async () => {
-            let flickrSize = 'z';
-
             const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=500&format=json&nojsoncallback=1`);
             const data = await response.json();
 
@@ -21,8 +21,9 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
 
             while (randomPhotos.length < 5) {
                 const randomIndex = Math.floor(Math.random() * photosArray.length);
+                photoIndex.push(randomIndex);
                 const randomPhoto = photosArray[randomIndex];
-                const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_${flickrSize}.jpg`;
+                const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_${photoQuality}.jpg`;
 
                 const sizesResponse = await fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${randomPhoto.id}&format=json&nojsoncallback=1`);
                 const sizesData = await sizesResponse.json();
@@ -36,7 +37,18 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
         };
 
         fetchPhotos();
-    }, []);
+    }, [photoQuality]);
+
+    useEffect(() => {
+        if (photoQuality === 'n') {
+            console.log('Set to Medium!');
+            setPhotoQuality('z');
+        }
+        if (photoQuality === 'z') {
+            console.log('Set to Large!')
+            setPhotoQuality('c');
+        }
+    }, [photos]);
 
     return (
         <div id="default-carousel" className="relative w-full" data-carousel="static">
