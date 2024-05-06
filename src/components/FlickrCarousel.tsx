@@ -5,7 +5,7 @@ interface FlickrCarouselProps {
     userId: string;
 }
 
-// TODO: Lazy load photos one at a time to improve performance
+// TODO: Switch to different CDN to randomize indexes on server-side, optimizing carousel performance
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     const [photos, setPhotos] = useState<string[]>([]);
     const [loadedImages, setLoadedImages] = useState<number>(0);
@@ -47,12 +47,14 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
             let randomIndexes: number[] = [];
             while (randomIndexes.length < 5) {
                 const randomIndex = Math.floor(Math.random() * photosArray.length);
-                const randomPhoto = photosArray[randomIndex];
-                const sizesResponse = await fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${randomPhoto.id}&format=json&nojsoncallback=1`);
-                const sizesData = await sizesResponse.json();
-                const photoSize = sizesData.sizes.size.find((size: any) => size.label === 'Large');
-                if (photoSize.width > photoSize.height) {
-                    randomIndexes.push(randomIndex);
+                if (!randomIndexes.includes(randomIndex)) {
+                    const randomPhoto = photosArray[randomIndex];
+                    const sizesResponse = await fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${randomPhoto.id}&format=json&nojsoncallback=1`);
+                    const sizesData = await sizesResponse.json();
+                    const photoSize = sizesData.sizes.size.find((size: any) => size.label === 'Large');
+                    if (photoSize.width > photoSize.height) {
+                        randomIndexes.push(randomIndex);
+                    }
                 }
             }
             return randomIndexes;
