@@ -33,12 +33,18 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
                 console.error(`Error fetching Flickr data for page ${i}, ${pageData.message}`);
             }
         }
+        localStorage.setItem('flickrData', JSON.stringify(photos));
         setFlickrData(photos);
         } else {
           console.error(`Error fetching Flickr data ${data.message}`);
         }
       };
-      fetchFlickrData();
+      if (localStorage.getItem('flickrData') === null) {
+        fetchFlickrData();
+      } else {
+        setFlickrData(JSON.parse(localStorage.getItem('flickrData') || '[]'));
+        //console.log('Flickr data loaded from local storage');
+      }
     }, []);
 
     return (
