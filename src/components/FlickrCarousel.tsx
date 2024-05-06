@@ -8,47 +8,78 @@ interface FlickrCarouselProps {
 // TODO: Lazy load photos one at a time to improve performance
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     const [photos, setPhotos] = useState<string[]>([]);
+    const [loadedImages, setLoadedImages] = useState<number>(0);
+    const [photoIndex, setPhotoIndex] = useState<number[]>([]);
     const [photoQuality, setPhotoQuality] = useState('n');
-    const photoIndex: number[] = [];
 
     useEffect(() => {
         const fetchPhotos = async () => {
-            const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=500&format=json&nojsoncallback=1`);
+            const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=100&format=json&nojsoncallback=1`);
             const data = await response.json();
-
+    
             const photosArray = data.photos.photo;
+            console.log(data);
             const randomPhotos: string[] = [];
-
+    
+            let indexes;
+            if (photoIndex.length < 5) {
+                indexes = await generateRandomIndexes(photosArray);
+                setPhotoIndex(indexes);
+            } else {
+                indexes = photoIndex;
+            }
+    
+            let count = 0;
             while (randomPhotos.length < 5) {
-                const randomIndex = Math.floor(Math.random() * photosArray.length);
-                photoIndex.push(randomIndex);
-                const randomPhoto = photosArray[randomIndex];
+                console.log(indexes[count])
+                const randomPhoto = photosArray[indexes[count]];
                 const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_${photoQuality}.jpg`;
-
+                if (!randomPhotos.includes(photoUrl)) {
+                    randomPhotos.push(photoUrl);
+                }
+                count++;
+            }
+            setPhotos(randomPhotos);
+            
+        };
+    
+        const generateRandomIndexes = async (photosArray: any) => {
+            let randomIndexes: number[] = [];
+            while (randomIndexes.length < 5) {
+                const randomIndex = Math.floor(Math.random() * photosArray.length);
+                const randomPhoto = photosArray[randomIndex];
                 const sizesResponse = await fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${randomPhoto.id}&format=json&nojsoncallback=1`);
                 const sizesData = await sizesResponse.json();
                 const photoSize = sizesData.sizes.size.find((size: any) => size.label === 'Large');
-                
-                if (!randomPhotos.includes(photoUrl) && photoSize.width > photoSize.height) {
-                    randomPhotos.push(photoUrl);
+                if (photoSize.width > photoSize.height) {
+                    randomIndexes.push(randomIndex);
                 }
             }
-            setPhotos(randomPhotos);
-        };
-
+            return randomIndexes;
+        }
+    
         fetchPhotos();
     }, [photoQuality]);
 
-    useEffect(() => {
+    let handleImageLoad = () => {
+        setLoadedImages(prevCount => {
+            const newCount = prevCount + 1;
+            if (newCount % 5 === 0) {
+                updateQuality();
+            }
+            return newCount;
+        });
+    };
+
+    const updateQuality = () => {
         if (photoQuality === 'n') {
-            console.log('Set to Medium!');
+            console.log('Setting to Medium!');
             setPhotoQuality('z');
-        }
-        if (photoQuality === 'z') {
-            console.log('Set to Large!')
+        } else if (photoQuality === 'z') {
+            console.log('Setting to Large!')
             setPhotoQuality('c');
         }
-    }, [photos]);
+    }
 
     return (
         <div id="default-carousel" className="relative w-full" data-carousel="static">
@@ -56,23 +87,23 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
             <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
                 {/* Item 1 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[0]} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[0]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
                 </div>
                 {/* Item 2 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[1]} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[1]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
                 </div>
                 {/* Item 3 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[2]} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[2]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
                 </div>
                 {/* Item 4 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[3]} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[3]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
                 </div>
                 {/* Item 5 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[4]} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[4]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
                 </div>
             </div>
             {/* Slider indicators */}
