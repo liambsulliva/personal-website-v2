@@ -8,8 +8,6 @@ interface FlickrFetcherProps {
 // TODO: Lazy load pages at a time so we can animate photos in as they load
 const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
     const [flickrData, setFlickrData] = useState<{ src: string, title: string }[]>([]);
-    const [loadedImages, setLoadedImages] = useState(0);
-    const [isRandomized, setIsRandomized] = useState(false);
     const [selectedPhoto, setSelectedPhoto] = useState<{ src: string, title: string } | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -121,7 +119,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
           <div className="absolute inset-0 bg-black opacity-75"></div>
           <div className="relative z-10 p-4">
             <img
-              className="h-full rounded-lg"
+              className="h-full rounded-lg max-h-screen"
               src={selectedPhoto.src}
               alt={selectedPhoto.title}
             />
