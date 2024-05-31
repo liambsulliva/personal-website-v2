@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Loader from './Loader';
 
 interface FlickrCarouselProps {
     apiKey: string;
@@ -9,6 +10,7 @@ interface FlickrCarouselProps {
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     const [photos, setPhotos] = useState<string[]>([]);
     const [loadedImages, setLoadedImages] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState(true);
     const [photoIndex, setPhotoIndex] = useState<number[]>([]);
     const [photoQuality, setPhotoQuality] = useState('n');
 
@@ -39,8 +41,8 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
                 }
                 count++;
             }
+            setIsLoading(false);
             setPhotos(randomPhotos);
-            
         };
     
         const generateRandomIndexes = async (photosArray: any) => {
@@ -86,26 +88,29 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     return (
         <div id="default-carousel" className="relative w-full" data-carousel="static">
             {/* Carousel wrapper */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                {isLoading && <Loader/>}
+            </div>
             <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
                 {/* Item 1 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[0]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[0]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
                 </div>
                 {/* Item 2 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[1]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[1]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
                 </div>
                 {/* Item 3 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[2]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[2]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
                 </div>
                 {/* Item 4 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[3]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[3]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"  />
                 </div>
                 {/* Item 5 */}
                 <div className="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src={photos[4]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..." />
+                    <img src={photos[4]} onLoad={handleImageLoad} className="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" />
                 </div>
             </div>
             {/* Slider indicators */}
