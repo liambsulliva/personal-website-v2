@@ -73,7 +73,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
       <div className="columns-2 md:columns-3 lg:columns-4 m-4" ref={containerRef}>
         {flickrData.map((photo, index) => (
           <div key={index} onClick={() => openModal(photo)} className="relative cursor-pointer mb-4 content-[''] rounded-md absolute inset-0">
-            <img className="w-full h-auto rounded-md" src={photo.src} alt={photo.title} />
+            <img className="w-full rounded-md" src={photo.src} alt={photo.title} />
           </div>
         ))}
       </div>
@@ -83,7 +83,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
           <div className="absolute inset-0 bg-black opacity-75"></div>
           <div className="relative z-10 p-4">
             <img
-              className="h-full rounded-lg max-h-screen"
+              className="h-full rounded-lg h-auto max-h-screen"
               src={selectedPhoto.src}
               alt={selectedPhoto.title}
             />
