@@ -7,7 +7,7 @@ export default function EosIconsThreeDotsLoading(props: SVGProps<SVGSVGElement>)
     useEffect(() => {
         const timer = setTimeout(() => {
             setTime(true);
-        }, 5000);
+        }, 7500);
 
         return () => {
             clearTimeout(timer);
