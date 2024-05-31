@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Loader from './Loader';
 
 interface FlickrFetcherProps {
   apiKey: string;
@@ -43,17 +44,17 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
 
   // Load more data
   const handleScroll = () => {
-    console.log('Scroll event fired');
-    console.log('isLoading:', isLoading);
-    console.log('Scroll position:', window.innerHeight + window.scrollY);
-    console.log('Document height:', document.documentElement.scrollHeight);
+    //console.log('Scroll event fired');
+    //console.log('isLoading:', isLoading);
+    //console.log('Scroll position:', window.innerHeight + window.scrollY);
+    //console.log('Document height:', document.documentElement.scrollHeight);
   
     if (
       containerRef.current &&
       window.innerHeight + window.scrollY >= document.documentElement.scrollHeight &&
       !isLoading
     ) {
-      console.log('Loading more data');
+      //console.log('Loading more data');
       setIsLoading(true);
     }
   };
@@ -67,17 +68,15 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
   }, []);
 
   return (
-    <>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 m-4" ref={containerRef}>
+    <div className="flex flex-col gap-4 items-center">
+      <div className="columns-2 md:columns-3 lg:columns-4 m-4" ref={containerRef}>
         {flickrData.map((photo, index) => (
-          <div key={index}>
-            <button onClick={() => openModal(photo)}>
-              <img className="h-auto w-full rounded-lg" src={photo.src} alt={photo.title} />
-            </button>
+          <div key={index} onClick={() => openModal(photo)} className="relative cursor-pointer mb-4 content-[''] rounded-md absolute inset-0">
+            <img className="w-full rounded-md" src={photo.src} alt={photo.title} />
           </div>
         ))}
-        {isLoading && <div>Loading...</div>}
       </div>
+      {isLoading && <Loader/>}
       {isModalOpen && selectedPhoto && (
         <div onClick={closeModal} className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-75"></div>
@@ -86,7 +85,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
