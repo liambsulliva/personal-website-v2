@@ -3,8 +3,8 @@ import Button from "../components/ForwardButton.astro"
 import Card from "../components/Card.astro"
 import websitev1 from "../images/websitev1.png"
 import weatherapp from "../images/weatherapp.png"
-import todos from "../images/todos.png"
-import rps from "../images/rps.png"
+import pokedraft from "../images/pokedraft.png"
+import auth from "../images/auth.png"
 ---
 <div class="title">
 	<h2>Projects</h2>
@@ -12,9 +12,9 @@ import rps from "../images/rps.png"
 <div class="content">
 	<div class="grid">
 		<Card title="Personal Website v1" description="My original crack at a personal website. As it grew in complexity I ported it to React." img={websitev1} viewBtn="https://github.com/liambsulliva/personal-website" demoBtn="https://v1.liambsullivan.com"/>
-		<Card title="Weather App" description="My introduction to public APIs. Learned a lot about ES6, aynchronous functions, and await!" img={weatherapp} viewBtn="https://github.com/liambsulliva/weather-app" demoBtn="https://weather.liambsullivan.com"/>
-		<Card title="To-Do List" description="A quick single component To-Do list in React. Was the first project I made in the framework from scratch!" img={todos} viewBtn="https://github.com/liambsulliva/todo-list" demoBtn="https://liambsulliva.github.io/todo-list/"/>
-		<Card title="Rock Paper Scissors" description="My introduction to Vanilla JavaScript DOM manipulation. Was not fun, but good to know before JSX." img={rps} viewBtn="https://github.com/liambsulliva/rock-paper-scissors" demoBtn="https://rps.liambsullivan.com"/>
+		<Card title="Pokémon Teambuilder" description="A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability." img={pokedraft} viewBtn="https://github.com/liambsulliva/pokemon-teambuilder" demoBtn="https://pokedraft.liambsullivan.com"/>
+		<Card title="Authentication App" description="A sample authentication system for a full stack program. Stored bcrypt hashed passwords in a MongoDB database." img={auth} viewBtn="https://github.com/liambsulliva/auth-app" demoBtn="https://liam-auth-app.adaptable.app"/>
+		<Card title="Weather App" description="My first introduction to public APIs in JavaScript. Learned a lot about ES6, aynchronous functions, and the async/await keywords!" img={weatherapp} viewBtn="https://github.com/liambsulliva/weather-app" demoBtn="https://weather.liambsullivan.com"/>
 	</div>
 	<Button label="View All" href="/ProjectPage/" icon='<svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24"><path fill="white" d="M4 22v-5.925q0-.5.238-.95T4.9 14.4l1.1-.725q.175 2.1.55 3.575t1.175 3.275zm5.225-2q-.875-1.65-1.3-3.5T7.5 12.675q0-3.125 1.238-5.887T12 2.6q2.025 1.425 3.263 4.188t1.237 5.887q0 1.95-.425 3.788T14.775 20zM12 13q.825 0 1.413-.587T14 11t-.587-1.412T12 9t-1.412.588T10 11t.588 1.413T12 13m8 9l-3.725-1.475q.8-1.8 1.175-3.275t.55-3.575l1.1.725q.425.275.663.725t.237.95z"/></svg>'/>
 </div>
