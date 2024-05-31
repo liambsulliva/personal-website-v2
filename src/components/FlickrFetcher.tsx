@@ -26,7 +26,8 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
 
   useEffect(() => {
     const fetchFlickrData = async (page: number) => {
-      const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${page}&per_page=10`;
+      const perPage = window.innerWidth < 768 ? 6 : 12; // 6 photos per page on mobile to save data on 2-column layout
+      const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${page}&per_page=${perPage}`;
       const response = await fetch(url);
       const data = await response.json();
       setFlickrData((prevData) => [
@@ -68,7 +69,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-4 items-center">
+    <div className="flex flex-col items-center">
       <div className="columns-2 md:columns-3 lg:columns-4 m-4" ref={containerRef}>
         {flickrData.map((photo, index) => (
           <div key={index} onClick={() => openModal(photo)} className="relative cursor-pointer mb-4 content-[''] rounded-md absolute inset-0">
