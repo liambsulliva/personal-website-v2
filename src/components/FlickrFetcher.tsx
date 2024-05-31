@@ -83,7 +83,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
           <div className="absolute inset-0 bg-black opacity-75"></div>
           <div className="relative z-10 p-4">
             <img
-              className="h-full rounded-lg w-auto max-h-screen"
+              className="h-auto rounded-lg w-auto"
               src={selectedPhoto.src}
               alt={selectedPhoto.title}
             />
