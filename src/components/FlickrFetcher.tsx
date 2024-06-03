@@ -26,7 +26,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
 
   useEffect(() => {
     const fetchFlickrData = async (page: number) => {
-      const perPage = window.innerWidth < 768 ? 8 : 16; // 8 photos per page on mobile to save data on 2-column layout
+      const perPage = window.innerWidth < 768 ? 12 : 16; // 12 photos per page on mobile to save data on 2-column layout
       const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${page}&per_page=${perPage}`;
       const response = await fetch(url);
       const data = await response.json();
