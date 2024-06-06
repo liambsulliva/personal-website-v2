@@ -1,3 +1,64 @@
 {
-    "header": "<0>Hallo! Ich heiße <1>Liam</1></0>"
+    "header": "<0>Hallo! Ich heiße <1>Liam</1></0>",
+    "subheader": "<0>Ich möchte das Web so <1>spaßig</1> machen wie es <2>funktional</2> ist.</0>",
+    "background": {
+        "header": "<0>Hintergrund</0>",
+        "content": "<0>Als ich in der Mittelschule war, begann ich mit der Porträtfotografie mit der alten <1>Nikon D200</1> meines Onkels. Ich liebte die Ausrede, die es mir gab, um zu kreieren, und ich wurde schnell besessen von der Schnittstelle zwischen Technologie und Kunst.</0><2>Heutzutage studiere ich an der University of Pittsburgh Informatik und Digitale Erzählung und Interaktives Design (DNID) als Doppelstudium. Obwohl ich mich hauptsächlich auf mein Studium konzentriere, beschäftige ich mich in meiner Freizeit mit der Entwicklung von Front-End-Webseiten. Es macht viel Spaß und ich suche immer nach neuen Projekten, an denen ich arbeiten kann, wenn ich Zeit habe... (nie)</2><6>Letztendlich möchte ich Websites erstellen, die ich jeden Tag verwenden könnte.</6>"
+    },
+    "skills": {
+        "header": "<0>Werkzeuge</0>"
+    },
+    "experience": {
+        "header": "<0>Erfahrung</0>",
+        "content": [
+            {
+                "title": "<0>HS-Experts</0>",
+                "position": "<0>Webentwicklungspraktikant</0>",
+                "description": "<0>Verwendete WordPress' Elementor CMS zum Erstellen und Verwalten von Website-Komponenten.</0><1>Tauschte Rastergrafiken gegen vektorbasierte aus und behob Fehler in der Reaktionsfähigkeit.</1>"
+            },
+            {
+                "title": "PPG Primers Program",
+                "position": "Praktikant",
+                "description": "Nahm an einem einwöchigen Programm mit Vorträgen, Workshops und Networking-Möglichkeiten von Branchenführern teil, um Kenntnisse und Fähigkeiten in der Technologie zu erweitern.\nEntwickelte zwischenmenschliche Fähigkeiten durch Gruppen-Teambuilding-Übungen."
+            },
+            {
+                "title": "The Pitt News",
+                "position": "Fotograf",
+                "description": "Fotografiert Veranstaltungen vor Ort basierend auf Story-Aufträgen.\nNimmt an wöchentlichen Budgetsitzungen und größeren organisatorischen Konferenzen teil."
+            }
+        ],
+        "viewAll": "Lebenslauf anzeigen"
+    },
+    "projects": {
+        "header": "<0>Projekte</0>",
+        "content": [
+            {
+                "title": "Persönliche Website v1",
+                "description": "Mein erster Versuch einer persönlichen Website. Als sie komplexer wurde, habe ich sie nach React portiert."
+            },
+            {
+                "title": "Pokémon Teambuilder",
+                "description": "Eine Front-End-Anwendung für ein Team-Building-Tool zum Entwerfen von Pokémon durch ein interaktives Punktesystem. Mit Tailwind für maximale Skalierbarkeit entwickelt."
+            },
+            {
+                "title": "Authentifizierungs-App",
+                "description": "Ein Beispiel-Authentifizierungssystem für ein Full-Stack-Programm. Speicherte bcrypt-gehashte Passwörter in einer MongoDB-Datenbank."
+            },
+            {
+                "title": "Wetter-App",
+                "description": "Meine erste Begegnung mit öffentlichen APIs in JavaScript. Habe viel über ES6, asynchrone Funktionen und die async/await-Schlüsselwörter gelernt!"
+            }
+        ],
+        "viewProject": "Projekt anzeigen",
+        "liveDemo": "Live-Demo",
+        "viewAll": "Alle anzeigen"
+    },
+    "photography": {
+        "header": "<0>Fotografie</0>",
+        "viewAll": "Portfolio anzeigen"
+    },
+    "blog": {
+        "header": "<0>Blog</0>",
+        "viewAll": "Berlin 2024"
+    }
 }

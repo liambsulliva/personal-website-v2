@@ -1,21 +1,22 @@
 ---
 import { changeLanguage } from "i18next";
+import { Trans } from "astro-i18next/components";
 import Button from "../../components/ForwardButton.astro";
 
 changeLanguage("de");
 ---
 <div class="title">
-	<h2>Experience</h2>
+	<Trans i18nKey="experience.header"><h2>Experience</h2></Trans>
 </div>
 <ul class="main-list">
 	<li class="main-list-item">
 		<div class="main-list-header">
-			<h3>HS-Experts</h3>
-			<p><i>Web Development Intern</i></p>
+			<Trans i18nKey="experience.content[0].title"><h3>HS-Experts</h3></Trans>
+			<Trans i18nKey="experience.content[0].position"><p><i>Web Development Intern</i></p></Trans>
 		</div>
 		<ul class="sub-list">
 			<li class="sub-list-item">
-				<p>Used WordPress' Elementor CMS to build and maintain website components.</p>
+				<Trans i18nKey="experience.content[0].description"><p>Used WordPress' Elementor CMS to build and maintain website components.</p></Trans>
 			</li>
 			<li class="sub-list-item">
 				<p>Swapped raster graphics for vector-based ones and fixed bugs in responsiveness.</p>

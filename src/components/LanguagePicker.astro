@@ -6,13 +6,14 @@
     <li><a href="de">DE</a></li>
 </ul>
 <style>
-    ul { 
-        margin: 150px auto 0; 
-        padding: 0; 
+    ul {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
         list-style: none; 
         display: table;
-        width: 600px;
-        text-align: center;
+        width: 175px;
     }
     li { 
         display: table-cell; 
@@ -26,6 +27,7 @@
         display: inline-block;
         padding: 15px 20px;
         position: relative;
+        cursor: pointer;
     }
     a:after {    
         background: none repeat scroll 0 0 transparent;
@@ -36,7 +38,7 @@
         left: 50%;
         position: absolute;
         background: #fff;
-        transition: width 0.3s ease 0s, left 0.3s ease 0s;
+        transition: width 0.2s ease 0s, left 0.2s ease 0s;
         width: 0;
     }
     a:hover:after { 
