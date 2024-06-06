@@ -1,0 +1,23 @@
+---
+import { changeLanguage } from "i18next";
+import Button from "../../components/BlogButton.astro";
+
+changeLanguage("en");
+---
+
+<div class="title">
+	<h2>Blog</h2>
+</div>
+<div class="content">
+	<Button label="Berlin 2024" href="/BlogPage/"/>
+</div>
+
+<style>
+	.content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin: 1rem;
+		padding: 1rem;
+	}
+</style>

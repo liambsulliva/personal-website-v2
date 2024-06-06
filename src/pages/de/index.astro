@@ -1,14 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Background from './Background.astro';
-import Skills from './Skills.astro';
-import Experience from './Experience.astro';
-import Photography from './Photography.astro';
-import Projects from './Projects.astro';
-import Blog from './Blog.astro';
-import Footer from '../layouts/Footer.astro';
-import LanguagePicker from '../components/LanguagePicker.astro';
+import { changeLanguage } from "i18next";
+import Layout from "../../layouts/Layout.astro";
+import Background from "../Background.astro";
+import Skills from "../Skills.astro";
+import Experience from "../Experience.astro";
+import Photography from "../Photography.astro";
+import Projects from "../Projects.astro";
+import Blog from "../Blog.astro";
+import Footer from "../../layouts/Footer.astro";
+import LanguagePicker from "../../components/LanguagePicker.astro";
 import { Trans } from "astro-i18next/components";
+
+changeLanguage("de");
 ---
 
 <Layout title="Liam Sullivan">

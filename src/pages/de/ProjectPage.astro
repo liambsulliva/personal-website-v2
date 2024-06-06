@@ -1,0 +1,42 @@
+---
+import { changeLanguage } from "i18next";
+import Layout from "../../layouts/Layout.astro";
+import Button from "../../components/BackButton.astro";
+import GitHubFetcher from "../../components/GitHubFetcher";
+
+changeLanguage("de");
+---
+
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+    }
+
+    .btn-container {
+        margin: 2rem;
+    }
+</style>
+
+<Layout title='Projects'>
+    <div class="content">
+        <div class="btn-container">
+            <Button label="Back" href="/"/>
+        </div>
+        <GitHubFetcher client:load />
+    </div>
+</Layout>
