@@ -1,4 +1,6 @@
 ---
+// @ts-ignore
+import { localizePath } from "astro-i18next";
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/BackButton.astro';
 import GitHubFetcher from '../components/GitHubFetcher';
@@ -32,7 +34,7 @@ import GitHubFetcher from '../components/GitHubFetcher';
 <Layout title='Projects'>
     <div class="content">
         <div class="btn-container">
-            <Button label="Back" href="/"/>
+            <Button label="Back" href={localizePath("/")}/>
         </div>
         <GitHubFetcher client:load />
     </div>

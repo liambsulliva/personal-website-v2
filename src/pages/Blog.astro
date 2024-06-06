@@ -1,4 +1,6 @@
 ---
+// @ts-ignore
+import { localizePath } from "astro-i18next";
 import Button from "../components/BlogButton.astro"
 ---
 
@@ -6,7 +8,7 @@ import Button from "../components/BlogButton.astro"
 	<h2>Blog</h2>
 </div>
 <div class="content">
-	<Button label="Berlin 2024" href="/BlogPage/"/>
+	<Button label="Berlin 2024" href={localizePath("/BlogPage/")}/>
 </div>
 
 <style>
