@@ -10,45 +10,41 @@
     },
     "experience": {
         "header": "<0>Experience</0>",
-        "content": [
-            {
-                "title": "<0>HS-Experts</0>",
-                "position": "<0>Web Development Intern</0>",
-                "description": "<0>Used WordPress' Elementor CMS to build and maintain website components.</0><1>Swapped raster graphics for vector-based ones and fixed bugs in responsiveness.</1>"
-            },
-            {
-                "title": "PPG Primers Program",
-                "position": "Intern",
-                "description": "Attended a week-long program defined by industry leader talks, workshops, and networking opportunities to advance knowledge and skills in technology.\nDeveloped interpersonal skills through group team building exercises."
-            },
-            {
-                "title": "The Pitt News",
-                "position": "Staff Photographer",
-                "description": "Shoots event photography on-site based on story assignments.\nAttends weekly budget meetings and larger organizational conferences."
-            }
-        ],
+        "content1":{
+            "title": "<0>HS-Experts</0>",
+            "position": "<0>Web Development Intern</0>",
+            "description": "<0><1>Used WordPress' Elementor CMS to build and maintain website components.</1></0><2><3>Swapped raster graphics for vector-based ones and fixed bugs in responsiveness.</3></2>"
+        },
+        "content2": {
+            "title": "<0>PPG Primers Program</0>",
+            "position": "<0>Intern</0>",
+            "description": "<0><1>Attended a week-long program defined by industry leader talks, workshops, and networking opportunities to advance knowledge and skills in technology.</1></0><2><3>Developed interpersonal skills through group team building exercises.</3></2>"
+        },
+        "content3":{
+            "title": "<0>The Pitt News</0>",
+            "position": "<0>Staff Photographer</0>",
+            "description": "<0><1>Shoots event photography on-site based on story assignments.</1></0><2><3>Attends weekly budget meetings and larger organizational conferences.</3></2>"
+        },
         "viewAll": "View Resumé"
     },
     "projects": {
         "header": "Projects",
-        "content": [
-            {
-                "title": "Personal Website v1",
-                "description": "My original crack at a personal website. As it grew in complexity I ported it to React."
-            },
-            {
-                "title": "Pokémon Teambuilder",
-                "description": "A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability."
-            },
-            {
-                "title": "Authentication App",
-                "description": "A sample authentication system for a full stack program. Stored bcrypt hashed passwords in a MongoDB database."
-            },
-            {
-                "title": "Weather App",
-                "description": "My first introduction to public APIs in JavaScript. Learned a lot about ES6, aynchronous functions, and the async/await keywords!"
-            }
-        ],
+        "content1": {
+            "title": "Personal Website v1",
+            "description": "My original crack at a personal website. As it grew in complexity I ported it to React."
+        },
+        "content2": {
+            "title": "Pokémon Teambuilder",
+            "description": "A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability."
+        },
+        "content3": {
+            "title": "Authentication App",
+            "description": "A sample authentication system for a full stack program. Stored bcrypt hashed passwords in a MongoDB database."
+        },
+        "content4": {
+            "title": "Weather App",
+            "description": "My first introduction to public APIs in JavaScript. Learned a lot about ES6, aynchronous functions, and the async/await keywords!"
+        },
         "viewProject": "View Project",
         "liveDemo": "Live Demo",
         "viewAll": "View All"
@@ -60,5 +56,11 @@
     "blog": {
         "header": "Blog",
         "viewAll": "Berlin 2024"
+    },
+    "footer": {
+        "content": "<0>Designed and Developed by Liam Sullivan</0>"
+    },
+    "misc": {
+        "backBtn": "Back"
     }
 }

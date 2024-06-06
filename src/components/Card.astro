@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Button from "./CardButton.astro";
+import { t } from "i18next";
 
 interface ImageProps {
     title: string;
@@ -16,14 +17,14 @@ const { title, description, img, viewBtn, demoBtn } = Astro.props;
     <a href={demoBtn} aria-label={title} target="_blank">
         <Image class="rounded-t-lg" src={img} alt={title} />
     </a>
-    <div class="p-5 box-shadow-lg">
+    <div class="p-3 box-shadow-lg">
         <div>
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">{title}</h5>
+            <h5 class="mb-2 px-2 text-2xl font-bold tracking-tight text-gray-900 text-white">{title}</h5>
         </div>
-        <p class="mb-3 font-normal text-gray-400">{description}</p>
+        <p class="mb-3 px-2 font-normal text-gray-400">{description}</p>
         <div class="flex flex-column gap-4">
-            <Button label="View Project" href={viewBtn} target="_blank"/>
-            <Button label="Live Demo" href={demoBtn} target="_blank"/>
+            <Button label={t("projects.viewProject")} href={viewBtn} target="_blank"/>
+            <Button label={t("projects.liveDemo")} href={demoBtn} target="_blank"/>
         </div>
     </div>
 </div>

@@ -1,4 +1,6 @@
 ---
+import { Trans } from "astro-i18next/components";
+
 interface FooterProps {
     iconColor: string;
 }
@@ -25,7 +27,7 @@ const socials = [
 ---
 
 <footer>
-    <p>Designed and Developed by Liam Sullivan</p>
+    <Trans i18nKey="footer.content"><p>Designed and Developed by Liam Sullivan</p></Trans>
     <div class="icons">
         {socials.map(social => (
             <a href={social.href} aria-label={social.name} target="_blank" rel="noopener noreferrer">
