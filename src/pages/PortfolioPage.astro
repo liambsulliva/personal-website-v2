@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/BackButton.astro';
 import FlickrFetcher from '../components/FlickrFetcher.jsx';
+import { t } from "i18next";
 const apiKey = import.meta.env.FLICKR_API_KEY;
 const userId = import.meta.env.FLICKR_USER_ID;
 ---
@@ -11,7 +12,7 @@ const userId = import.meta.env.FLICKR_USER_ID;
         <div class="btn-container">
             <Button label="Back" href="/"/>
         </div>
-        <FlickrFetcher {apiKey} {userId} client:load/>
+        <FlickrFetcher {apiKey} {userId} lang={t("misc.lang")} client:load/>
     </div>
 </Layout>
 

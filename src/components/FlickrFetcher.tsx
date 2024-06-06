@@ -4,9 +4,10 @@ import Loader from './Loader';
 interface FlickrFetcherProps {
   apiKey: string;
   userId: string;
+  lang: string;
 }
 
-const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
+const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId, lang }) => {
   const [flickrData, setFlickrData] = useState<{ src: string; title: string }[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<{ src: string; title: string } | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +78,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId }) => {
           </div>
         ))}
       </div>
-      {isLoading && <Loader/>}
+      {isLoading && <Loader lang={lang}/>}
       {isModalOpen && selectedPhoto && (
         <div onClick={closeModal} className="fixed inset-0 flex items-center justify-center z-50">
           <div className="absolute inset-0 bg-black opacity-75"></div>

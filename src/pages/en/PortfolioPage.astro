@@ -1,8 +1,8 @@
 ---
-import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/BackButton.astro";
 import FlickrFetcher from "../../components/FlickrFetcher.jsx";
+import { t, changeLanguage } from "i18next";
 
 changeLanguage("en");
 
@@ -15,7 +15,7 @@ const userId = import.meta.env.FLICKR_USER_ID;
         <div class="btn-container">
             <Button label="Back" href="/"/>
         </div>
-        <FlickrFetcher {apiKey} {userId} client:load/>
+        <FlickrFetcher {apiKey} {userId} lang={t("misc.lang")} client:load/>
     </div>
 </Layout>
 

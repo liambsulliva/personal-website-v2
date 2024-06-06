@@ -39,7 +39,7 @@
         },
         "content3": {
             "title": "Authentifizierungs-App",
-            "description": "Ein Beispiel für ein Authentifizierungssystem für ein Full-Stack-Programm. Die bcrypt-verschlüsselt Passwörter werden in einer MongoDB-Datenbank gespeichert."
+            "description": "Ein Beispiel für ein Authentifizierungssystem für ein vollwertiges Programm. Die mit bcrypt verschlüsselten Passwörter werden in MongoDB gespeichert."
         },
         "content4": {
             "title": "Wetter-App",
@@ -61,6 +61,7 @@
         "content": "<0>Entworfen und entwickelt von Liam Sullivan</0>"
     },
     "misc": {
-        "backBtn": "Zurück"
+        "backBtn": "Zurück",
+        "lang": "de"
     }
 }

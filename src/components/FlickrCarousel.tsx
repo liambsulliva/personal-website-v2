@@ -4,10 +4,11 @@ import Loader from './Loader';
 interface FlickrCarouselProps {
     apiKey: string;
     userId: string;
+    lang: string;
 }
 
 // TODO: Switch to different CDN to randomize indexes on server-side, optimizing carousel performance
-const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
+const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId, lang }) => {
     const [photos, setPhotos] = useState<string[]>([]);
     const [loadedImages, setLoadedImages] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -89,7 +90,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
         <div id="default-carousel" className="relative w-full" data-carousel="static">
             {/* Carousel wrapper */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                {isLoading && <Loader/>}
+                {isLoading && <Loader lang={lang}/>}
             </div>
             <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
                 {/* Item 1 */}

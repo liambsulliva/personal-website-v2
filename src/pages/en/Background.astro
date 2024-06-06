@@ -1,5 +1,5 @@
 ---
-import { changeLanguage } from "i18next";
+import { t, changeLanguage } from "i18next";
 import { Trans } from "astro-i18next/components";
 
 changeLanguage("en");
@@ -11,7 +11,7 @@ changeLanguage("en");
 <div class="text">
 	<Trans i18nKey="background.content">
 		<p>
-			When I was in middle school, I began shooting portrait photography with my uncle's old <a href="https://en.wikipedia.org/wiki/Nikon_D200" target="_blank" class="text-link">Nikon D200</a>.
+			When I was in middle school, I began shooting portrait photography with my uncle's old <a href=`https://${t("misc.lang")}.wikipedia.org/wiki/Nikon_D200` target="_blank" class="text-link">Nikon D200</a>.
 			I loved the excuse it gave me to create, and I quickly became obsessed with the intersection between technology and art.
 		<p/>
 		<p>
