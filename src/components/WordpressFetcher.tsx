@@ -47,7 +47,7 @@ const WordpressFetcher = () => {
         return text;
       }
 
-      console.log(strippedData);
+      //console.log(strippedData);
       setWordpressData(strippedData);
     }
     fetchWordpressData();
