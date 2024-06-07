@@ -2,12 +2,14 @@
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Button from "../components/BlogButton.astro"
+import WordpressFetcher from "../components/WordpressFetcher";
 ---
 
 <div class="title">
 	<h2>Blog</h2>
 </div>
 <div class="content">
+	<WordpressFetcher numberOfPosts={1} client:idle/>
 	<Button label="Berlin 2024" href={localizePath("/BlogPage/")}/>
 </div>
 

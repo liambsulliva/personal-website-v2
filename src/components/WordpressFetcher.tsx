@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import ReactBtn from './ReactBtn';
 
-const WordpressFetcher = () => {
+interface WordpressFetcherProps {
+  numberOfPosts: number;
+}
+
+const WordpressFetcher = ({ numberOfPosts }: WordpressFetcherProps) => {
   const [wordpressData, setWordpressData] = useState([]);
 
   useEffect(() => {
     const fetchWordpressData = async () => {
       const site = `pittbusinesstotheworld.com`;
       const author = `651`; // My Author ID
-      const url = `https://public-api.wordpress.com/rest/v1.1/sites/${site}/posts/?author=${author}`;
+      const url = `https://public-api.wordpress.com/rest/v1.1/sites/${site}/posts/?author=${author}&number=${numberOfPosts}`;
 
       const response = await fetch(url);
       const data = await response.json();
@@ -47,16 +51,15 @@ const WordpressFetcher = () => {
         return text;
       }
 
-      //console.log(strippedData);
       setWordpressData(strippedData);
     }
     fetchWordpressData();
-  }, []);
+  }, [numberOfPosts]);
 
   return (
-    <div className="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="my-8 flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {wordpressData.map((post: any, index: number) => (
-        <div className="w-5/6 p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
+        <div key={index}>
           <h2 className="text-left m-0 mb-2 font-bold">{post.title}</h2>
           <p className="m-0 text-gray-400">{post.excerpt}</p>
           <ReactBtn label="Read More" href={post.link} />

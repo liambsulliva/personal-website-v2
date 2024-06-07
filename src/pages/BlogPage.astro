@@ -37,6 +37,6 @@ import WordpressFetcher from '../components/WordpressFetcher.jsx';
         <div class="btn-container">
             <Button label="Back" href={localizePath("/")}/>
         </div>
-        <WordpressFetcher client:load/>
+        <WordpressFetcher numberOfPosts={Infinity} client:load/>
     </div>
 </Layout>

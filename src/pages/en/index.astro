@@ -34,11 +34,13 @@ changeLanguage("en");
 			<div id="experience" class="card">
 				<Experience/>
 			</div>
-			<div id="photography" class="card">
-				<Photography/>
-			</div>
-			<div id="blog" class="card">
-				<Blog/>
+			<div class="horizontal-divider">
+				<div id="photography" class="card">
+					<Photography/>
+				</div>
+				<div id="blog" class="card">
+					<Blog/>
+				</div>
 			</div>
 		</div>
 		<Footer iconColor="#e0e0e0"/>
@@ -109,6 +111,13 @@ changeLanguage("en");
 	.horizontal-divider #projects {
 		flex-direction: column;
 	}
+	.horizontal-divider #blog {
+		flex-direction: column;
+		width: 50%;
+	}
+	.horizontal-divider #photography {
+		flex-direction: column;
+	}
 	.card.visible {
 		opacity: 1;
 	}
@@ -119,6 +128,9 @@ changeLanguage("en");
 		.horizontal-divider #skills {
 			width: 100%;
 			gap: 0;
+		}
+		.horizontal-divider #blog {
+			width: 100%;
 		}
 		.section-divider {
 			flex-direction: column;
