@@ -9,6 +9,7 @@ import Projects from "../Projects.astro";
 import Blog from "../Blog.astro";
 import Footer from "../../layouts/Footer.astro";
 import LanguagePicker from "../../components/LanguagePicker.astro";
+import ThemeToggle from "../../components/ThemeToggle.astro";
 import { Trans } from "astro-i18next/components";
 
 changeLanguage("en");
@@ -16,7 +17,10 @@ changeLanguage("en");
 
 <Layout title="Liam Sullivan">
 	<main>
-		<LanguagePicker />
+		<div class="menu">
+			<ThemeToggle />
+			<LanguagePicker />
+		</div>
 		<Trans i18nKey="header"><h1>Hi! My name is <span class="text-gradient">Liam</span></h1></Trans>
 		<Trans i18nKey="subheader"><h2>I want to make the web as <strong>fun</strong> as it is <strong>functional</strong>.</h2></Trans>
 		<div class="section-divider">
@@ -54,6 +58,11 @@ changeLanguage("en");
 		color: white;
 		font-size: 20px;
 		line-height: 1.6;
+	}
+	.menu {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
 	}
 	.astro-a {
 		position: absolute;
