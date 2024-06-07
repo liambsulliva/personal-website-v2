@@ -23,9 +23,9 @@ const GitHubFetcher = (): JSX.Element => {
 
   // TODO: Skip forked repos, personal-website-v2, and special repo liambsulliva
   return (
-    <div className="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex-row rounded-lg dark:bg-gray-800 dark:border-gray-700">
       {repos.map((repo, index) => (
-          <div className="p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
+          <div className="shadow-xl p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
             <a>
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">{repo.name}</h5>
             </a>

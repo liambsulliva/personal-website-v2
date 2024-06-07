@@ -56,7 +56,7 @@ const WordpressFetcher = () => {
   return (
     <div className="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {wordpressData.map((post: any, index: number) => (
-        <div className="w-5/6 p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
+        <div className="shadow-xl w-5/6 p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
           <h2 className="text-left m-0 mb-2 font-bold">{post.title}</h2>
           <p className="m-0 text-gray-400">{post.excerpt}</p>
           <ReactBtn label="Read More" href={post.link} />
