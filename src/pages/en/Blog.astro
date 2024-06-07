@@ -1,5 +1,7 @@
 ---
 import { changeLanguage } from "i18next";
+// @ts-ignore
+import { localizePath } from "astro-i18next";
 import Button from "../../components/BlogButton.astro";
 
 changeLanguage("en");
@@ -9,7 +11,7 @@ changeLanguage("en");
 	<h2>Blog</h2>
 </div>
 <div class="content">
-	<Button label="Berlin 2024" href="/BlogPage/"/>
+	<Button label="Berlin 2024" href={localizePath("/BlogPage/")}/>
 </div>
 
 <style>
