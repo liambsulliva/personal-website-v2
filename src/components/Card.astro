@@ -22,7 +22,7 @@ const { title, description, img, viewBtn, demoBtn } = Astro.props;
             <h5 class="mb-2 px-2 text-2xl font-bold tracking-tight text-gray-900 text-white">{title}</h5>
         </div>
         <p class="mb-3 px-2 font-normal text-gray-400">{description}</p>
-        <div class="flex flex-column gap-4">
+        <div class="flex flex-column justify-center gap-4">
             <Button label={t("projects.viewProject")} href={viewBtn} target="_blank"/>
             <Button label={t("projects.liveDemo")} href={demoBtn} target="_blank"/>
         </div>
