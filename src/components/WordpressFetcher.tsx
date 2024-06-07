@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { stripHtml } from "string-strip-html";
+import { useState, useEffect } from 'react';
 import ReactBtn from './ReactBtn';
 
 const WordpressFetcher = () => {
@@ -15,13 +14,40 @@ const WordpressFetcher = () => {
       const data = await response.json();
 
       const strippedData = data.posts.map((post: any) => {
+        const regex = /(<([^>]+)>)/gi;
+        const strippedTitle = post.title.replace(regex, '');
+        const strippedExcerpt = post.excerpt.replace(regex, '');
+        const decodedTitle = decodeEntities(strippedTitle);
+        const decodedExcerpt = decodeEntities(strippedExcerpt);
+        const truncatedExcerpt = decodedExcerpt.slice(0, -10); // Remove the last 10 characters for "Read More"
         return {
-          title: stripHtml(post.title).result,
-          excerpt: stripHtml(post.excerpt).result.replace("Read More", ""),
+          title: decodedTitle,
+          excerpt: truncatedExcerpt,
           link: post.URL
         };
       });
 
+      function decodeEntities(text: string) {
+        const entities = [
+          ['amp', '&'],
+          ['apos', '\''],
+          ['lt', '<'],
+          ['gt', '>'],
+          ['quot', '"'],
+          ['#39', '\''],
+          ['#039', '\''],
+          ['#8217', '\''],
+          ['#8230', '...']
+        ];
+        for (const [code, char] of entities) {
+          const entity = `&${code};`;
+          const regex = new RegExp(entity, 'g');
+          text = text.replace(regex, char);
+        }
+        return text;
+      }
+
+      console.log(strippedData);
       setWordpressData(strippedData);
     }
     fetchWordpressData();
