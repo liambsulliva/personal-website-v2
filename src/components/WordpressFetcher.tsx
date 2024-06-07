@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { stripHtml } from "string-strip-html";
+import ReactBtn from './ReactBtn';
 
 const WordpressFetcher = () => {
   const [wordpressData, setWordpressData] = useState([]);
@@ -11,9 +13,16 @@ const WordpressFetcher = () => {
 
       const response = await fetch(url);
       const data = await response.json();
-      console.log(data);
 
-      setWordpressData(data.posts);
+      const strippedData = data.posts.map((post: any) => {
+        return {
+          title: stripHtml(post.title).result,
+          excerpt: stripHtml(post.excerpt).result.replace("Read More", ""),
+          link: post.URL
+        };
+      });
+
+      setWordpressData(strippedData);
     }
     fetchWordpressData();
   }, []);
@@ -21,16 +30,10 @@ const WordpressFetcher = () => {
   return (
     <div className="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       {wordpressData.map((post: any, index: number) => (
-        <div className="p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
-          {/* I am aware of how dangrous innerHTML is. I am only importing posts from my own Wordpress account :) */}
-          <h5 dangerouslySetInnerHTML={{ __html: post.title }} className="mb-2 p-1 text-2xl font-bold tracking-tight text-gray-900 text-white"/>
-          <p dangerouslySetInnerHTML={{ __html: post.excerpt }} className="font-normal text-gray-400"/> 
-          <style>{`
-            a {
-              color: gray;
-              padding: 0.2rem;
-            }
-          `}</style>
+        <div className="w-5/6 p-8 m-8 mt-0 bg-[#1a1c21] rounded-md">
+          <h2 className="text-left m-0 mb-2 font-bold">{post.title}</h2>
+          <p className="m-0 text-gray-400">{post.excerpt}</p>
+          <ReactBtn label="Read More" href={post.link} />
         </div>
       ))}
     </div>
