@@ -23,14 +23,16 @@ changeLanguage("en");
 			<div id="background" class="card">
 				<Background/>
 			</div>
-			<div id="skills" class="card">
-				<Skills/>
+			<div class="horizontal-divider">
+				<div id="skills" class="card">
+					<Skills/>
+				</div>
+				<div id="projects" class="card">
+					<Projects/>
+				</div>
 			</div>
 			<div id="experience" class="card">
 				<Experience/>
-			</div>
-			<div id="projects" class="card">
-				<Projects/>
 			</div>
 			<div id="photography" class="card">
 				<Photography/>
@@ -49,8 +51,8 @@ changeLanguage("en");
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		width: 1000px;
-		max-width: calc(100% - 2rem);
+		width: 1200px;
+		max-width: calc(100% - 1rem);
 		color: white;
 		font-size: 20px;
 		line-height: 1.6;
@@ -79,6 +81,11 @@ changeLanguage("en");
 		padding: 1rem;
 		gap: 3rem;
 	}
+	.horizontal-divider {
+		display: flex;
+		flex-direction: row;
+		gap: 2rem;
+	}
 	.card {
 		opacity: 0;
 		background-color: var(--card-color);
@@ -93,6 +100,15 @@ changeLanguage("en");
 		list-style: none;
 		padding: 1rem;
 	}
+	.horizontal-divider #skills {
+		width: 40%;
+		flex-direction: column;
+		justify-content: start;
+		gap: 2.5rem;
+	}
+	.horizontal-divider #projects {
+		flex-direction: column;
+	}
 	.card.visible {
 		opacity: 1;
 	}
@@ -100,7 +116,14 @@ changeLanguage("en");
 		main {
 			width: 100%;
 		}
+		.horizontal-divider #skills {
+			width: 100%;
+			gap: 0;
+		}
 		.section-divider {
+			flex-direction: column;
+		}
+		.horizontal-divider {
 			flex-direction: column;
 		}
 		.card {
