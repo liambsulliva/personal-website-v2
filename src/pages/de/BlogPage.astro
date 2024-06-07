@@ -4,7 +4,7 @@ import { changeLanguage } from "i18next";
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/BackButton.astro";
-import WordpressFetcher from "../../components/WordpressFetcher.jsx";
+import WordpressFetcher from "../../components/WordpressFetcher.tsx";
 
 changeLanguage("de");
 ---
@@ -40,6 +40,6 @@ changeLanguage("de");
         <div class="btn-container">
             <Button label="Back" href={localizePath("/")}/>
         </div>
-        <WordpressFetcher numberOfPosts={Infinity} client:load/>
+        <WordpressFetcher client:load/>
     </div>
 </Layout>

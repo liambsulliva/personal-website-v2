@@ -3,7 +3,7 @@ import { changeLanguage } from "i18next";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Button from "../../components/BlogButton.astro";
-import WordpressFetcher from "../../components/WordpressFetcher";
+import WordpressPreview from "../../components/WordpressPreview.tsx";
 
 changeLanguage("en");
 ---
@@ -11,17 +11,29 @@ changeLanguage("en");
 <div class="title">
 	<h2>Blog</h2>
 </div>
-<div class="content">
-	<WordpressFetcher numberOfPosts={1} client:idle/>
+<div class="posts">
+	<WordpressPreview numberOfPosts={1} client:idle/>
+</div>
+<div class="button">
 	<Button label="Berlin 2024" href={localizePath("/BlogPage/")}/>
 </div>
 
 <style>
-	.content {
+	.title {
+		margin: 1cap;
+	}
+	.posts {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		align-items: center;
 		margin: 1rem;
+		padding: 1rem;
+	}
+	.button {
+		display: flex;
+		justify-content: center;
+		margin: 0.25rem;
 		padding: 1rem;
 	}
 </style>
