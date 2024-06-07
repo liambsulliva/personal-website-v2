@@ -93,6 +93,13 @@ import Button from '../components/ForwardButton.astro'
 		align-items: center;
 	}
 
+	@media (max-width: 500px) {
+		.main-list-header {
+			flex-direction: column;
+			align-items: start;
+		}
+	}
+
 	.main-list-header p {
 		text-align: right;
 	}
