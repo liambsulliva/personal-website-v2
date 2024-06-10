@@ -17,7 +17,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId, lang })
 
     useEffect(() => {
         const fetchPhotos = async () => {
-            const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=100&format=json&nojsoncallback=1`);
+            const response = await fetch(`https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=50&format=json&nojsoncallback=1`);
             const data = await response.json();
     
             const photosArray = data.photos.photo;
