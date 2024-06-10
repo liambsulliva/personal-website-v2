@@ -87,11 +87,15 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId, lang }) =
       if (scrollTop + clientHeight >= scrollHeight && !isLoading && currentPage <= numPages) {
         setCurrentPage((prevPage) => prevPage + 1);
       }
+
+      if (currentPage === numPages) {
+        window.removeEventListener('scroll', handleScroll);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentPage, numPages]);
 
   return (
     <div className='m-8'>
