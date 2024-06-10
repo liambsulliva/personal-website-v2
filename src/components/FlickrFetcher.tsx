@@ -26,16 +26,16 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId, lang }) =
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPhotos = async (page: number) => {
-      const perPage = 20; // 20 is the magic number for most screen sizes
-      const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${page}&per_page=${perPage}`;
+    const fetchPhotos = async () => {
+      setIsLoading(true);
+      const perPage = 20;
+      const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
       const response = await fetch(url);
       const data = await response.json();
       if (numPages === -1) {
         numPages = data.photos.pages;
       }
 
-      // Batch fetch photos by ID
       const photoBatch = data.photos.photo.map(async (photo: any) => {
         const newPhoto = await fetchPhotoByID(photo.id);
         return newPhoto;
@@ -43,34 +43,36 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId, lang }) =
 
       const fetchedPhotos = await Promise.all(photoBatch);
 
-      setPhotos((prevData) => [
-        ...prevData,
-        ...fetchedPhotos,
-      ]);
-
-      setCurrentPage(page + 1);
+      setPhotos((prevData) => [...prevData, ...fetchedPhotos]);
       setIsLoading(false);
     };
-    fetchPhotos(currentPage);
-  }, [isLoading]);
+
+    fetchPhotos();
+  }, [currentPage]);
 
   const fetchPhotoByID = async (photoID: string) => {
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
     const response = await fetch(url);
     const data = await response.json();
     const photoData = data.sizes.size;
-    console.log(photoData);
+    //console.log(photoData);
+
+    // Check if the desired size (index 12) exists
+    const desiredSize = photoData.find((size: any) => size.label === "Original");
+    if (!desiredSize) {
+      console.error(`Desired size not found for photoID: ${photoID}`);
+      return null;
+    }
 
     const photo = {
-      src: photoData[12].source,
-      width: photoData[12].width,
-      height: photoData[12].height,
-      srcSet: [
-        { src: photoData[3].source, width: photoData[3].width, height: photoData[3].height }, // Small
-        { src: photoData[6].source, width: photoData[6].width, height: photoData[6].height }, // Medium
-        { src: photoData[9].source, width: photoData[9].width, height: photoData[9].height }, // Large
-        { src: photoData[12].source, width: photoData[12].width, height: photoData[12].height }, // Original
-      ]
+      src: desiredSize.source,
+      width: desiredSize.width,
+      height: desiredSize.height,
+      srcSet: photoData.filter((_: any, index: number) => [3, 6, 9, 12].includes(index)).map((size: any) => ({
+        src: size.source,
+        width: size.width,
+        height: size.height,
+      })),
     };
 
     return photo;
@@ -83,13 +85,13 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId, lang }) =
       const clientHeight = document.documentElement.clientHeight;
 
       if (scrollTop + clientHeight >= scrollHeight && !isLoading && currentPage <= numPages) {
-        setIsLoading(true);
+        setCurrentPage((prevPage) => prevPage + 1);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isLoading]);
+  }, []);
 
   return (
     <div className='m-8'>
