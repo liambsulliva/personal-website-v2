@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PhotoAlbum from "react-photo-album";
 import Loader from './Loader';
 
 interface FlickrFetcherProps {
@@ -7,90 +8,73 @@ interface FlickrFetcherProps {
   lang: string;
 }
 
+interface Photo {
+  src: string;
+  width: number;
+  height: number;
+}
+
 const FlickrFetcher: React.FC<FlickrFetcherProps> = ({ apiKey, userId, lang }) => {
-  const [flickrData, setFlickrData] = useState<{ src: string; title: string }[]>([]);
-  const [selectedPhoto, setSelectedPhoto] = useState<{ src: string; title: string } | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [flickrData, setFlickrData] = useState<Photo[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const openModal = (photo: { src: string; title: string }) => {
-    setSelectedPhoto(photo);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setSelectedPhoto(null);
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
     const fetchFlickrData = async (page: number) => {
-      const perPage = window.innerWidth < 768 ? 12 : 16; // 12 photos per page on mobile to save data on 2-column layout
+      const perPage = window.innerWidth < 768 ? 15 : 20;
       const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${page}&per_page=${perPage}`;
       const response = await fetch(url);
       const data = await response.json();
-      setFlickrData((prevData) => [
-        ...prevData,
-        ...data.photos.photo.map((photo: any) => ({
-          src: `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
-          title: photo.title,
-        })),
-      ]);
+
+      await Promise.all(data.photos.photo.map(async (photo: any) => {
+        const newPhoto = await fetchPhotoByID(photo.id);
+        setFlickrData((prevData) => [
+          ...prevData,
+          newPhoto,
+        ]);
+      }));
+
+      console.log('Photo:', flickrData);
       setCurrentPage(page + 1);
       setIsLoading(false);
     };
     fetchFlickrData(currentPage);
   }, [isLoading]);
 
-  // Load more data
-  const handleScroll = () => {
-    //console.log('Scroll event fired');
-    //console.log('isLoading:', isLoading);
-    //console.log('Scroll position:', window.innerHeight + window.scrollY);
-    //console.log('Document height:', document.documentElement.scrollHeight);
-  
-    if (
-      containerRef.current &&
-      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight &&
-      !isLoading
-    ) {
-      //console.log('Loading more data');
-      setIsLoading(true);
-    }
+  const fetchPhotoByID = async (photoID: string) => {
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
+    const response = await fetch(url);
+    const data = await response.json();
+    const photoData = data.sizes.size.filter((size: any) => size.label === 'Medium')[0]
+
+    const photo = {
+      src: photoData.source,
+      width: photoData.width,
+      height: photoData.height,
+    };
+
+    return photo;
   };
 
-  // Avoid memory leakage
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
+    const handleScroll = () => {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const scrollTop = document.documentElement.scrollTop;
+      const clientHeight = document.documentElement.clientHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight && !isLoading) {
+        setIsLoading(true);
+      }
     };
-  }, []);
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLoading]);
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="columns-2 md:columns-3 lg:columns-4 m-4" ref={containerRef}>
-        {flickrData.map((photo, index) => (
-          <div key={index} onClick={() => openModal(photo)} className="relative cursor-pointer mb-4 content-[''] rounded-md absolute inset-0">
-            <img className="w-full rounded-md" src={photo.src} alt={photo.title} />
-          </div>
-        ))}
-      </div>
+    <div className='m-8'>
+      <PhotoAlbum photos={flickrData} layout="masonry" />
       {isLoading && <Loader lang={lang}/>}
-      {isModalOpen && selectedPhoto && (
-        <div onClick={closeModal} className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black opacity-75"></div>
-          <div className="relative z-10 p-4">
-            <img
-              className="h-auto rounded-lg w-auto"
-              src={selectedPhoto.src}
-              alt={selectedPhoto.title}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
