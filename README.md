@@ -1,21 +1,49 @@
-# Portfolio Page
+## 👋 Introduction
 
-This project is a portfolio page built with Astro. It serves as a personal showcase of photography work, fetching and displaying photos from a Flickr account. The page is designed with a clean and intuitive interface, allowing visitors to easily navigate through the portfolio.
+Welcome to the new and revamped recipe website project! This was one of the first basic HTML sites I made while I was learning the basics, and thought it deserved a bit of a front-end facelift. Hope you enjoy!
 
-The portfolio page uses the Flickr API to fetch the photos. It requires a Flickr API key and a user ID, which are set as environment variables. The page also includes a back button for easy navigation and a footer with additional information.
+## 💻 Demo
 
-## Environment Variables
+Check out the [Demo](https://liambsullivan.com), hosted on Vercel.
 
-The project uses the following environment variables:
+Looking for the last version? See the previous [v1](https://v1.liambsullivan.com) version.
 
-- `FLICKR_API_KEY`: The API key for the Flickr API.
-- `FLICKR_USER_ID`: The user ID of the Flickr account.
+## 💪 Features:
+    
+- ✅ Mobile responsive
+- ✅ Visually Distinct Card Layout
+- ✅ Button Animations
+- ✅ Opacity Animation on Scroll
+- ✅ Consistent Design Language
+- ✅ Deutsch Support
+- ✅ Flickr API Integration
+- ✅ Infinite Scroll on Flickr Feed
+- ✅ Github API Integration
+- ✅ Wordpress API Integration
+- ✅ Lazy Loading Carousel
 
-Be sure to replace these with your own personal keys while building.
+## 🛣️ Roadmap
 
-## Running the Project
+- ❌ Light Mode Support
+- ❌ Integrate Github REST into Project Cards
+- ❌ Automate Experience Tab + Resume (PDF Generator?)
+- ❌ Move off of Flickr and on to a proper CMS (Cloudinary?)
 
-To run the project, use the following command:
+## ⚙️ Stack
 
-```bash
-npm run start
+- [**ASTRO** + **Typescript**](https://astro.build/) - Astro is the all-in-one web framework designed for speed.
+- [**Tailwind CSS**](https://tailwindcss.com/) - Tailwind CSS is a utility-first CSS framework.
+- [**React**](https://react.dev) - A JavaScript library for building user interfaces.
+- [**React Photo Album**](https://react-photo-album.com/) - A responsive photo gallery component for React.
+- [**Flowbite**](https://flowbite.com/) - An extensible UI library built for Tailwind.
+- [**Iconify**](https://iconify.design) - A Library of SVG Icons.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+- `astro dev`: Starts the development server and watches for changes.
+- `astro build`: Builds the project for production.
+- `astro preview`: Previews the production build locally.
+
+Make sure to install the Astro CLI by running `npm install astro`.
