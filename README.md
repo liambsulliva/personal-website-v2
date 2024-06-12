@@ -18,6 +18,7 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 - ✅ Deutsch Support
 - ✅ Flickr API Integration
 - ✅ Infinite Scroll on Flickr Feed
+- ✅ Image Load Animations
 - ✅ Github API Integration
 - ✅ Wordpress API Integration
 - ✅ Lazy Loading Carousel
