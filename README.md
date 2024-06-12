@@ -1,6 +1,6 @@
 ## 👋 Introduction
 
-Welcome to the new and revamped recipe website project! This was one of the first basic HTML sites I made while I was learning the basics, and thought it deserved a bit of a front-end facelift. Hope you enjoy!
+Welcome to my portfolio! On here you'll find my personal coding projects, work experience, and photography work. This is my biggest front-end project to date, with a lot of moving parts, so let me know if you notice any issues not listed in the **Roadmap**!
 
 ## 💻 Demo
 
