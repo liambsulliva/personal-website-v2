@@ -39,6 +39,35 @@ changeLanguage("en");
         <div class="btn-container">
             <Button label="Back" href={localizePath("/")}/>
         </div>
-        <GitHubFetcher client:load />
+        <div id="repo-container" class="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" />
     </div>
 </Layout>
+
+<script>
+    async function fetchAndRenderPosts() {
+        const response = await fetch(`/api/github?username=liambsulliva`);
+        const posts = await response.json();
+        const container = document.getElementById('repo-container');
+    
+        if (container) {
+            posts.forEach((repo: any) => {
+                const repoElement = document.createElement('div');
+                repoElement.className = 'shadow-xl w-5/6 p-8 m-8 mt-0 bg-[#1a1c21] rounded-md';
+                repoElement.innerHTML = `
+                <h2 class="text-white text-left m-0 mb-2 font-bold">${repo.name}</h2>
+                <p class="m-0 text-gray-400">${repo.description}</p>
+                <div class="flex gap-4">
+                    <a href=${repo.html_url} class="button flex flex-row items-center justify-center w-32 mt-4 py-3 px-4 bg-[#282935] rounded-full transition-all duration-200 shadow-md hover:scale-105 active:scale-100" target="_blank">
+					    <p class="text-fill whitespace-nowrap">View Project</p>
+                    </a>
+                    <a href=${repo.homepage} class="button flex flex-row items-center justify-center w-32 mt-4 py-3 px-4 bg-[#282935] rounded-full transition-all duration-200 shadow-md hover:scale-105 active:scale-100" target="_blank">
+                        <p class="text-fill whitespace-nowrap">Live Demo</p>
+                    </a>
+                </div>
+                `;
+                container.appendChild(repoElement);
+            });
+        }
+    }
+    fetchAndRenderPosts();
+</script>

@@ -41,18 +41,19 @@ changeLanguage("en");
         const container = document.getElementById('posts-container');
     
         if (container) {
-            posts.forEach((post: any) => {
-                const postElement = document.createElement('div');
-                postElement.className = 'p-4';
-                postElement.innerHTML = `
-                <h2 class="text-left m-0 mb-2 font-bold">${post.title}</h2>
-                <p class="m-0 text-gray-400">${post.excerpt}</p>
+			if (posts.length > 0) {
+				const post = posts[0];
+				const postElement = document.createElement('div');
+				postElement.className = 'p-4';
+				postElement.innerHTML = `
+				<h2 class="text-left m-0 mb-2 font-bold">${post.title}</h2>
+				<p class="m-0 text-gray-400">${post.excerpt}</p>
 				<a href=${post.link} class="button flex flex-row items-center justify-center w-32 mx-auto mt-4 py-3 px-4 bg-[#282935] rounded-full transition-all duration-200 shadow-md hover:scale-105 active:scale-100" target="_blank">
 					<p class="text-fill whitespace-nowrap">Read More</p>
 				</a>
-                `;
-                container.appendChild(postElement);
-            });
+				`;
+				container.appendChild(postElement);
+			}
         }
     }
     fetchAndRenderPosts();
