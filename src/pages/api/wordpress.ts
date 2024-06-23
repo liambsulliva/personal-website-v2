@@ -6,7 +6,7 @@ interface WordPressPost {
   link: string;
 }
 
-export const get: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const site = url.searchParams.get('site') || 'pittbusinesstotheworld.com';
   const author = url.searchParams.get('author') || '651';

@@ -42,7 +42,7 @@ import Button from '../components/BackButton.astro';
 
 <script>
     async function fetchAndRenderPosts() {
-        const response = await fetch(`/api/wordpress-posts?site=pittbusinesstotheworld.com&author=651`);
+        const response = await fetch(`/api/wordpress?site=pittbusinesstotheworld.com&author=651`);
         const posts = await response.json();
         const container = document.getElementById('posts-container');
     
