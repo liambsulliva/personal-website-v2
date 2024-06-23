@@ -10,9 +10,10 @@ export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const site = url.searchParams.get('site') || 'pittbusinesstotheworld.com';
   const author = url.searchParams.get('author') || '651';
+  const limit = url.searchParams.get('limit') || undefined; // Get the limit parameter from the URL
 
   try {
-    const posts = await fetchWordPressPosts(site, author);
+    const posts = await fetchWordPressPosts(site, author, limit);
     return new Response(JSON.stringify(posts), {
       status: 200,
       headers: {
@@ -29,8 +30,13 @@ export const GET: APIRoute = async ({ request }) => {
   }
 };
 
-async function fetchWordPressPosts(site: string, author: string): Promise<WordPressPost[]> {
-  const url = `https://public-api.wordpress.com/rest/v1.1/sites/${site}/posts/?author=${author}`;
+async function fetchWordPressPosts(site: string, author: string, limit?: string): Promise<WordPressPost[]> {
+  let url = `https://public-api.wordpress.com/rest/v1.1/sites/${site}/posts/?author=${author}`;
+  
+  if (limit) {
+    url += `&number=${limit}`; // Append the limit parameter to the URL
+  }
+  
   const response = await fetch(url);
   const data = await response.json();
 
