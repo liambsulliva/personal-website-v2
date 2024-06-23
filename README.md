@@ -16,16 +16,17 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 - ✅ Opacity Animation on Scroll
 - ✅ Consistent Design Language
 - ✅ Deutsch Support
-- ✅ Flickr API Integration
+- ✅ Flickr API Integration (Client)
 - ✅ Infinite Scroll on Flickr Feed
 - ✅ Image Load Animations
-- ✅ Github API Integration
-- ✅ Wordpress API Integration
+- ✅ Github Backend API Endpoint
+- ✅ Wordpress Backend API Endpoint
 - ✅ Lazy Loading Carousel
 
 ## 🛣️ Roadmap
 
 - ❌ Light Mode Support
+- ❌ Translate Github + Wordpress Subpage Buttons
 - ❌ Integrate Github REST into Project Cards
 - ❌ Automate Experience Tab + Resume (PDF Generator?)
 - ❌ Move off of Flickr and on to a proper CMS (Cloudinary?)
