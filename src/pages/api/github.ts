@@ -20,7 +20,8 @@ export const GET: APIRoute = async ({ request }) => {
     const filteredRepos = repos.filter(repo => 
       !repo.fork && 
       repo.name !== 'personal-website-v2' && 
-      repo.name !== username
+      repo.name !== username &&
+      repo.homepage
     );
 
     return new Response(JSON.stringify(filteredRepos), {
