@@ -31,7 +31,7 @@ const GitHubFetcher = (): JSX.Element => {
             </a>
             <p className="font-normal text-gray-400">{repo.description}</p>
             <div className="flex flex-column gap-2">
-              <ReactBtn label="View Project" href={repo.homepage}/>
+              <ReactBtn label="View Project" href={repo.html_url}/>
               {repo.homepage ? (<ReactBtn label="Live Demo" href={repo.homepage}/>) : null}
             </div>
         </div>
