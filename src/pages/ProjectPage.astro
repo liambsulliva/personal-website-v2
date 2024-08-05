@@ -3,6 +3,7 @@
 import { localizePath } from "astro-i18next";
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/BackButton.astro';
+import { t } from 'i18next';
 
 export const prerender = false;
 ---
@@ -35,7 +36,7 @@ export const prerender = false;
 <Layout title='Projects'>
     <div class="content">
         <div class="btn-container">
-            <Button label="Back" href={localizePath("/")}/>
+            <Button label={t("misc.backBtn")} href={localizePath("/")}/>
         </div>
         <div id="repo-container" class="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" />
     </div>

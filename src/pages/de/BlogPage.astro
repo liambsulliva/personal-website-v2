@@ -1,9 +1,9 @@
 ---
-import { changeLanguage } from "i18next";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/BackButton.astro";
+import { t, changeLanguage } from "i18next";
 
 changeLanguage("de");
 
@@ -39,7 +39,7 @@ export const prerender = false;
 <Layout title='Blog'>
     <div class="content">
         <div class="btn-container">
-            <Button label="Back" href={localizePath("/")}/>
+            <Button label={t("misc.backBtn")} href={localizePath("/")}/>
         </div>
         <div id="posts-container" class="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" />
     </div>
