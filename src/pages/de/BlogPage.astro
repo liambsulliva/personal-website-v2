@@ -7,6 +7,10 @@ import { t, changeLanguage } from "i18next";
 
 changeLanguage("de");
 
+let btnLabel = "Back";
+if (t("misc.lang") === "de") {
+    btnLabel = "Zur\u00FCck";
+}
 export const prerender = false;
 ---
 
@@ -39,7 +43,7 @@ export const prerender = false;
 <Layout title='Blog'>
     <div class="content">
         <div class="btn-container">
-            <Button label={t("misc.backBtn")} href={localizePath("/")}/>
+            <Button label={btnLabel} href={localizePath("/")}/>
         </div>
         <div id="posts-container" class="flex-row rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" />
     </div>
