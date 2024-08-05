@@ -1,0 +1,31 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/Blog\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/BlogPage\\/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/ProjectPage\\/?$",
+			"dest": "_render"
+		}
+	]
+}
