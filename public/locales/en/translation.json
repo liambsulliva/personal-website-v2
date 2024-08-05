@@ -1,67 +1,66 @@
 {
-    "header": "<0>Hi! My name is <1>Liam</1></0>",
-    "subheader": "<0>I want to make the web as <1>fun</1> as it is <2>functional</2>.</0>",
-    "background": {
-        "header": "<0>Background</0>",
-        "content": "<0>When I was in middle school, I began shooting portrait photography with my uncle's old <1>Nikon D200</1>. I loved the excuse it gave me to create, and I quickly became obsessed with the intersection between technology and art.</0><2>Nowadays, I'm a <4>Computer Science</4> and <5>Digital Narrative and Interactive Design (DNID)</5> double major at the University of Pittsburgh. While i'm mainly focussed on my degree, I have been dabbling in front-end web development when I have time off studying. It's a lot of fun, and I'm always looking for new projects to work on when I have the time... (never)</2><6>Ultimately, I want to create websites that I could see myself using every day.</6>"
+  "header": "<0>Hi! My name is <1>Liam</1></0>",
+  "subheader": "<0>I want to make the web as <1>fun</1> as it is <2>functional</2>.</0>",
+  "background": {
+    "header": "<0>Background</0>",
+    "content": "<0>When I was in middle school, I began shooting portrait photography with my uncle's old <1>Nikon D200</1>. I loved the excuse it gave me to create, and I quickly became obsessed with the intersection between technology and art.</0><2>Nowadays, I'm a <4>Computer Science</4> and <5>Digital Narrative and Interactive Design (DNID)</5> double major at the University of Pittsburgh. While i'm mainly focussed on my degree, I have been dabbling in front-end web development when I have time off studying. It's a lot of fun, and I'm always looking for new projects to work on when I have the time... (never)</2><6>Ultimately, I want to create websites that I could see myself using every day.</6>"
+  },
+  "skills": {
+    "header": "<0>Tools</0>"
+  },
+  "experience": {
+    "header": "<0>Experience</0>",
+    "content1": {
+      "title": "<0>HS-Experts</0>",
+      "position": "<0>Web Development Intern</0>",
+      "description": "<0><1>Used WordPress' Elementor CMS to build and maintain website components.</1></0><2><3>Swapped raster graphics for vector-based ones and fixed bugs in responsiveness.</3></2>"
     },
-    "skills": {
-        "header": "<0>Tools</0>"
+    "content2": {
+      "title": "<0>PPG Primers Program</0>",
+      "position": "<0>Intern</0>",
+      "description": "<0><1>Attended a week-long program defined by industry leader talks, workshops, and networking opportunities to advance knowledge and skills in technology.</1></0><2><3>Developed interpersonal skills through group team building exercises.</3></2>"
     },
-    "experience": {
-        "header": "<0>Experience</0>",
-        "content1":{
-            "title": "<0>HS-Experts</0>",
-            "position": "<0>Web Development Intern</0>",
-            "description": "<0><1>Used WordPress' Elementor CMS to build and maintain website components.</1></0><2><3>Swapped raster graphics for vector-based ones and fixed bugs in responsiveness.</3></2>"
-        },
-        "content2": {
-            "title": "<0>PPG Primers Program</0>",
-            "position": "<0>Intern</0>",
-            "description": "<0><1>Attended a week-long program defined by industry leader talks, workshops, and networking opportunities to advance knowledge and skills in technology.</1></0><2><3>Developed interpersonal skills through group team building exercises.</3></2>"
-        },
-        "content3":{
-            "title": "<0>The Pitt News</0>",
-            "position": "<0>Staff Photographer</0>",
-            "description": "<0><1>Shoots event photography on-site based on story assignments.</1></0><2><3>Attends weekly budget meetings and larger organizational conferences.</3></2>"
-        },
-        "viewAll": "View Resumé"
+    "content3": {
+      "title": "<0>The Pitt News</0>",
+      "position": "<0>Staff Photographer</0>",
+      "description": "<0><1>Shoots event photography on-site based on story assignments.</1></0><2><3>Attends weekly budget meetings and larger organizational conferences.</3></2>"
     },
-    "projects": {
-        "header": "<0>Projects</0>",
-        "content1": {
-            "title": "Personal Website v1",
-            "description": "My original crack at a personal website. As it grew in complexity I ported it to React."
-        },
-        "content2": {
-            "title": "Pokémon Teambuilder",
-            "description": "A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability."
-        },
-        "content3": {
-            "title": "Authentication App",
-            "description": "A sample authentication system for a full stack program. Stored bcrypt hashed passwords in a MongoDB database."
-        },
-        "content4": {
-            "title": "Weather App",
-            "description": "My first introduction to public APIs in JavaScript. Learned a lot about ES6, aynchronous functions, and the async/await keywords!"
-        },
-        "viewProject": "View Project",
-        "liveDemo": "Live Demo",
-        "viewAll": "View All"
+    "viewAll": "View Resumé"
+  },
+  "projects": {
+    "header": "<0>Projects</0>",
+    "content1": {
+      "title": "Personal Website v1",
+      "description": "My original crack at a personal website. As it grew in complexity I ported it to React."
     },
-    "photography": {
-        "header": "<0>Photography</0>",
-        "viewAll": "View Portfolio"
+    "content2": {
+      "title": "Pokémon Teambuilder",
+      "description": "A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability."
     },
-    "blog": {
-        "header": "Blog",
-        "viewAll": "Berlin 2024"
+    "content3": {
+      "title": "Authentication App",
+      "description": "A sample authentication system for a full stack program. Stored bcrypt hashed passwords in a MongoDB database."
     },
-    "footer": {
-        "content": "<0>Designed and Developed by Liam Sullivan</0>"
+    "content4": {
+      "title": "Weather App",
+      "description": "My first introduction to public APIs in JavaScript. Learned a lot about ES6, aynchronous functions, and the async/await keywords!"
     },
-    "misc": {
-        "backBtn": "Back",
-        "lang": "en"
-    }
+    "viewProject": "View Project",
+    "liveDemo": "Live Demo",
+    "viewAll": "View All"
+  },
+  "photography": {
+    "header": "<0>Photography</0>",
+    "viewAll": "View Portfolio"
+  },
+  "blog": {
+    "header": "Blog",
+    "viewAll": "Berlin 2024"
+  },
+  "footer": {
+    "content": "<0>Designed and Developed by Liam Sullivan</0>"
+  },
+  "misc": {
+    "lang": "en"
+  }
 }
