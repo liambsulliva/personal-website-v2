@@ -34,7 +34,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
     const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    //console.log(data);
     if (numPages === -1) {
       setNumPages(data.photos.pages);
     }
