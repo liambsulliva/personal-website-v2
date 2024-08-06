@@ -61,7 +61,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
     const photoData = data.sizes.size;
 
     const desiredSize = photoData.find(
-      (size: any) => size.label === "Original"
+      (size: any) => size.label === "Original",
     );
     if (!desiredSize) {
       console.error(`Desired size not found for photoID: ${photoID}`);
