@@ -1,10 +1,10 @@
 ---
-import { changeLanguage } from "i18next";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/BackButton.astro";
 import GitHubFetcher from "../../components/GitHubFetcher";
+import { t, changeLanguage } from "i18next";
 
 changeLanguage("de");
 ---
@@ -37,7 +37,7 @@ changeLanguage("de");
 <Layout title='Projects'>
     <div class="content">
         <div class="btn-container">
-            <Button label="Back" href={localizePath("/")}/>
+            <Button label={t("misc.backBtn")} href={localizePath("/")}/>
         </div>
         <GitHubFetcher client:load />
     </div>

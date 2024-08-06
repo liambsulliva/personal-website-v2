@@ -10,16 +10,12 @@ changeLanguage("de");
 
 const apiKey = import.meta.env.FLICKR_API_KEY;
 const userId = import.meta.env.FLICKR_USER_ID;
-let btnLabel = "Back";
-if (t("misc.lang") === "de") {
-    btnLabel = "Zur\u00FCck";
-}
 ---
 
 <Layout title='Portfolio'>
     <div class="content">
         <div class="btn-container">
-            <Button label={btnLabel} href={localizePath("/")}/>
+            <Button label={t("misc.backBtn")} href={localizePath("/")}/>
         </div>
         <FlickrFetcher {apiKey} {userId} lang={t("misc.lang")} client:load/>
     </div>

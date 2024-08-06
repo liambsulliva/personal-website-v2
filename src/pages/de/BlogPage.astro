@@ -1,10 +1,10 @@
 ---
-import { changeLanguage } from "i18next";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/BackButton.astro";
 import WordpressFetcher from "../../components/WordpressFetcher.tsx";
+import { t, changeLanguage } from "i18next";
 
 changeLanguage("de");
 ---
@@ -38,7 +38,7 @@ changeLanguage("de");
 <Layout title='Blog'>
     <div class="content">
         <div class="btn-container">
-            <Button label="Back" href={localizePath("/")}/>
+            <Button label={t("misc.backBtn")} href={localizePath("/")}/>
         </div>
         <WordpressFetcher client:load/>
     </div>
