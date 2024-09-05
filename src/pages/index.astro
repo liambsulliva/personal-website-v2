@@ -14,8 +14,8 @@ import { Trans } from "astro-i18next/components";
 <Layout title="Liam Sullivan">
 	<main>
 		<LanguagePicker />
-		<Trans i18nKey="header"><h1>Hi! My name is <span class="text-gradient">Liam</span></h1></Trans>
-		<Trans i18nKey="subheader"><h2>I want to make the web as <strong>fun</strong> as it is <strong>functional</strong>.</h2></Trans>
+		<Trans i18nKey="header"><h1 class="condensed">Hi! My name is <span class="text-gradient">Liam</span></h1></Trans>
+		<Trans i18nKey="subheader"><h2 class="condensed">I want to make the web as <strong>fun</strong> as it is <strong>functional</strong>.</h2></Trans>
 		<div class="section-divider">
 			<div id="background" class="card">
 				<Background/>
@@ -55,6 +55,10 @@ import { Trans } from "astro-i18next/components";
 		color: white;
 		font-size: 20px;
 		line-height: 1.6;
+	}
+
+	.condensed {
+		font-family: "Inter Tight", system-ui, sans-serif;
 	}
 	.astro-a {
 		position: absolute;

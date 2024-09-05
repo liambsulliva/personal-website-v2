@@ -16,6 +16,9 @@ const { title } = Astro.props;
 		<meta name="description" content="Liam Sullivan's personal website, complete with photography, projects, and a blog!"/>
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<HeadHrefLangs />
@@ -45,10 +48,11 @@ const { title } = Astro.props;
 	}
 
 	html {
-		font-family: system-ui, sans-serif;
+		font-family: "Inter", system-ui, sans-serif;
 		background: var(--background-color);
 		box-sizing: border-box;
 	}
+
 	*, *:before, *:after {
 		box-sizing: inherit;
 	}
@@ -78,18 +82,7 @@ const { title } = Astro.props;
 		border-radius: 10px;
 		border: 3px solid var(--text-color);
 	}
-	@import url('https://cdn.jsdelivr.net/gh/mailtoharshit/San-Francisco-Font-/sanfrancisco.css');
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+
 	h1 {
 		color: var(--header-color);
 		margin: 1.5em 5% 0.25em;
@@ -98,6 +91,7 @@ const { title } = Astro.props;
 		line-height: 1;
 		text-align: center;
 	}
+
 	h2 {
 		color: var(--subheader-color);
 		margin: 0.5em;
@@ -105,6 +99,7 @@ const { title } = Astro.props;
 		font-weight: 400;
 		text-align: center;
 	}
+
 	.title {
 		padding: 1rem;
 		margin: 1rem;
