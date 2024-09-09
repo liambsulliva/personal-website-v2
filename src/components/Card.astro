@@ -14,11 +14,11 @@ interface ImageProps {
 const { title, description, img, viewBtn, demoBtn } = Astro.props;
 ---
 <div class="flex items-stretch gap-6">
-    <div class="shadow rounded-xl border-4 border-[#454545] flex flex-col h-[29rem] w-[20rem]">
+    <div class="shadow rounded-xl border-4 border-[#454545] flex flex-col h-[30rem] w-[22rem]">
       <a href={demoBtn} aria-label={title} target="_blank" class="flex-shrink-0">
-        <Image class="rounded-t-lg h-48 object-cover" src={img} alt={title} />
+        <Image class="rounded-t-lg h-48 pt-2 object-cover" src={img} alt={title} />
       </a>
-      <div class="p-4 pt-2 box-shadow-lg flex-grow flex flex-col justify-between">
+      <div class="p-4 box-shadow-lg flex flex-grow flex-col">
         <div>
           <h5 class="mb-2 pt-0 px-2 text-2xl font-bold tracking-tight text-white">{title}</h5>
         </div>
