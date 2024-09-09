@@ -9,28 +9,28 @@ changeLanguage("en");
 ---
 
 <div class="title">
-	<h2>Blog</h2>
+  <h2>Blog</h2>
 </div>
 <div class="posts">
-	<WordpressPreview numberOfPosts={1} client:idle/>
+  <WordpressPreview numberOfPosts={1} client:idle />
 </div>
 <div class="button">
-	<Button label="Berlin 2024" href={localizePath("/BlogPage/")}/>
+  <Button label="Berlin 2024" href={localizePath("/BlogPage/")} />
 </div>
 
 <style>
-	.posts {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin: 0.25rem 1rem;
-		padding: 0.5rem;
-	}
-	.button {
-		display: flex;
-		justify-content: center;
-		margin: 1.5rem 0.25rem;
-		padding: 1rem;
-	}
+  .posts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0.25rem 1rem;
+    padding: 0.5rem;
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0.25rem;
+    padding: 1rem;
+  }
 </style>

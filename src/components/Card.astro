@@ -4,29 +4,42 @@ import Button from "./CardButton.astro";
 import { t } from "i18next";
 
 interface ImageProps {
-    title: string;
-    description: string;
-    img: any;
-    viewBtn: string;
-    demoBtn: string;
+  title: string;
+  description: string;
+  img: any;
+  viewBtn: string;
+  demoBtn: string;
 }
 
 const { title, description, img, viewBtn, demoBtn } = Astro.props;
 ---
+
 <div class="flex items-stretch gap-6">
-    <div class="shadow rounded-xl border-4 border-[#454545] flex flex-col h-[30rem] w-[22rem]">
-      <a href={demoBtn} aria-label={title} target="_blank" class="flex-shrink-0">
-        <Image class="rounded-t-lg h-48 pt-2 object-cover" src={img} alt={title} />
-      </a>
-      <div class="p-4 box-shadow-lg flex flex-grow flex-col">
-        <div>
-          <h5 class="mb-2 pt-0 px-2 text-2xl font-bold tracking-tight text-white">{title}</h5>
-        </div>
-        <p class="mb-3 px-2 font-normal text-gray-400 flex-grow">{description}</p>
-        <div class="flex flex-column justify-center gap-4">
-          <Button label={t("projects.viewProject")} href={viewBtn} target="_blank" />
-          <Button label={t("projects.liveDemo")} href={demoBtn} target="_blank" />
-        </div>
+  <div
+    class="shadow rounded-xl border-4 border-[#454545] flex flex-col h-[30rem] w-[22rem]"
+  >
+    <a href={demoBtn} aria-label={title} target="_blank" class="flex-shrink-0">
+      <Image
+        class="rounded-t-lg h-48 pt-2 object-cover"
+        src={img}
+        alt={title}
+      />
+    </a>
+    <div class="p-4 box-shadow-lg flex flex-grow flex-col">
+      <div>
+        <h5 class="mb-2 pt-0 px-2 text-2xl font-bold tracking-tight text-white">
+          {title}
+        </h5>
+      </div>
+      <p class="mb-3 px-2 font-normal text-gray-400 flex-grow">{description}</p>
+      <div class="flex flex-column justify-center gap-4">
+        <Button
+          label={t("projects.viewProject")}
+          href={viewBtn}
+          target="_blank"
+        />
+        <Button label={t("projects.liveDemo")} href={demoBtn} target="_blank" />
       </div>
     </div>
   </div>
+</div>

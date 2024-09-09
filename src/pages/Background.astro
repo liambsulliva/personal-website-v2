@@ -2,32 +2,50 @@
 import { t } from "i18next";
 import { Trans } from "astro-i18next/components";
 ---
+
 <div class="title">
-	<Trans i18nKey="background.header"><h2>Background</h2></Trans>
-	
+  <Trans i18nKey="background.header"><h2>Background</h2></Trans>
 </div>
 <div class="text">
-	<Trans i18nKey="background.content">
-		<p>
-			When I was in middle school, I began shooting portrait photography with my uncle's old <a href=`https://${t("misc.lang")}.wikipedia.org/wiki/Nikon_D200` target="_blank" class="text-link">Nikon D200</a>.
-			I loved the excuse it gave me to create, and I quickly became obsessed with the intersection between technology and art.
-		<p/>
-		<p>
-			Nowadays, I'm a <a href="https://www.sci.pitt.edu/academics/undergraduate-majors/computer-science" target="_blank" class="text-link">Computer Science</a> and <a href="https://www.sci.pitt.edu/academics/undergraduate-majors/digital-narrative-and-interactive-design" target="_blank" class="text-link">Digital Narrative and Interactive Design (DNID)</a> double major at the University of Pittsburgh.
-			While I'm mainly focused on my degree, I have been dabbling in front-end web development when I have time off studying.
-			It's a lot of fun, and I'm always looking for new projects to work on when I have the time... (never)
-		<p/>
-		<p>
-			Ultimately, I want to create websites that I could see myself using every day.
-		<p/>
-	</Trans>
+  <Trans i18nKey="background.content">
+    <p>
+      When I was in middle school, I began shooting portrait photography with my
+      uncle's old <a
+        href=`https://${t("misc.lang")}.wikipedia.org/wiki/Nikon_D200`
+        target="_blank"
+        class="text-link">Nikon D200</a
+      >. I loved the excuse it gave me to create, and I quickly became obsessed
+      with the intersection between technology and art.
+      <p></p>
+      <p>
+        Nowadays, I'm a <a
+          href="https://www.sci.pitt.edu/academics/undergraduate-majors/computer-science"
+          target="_blank"
+          class="text-link">Computer Science</a
+        > and <a
+          href="https://www.sci.pitt.edu/academics/undergraduate-majors/digital-narrative-and-interactive-design"
+          target="_blank"
+          class="text-link">Digital Narrative and Interactive Design (DNID)</a
+        > double major at the University of Pittsburgh. While I'm mainly focused
+        on my degree, I have been dabbling in front-end web development when I have
+        time off studying. It's a lot of fun, and I'm always looking for new projects
+        to work on when I have the time... (never)
+        <p></p>
+        <p>
+          Ultimately, I want to create websites that I could see myself using
+          every day.
+          <p></p>
+        </p>
+      </p>
+      <style>
+        .text {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 0.25em;
+          padding: 1rem 2rem;
+        }
+      </style>
+    </p></Trans
+  >
 </div>
-<style>
-	.text {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		gap: 0.25em;
-		padding: 1rem 2rem;
-	}
-</style>
