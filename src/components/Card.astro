@@ -1,38 +1,63 @@
 ---
 import { Image } from "astro:assets";
 import Button from "./CardButton.astro";
+import Badge from "./Badge.astro";
 import { t } from "i18next";
 
 interface ImageProps {
   title: string;
   description: string;
+  banner1icon?: string;
+  banner1text?: string;
+  banner2icon?: string;
+  banner2text?: string;
+  banner3icon?: string;
+  banner3text?: string;
   img: any;
   viewBtn: string;
   demoBtn: string;
 }
 
-const { title, description, img, viewBtn, demoBtn } = Astro.props;
+const {
+  title,
+  description,
+  banner1icon,
+  banner1text,
+  banner2icon,
+  banner2text,
+  banner3icon,
+  banner3text,
+  img,
+  viewBtn,
+  demoBtn,
+} = Astro.props;
 ---
 
 <div class="flex items-stretch gap-6">
   <div
-    class="shadow rounded-xl border-4 border-[#454545] flex flex-col h-[30rem] w-[22rem]"
+    class="shadow rounded-xl border-4 border-[#454545] flex flex-col lg:h-[32rem] lg:w-[22rem]"
   >
     <a href={demoBtn} aria-label={title} target="_blank" class="flex-shrink-0">
       <Image
-        class="rounded-t-lg h-48 pt-2 object-cover"
+        class="rounded-t-lg h-48 pt-3 object-cover"
         src={img}
         alt={title}
       />
     </a>
-    <div class="p-4 box-shadow-lg flex flex-grow flex-col">
+    <div class="flex mx-6 gap-2">
+      {banner1icon && <Badge svg={banner1icon} text={banner1text} />}
+      {banner2icon && <Badge svg={banner2icon} text={banner2text} />}
+      {banner3icon && <Badge svg={banner3icon} text={banner3text} />}
+    </div>
+
+    <div class="p-4 box-shadow-lg flex md:flex-grow flex-col">
       <div>
-        <h5 class="mb-2 pt-0 px-2 text-2xl font-bold tracking-tight text-white">
+        <h5 class="mb-2 px-2 text-2xl font-bold tracking-tight text-white">
           {title}
         </h5>
       </div>
       <p class="mb-3 px-2 font-normal text-gray-400 flex-grow">{description}</p>
-      <div class="flex flex-column justify-center gap-4">
+      <div class="flex flex-column justify-center gap-4 max-md:mt-3">
         <Button
           label={t("projects.viewProject")}
           href={viewBtn}

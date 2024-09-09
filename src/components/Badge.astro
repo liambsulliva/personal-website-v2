@@ -1,0 +1,42 @@
+---
+const { svg, text } = Astro.props;
+---
+
+<div class="badge">
+  <div class="badge-icon">
+    <Fragment set:html={svg} />
+  </div>
+  <div class="badge-text">
+    {text}
+  </div>
+</div>
+
+<style>
+  .badge {
+    width: fit-content;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    border-radius: 0.5rem;
+    background-color: #1f2029;
+  }
+
+  @media (max-width: 850px) {
+    .badge {
+      margin-top: 1rem;
+    }
+  }
+
+  .badge-icon {
+    margin-right: 0.5rem;
+    height: 32px;
+  }
+
+  .badge-text {
+    font-size: 0.75rem;
+    color: #e0e0e0;
+  }
+</style>
