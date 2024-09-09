@@ -38,8 +38,8 @@
       "description": "A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability."
     },
     "content3": {
-      "title": "Authentication App",
-      "description": "A sample authentication system for a full stack program. Stored bcrypt hashed passwords in a MongoDB database."
+      "title": "Recipe App",
+      "description": "A recipe site full of classic Sullivan family recipes. The landing page is rendered dynamically, with the subpages statically generated from markdown."
     },
     "content4": {
       "title": "Weather App",

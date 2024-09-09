@@ -38,8 +38,8 @@
       "description": "Ein Front-End für ein Team-Building-Tool zur Erstellung von Pokémon durch ein interaktives Punktesystem. Gebaut mit Tailwind für maximale Skalierbarkeit."
     },
     "content3": {
-      "title": "Authentifizierungs-App",
-      "description": "Ein Beispiel für ein Authentifizierungssystem für ein vollwertiges Programm. Die mit bcrypt verschlüsselten Passwörter werden in MongoDB gespeichert."
+      "title": "Rezept-App",
+      "description": "Eine Rezeptseite mit klassischen Rezepten von meiner Mutter. Die Landing Page wird dynamisch gerendert, die Unterseiten werden statisch aus Markdown generiert."
     },
     "content4": {
       "title": "Wetter-App",
