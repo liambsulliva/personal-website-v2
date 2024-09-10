@@ -34,16 +34,16 @@
       "description": "My original crack at a personal website. As it grew in complexity I ported it to React. Keep in mind that information presented is most likely outdated."
     },
     "content2": {
-      "title": "Pokémon Teambuilder",
-      "description": "A front-end for a team building tool to draft pokemon through an interactive point system. Built with Tailwind for maximum scalability."
+      "title": "Kingdra Teambuilder",
+      "description": "A full-stack Pokemon Teambuilder app designed for both casual and competitive players, complete with an authentication system and cloud sync."
     },
     "content3": {
       "title": "Recipe App",
       "description": "A recipe site full of classic Sullivan family recipes. The landing page is rendered dynamically, with the subpages statically generated from markdown."
     },
     "content4": {
-      "title": "Weather App",
-      "description": "My first introduction to public APIs in JavaScript. Learned a lot about ES6, aynchronous functions, and the async/await keywords!"
+      "title": "Weather GPT",
+      "description": "A OpenWeather API sourced weather app that uses GPT-3.5 to summarize weather data on a backend server. Generates HTML dynamically through EJS."
     },
     "viewProject": "View Project",
     "liveDemo": "Live Demo",

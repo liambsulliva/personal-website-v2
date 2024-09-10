@@ -34,16 +34,16 @@
       "description": "Mein ursprünglicher Versuch, eine persönliche Website zu erstellen. Wie es in der Komplexität wuchs ich es zu React portiert."
     },
     "content2": {
-      "title": "Pokémon Teambuilder",
-      "description": "Ein Front-End für ein Team-Building-Tool zur Erstellung von Pokémon durch ein interaktives Punktesystem. Gebaut mit Tailwind für maximale Skalierbarkeit."
+      "title": "Kingdra Teambuilder",
+      "description": "Ein Full-Stack Pokémon-Team-Builder für Casual- und Competitive-Spieler, mit Authentifizierungssystem und Cloud-Synchronisierung."
     },
     "content3": {
-      "title": "Rezept-App",
+      "title": "Rezept App",
       "description": "Eine Rezeptseite mit klassischen Rezepten von meiner Mutter. Die Landing Page wird dynamisch gerendert, die Unterseiten werden statisch aus Markdown generiert."
     },
     "content4": {
-      "title": "Wetter-App",
-      "description": "Meine erste Erfahrung mit öffentlichen APIs in JavaScript. Habe viel über ES6, asynchrone Funktionen und die async/await-Schlüsselwörter gelernt!"
+      "title": "Wetter GPT",
+      "description": "Eine von der OpenWeather API stammende Wetter-App, die GPT-3.5 verwendet, um Wetterdaten auf einem Backend-Server zusammenzufassen. Erzeugt HTML dynamisch durch EJS."
     },
     "viewProject": "Projekt anzeigen",
     "liveDemo": "Vorführung",
