@@ -25,8 +25,13 @@ const { title } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="alternate" hreflang="en" href="https://liambsullivan.com" />
-    <link rel="alternate" hreflang="de" href="https://liambsullivan.com/de" />
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href="https://liambsullivan.com/"
+    />
+    <link rel="alternate" hreflang="x-default" href="liambsullivan.com/en" />
+    <link rel="alternate" hreflang="de" href="liambsullivan.com/de" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <HeadHrefLangs />
