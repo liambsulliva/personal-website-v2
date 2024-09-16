@@ -4,7 +4,7 @@
 </ul>
 <style>
   ul {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     padding: 0;
@@ -47,6 +47,11 @@
   @media screen and (max-height: 300px) {
     ul {
       margin-top: 40px;
+    }
+  }
+  @media screen and (max-width: 1600px) {
+    ul {
+      position: absolute;
     }
   }
 </style>

@@ -1,0 +1,89 @@
+<div id="fade-nav" class="hidden">
+  <ul>
+    <p>CONTENTS</p>
+    <li><a href="/Background">Background</a></li>
+    <li><a href="/Tools">Tools</a></li>
+    <li><a href="/Projects">Projects</a></li>
+    <li><a href="/Experience">Experience</a></li>
+    <li><a href="/Photography">Photography</a></li>
+    <li><a href="/Blog">Blog</a></li>
+  </ul>
+</div>
+
+<style>
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    width: 1425px;
+    max-width: calc(100% - 1rem);
+    position: fixed;
+    top: 25%;
+    opacity: 0.5;
+    transform: translateY(0);
+    transition:
+      opacity 0.25s ease-in-out,
+      transform 0.25s cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  .visible {
+    opacity: 1;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  p {
+    font-family: "Inter";
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration-line: none;
+    color: #e0e0e0;
+  }
+  a {
+    font-family: "Inter";
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration-line: none;
+    color: #b0b0b0;
+  }
+  a:hover {
+    color: #fff;
+  }
+  @media screen and (max-width: 1600px) {
+    ul {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function handleScroll() {
+    const nav = document.getElementById("fade-nav");
+    if (!nav) return;
+
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const fadeInStart = windowHeight * 0.05;
+
+    if (scrollPosition > fadeInStart) {
+      nav.classList.add("visible");
+      nav.classList.remove("hidden");
+      const translatePercentage = Math.min(
+        ((scrollPosition - fadeInStart) / windowHeight) * 100,
+        15
+      );
+      nav.style.transform = `translateY(-${translatePercentage}%)`;
+    } else {
+      nav.classList.remove("visible");
+      nav.classList.add("hidden");
+      nav.style.transform = "translateY(0)";
+    }
+  }
+
+  // Mount event listener
+  window.addEventListener("scroll", handleScroll);
+
+  // Run on initial page load
+  handleScroll();
+</script>

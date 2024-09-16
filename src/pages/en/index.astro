@@ -9,6 +9,7 @@ import Projects from "../Projects.astro";
 import Blog from "../Blog.astro";
 import Footer from "../../layouts/Footer.astro";
 import LanguagePicker from "../../components/LanguagePicker.astro";
+import SideBar from "../../components/SideBar.astro";
 import { Trans } from "astro-i18next/components";
 
 changeLanguage("en");
@@ -17,6 +18,7 @@ changeLanguage("en");
 <Layout title="Liam Sullivan">
   <main>
     <LanguagePicker />
+    <SideBar />
     <Trans i18nKey="header"
       ><h1 class="condensed">
         Hi! My name is <span class="text-gradient">Liam</span>
