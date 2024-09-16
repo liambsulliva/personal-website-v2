@@ -44,7 +44,6 @@ import { Trans } from "astro-i18next/components";
     flex-direction: row;
     justify-content: end;
     width: 1350px;
-    max-width: calc(100% - 1rem);
     position: fixed;
     top: 18rem;
     opacity: 0.5;
@@ -97,7 +96,7 @@ import { Trans } from "astro-i18next/components";
       nav.classList.remove("hidden");
       const translatePercentage = Math.min(
         ((scrollPosition - fadeInStart) / windowHeight) * 100,
-        15
+        20
       );
       nav.style.transform = `translateY(-${translatePercentage}%)`;
     } else {
