@@ -1,12 +1,33 @@
+---
+import { t } from "i18next";
+import { Trans } from "astro-i18next/components";
+---
+
 <div id="fade-nav" class="hidden">
   <ul>
-    <p>CONTENTS</p>
-    <li><a href="/Background">Background</a></li>
-    <li><a href="/Tools">Tools</a></li>
-    <li><a href="/Projects">Projects</a></li>
-    <li><a href="/Experience">Experience</a></li>
-    <li><a href="/Photography">Photography</a></li>
-    <li><a href="/Blog">Blog</a></li>
+    <Trans i18nKey="misc.contents"><p>CONTENTS</p></Trans>
+    <li>
+      <Trans i18nKey="background.header"
+        ><a href="#background">Background</a></Trans
+      >
+    </li>
+    <li><Trans i18nKey="skills.header"><a href="#skills">Tools</a></Trans></li>
+    <li>
+      <Trans i18nKey="projects.header"><a href="#projects">Projects</a></Trans>
+    </li>
+    <li>
+      <Trans i18nKey="experience.header"
+        ><a href="#experience">Experience</a></Trans
+      >
+    </li>
+    <li>
+      <Trans i18nKey="photography.header"
+        ><a href="#photography">Photography</a></Trans
+      >
+    </li>
+    <li>
+      <a href="#blog">Blog</a>
+    </li>
   </ul>
 </div>
 
