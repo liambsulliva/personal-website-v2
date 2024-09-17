@@ -106,7 +106,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
         {isLoading && <Loader lang={lang} />}
       </div>
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96">
+      <div className="relative mx-28 h-56 overflow-hidden rounded-lg md:h-96">
         {/* Item 1 */}
         <div className="hidden duration-700 ease-in-out" data-carousel-item>
           <img
