@@ -88,6 +88,7 @@ import { Trans } from "astro-i18next/components";
 
     const scrollPosition = window.scrollY;
     const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
     const fadeInStart = windowHeight * 0.05;
 
     if (scrollPosition > fadeInStart) {
@@ -104,7 +105,7 @@ import { Trans } from "astro-i18next/components";
       nav.style.transform = "translateY(0)";
     }
 
-    // Highlight actively scrolled by section
+    // Highlight active section
     const navLinks = nav.querySelectorAll("a");
     const sections = [
       "background",
@@ -114,16 +115,27 @@ import { Trans } from "astro-i18next/components";
       "blog",
     ];
 
-    sections.forEach((sectionId, index) => {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
-          navLinks.forEach((link) => link.classList.remove("active"));
-          navLinks[index].classList.add("active");
+    // Check if we're at the bottom of the page
+    const isAtBottom =
+      window.innerHeight + window.scrollY >= documentHeight - 100; // Threshold, adjust as needed
+
+    if (isAtBottom) {
+      // If at the bottom, highlight the Blog link
+      navLinks.forEach((link) => link.classList.remove("active"));
+      navLinks[navLinks.length - 1].classList.add("active");
+    } else {
+      // Otherwise, highlight based on section visibility
+      sections.forEach((sectionId, index) => {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+            navLinks.forEach((link) => link.classList.remove("active"));
+            navLinks[index].classList.add("active");
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   // Mount event listener

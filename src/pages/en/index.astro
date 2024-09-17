@@ -35,7 +35,7 @@ changeLanguage("en");
       <div id="background" class="card">
         <Background />
       </div>
-      <div id="projects">
+      <div id="projects" class="fade-in">
         <Projects />
       </div>
       <div id="experience" class="card">
@@ -112,6 +112,15 @@ changeLanguage("en");
     list-style: none;
     padding: 1rem;
   }
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+  }
+
+  .fade-in.visible,
+  .card.visible {
+    opacity: 1;
+  }
   .horizontal-divider #skills {
     width: 25%;
     flex-direction: column;
@@ -161,7 +170,7 @@ changeLanguage("en");
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll(".card");
+    const elements = document.querySelectorAll(".card, .fade-in");
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
