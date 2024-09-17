@@ -39,12 +39,12 @@ const {
   >
     <a href={demoBtn} aria-label={title} target="_blank">
       <div class="relative p-2 pb-0 sm:p-3">
-        <!-- Added relative for absolute positioning -->
         <Image
           id="astro-image"
           class="h-auto w-full rounded-t-xl object-cover"
           src={img}
           alt={title}
+          loading="eager"
         />
         <div
           id="loading-indicator"
