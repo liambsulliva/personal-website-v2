@@ -32,13 +32,8 @@ import { Trans } from "astro-i18next/components";
       <div id="background" class="card">
         <Background />
       </div>
-      <div class="horizontal-divider">
-        <div id="skills" class="card">
-          <Skills />
-        </div>
-        <div id="projects" class="card">
-          <Projects />
-        </div>
+      <div id="projects">
+        <Projects />
       </div>
       <div id="experience" class="card">
         <Experience />
@@ -46,9 +41,6 @@ import { Trans } from "astro-i18next/components";
       <div class="horizontal-divider">
         <div id="photography" class="card">
           <Photography />
-        </div>
-        <div id="blog" class="card">
-          <Blog />
         </div>
       </div>
     </div>
@@ -105,7 +97,8 @@ import { Trans } from "astro-i18next/components";
     opacity: 0;
     background-color: var(--card-color);
     border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-width: 1px;
+    border-color: #252525;
     transition: opacity 0.5s ease-out;
     width: 100%;
     display: flex;
