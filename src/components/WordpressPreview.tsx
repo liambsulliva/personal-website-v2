@@ -61,8 +61,7 @@ const WordpressFetcher = ({ numberOfPosts }: WordpressFetcherProps) => {
       {wordpressData.map((post: any, index: number) => (
         <div key={index}>
           <h2 className="m-0 mb-2 text-left font-bold">{post.title}</h2>
-          <p className="m-0 text-gray-400">{post.excerpt}</p>
-          <ReactBtn label="Read More" href={post.link} />
+          <p className="m-0 mb-4 text-gray-400">{post.excerpt}</p>
         </div>
       ))}
     </div>

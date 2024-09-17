@@ -1,36 +1,51 @@
 ---
-import { changeLanguage } from "i18next";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
+import { t, changeLanguage } from "i18next";
 import Button from "../../components/BlogButton.astro";
 import WordpressPreview from "../../components/WordpressPreview.tsx";
 
 changeLanguage("de");
 ---
 
-<div class="title">
-  <h2>Blog</h2>
-</div>
 <div class="posts">
   <WordpressPreview numberOfPosts={1} client:idle />
-</div>
-<div class="button">
-  <Button label="Berlin 2024" href={localizePath("/BlogPage/")} />
+  <div class="space-right">
+    <a class="link" href={localizePath("/BlogPage/")}>{t("blog.viewAll")}</a>
+  </div>
 </div>
 
 <style>
   .posts {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction: row;
     margin: 0.25rem 1rem;
     padding: 0.5rem;
+    gap: 4rem;
   }
-  .button {
+  .space-right {
     display: flex;
-    justify-content: center;
-    margin: 1.5rem 0.25rem;
-    padding: 1rem;
+    flex-direction: row;
+    justify-content: end;
+    align-items: end;
+    margin: 1rem 2rem;
+  }
+
+  .link {
+    width: fit-content;
+    color: #b0b0b0;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .link:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .posts {
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 </style>
