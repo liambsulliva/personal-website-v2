@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import Button from "./CardButton.astro";
 import Badge from "./Badge.astro";
 import { t } from "i18next";
+import Loader from "../components/Loader";
 
 interface ImageProps {
   title: string;
@@ -38,12 +39,20 @@ const {
     class="flex flex-col rounded-xl border border-[#333333] bg-[#151515] hover:bg-[#181818]"
   >
     <a href={demoBtn} aria-label={title} target="_blank">
-      <div class="p-2 pb-0 sm:p-3">
+      <div class="relative p-2 pb-0 sm:p-3">
+        <!-- Added relative for absolute positioning -->
         <Image
+          id="astro-image"
           class="h-auto w-full rounded-t-xl object-cover"
           src={img}
           alt={title}
         />
+        <div
+          id="loading-indicator"
+          class="absolute inset-0 flex items-center justify-center text-center text-white"
+        >
+          <Loader lang={t("misc.lang")} />
+        </div>
       </div>
 
       <div class="mx-4 flex gap-2">
@@ -80,3 +89,25 @@ const {
     </a>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Pick up image tag
+    const image = document.getElementById("astro-image");
+    if (!image) return;
+
+    // Check if the image is already loaded async
+    if ((image as HTMLImageElement).complete) {
+      removeIndicator(); // If loaded, run removal fn
+    } else {
+      image.onload = removeIndicator; // Otherwise, add listener
+    }
+  });
+
+  function removeIndicator() {
+    const loadingTag = document.getElementById("loading-indicator");
+    if (loadingTag) {
+      loadingTag.remove();
+    }
+  }
+</script>
