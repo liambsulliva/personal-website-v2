@@ -22,8 +22,8 @@ const { href, label } = Astro.props;
 </a>
 <style>
   :root {
-    --button-color: #fff;
-    --new-button-color: #151515;
+    --button-color: #181818;
+    --new-button-color: #252525;
     --fill: #fff;
   }
 
@@ -34,10 +34,10 @@ const { href, label } = Astro.props;
     gap: 0.5rem;
     position: relative;
     padding: 0.75rem 2rem;
-    background-color: var(--new-button-color);
+    background-color: var(--button-color);
     border-radius: 25px;
     transition: all 0.3s;
-    border-color: #252525;
+    border-color: #353535;
     border-width: 1px;
   }
 
@@ -53,6 +53,10 @@ const { href, label } = Astro.props;
     opacity: 0;
     fill: var(--fill);
     transition: all 0.3s;
+  }
+
+  .button:hover {
+    background-color: var(--new-button-color);
   }
 
   .button:hover p {
