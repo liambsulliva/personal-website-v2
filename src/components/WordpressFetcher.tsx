@@ -54,12 +54,31 @@ const WordpressFetcher = () => {
   }, []);
 
   return (
-    <div className="flex-row rounded-lg shadow dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex-row rounded-lg">
       {wordpressData.map((post: any, index: number) => (
-        <div className="m-8 mt-0 w-5/6 rounded-md bg-[#1a1c21] p-8 shadow-xl">
-          <h2 className="m-0 mb-2 text-left font-bold">{post.title}</h2>
-          <p className="m-0 text-gray-400">{post.excerpt}</p>
-          <ReactBtn label="Read More" href={post.link} />
+        <div className="m-8 mt-0 rounded-md border-[#333] bg-[#181818] p-8 hover:bg-[#202020]">
+          <a href={post.link} rel="noreferrer" target="_blank">
+            <div className="flex flex-row items-center gap-2">
+              <h2 className="m-0 mb-2 text-left font-bold">{post.title}</h2>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="0.75rem"
+                height="0.75rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="none"
+                  stroke="#d0d0d0"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                  d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+                />
+              </svg>
+            </div>
+
+            <p className="m-0 text-[#d0d0d0]">{post.excerpt}</p>
+          </a>
         </div>
       ))}
     </div>
