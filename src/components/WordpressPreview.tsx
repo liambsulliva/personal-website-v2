@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import ReactBtn from "./ReactBtn";
 
 interface WordpressFetcherProps {
   numberOfPosts: number;
