@@ -44,15 +44,20 @@ const userId = import.meta.env.FLICKR_USER_ID;
     list-style-type: none;
     width: 100%;
     margin: 1rem;
-    padding: 1rem 2rem;
+    padding: 1rem 0.5rem;
     gap: 3rem;
+  }
+  @media screen and (max-width: 768px) {
+    .content {
+      padding: 1rem 1.25rem;
+    }
   }
   .space-right {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
-    margin: 0.75rem 0rem;
+    margin: 0.75rem 1.5rem;
   }
 
   .link {
