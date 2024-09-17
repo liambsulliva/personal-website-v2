@@ -4,17 +4,89 @@ import { localizePath } from "astro-i18next";
 import { Trans } from "astro-i18next/components";
 import { t, changeLanguage } from "i18next";
 import Button from "../../components/ForwardButton.astro";
-import BlogButton from "../../components/BlogButton.astro";
 
 changeLanguage("de");
 ---
 
-<div class="title">
-  <Trans i18nKey="experience.header"><h2>Experience</h2></Trans>
-</div>
-<div>
-  <BlogButton />
-</div>
+<ul class="main-list">
+  <li class="main-list-item">
+    <div class="item-border"></div>
+    <div class="main-list-header">
+      <Trans i18nKey="experience.content1.title"><h3>HS-Experts</h3></Trans>
+      <Trans i18nKey="experience.content1.position"
+        ><p><i>Web Development Intern</i></p></Trans
+      >
+    </div>
+    <ul class="sub-list">
+      <Trans i18nKey="experience.content1.description">
+        <li class="sub-list-item">
+          <p>
+            Used WordPress' Elementor CMS to build and maintain website
+            components.
+          </p>
+        </li>
+        <li class="sub-list-item">
+          <p>
+            Swapped raster graphics for vector-based ones and fixed bugs in
+            responsiveness.
+          </p>
+        </li>
+      </Trans>
+    </ul>
+  </li>
+  <li class="main-list-item">
+    <div class="item-border"></div>
+    <div class="main-list-header">
+      <Trans i18nKey="experience.content2.title"
+        ><h3>PPG Primers Program</h3></Trans
+      >
+      <Trans i18nKey="experience.content2.position"><p><i>Intern</i></p></Trans>
+    </div>
+    <ul class="sub-list">
+      <Trans i18nKey="experience.content2.description">
+        <li class="sub-list-item">
+          <p>
+            Attended a week-long program defined by industry leader talks,
+            workshops, and networking opportunities to advance knowledge and
+            skills in technology.
+          </p>
+        </li>
+        <li class="sub-list-item">
+          <p>
+            Developed interpersonal skills through group team building
+            exercises.
+          </p>
+        </li>
+      </Trans>
+    </ul>
+  </li>
+  <li class="main-list-item">
+    <div class="item-border"></div>
+    <div class="main-list-header">
+      <Trans i18nKey="experience.content3.title"><h3>The Pitt News</h3></Trans>
+      <Trans i18nKey="experience.content3.position"
+        ><p><i>Staff Photographer</i></p></Trans
+      >
+    </div>
+    <ul class="sub-list">
+      <Trans i18nKey="experience.content3.description">
+        <li class="sub-list-item">
+          <p>Shoots event photography on-site based on story assignments.</p>
+        </li>
+        <li class="sub-list-item">
+          <p>
+            Attends weekly budget meetings and larger organizational
+            conferences.
+          </p>
+        </li>
+      </Trans>
+    </ul>
+  </li>
+  <div class="space-right">
+    <a class="link" href={localizePath("/Resume/")}>{t("experience.viewAll")}</a
+    >
+  </div>
+</ul>
 
 <style>
   .main-list {
@@ -59,5 +131,22 @@ changeLanguage("de");
   .sub-list-item {
     list-style-type: circle;
     margin: 0.5rem 2rem;
+  }
+
+  .space-right {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+  }
+
+  .link {
+    width: fit-content;
+    color: #b0b0b0;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .link:hover {
+    color: #fff;
   }
 </style>

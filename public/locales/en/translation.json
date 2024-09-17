@@ -25,7 +25,7 @@
       "position": "<0>Staff Photographer</0>",
       "description": "<0><1>Shoots event photography on-site based on story assignments.</1></0><2><3>Attends weekly budget meetings and larger organizational conferences.</3></2>"
     },
-    "viewAll": "View Resumé"
+    "viewAll": "Résumé"
   },
   "projects": {
     "header": "<0>Projects</0>",
@@ -51,7 +51,7 @@
   },
   "photography": {
     "header": "<0>Photography</0>",
-    "viewAll": "View Portfolio"
+    "viewAll": "Portfolio"
   },
   "blog": {
     "header": "Blog",

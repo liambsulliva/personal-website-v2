@@ -25,7 +25,7 @@
       "position": "<0><1>Fotograf</1></0>",
       "description": "<0><1>Fotografiert Veranstaltungen vor Ort basierend auf Story-Aufträgen.</1></0><2><3>Nimmt an wöchentlichen Budgetsitzungen und größeren organisatorischen Konferenzen teil.</3></2>"
     },
-    "viewAll": "Lebenslauf auf Englisch"
+    "viewAll": "Lebenslauf"
   },
   "projects": {
     "header": "<0>Projekte</0>",
@@ -51,7 +51,7 @@
   },
   "photography": {
     "header": "<0>Fotografie</0>",
-    "viewAll": "Portfolio anzeigen"
+    "viewAll": "Portfolio"
   },
   "blog": {
     "header": "<0>Blog</0>",
