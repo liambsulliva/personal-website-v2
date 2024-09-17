@@ -54,7 +54,7 @@
     "viewAll": "Portfolio"
   },
   "blog": {
-    "header": "Blog",
+    "header": "<0>Blog</0>",
     "viewAll": "Berlin"
   },
   "footer": {
