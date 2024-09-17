@@ -68,8 +68,10 @@ import { Trans } from "astro-i18next/components";
     font-weight: 700;
     text-decoration-line: none;
     color: var(--sidebar-color);
+    transition: color 0.3s ease;
   }
-  a:hover {
+  a:hover,
+  a.active {
     color: #fff;
   }
   @media screen and (max-width: 1400px) {
@@ -101,6 +103,27 @@ import { Trans } from "astro-i18next/components";
       nav.classList.add("hidden");
       nav.style.transform = "translateY(0)";
     }
+
+    // Highlight actively scrolled by section
+    const navLinks = nav.querySelectorAll("a");
+    const sections = [
+      "background",
+      "projects",
+      "experience",
+      "photography",
+      "blog",
+    ];
+
+    sections.forEach((sectionId, index) => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
+          navLinks.forEach((link) => link.classList.remove("active"));
+          navLinks[index].classList.add("active");
+        }
+      }
+    });
   }
 
   // Mount event listener
