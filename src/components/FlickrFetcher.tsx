@@ -104,7 +104,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
   }, [isLoading, currentPage, numPages]);
 
   return (
-    <div className="m-8 pb-16">
+    <div className="m-8 pb-16 max-md:m-3">
       <PhotoAlbum
         photos={photos}
         layout="masonry"
