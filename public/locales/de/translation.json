@@ -11,14 +11,14 @@
   "experience": {
     "header": "<0>Erfahrung</0>",
     "content1": {
-      "title": "<0>HS-Experts</0>",
-      "position": "<0><1>Webentwickler-Student</1></0>",
-      "description": "<0><1>Verwendete WordPress' Elementor CMS zum Erstellen und Verwalten von Website-Komponenten.</1></0><2><3>Rastergrafiken wurden durch Vektorgrafiken ersetzt und Fehler in der Reaktionsfähigkeit behoben.</3></2>"
+      "title": "<0>Human Engineering Research Laboratories</0>",
+      "position": "<0><1>Front End Projekt Werkstudent</1></0>",
+      "description": "<0><1>Erstellung einer digitalen interaktiven Erzählung über die 30-jährige Forschungsarbeit von HERL zur Unterstützung von Veteranen mit Behinderungen.</1></0><2><3>Erstellt statische Inhalte mit Svelte für den Einsatz auf einem von Pitt gesponserten Webserver.</3></2>"
     },
     "content2": {
-      "title": "<0>PPG Primers Programm</0>",
-      "position": "<0><1>Werkstudent</1></0>",
-      "description": "<0><1>Nahm an einem einwöchigen Programm mit Vorträgen, Workshops und Networking-Möglichkeiten von Branchenführern teil, um Kenntnisse und Fähigkeiten in der Technologie zu erweitern.</1></0><2><3>Entwickelte zwischenmenschliche Fähigkeiten durch Gruppen-Teambuilding-Übungen.</3></2>"
+      "title": "<0>HS-Experts</0>",
+      "position": "<0><1>Webentwickler Praktikant</1></0>",
+      "description": "<0><1>Verwendete WordPress' Elementor CMS zum Erstellen und Verwalten von Website-Komponenten.</1></0><2><3>Rastergrafiken wurden durch Vektorgrafiken ersetzt und Fehler in der Reaktionsfähigkeit behoben.</3></2>"
     },
     "content3": {
       "title": "<0>The Pitt News</0>",
