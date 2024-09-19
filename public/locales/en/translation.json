@@ -12,17 +12,17 @@
     "header": "<0>Experience</0>",
     "content1": {
       "title": "<0>Human Engineering Research Laboratories</0>",
-      "position": "<0><1>Front End Project Intern</1></0>",
+      "position": "<0>Front End Project Intern</0>",
       "description": "<0><1>Constructs a digital interactive narrative of HERL's 30 years of research supporting veterans with disabilities.</1></0><2><3>Builds static assets with Svelte for deployment on a Pitt-sponsored webserver.</3></2>"
     },
     "content2": {
       "title": "<0>HS-Experts</0>",
-      "position": "<0><1>Web Development Intern</1></0>",
+      "position": "<0>Web Development Intern</0>",
       "description": "<0><1>Used WordPress' Elementor CMS to build and maintain website components.</1></0><2><3>Swapped raster graphics for vector-based ones and fixed bugs in responsiveness.</3></2>"
     },
     "content3": {
       "title": "<0>The Pitt News</0>",
-      "position": "<0><1>Staff Photographer</1></0>",
+      "position": "<0>Staff Photographer</0>",
       "description": "<0><1>Shoots event photography on-site based on story assignments.</1></0><2><3>Attends weekly budget meetings and larger organizational conferences.</3></2>"
     },
     "viewAll": "Résumé"
