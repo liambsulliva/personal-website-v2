@@ -55,8 +55,8 @@ const WordpressFetcher = () => {
   return (
     <div className="flex-row rounded-lg">
       {wordpressData.map((post: any, index: number) => (
-        <div className="m-8 mt-0 rounded-md border-[#333] bg-[#181818] p-8 hover:bg-[#202020]">
-          <a href={post.link} rel="noreferrer" target="_blank">
+        <a href={post.link} rel="noreferrer" target="_blank">
+          <div className="m-8 mt-0 rounded-md border-[#333] bg-[#181818] p-8 hover:bg-[#202020]">
             <div className="flex flex-row items-center gap-2">
               <h2 className="m-0 mb-2 text-left font-bold">{post.title}</h2>
               <svg
@@ -77,8 +77,8 @@ const WordpressFetcher = () => {
             </div>
 
             <p className="m-0 text-[#d0d0d0]">{post.excerpt}</p>
-          </a>
-        </div>
+          </div>
+        </a>
       ))}
     </div>
   );
