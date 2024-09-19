@@ -7,80 +7,149 @@ import ArrowLink from "../components/ArrowLink.astro";
 ---
 
 <ul class="main-list">
-  <li class="main-list-item">
-    <div class="item-border"></div>
-    <div class="main-list-header">
-      <Trans i18nKey="experience.content1.title"
-        ><h3>Human Engineering Research Laboratories</h3></Trans
-      >
-      <Trans i18nKey="experience.content1.position"
-        ><p><i>Front End Project Intern</i></p></Trans
-      >
-    </div>
-    <ul class="sub-list">
-      <Trans i18nKey="experience.content1.description">
-        <li class="sub-list-item">
-          <p>
-            Constructs a digital interactive narrative of HERL's 30 years of
-            research supporting veterans with disabilities.
-          </p>
-        </li>
-        <li class="sub-list-item">
-          <p>
-            Builds static assets with Svelte for deployment on a Pitt-sponsored
-            webserver.
-          </p>
-        </li>
-      </Trans>
-    </ul>
-  </li>
-  <li class="main-list-item">
-    <div class="item-border"></div>
-    <div class="main-list-header">
-      <Trans i18nKey="experience.content2.title"><h3>HS-Experts</h3></Trans>
-      <Trans i18nKey="experience.content2.position"
-        ><p><i>Web Development Intern</i></p></Trans
-      >
-    </div>
-    <ul class="sub-list">
-      <Trans i18nKey="experience.content2.description">
-        <li class="sub-list-item">
-          <p>
-            Used WordPress' Elementor CMS to build and maintain website
-            components.
-          </p>
-        </li>
-        <li class="sub-list-item">
-          <p>
-            Swapped raster graphics for vector-based ones and fixed bugs in
-            responsiveness.
-          </p>
-        </li>
-      </Trans>
-    </ul>
-  </li>
-  <li class="main-list-item">
-    <div class="item-border"></div>
-    <div class="main-list-header">
-      <Trans i18nKey="experience.content3.title"><h3>The Pitt News</h3></Trans>
-      <Trans i18nKey="experience.content3.position"
-        ><p><i>Staff Photographer</i></p></Trans
-      >
-    </div>
-    <ul class="sub-list">
-      <Trans i18nKey="experience.content3.description">
-        <li class="sub-list-item">
-          <p>Shoots event photography on-site based on story assignments.</p>
-        </li>
-        <li class="sub-list-item">
-          <p>
-            Attends weekly budget meetings and larger organizational
-            conferences.
-          </p>
-        </li>
-      </Trans>
-    </ul>
-  </li>
+  <a
+    href="https://herl.pitt.edu"
+    aria-label="Human Engineering Research Laboratories"
+    target="_blank"
+  >
+    <li class="main-list-item">
+      <div class="main-list-header">
+        <div class="icon-set">
+          <Trans i18nKey="experience.content1.title"
+            ><h3>Human Engineering Research Laboratories</h3></Trans
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="0.75rem"
+            height="0.75rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="#d0d0d0"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+            ></path>
+          </svg>
+        </div>
+
+        <Trans i18nKey="experience.content1.position"
+          ><p>Front End Project Intern</p></Trans
+        >
+      </div>
+
+      <ul class="sub-list">
+        <Trans i18nKey="experience.content1.description">
+          <li class="sub-list-item">
+            <p>
+              Constructs a digital interactive narrative of HERL's 30 years of
+              research supporting veterans with disabilities.
+            </p>
+          </li>
+          <li class="sub-list-item">
+            <p>
+              Builds static assets with Svelte for deployment on a
+              Pitt-sponsored webserver.
+            </p>
+          </li>
+        </Trans>
+      </ul>
+    </li>
+  </a>
+  <a
+    href="https://hs-experts.com"
+    aria-label="Health and Safety Experts GmbH"
+    target="_blank"
+  >
+    <li class="main-list-item">
+      <div class="main-list-header">
+        <div class="icon-set">
+          <Trans i18nKey="experience.content2.title"><h3>HS-Experts</h3></Trans>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="0.75rem"
+            height="0.75rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="#d0d0d0"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+            ></path>
+          </svg>
+        </div>
+
+        <Trans i18nKey="experience.content2.position"
+          ><p><i>Web Development Intern</i></p></Trans
+        >
+      </div>
+      <ul class="sub-list">
+        <Trans i18nKey="experience.content2.description">
+          <li class="sub-list-item">
+            <p>
+              Used WordPress' Elementor CMS to build and maintain website
+              components.
+            </p>
+          </li>
+          <li class="sub-list-item">
+            <p>
+              Swapped raster graphics for vector-based ones and fixed bugs in
+              responsiveness.
+            </p>
+          </li>
+        </Trans>
+      </ul>
+    </li>
+  </a>
+  <a href="https://pittnews.com" aria-label="The Pitt News" target="_blank">
+    <li class="main-list-item">
+      <div class="main-list-header">
+        <div class="icon-set">
+          <Trans i18nKey="experience.content3.title"
+            ><h3>The Pitt News</h3></Trans
+          >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="0.75rem"
+            height="0.75rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="none"
+              stroke="#d0d0d0"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+            ></path>
+          </svg>
+        </div>
+
+        <Trans i18nKey="experience.content3.position"
+          ><p><i>Staff Photographer</i></p></Trans
+        >
+      </div>
+      <ul class="sub-list">
+        <Trans i18nKey="experience.content3.description">
+          <li class="sub-list-item">
+            <p>Shoots event photography on-site based on story assignments.</p>
+          </li>
+          <li class="sub-list-item">
+            <p>
+              Attends weekly budget meetings and larger organizational
+              conferences.
+            </p>
+          </li>
+        </Trans>
+      </ul>
+    </li>
+  </a>
+
   <ArrowLink href={localizePath("/Resume/")} label={t("experience.viewAll")} />
 </ul>
 
@@ -139,5 +208,11 @@ import ArrowLink from "../components/ArrowLink.astro";
   .sub-list-item {
     list-style-type: circle;
     margin: 0.5rem 2rem;
+  }
+
+  .icon-set {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
   }
 </style>

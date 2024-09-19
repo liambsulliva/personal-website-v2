@@ -12,7 +12,7 @@
     "header": "<0>Experience</0>",
     "content1": {
       "title": "<0>Human Engineering Research Laboratories</0>",
-      "position": "<0><1>Front End Project Intern</1></0>",
+      "position": "<0>Front End Project Intern</0>",
       "description": "<0><1>Constructs a digital interactive narrative of HERL's 30 years of research supporting veterans with disabilities.</1></0><2><3>Builds static assets with Svelte for deployment on a Pitt-sponsored webserver.</3></2>"
     },
     "content2": {

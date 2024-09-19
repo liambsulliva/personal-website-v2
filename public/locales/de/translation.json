@@ -12,7 +12,7 @@
     "header": "<0>Erfahrung</0>",
     "content1": {
       "title": "<0>Human Engineering Research Laboratories</0>",
-      "position": "<0><1>Front End Projekt Werkstudent</1></0>",
+      "position": "<0>Front End Projekt Werkstudent</0>",
       "description": "<0><1>Erstellung einer digitalen interaktiven Erzählung über die 30-jährige Forschungsarbeit von HERL zur Unterstützung von Veteranen mit Behinderungen.</1></0><2><3>Erstellt statische Inhalte mit Svelte für den Einsatz auf einem von Pitt gesponserten Webserver.</3></2>"
     },
     "content2": {
