@@ -3,6 +3,7 @@ import { changeLanguage } from "i18next";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
+import Footer from "../../layouts/Footer.astro";
 import Button from "../../components/Button.astro";
 import SideBar from "../../components/SideBar.astro";
 // @ts-ignore
@@ -29,103 +30,319 @@ const sidebarItems = [
     <Button label={"Back"} href={localizePath("/")} />
   </div>
   <main>
-    <SideBar
-      headerI18nKey="misc.contents"
-      navItems={sidebarItems}
-      className="fixed top-24 right-4 z-10"
-    />
+    <SideBar navItems={sidebarItems} className="fixed right-12 top-56 z-10" />
     <div class="content">
-      <h1 class="text-center text-5xl font-bold text-white">
+      <h1 class="mt-4 text-center text-5xl font-bold text-white">
         HERL Through The Years
       </h1>
-      <h2 class="text-center text-[1rem] text-[#d0d0d0]">
+      <h2 class="mb-6 text-center text-[1rem] text-[#d0d0d0]">
         Human Engineering Research Labs, September 2024
       </h2>
+
       <Book client:load />
 
       <!-- Scaffolded Sections Start Here -->
 
-      <section id="overview">
+      <section class="pb-10 pt-10" id="overview">
         <h3 class="text-2xl font-semibold text-white">Overview</h3>
         <p>
-          <!-- Content for Overview -->
-          <!-- TODO: Add content for the Overview section -->
+          This case study details the development of a digital narrative for the
+          Human Engineering Research Labs (HERL). The project aimed to create an
+          interactive, skeumorphic book layout that would be embedded in HERL's
+          website. The development process spanned several weeks, focusing on
+          creating a performant, responsive, and visually engaging presentation
+          of HERL's history and achievements.
         </p>
       </section>
 
       <section id="highlights">
         <h3 class="text-2xl font-semibold text-white">Highlights</h3>
-        <p>
-          <!-- Content for Highlights -->
-          <!-- TODO: Add content for the Highlights section -->
-        </p>
+        <ul>
+          <li>
+            Developed a skeumorphic book layout using Svelte and CSS 3D
+            transforms
+          </li>
+          <li>
+            Implemented responsive design for various screen sizes and iframe
+            embedding
+          </li>
+          <li>Created interactive page-turning animations and navigation</li>
+          <li>Optimized performance for embedding in the HERL website</li>
+          <li>
+            Incorporated iterative development based on weekly progress and
+            feedback
+          </li>
+        </ul>
       </section>
 
       <section id="context">
         <h3 class="text-2xl font-semibold text-white">Context</h3>
         <p>
-          <!-- Content for Context -->
-          <!-- TODO: Add content for the Context section -->
+          The project was initiated to create a digital version of HERL's
+          booklet, maintaining the book metaphor while adapting it for web
+          presentation. The final product was intended to be embedded in an
+          iframe on the HERL website, which introduced specific design and
+          performance constraints.
         </p>
       </section>
 
       <section id="problem">
         <h3 class="text-2xl font-semibold text-white">Problem</h3>
-        <p>
-          <!-- Content for Problem -->
-          <!-- TODO: Add content for the Problem section -->
-        </p>
+        <p>The main challenges included:</p>
+        <ul>
+          <li>
+            Ensuring content readability in a small window, especially for
+            mobile viewers
+          </li>
+          <li>Minimizing scrolling within the embedded iframe</li>
+          <li>
+            Optimizing performance to account for the overhead of the HERL
+            website
+          </li>
+          <li>
+            Creating a visually appealing and interactive book metaphor using
+            web technologies
+          </li>
+        </ul>
       </section>
 
       <section id="updateFlow">
         <h3 class="text-2xl font-semibold text-white">Update Flow</h3>
-        <p>
-          <!-- Content for Update Flow -->
-          <!-- TODO: Add content for the Update Flow section -->
-        </p>
+        <div class="card-container">
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Week 1: Planning and Storyboarding
+            </h4>
+            <p>
+              This week involved extensive planning and storyboarding. The
+              decision to utilize a skeumorphic layout was solidified,
+              leveraging the booklet format assets as a visual metaphor. The
+              requirement to embed the final product within an iframe introduced
+              constraints such as:
+            </p>
+            <ul>
+              <li>
+                Ensuring readability in small windows, with a focus on mobile
+                users.
+              </li>
+              <li>
+                Avoiding scrolling within the embedded iframe to prevent user
+                confusion.
+              </li>
+              <li>
+                Maintaining high performance despite the additional overhead
+                from the HERL website.
+              </li>
+            </ul>
+            <p>
+              These principles guided the design methodology throughout the
+              project.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Week 2: New Features and Animation
+            </h4>
+            <p>
+              Introduced new features including title text fading upon book
+              opening, page navigation via arrows and keyboard keys, and the
+              ability to flip the book to view the back cover. Placeholder
+              content was added for future animation and fleshing out.
+              Transitioning animations from CSS to TypeScript enhanced
+              flexibility but introduced complexity in handling asynchronous
+              operations and debugging 3D transformations.
+            </p>
+            <p>
+              A flip button was implemented to display the back cover, ensuring
+              it only appears when the book is closed to simplify animation
+              sequencing. This change resulted in a visually appealing animation
+              when the book is opened from a flipped state.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Week 3: Responsiveness
+            </h4>
+            <p>
+              Focused on enhancing responsiveness to ensure the book renders
+              well within an iframe across various screen widths and heights.
+              Achieved consistent legibility for widths down to 450px and
+              managed height responsiveness up to 500px. Implemented dynamic
+              font size adjustments based on screen dimensions to maintain
+              readability.
+            </p>
+            <p>
+              Despite personal challenges affecting productivity, significant
+              progress was made in templating and responsiveness, setting the
+              stage for integrating non-placeholder content in the upcoming
+              weeks.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="layout">
         <h3 class="text-2xl font-semibold text-white">Layout</h3>
-        <p>
-          <!-- Content for Layout -->
-          <!-- TODO: Add content for the Layout section -->
-        </p>
+        <div class="card-container">
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Skeumorphic Book Design
+            </h4>
+            <p>
+              Implemented a realistic book layout using CSS 3D transforms and
+              Svelte components. This created an immersive reading experience
+              that mimicked a physical book.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Responsive Adaptation
+            </h4>
+            <p>
+              The layout was designed to be fully responsive, adapting
+              seamlessly to various screen sizes and orientations. This ensured
+              a consistent experience across desktop, tablet, and mobile
+              devices.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Content Organization</h4>
+            <p>
+              Carefully structured the content to maximize readability within
+              the constraints of the book layout. This included optimizing text
+              size, line length, and page breaks for different screen sizes.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="interactions">
         <h3 class="text-2xl font-semibold text-white">Interactions</h3>
-        <p>
-          <!-- Content for Interactions -->
-          <!-- TODO: Add content for the Interactions section -->
-        </p>
+        <div class="card-container">
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Page Turning Animation
+            </h4>
+            <p>
+              Developed smooth and realistic page-turning animations that
+              respond to user input, enhancing the book-like experience of the
+              digital narrative.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Navigation Controls</h4>
+            <p>
+              Implemented intuitive navigation controls, including next/previous
+              buttons, a table of contents, and the ability to jump to specific
+              pages or sections.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Touch and Mouse Support
+            </h4>
+            <p>
+              Optimized the interface for both touch and mouse interactions,
+              ensuring a seamless experience across different devices and input
+              methods.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="visualDesign">
         <h3 class="text-2xl font-semibold text-white">Visual Design</h3>
-        <p>
-          <!-- Content for Visual Design -->
-          <!-- TODO: Add content for the Visual Design section -->
-        </p>
+        <div class="card-container">
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Color Palette</h4>
+            <p>
+              Developed a cohesive color palette that aligned with HERL's
+              branding while ensuring optimal readability and visual appeal
+              within the digital book format.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Typography</h4>
+            <p>
+              Carefully selected fonts that were both visually pleasing and
+              highly legible across different screen sizes and resolutions.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Imagery and Graphics</h4>
+            <p>
+              Incorporated high-quality images and custom graphics to complement
+              the text content, enhancing the overall visual narrative of HERL's
+              history and achievements.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="finalDesigns">
         <h3 class="text-2xl font-semibold text-white">Final Designs</h3>
-        <p>
-          <!-- Content for Final Designs -->
-          <!-- TODO: Add content for the Final Designs section -->
-        </p>
+        <div class="card-container">
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Desktop Version</h4>
+            <p>
+              The desktop design showcases the full skeumorphic book layout,
+              taking advantage of larger screens to display rich content and
+              interactive elements.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Mobile Adaptation</h4>
+            <p>
+              For mobile devices, optimized the layout to prioritize readability
+              and ease of navigation, while maintaining the essence of the book
+              metaphor.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Embedded Version</h4>
+            <p>
+              Carefully tuned the final design for embedding within HERL's
+              website, ensuring smooth performance and seamless integration with
+              existing content.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="retrospective">
         <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
         <p>
-          <!-- Content for Retrospective -->
-          <!-- TODO: Add content for the Retrospective section -->
+          The project successfully achieved its main goals of creating an
+          interactive, responsive, and performant digital narrative for HERL.
+          Key learnings included:
+        </p>
+        <ul>
+          <li>
+            The importance of choosing the right tools and frameworks for
+            specific project requirements
+          </li>
+          <li>Balancing visual appeal with performance and responsiveness</li>
+          <li>
+            The challenges of working with 3D animations in web development
+          </li>
+          <li>
+            The value of iterative development and continuous testing across
+            different devices and screen sizes
+          </li>
+          <li>
+            Effective project management to accommodate unforeseen challenges,
+            such as personal setbacks
+          </li>
+        </ul>
+        <p>
+          Future improvements could include further optimization of animations,
+          additional interactive elements, and refining the responsive design
+          for an even wider range of devices.
         </p>
       </section>
     </div>
   </main>
+  <Footer />
 </Layout>
 
 <style>
@@ -138,8 +355,7 @@ const sidebarItems = [
   }
 
   .content {
-    flex: 1;
-    padding: 0 2rem;
+    margin-bottom: 5rem;
   }
 
   h3,
@@ -147,7 +363,19 @@ const sidebarItems = [
   h5,
   h6,
   p {
+    margin: 0;
     text-align: left;
+  }
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  li {
+    color: #d0d0d0;
+    list-style-type: disc;
+    margin-left: 1.25rem;
+    padding: 0.25rem;
   }
 
   iframe {
@@ -185,6 +413,32 @@ const sidebarItems = [
 
     .sidebar {
       display: none;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .card {
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+
+  .card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
     }
   }
 </style>

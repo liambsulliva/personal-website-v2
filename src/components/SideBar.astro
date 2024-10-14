@@ -9,18 +9,17 @@ interface NavItem {
 
 // Update Props interface
 interface Props {
-  headerI18nKey: string;
   navItems: NavItem[];
-  id?: string; // Add optional id prop
-  className?: string; // Add optional className prop
+  id?: string;
+  className?: string;
 }
 
-const { headerI18nKey, navItems, id = "fade-nav", className = "" } = Astro.props;
+const { navItems, id = "fade-nav", className = "" } = Astro.props;
 ---
 
 <div id={id} class={`sidebar ${className}`}>
   <ul>
-    <Trans i18nKey={headerI18nKey}><p>CONTENTS</p></Trans>
+    <Trans i18nKey={"misc.contents"}><p>CONTENTS</p></Trans>
     {
       navItems.map((item) => (
         <li>
@@ -48,7 +47,6 @@ const { headerI18nKey, navItems, id = "fade-nav", className = "" } = Astro.props
     justify-content: end;
     width: 1350px;
     position: fixed;
-    top: 18rem;
     opacity: 0.5;
     transform: translateY(0);
     transition:
