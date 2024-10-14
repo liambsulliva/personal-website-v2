@@ -12,16 +12,16 @@ import Book from "../../components/Book.svelte";
 changeLanguage("en");
 
 const sidebarItems = [
-  { i18nKey: "caseStudy.overview", href: "#overview" },
-  { i18nKey: "caseStudy.highlights", href: "#highlights" },
-  { i18nKey: "caseStudy.context", href: "#context" },
-  { i18nKey: "caseStudy.problem", href: "#problem" },
-  { i18nKey: "caseStudy.updateFlow", href: "#updateFlow" },
-  { i18nKey: "caseStudy.layout", href: "#layout" },
-  { i18nKey: "caseStudy.interactions", href: "#interactions" },
-  { i18nKey: "caseStudy.visualDesign", href: "#visualDesign" },
-  { i18nKey: "caseStudy.finalDesigns", href: "#finalDesigns" },
-  { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
+    { i18nKey: "caseStudy.overview", href: "#overview" },
+    { i18nKey: "caseStudy.highlights", href: "#highlights" },
+    { i18nKey: "caseStudy.context", href: "#context" },
+    { i18nKey: "caseStudy.problem", href: "#problem" },
+    { i18nKey: "caseStudy.updateFlow", href: "#updateFlow" },
+    { i18nKey: "caseStudy.layout", href: "#layout" },
+    { i18nKey: "caseStudy.interactions", href: "#interactions" },
+    { i18nKey: "caseStudy.visualDesign", href: "#visualDesign" },
+    { i18nKey: "caseStudy.finalDesigns", href: "#finalDesigns" },
+    { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
 ];
 ---
 
@@ -33,8 +33,8 @@ const sidebarItems = [
       <Button label={"Back"} href={localizePath("/")} />
     </div>
     <div class="content">
-      <h1 class="text-4xl font-bold text-white">
-        HERL Through The Years Booklet
+      <h1 class="text-5xl font-bold text-white">
+        HERL Through The Years
       </h1>
       <p class="text-center">Human Engineering Research Labs, September 2024</p>
       <Book client:load />
@@ -43,7 +43,7 @@ const sidebarItems = [
     <!-- Scaffolded Sections Start Here -->
 
     <section id="overview">
-      <h2 class="text-2xl font-semibold text-white">Overview</h2>
+      <h2 class="text-2xl font-semibold text-white">Überblick</h2>
       <p class="text-white">
         <!-- Content for Overview -->
         <!-- TODO: Add content for the Overview section -->
@@ -51,7 +51,7 @@ const sidebarItems = [
     </section>
 
     <section id="highlights">
-      <h2 class="text-2xl font-semibold text-white">Highlights</h2>
+      <h2 class="text-2xl font-semibold text-white">Höhepunkte</h2>
       <p class="text-white">
         <!-- Content for Highlights -->
         <!-- TODO: Add content for the Highlights section -->
@@ -59,7 +59,7 @@ const sidebarItems = [
     </section>
 
     <section id="context">
-      <h2 class="text-2xl font-semibold text-white">Context</h2>
+      <h2 class="text-2xl font-semibold text-white">Kontext</h2>
       <p class="text-white">
         <!-- Content for Context -->
         <!-- TODO: Add content for the Context section -->
@@ -75,7 +75,7 @@ const sidebarItems = [
     </section>
 
     <section id="updateFlow">
-      <h2 class="text-2xl font-semibold text-white">Update Flow</h2>
+      <h2 class="text-2xl font-semibold text-white">Update-Fluss</h2>
       <p class="text-white">
         <!-- Content for Update Flow -->
         <!-- TODO: Add content for the Update Flow section -->
@@ -91,7 +91,7 @@ const sidebarItems = [
     </section>
 
     <section id="interactions">
-      <h2 class="text-2xl font-semibold text-white">Interactions</h2>
+      <h2 class="text-2xl font-semibold text-white">Interaktionen</h2>
       <p class="text-white">
         <!-- Content for Interactions -->
         <!-- TODO: Add content for the Interactions section -->
@@ -99,7 +99,7 @@ const sidebarItems = [
     </section>
 
     <section id="visualDesign">
-      <h2 class="text-2xl font-semibold text-white">Visual Design</h2>
+      <h2 class="text-2xl font-semibold text-white">Visuelles Design</h2>
       <p class="text-white">
         <!-- Content for Visual Design -->
         <!-- TODO: Add content for the Visual Design section -->
@@ -107,7 +107,7 @@ const sidebarItems = [
     </section>
 
     <section id="finalDesigns">
-      <h2 class="text-2xl font-semibold text-white">Final Designs</h2>
+      <h2 class="text-2xl font-semibold text-white">Endgültige Designs</h2>
       <p class="text-white">
         <!-- Content for Final Designs -->
         <!-- TODO: Add content for the Final Designs section -->
@@ -115,7 +115,7 @@ const sidebarItems = [
     </section>
 
     <section id="retrospective">
-      <h2 class="text-2xl font-semibold text-white">Retrospective</h2>
+      <h2 class="text-2xl font-semibold text-white">Retrospektive</h2>
       <p class="text-white">
         <!-- Content for Retrospective -->
         <!-- TODO: Add content for the Retrospective section -->
@@ -145,7 +145,7 @@ const sidebarItems = [
 
     section {
       padding: 2rem;
-      border-bottom: 1px solid #353535;
+      border-bottom: 1px solid #ccc;
     }
 
     h2 {

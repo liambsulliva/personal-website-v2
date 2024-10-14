@@ -7,8 +7,6 @@
   let book: HTMLElement;
 
   let isHovering = false;
-  export let isFlipped = false;
-  export let page = 0;
 
   let tiltX = 9;
   let tiltY = -9;
@@ -40,31 +38,21 @@
     isHovering = true;
   }
 
-  function handleArrowKey(event: KeyboardEvent) {
-    if (event.key === "ArrowLeft" && page > 1) {
-      page -= 1;
-    } else if (event.key === "ArrowRight" && page < totalPages) {
-      page += 1;
-    }
-  }
-
   onMount(() => {
     book.addEventListener("mousemove", handleMouseMove);
     book.addEventListener("mouseenter", handleMouseEnter);
     book.addEventListener("mouseleave", handleMouseLeave);
-    window.addEventListener("keydown", handleArrowKey);
     return () => {
       book.removeEventListener("mousemove", handleMouseMove);
       book.removeEventListener("mouseenter", handleMouseEnter);
       book.removeEventListener("mouseleave", handleMouseLeave);
-      window.removeEventListener("keydown", handleArrowKey);
     };
   });
 </script>
 
 <div
   bind:this={book}
-  class="book {class_} {isFlipped ? 'flipped' : ''}"
+  class="book {class_}"
   style="transform: rotateX({tiltX}deg) rotateY({tiltY + rotateY}deg) translateX({translateX}%) translateY({translateY}%)"
 >
   <div class="front">
@@ -96,8 +84,8 @@
       width 0.5s ease-out,
       height 0.5s ease-out;
     max-width: 75vw;
-    height: 42vmin;
-    width: 60vmin;
+    height: 50vmin;
+    width: 70vmin;
     z-index: 40;
     margin: 2rem auto;
   }
@@ -130,7 +118,7 @@
   .spine {
     width: 65px;
     height: 100%;
-    left: -7.5%;
+    left: -6.5%;
     background: #252525;
     transform: rotateY(-90deg) translateX(-40%);
     transform-style: preserve-3d;
