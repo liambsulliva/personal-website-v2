@@ -37,10 +37,10 @@ const {
   href={demoBtn}
   aria-label={title}
   target="_blank"
-  class="flex items-stretch gap-6"
+  class="flex items-stretch gap-6 group cursor-pointer"
 >
   <div
-    class="flex flex-col rounded-xl border border-[#333333] bg-[#151515] hover:bg-[#181818]"
+    class="flex flex-col rounded-xl border border-[#333333] bg-[#151515] group-hover:bg-[#181818] relative w-full h-full"
   >
     <div class="relative p-2 pb-0 sm:p-3">
       <Image
@@ -85,3 +85,22 @@ const {
     </div>
   </div>
 </a>
+
+<style>
+  a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+  }
+
+  a::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+</style>
