@@ -9,7 +9,7 @@ const userId = import.meta.env.FLICKR_USER_ID;
 ---
 
 <div class="content">
-  <Carousel {apiKey} {userId} lang={t("misc.lang")} client:idle />
+  <Carousel {apiKey} {userId} lang={t("misc.lang")} client:visible />
   <ArrowLink
     href={localizePath("/PortfolioPage/")}
     label={t("photography.viewAll")}
