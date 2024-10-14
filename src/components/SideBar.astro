@@ -86,6 +86,11 @@ const { headerI18nKey, navItems } = Astro.props;
 </style>
 
 <script>
+  interface NavLink {
+    linkElement: HTMLAnchorElement;
+    targetElement: HTMLElement | null;
+  }
+
   function handleScroll() {
     const nav = document.getElementById("fade-nav");
     if (!nav) return;
@@ -109,42 +114,69 @@ const { headerI18nKey, navItems } = Astro.props;
       nav.style.transform = "translateY(0)";
     }
 
-    // Highlight active section
-    const navLinks = nav.querySelectorAll("a");
-    const sections = [
-      "background",
-      "projects",
-      "experience",
-      "photography",
-      "blog",
-    ];
+    if (!(window as any).navLinks) return;
+
+    const navLinks: NavLink[] = (window as any).navLinks;
+
+    let activeSet = false;
 
     // Check if we're at the bottom of the page
     const isAtBottom =
       window.innerHeight + window.scrollY >= documentHeight - 100; // Threshold, adjust as needed
 
     if (isAtBottom) {
-      // If at the bottom, highlight the Blog link
-      navLinks.forEach((link) => link.classList.remove("active"));
-      navLinks[navLinks.length - 1].classList.add("active");
-    } else {
-      // Otherwise, highlight based on section visibility
-      sections.forEach((sectionId, index) => {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          const rect = section.getBoundingClientRect();
+      // If at the bottom, highlight the last link
+      navLinks.forEach((link) => link.linkElement.classList.remove("active"));
+      if (navLinks.length > 0) {
+        navLinks[navLinks.length - 1].linkElement.classList.add("active");
+      }
+      activeSet = true;
+    }
+
+    if (!activeSet) {
+      // Otherwise, find the first section that is in the viewport
+      for (const navLink of navLinks) {
+        const target = navLink.targetElement;
+        if (target) {
+          const rect = target.getBoundingClientRect();
           if (rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2) {
-            navLinks.forEach((link) => link.classList.remove("active"));
-            navLinks[index].classList.add("active");
+            navLinks.forEach((link) =>
+              link.linkElement.classList.remove("active")
+            );
+            navLink.linkElement.classList.add("active");
+            break;
           }
         }
-      });
+      }
     }
+  }
+
+  // Initialize NavLink list
+  function initNavLinks() {
+    const nav = document.getElementById("fade-nav");
+    if (!nav) return;
+
+    const linkElements =
+      nav.querySelectorAll<HTMLAnchorElement>("a[href^='#']");
+    const navLinks: NavLink[] = [];
+
+    linkElements.forEach((link) => {
+      const href = link.getAttribute("href");
+      if (href && href.startsWith("#")) {
+        const targetId = href.slice(1);
+        const targetElement = document.getElementById(targetId);
+        navLinks.push({ linkElement: link, targetElement });
+      }
+    });
+
+    (window as any).navLinks = navLinks;
   }
 
   // Mount event listener
   window.addEventListener("scroll", handleScroll);
+  window.addEventListener("DOMContentLoaded", initNavLinks);
 
   // Run on initial page load
+  initNavLinks();
   handleScroll();
 </script>

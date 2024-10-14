@@ -57,6 +57,18 @@
     "header": "<0>Blog</0>",
     "viewAll": "Berlin"
   },
+  "caseStudy": {
+    "overview": "<0>Overview</0>",
+    "highlights": "<0>Highlights</0>",
+    "context": "<0>Context</0>",
+    "problem": "<0>The Problem</0>",
+    "updateFlow": "<0>Update Flow</0>",
+    "layout": "<0>Layout</0>",
+    "interactions": "<0>Interactions</0>",
+    "visualDesign": "<0>Visual Design</0>",
+    "finalDesigns": "<0>Final Designs</0>",
+    "retrospective": "<0>Retrospective</0>"
+  },
   "footer": {
     "content": "<0>With Love, Liam Sullivan</0>"
   },

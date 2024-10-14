@@ -4,13 +4,30 @@ import { changeLanguage } from "i18next";
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/Button.astro";
+import LanguagePicker from "../../components/LanguagePicker.astro";
+import SideBar from "../../components/SideBar.astro";
 // @ts-ignore
 import Book from "../../components/Book.svelte";
 
 changeLanguage("de");
+
+const sidebarItems = [
+    { i18nKey: "caseStudy.overview", href: "#overview" },
+    { i18nKey: "caseStudy.highlights", href: "#highlights" },
+    { i18nKey: "caseStudy.context", href: "#context" },
+    { i18nKey: "caseStudy.problem", href: "#problem" },
+    { i18nKey: "caseStudy.updateFlow", href: "#updateFlow" },
+    { i18nKey: "caseStudy.layout", href: "#layout" },
+    { i18nKey: "caseStudy.interactions", href: "#interactions" },
+    { i18nKey: "caseStudy.visualDesign", href: "#visualDesign" },
+    { i18nKey: "caseStudy.finalDesigns", href: "#finalDesigns" },
+    { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
+];
 ---
 
 <Layout title="Portfolio">
+  <LanguagePicker />
+  <SideBar headerI18nKey="misc.contents" navItems={sidebarItems} />
   <div class="content">
     <div class="btn-container">
       <Button label={"Back"} href={localizePath("/")} />
@@ -22,6 +39,90 @@ changeLanguage("de");
       <p class="text-center">Human Engineering Research Labs, September 2024</p>
       <Book client:load />
     </div>
+
+    <!-- Scaffolded Sections Start Here -->
+
+    <section id="overview">
+      <h2 class="text-2xl font-semibold text-white">Überblick</h2>
+      <p class="text-white">
+        <!-- Content for Overview -->
+        <!-- TODO: Add content for the Overview section -->
+      </p>
+    </section>
+
+    <section id="highlights">
+      <h2 class="text-2xl font-semibold text-white">Höhepunkte</h2>
+      <p class="text-white">
+        <!-- Content for Highlights -->
+        <!-- TODO: Add content for the Highlights section -->
+      </p>
+    </section>
+
+    <section id="context">
+      <h2 class="text-2xl font-semibold text-white">Kontext</h2>
+      <p class="text-white">
+        <!-- Content for Context -->
+        <!-- TODO: Add content for the Context section -->
+      </p>
+    </section>
+
+    <section id="problem">
+      <h2 class="text-2xl font-semibold text-white">Problem</h2>
+      <p class="text-white">
+        <!-- Content for Problem -->
+        <!-- TODO: Add content for the Problem section -->
+      </p>
+    </section>
+
+    <section id="updateFlow">
+      <h2 class="text-2xl font-semibold text-white">Update-Fluss</h2>
+      <p class="text-white">
+        <!-- Content for Update Flow -->
+        <!-- TODO: Add content for the Update Flow section -->
+      </p>
+    </section>
+
+    <section id="layout">
+      <h2 class="text-2xl font-semibold text-white">Layout</h2>
+      <p class="text-white">
+        <!-- Content for Layout -->
+        <!-- TODO: Add content for the Layout section -->
+      </p>
+    </section>
+
+    <section id="interactions">
+      <h2 class="text-2xl font-semibold text-white">Interaktionen</h2>
+      <p class="text-white">
+        <!-- Content for Interactions -->
+        <!-- TODO: Add content for the Interactions section -->
+      </p>
+    </section>
+
+    <section id="visualDesign">
+      <h2 class="text-2xl font-semibold text-white">Visuelles Design</h2>
+      <p class="text-white">
+        <!-- Content for Visual Design -->
+        <!-- TODO: Add content for the Visual Design section -->
+      </p>
+    </section>
+
+    <section id="finalDesigns">
+      <h2 class="text-2xl font-semibold text-white">Endgültige Designs</h2>
+      <p class="text-white">
+        <!-- Content for Final Designs -->
+        <!-- TODO: Add content for the Final Designs section -->
+      </p>
+    </section>
+
+    <section id="retrospective">
+      <h2 class="text-2xl font-semibold text-white">Retrospektive</h2>
+      <p class="text-white">
+        <!-- Content for Retrospective -->
+        <!-- TODO: Add content for the Retrospective section -->
+      </p>
+    </section>
+
+    <!-- Scaffolded Sections End Here -->
   </div>
 
   <style>
@@ -40,6 +141,19 @@ changeLanguage("de");
 
     .btn-container {
       margin: 2rem;
+    }
+
+    section {
+      padding: 2rem;
+      border-bottom: 1px solid #ccc;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      line-height: 1.6;
     }
   </style>
 </Layout>
