@@ -1,29 +1,33 @@
 ---
 import { Trans } from "astro-i18next/components";
+
+// Define the structure of a navigation item
+interface NavItem {
+  i18nKey: string;
+  href: string;
+}
+
+// Define the expected props
+interface Props {
+  headerI18nKey: string;
+  navItems: NavItem[];
+}
+
+const { headerI18nKey, navItems } = Astro.props;
 ---
 
 <div id="fade-nav" class="hidden">
   <ul>
-    <Trans i18nKey="misc.contents"><p>CONTENTS</p></Trans>
-    <li>
-      <Trans i18nKey="background.header"><a href="#background">About</a></Trans>
-    </li>
-    <li>
-      <Trans i18nKey="projects.header"><a href="#projects">Projects</a></Trans>
-    </li>
-    <li>
-      <Trans i18nKey="experience.header"
-        ><a href="#experience">Experience</a></Trans
-      >
-    </li>
-    <li>
-      <Trans i18nKey="photography.header"
-        ><a href="#photography">Photography</a></Trans
-      >
-    </li>
-    <li>
-      <Trans i18nKey="blog.header"><a href="#blog">Blog</a></Trans>
-    </li>
+    <Trans i18nKey={headerI18nKey}><p>CONTENTS</p></Trans>
+    {
+      navItems.map((item) => (
+        <li>
+          <Trans i18nKey={item.i18nKey}>
+            <a href={item.href}>{/* Translated text will replace this */}</a>
+          </Trans>
+        </li>
+      ))
+    }
   </ul>
 </div>
 

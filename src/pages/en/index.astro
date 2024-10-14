@@ -12,12 +12,21 @@ import SideBar from "../../components/SideBar.astro";
 import { Trans } from "astro-i18next/components";
 
 changeLanguage("en");
+
+// Define the navigation items to pass as props
+const sidebarItems = [
+    { i18nKey: "background.header", href: "#background" },
+    { i18nKey: "projects.header", href: "#projects" },
+    { i18nKey: "experience.header", href: "#experience" },
+    { i18nKey: "photography.header", href: "#photography" },
+    { i18nKey: "blog.header", href: "#blog" },
+];
 ---
 
 <Layout title="Liam Sullivan">
   <main>
     <LanguagePicker />
-    <SideBar />
+    <SideBar headerI18nKey="misc.contents" navItems={sidebarItems} />
     <Trans i18nKey="header"
       ><h1 class="condensed">
         Hi! My name is <span class="text-gradient">Liam</span>
