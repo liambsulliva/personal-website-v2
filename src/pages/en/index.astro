@@ -26,7 +26,11 @@ const sidebarItems = [
 <Layout title="Liam Sullivan">
   <main>
     <LanguagePicker />
-    <SideBar headerI18nKey="misc.contents" navItems={sidebarItems} />
+    <SideBar
+      headerI18nKey="misc.contents"
+      navItems={sidebarItems}
+      className="right-18 fixed top-[18rem] z-10"
+    />
     <Trans i18nKey="header"
       ><h1 class="condensed">
         Hi! My name is <span class="text-gradient">Liam</span>
@@ -177,6 +181,11 @@ const sidebarItems = [
       gap: 2rem;
     }
   }
+  @media screen and (max-width: 1400px) {
+    .sidebar {
+      display: none;
+    }
+  }
 </style>
 
 <script>
@@ -193,4 +202,29 @@ const sidebarItems = [
 
     elements.forEach((element) => observer.observe(element));
   });
+
+  function handleScroll() {
+    const nav: HTMLElement | null = document.querySelector(".sidebar");
+    if (!nav) return;
+
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const fadeInStart = windowHeight * 0.05;
+
+    if (scrollPosition > fadeInStart) {
+      nav.classList.add("visible");
+      const translatePercentage = Math.min(
+        ((scrollPosition - fadeInStart) / windowHeight) * 100,
+        20
+      );
+      nav.style.transform = `translateY(-${translatePercentage}%)`;
+    } else {
+      nav.classList.remove("visible");
+      nav.style.transform = "translateY(0)";
+    }
+
+    // ... rest of the existing handleScroll function ...
+  }
+
+  // ... rest of the existing script ...
 </script>

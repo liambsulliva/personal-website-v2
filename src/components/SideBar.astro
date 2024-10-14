@@ -7,16 +7,18 @@ interface NavItem {
   href: string;
 }
 
-// Define the expected props
+// Update Props interface
 interface Props {
   headerI18nKey: string;
   navItems: NavItem[];
+  id?: string; // Add optional id prop
+  className?: string; // Add optional className prop
 }
 
-const { headerI18nKey, navItems } = Astro.props;
+const { headerI18nKey, navItems, id = "fade-nav", className = "" } = Astro.props;
 ---
 
-<div id="fade-nav" class="hidden">
+<div id={id} class={`sidebar ${className}`}>
   <ul>
     <Trans i18nKey={headerI18nKey}><p>CONTENTS</p></Trans>
     {
@@ -82,6 +84,15 @@ const { headerI18nKey, navItems } = Astro.props;
     ul {
       display: none;
     }
+  }
+  .sidebar {
+    opacity: 0.5;
+    transition:
+      opacity 0.25s ease-in-out,
+      transform 0.25s cubic-bezier(0, 0.5, 0.5, 1);
+  }
+  .sidebar.visible {
+    opacity: 1;
   }
 </style>
 

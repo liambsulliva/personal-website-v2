@@ -4,7 +4,6 @@ import { changeLanguage } from "i18next";
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
 import Button from "../../components/Button.astro";
-import LanguagePicker from "../../components/LanguagePicker.astro";
 import SideBar from "../../components/SideBar.astro";
 // @ts-ignore
 import Book from "../../components/Book.svelte";
@@ -26,134 +25,166 @@ const sidebarItems = [
 ---
 
 <Layout title="Portfolio">
-  <LanguagePicker />
-  <SideBar headerI18nKey="misc.contents" navItems={sidebarItems} />
-  <div class="content">
-    <div class="btn-container">
-      <Button label={"Back"} href={localizePath("/")} />
-    </div>
+  <div class="btn-container">
+    <Button label={"Back"} href={localizePath("/")} />
+  </div>
+  <main>
+    <SideBar
+      headerI18nKey="misc.contents"
+      navItems={sidebarItems}
+      className="fixed top-24 right-4 z-10"
+    />
     <div class="content">
-      <h1 class="text-5xl font-bold text-white">
+      <h1 class="text-center text-5xl font-bold text-white">
         HERL Through The Years
       </h1>
-      <p class="text-center">Human Engineering Research Labs, September 2024</p>
+      <h2 class="text-center text-[1rem] text-[#d0d0d0]">
+        Human Engineering Research Labs, September 2024
+      </h2>
       <Book client:load />
+
+      <!-- Scaffolded Sections Start Here -->
+
+      <section id="overview">
+        <h3 class="text-2xl font-semibold text-white">Overview</h3>
+        <p>
+          <!-- Content for Overview -->
+          <!-- TODO: Add content for the Overview section -->
+        </p>
+      </section>
+
+      <section id="highlights">
+        <h3 class="text-2xl font-semibold text-white">Highlights</h3>
+        <p>
+          <!-- Content for Highlights -->
+          <!-- TODO: Add content for the Highlights section -->
+        </p>
+      </section>
+
+      <section id="context">
+        <h3 class="text-2xl font-semibold text-white">Context</h3>
+        <p>
+          <!-- Content for Context -->
+          <!-- TODO: Add content for the Context section -->
+        </p>
+      </section>
+
+      <section id="problem">
+        <h3 class="text-2xl font-semibold text-white">Problem</h3>
+        <p>
+          <!-- Content for Problem -->
+          <!-- TODO: Add content for the Problem section -->
+        </p>
+      </section>
+
+      <section id="updateFlow">
+        <h3 class="text-2xl font-semibold text-white">Update Flow</h3>
+        <p>
+          <!-- Content for Update Flow -->
+          <!-- TODO: Add content for the Update Flow section -->
+        </p>
+      </section>
+
+      <section id="layout">
+        <h3 class="text-2xl font-semibold text-white">Layout</h3>
+        <p>
+          <!-- Content for Layout -->
+          <!-- TODO: Add content for the Layout section -->
+        </p>
+      </section>
+
+      <section id="interactions">
+        <h3 class="text-2xl font-semibold text-white">Interactions</h3>
+        <p>
+          <!-- Content for Interactions -->
+          <!-- TODO: Add content for the Interactions section -->
+        </p>
+      </section>
+
+      <section id="visualDesign">
+        <h3 class="text-2xl font-semibold text-white">Visual Design</h3>
+        <p>
+          <!-- Content for Visual Design -->
+          <!-- TODO: Add content for the Visual Design section -->
+        </p>
+      </section>
+
+      <section id="finalDesigns">
+        <h3 class="text-2xl font-semibold text-white">Final Designs</h3>
+        <p>
+          <!-- Content for Final Designs -->
+          <!-- TODO: Add content for the Final Designs section -->
+        </p>
+      </section>
+
+      <section id="retrospective">
+        <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
+        <p>
+          <!-- Content for Retrospective -->
+          <!-- TODO: Add content for the Retrospective section -->
+        </p>
+      </section>
     </div>
-
-    <!-- Scaffolded Sections Start Here -->
-
-    <section id="overview">
-      <h2 class="text-2xl font-semibold text-white">Überblick</h2>
-      <p class="text-white">
-        <!-- Content for Overview -->
-        <!-- TODO: Add content for the Overview section -->
-      </p>
-    </section>
-
-    <section id="highlights">
-      <h2 class="text-2xl font-semibold text-white">Höhepunkte</h2>
-      <p class="text-white">
-        <!-- Content for Highlights -->
-        <!-- TODO: Add content for the Highlights section -->
-      </p>
-    </section>
-
-    <section id="context">
-      <h2 class="text-2xl font-semibold text-white">Kontext</h2>
-      <p class="text-white">
-        <!-- Content for Context -->
-        <!-- TODO: Add content for the Context section -->
-      </p>
-    </section>
-
-    <section id="problem">
-      <h2 class="text-2xl font-semibold text-white">Problem</h2>
-      <p class="text-white">
-        <!-- Content for Problem -->
-        <!-- TODO: Add content for the Problem section -->
-      </p>
-    </section>
-
-    <section id="updateFlow">
-      <h2 class="text-2xl font-semibold text-white">Update-Fluss</h2>
-      <p class="text-white">
-        <!-- Content for Update Flow -->
-        <!-- TODO: Add content for the Update Flow section -->
-      </p>
-    </section>
-
-    <section id="layout">
-      <h2 class="text-2xl font-semibold text-white">Layout</h2>
-      <p class="text-white">
-        <!-- Content for Layout -->
-        <!-- TODO: Add content for the Layout section -->
-      </p>
-    </section>
-
-    <section id="interactions">
-      <h2 class="text-2xl font-semibold text-white">Interaktionen</h2>
-      <p class="text-white">
-        <!-- Content for Interactions -->
-        <!-- TODO: Add content for the Interactions section -->
-      </p>
-    </section>
-
-    <section id="visualDesign">
-      <h2 class="text-2xl font-semibold text-white">Visuelles Design</h2>
-      <p class="text-white">
-        <!-- Content for Visual Design -->
-        <!-- TODO: Add content for the Visual Design section -->
-      </p>
-    </section>
-
-    <section id="finalDesigns">
-      <h2 class="text-2xl font-semibold text-white">Endgültige Designs</h2>
-      <p class="text-white">
-        <!-- Content for Final Designs -->
-        <!-- TODO: Add content for the Final Designs section -->
-      </p>
-    </section>
-
-    <section id="retrospective">
-      <h2 class="text-2xl font-semibold text-white">Retrospektive</h2>
-      <p class="text-white">
-        <!-- Content for Retrospective -->
-        <!-- TODO: Add content for the Retrospective section -->
-      </p>
-    </section>
-
-    <!-- Scaffolded Sections End Here -->
-  </div>
-
-  <style>
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .btn-container {
-      margin: 2rem;
-    }
-
-    section {
-      padding: 2rem;
-      border-bottom: 1px solid #ccc;
-    }
-
-    h2 {
-      margin-bottom: 1rem;
-    }
-
-    p {
-      line-height: 1.6;
-    }
-  </style>
+  </main>
 </Layout>
+
+<style>
+  main {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    width: 1150px;
+    max-width: calc(100% - 2rem);
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 2rem;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    text-align: left;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .btn-container {
+    margin: 2rem;
+  }
+
+  section {
+    padding: 2rem;
+    border-bottom: 1px solid #353535;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1000px) {
+    main {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .content {
+      padding: 0 1rem;
+    }
+
+    .sidebar {
+      display: none;
+    }
+  }
+</style>
