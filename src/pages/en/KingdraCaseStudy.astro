@@ -7,6 +7,8 @@ import Footer from "../../layouts/Footer.astro";
 import Button from "../../components/Button.astro";
 import SideBar from "../../components/SideBar.astro";
 import ProjectDescription from "../../components/ProjectDescription.astro";
+import PokeDraft from "../../images/pokedraft.png";
+import { Image } from "astro:assets";
 
 changeLanguage("en");
 
@@ -39,7 +41,7 @@ const sidebarItems = [
         A Comprehensive Tool for Building and Managing Pokemon Teams, June 2024
       </h2>
 
-      <img src="../images/pokedraft.png" alt="Kingdra Teambuilder" />
+      <Image class="mt-8" src={PokeDraft} alt="Kingdra Teambuilder" />
 
       <ProjectDescription
         projectRole={["Software Engineering", "Product Design"]}
