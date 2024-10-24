@@ -6,6 +6,8 @@ import Footer from "../layouts/Footer.astro";
 import Button from "../components/Button.astro";
 import SideBar from "../components/SideBar.astro";
 import ProjectDescription from "../components/ProjectDescription.astro";
+import PokeDraft from "../images/pokedraft.png";
+import { Image } from "astro:assets";
 
 const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
@@ -36,11 +38,13 @@ const sidebarItems = [
         A Comprehensive Tool for Building and Managing Pokemon Teams, June 2024
       </h2>
 
+      <Image class="mt-8" src={PokeDraft} alt="Kingdra Teambuilder" />
+
       <ProjectDescription
-        projectRole={["..."]}
-        team={["..."]}
-        tools={["..."]}
-        timeline={["..."]}
+        projectRole={["Software Engineering", "Product Design"]}
+        team={["Solo"]}
+        tools={["Next.js", "Tailwind", ""]}
+        timeline={["Ongoing"]}
       />
 
       <!-- Scaffolded Sections Start Here -->
