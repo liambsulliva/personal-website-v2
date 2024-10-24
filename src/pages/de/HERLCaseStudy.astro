@@ -8,6 +8,7 @@ import Button from "../../components/Button.astro";
 import SideBar from "../../components/SideBar.astro";
 // @ts-ignore
 import Book from "../../components/Book.svelte";
+import ProjectDescription from "../../components/ProjectDescription.astro";
 
 changeLanguage("de");
 
@@ -40,6 +41,8 @@ const sidebarItems = [
       </h2>
 
       <Book client:load />
+
+      <ProjectDescription />
 
       <!-- Scaffolded Sections Start Here -->
 

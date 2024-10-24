@@ -1,0 +1,31 @@
+---
+interface Props {
+  projectRole: string;
+  team: string;
+  skills: string;
+  timeline: string;
+}
+
+const { projectRole, team, skills, timeline }: Props = Astro.props;
+---
+
+<div
+  class="mx-auto grid h-36 grid-cols-1 items-center justify-between gap-4 md:grid-cols-2 lg:grid-cols-4"
+>
+  <div class="flex flex-col items-center">
+    <h2 class="font-semibold text-white">Project Role</h2>
+    <p>{projectRole}</p>
+  </div>
+  <div class="flex flex-col items-center">
+    <h2 class="font-semibold text-white">Team</h2>
+    <p>{team}</p>
+  </div>
+  <div class="flex flex-col items-center">
+    <h2 class="font-semibold text-white">Skills</h2>
+    <p>{skills}</p>
+  </div>
+  <div class="flex flex-col items-center">
+    <h2 class="font-semibold text-white">Timeline</h2>
+    <p>{timeline}</p>
+  </div>
+</div>
