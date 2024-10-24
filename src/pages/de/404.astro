@@ -1,0 +1,19 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { t, changeLanguage } from "i18next";
+import { Trans } from "astro-i18next/components";
+
+changeLanguage("de");
+---
+
+<Layout title="Page Not Found...">
+  <div class="flex flex-col items-center gap-2">
+    <Trans i18nKey="404.header"><h1 class="mb-2">Uh oh...</h1></Trans>
+    <Trans i18nKey="404.content"
+      ><p>That page doesn't exist. Let's get you back home.</p></Trans
+    >
+    <Trans i18nKey="404.link"
+      ><a href="/" class="text-link m-8">Click Here</a></Trans
+    >
+  </div>
+</Layout>
