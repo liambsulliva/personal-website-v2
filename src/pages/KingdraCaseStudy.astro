@@ -51,78 +51,103 @@ const sidebarItems = [
 
       <!-- Scaffolded Sections Start Here -->
 
-      <section class="pb-10 pt-10" id="overview">
+      <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
         <h3 class="text-2xl font-semibold text-white">Overview</h3>
-        <p>
-          The Kingdra Pokemon Teambuilder is a sophisticated application
-          designed to assist both casual and competitive Pokemon players in
-          constructing and managing their teams. Leveraging modern web
-          technologies such as NextJS and TypeScript, the project focuses on
-          providing an interactive and user-friendly interface that caters to
-          various aspects of team building, including type coverage, move
-          selection, and team optimization.
-        </p>
-      </section>
-
-      <section id="highlights">
-        <h3 class="text-2xl font-semibold text-white">Highlights</h3>
-        <ul>
-          <li>
-            Developed a responsive and interactive user interface using NextJS,
-            TypeScript, and TailwindCSS.
-          </li>
-          <li>
-            Implemented type coverage calculations to optimize team
-            effectiveness.
-          </li>
-          <li>
-            Integrated various components like Move Selectors, Ability
-            Selectors, and Level Adjusters for comprehensive team management.
-          </li>
-          <li>
-            Utilized APIs to fetch real-time Pokemon data and Smogon tier
-            information.
-          </li>
-          <li>
-            Ensured seamless state management with React Hooks and API Routes.
-          </li>
-        </ul>
+        <div>
+          <p>
+            Following the creation of my Pokemon Teambuilder in June, users
+            testing the web app on their phone ran into a significantly higher
+            rate of bugs and grievances compared to their peers on desktop
+            platforms. Mobile was an afterthought during the initial development
+            process.
+          </p>
+          <br />
+          <p>
+            I tasked myself with rebuilding the UI for mobile devices, reducing
+            the cost of interaction and easing the cognitive load for users that
+            want to use the application on the go.
+          </p>
+          <br />
+          <p>
+            These improvements reduced the overall scrolling time between UI
+            elements and significantly reduced time to select Pokémon for a
+            given team.
+          </p>
+        </div>
       </section>
 
       <section id="context">
         <h3 class="text-2xl font-semibold text-white">Context</h3>
         <p>
-          The project was initiated to create a robust teambuilder tool that
-          addresses the needs of Pokemon enthusiasts. Existing tools lacked
-          comprehensive features and user-friendly interfaces, prompting the
-          need for a solution that combines functionality with ease of use. The
-          Kingdra Pokemon Teambuilder aims to fill this gap by offering a
-          platform that supports detailed team customization, strategic
-          planning, and performance analysis.
+          In June of 2024, I started development for this Pokémon Teambuilder
+          project as a way to learn Next.js and build my first real full-stack
+          application. The project was a lot of trial and error, and I spent a
+          ton of time linking up database schemas, calling APIs, and writing the
+          core logic that allowed the Teambuilder to mimic the math that the
+          core Pokémon games use to calculate stats. After deploying the app, I
+          enlisted the help of my Pokémon fan friends to test the app. One
+          problem was clear <strong>immediately</strong>.
+        </p>
+        <br />
+
+        <h2 class="text-white">
+          The mobile experience was absolutely horrendous.
+        </h2>
+        <p>
+          They initially tested the app on their phones, because why wouldn't
+          they? Mobile users make up over 60% of internet traffic. Many of them
+          were running errands when I posted the question in the discord, and
+          thought they could check it out really quick on their break. The
+          interface forced them to scroll for entire seconds to find the Pokémon
+          they were looking to find, and the infinite scrolling feature
+          significantly favored desktop users, who could leverage the width of
+          the screen to quickly scan for the Pokémon they wanted.
+        </p>
+        <br />
+        <p>
+          The message was loud and clear. The UI needed to be rebuilt with
+          portable devices in mind.
         </p>
       </section>
 
       <section id="problem">
-        <h3 class="text-2xl font-semibold text-white">Problem</h3>
-        <p>The main challenges included:</p>
-        <ul>
-          <li>
-            Providing accurate type coverage analysis to assist in strategic
-            team building.
-          </li>
-          <li>
-            Ensuring real-time synchronization with external APIs for up-to-date
-            Pokemon data.
-          </li>
-          <li>
-            Maintaining optimal performance despite the complexity of
-            calculations and interactive features.
-          </li>
-          <li>
-            Designing an intuitive user interface that caters to both beginners
-            and advanced players.
-          </li>
-        </ul>
+        <h3 class="text-2xl font-semibold text-white">Roadblocks</h3>
+        <p>There were a few constraints.</p>
+        <div class="card-container">
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">Component Libraries</h4>
+            <p>
+              I used the <code>Flowbite</code> component library to build the UI.
+              This saved me a lot of time initially, but locked me into an inflexible
+              ecosystem that hindered my ability to design the page responsively.
+              The opportunity cost of switching off this UI library was too high.
+              I would need to work within their framework for my redesign.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">The S-Curve Design</h4>
+            <p>
+              I initially designed the UI with an S-Curve design to make the
+              elements easy to track for users on desktops. This was a
+              miscalculation on my part, as it meant that the interface would be
+              significantly hindered on screens without significant horizontal
+              real-estate.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Lack of Dimensionality
+            </h4>
+            <p>
+              Native smartphone applications often stack elements on top of one
+              another to function. Whether it be through modals or additional
+              pages, mobile UIs work best when elements are stacked on one
+              another. Unfortunately, the flat design and reliance on infinite
+              scrolling made the app difficult to adapt to mobile simply by
+              moving elements around on the page.
+            </p>
+          </div>
+        </div>
       </section>
 
       <section id="updateFlow">
