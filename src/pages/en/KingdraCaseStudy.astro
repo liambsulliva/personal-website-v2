@@ -14,10 +14,9 @@ changeLanguage("en");
 
 const sidebarItems = [
     { i18nKey: "caseStudy.overview", href: "#overview" },
-    { i18nKey: "caseStudy.highlights", href: "#highlights" },
     { i18nKey: "caseStudy.context", href: "#context" },
-    { i18nKey: "caseStudy.problem", href: "#problem" },
-    { i18nKey: "caseStudy.updateFlow", href: "#updateFlow" },
+    { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
+    { i18nKey: "caseStudy.proposals", href: "#proposals" },
     { i18nKey: "caseStudy.layout", href: "#layout" },
     { i18nKey: "caseStudy.interactions", href: "#interactions" },
     { i18nKey: "caseStudy.visualDesign", href: "#visualDesign" },
@@ -113,9 +112,10 @@ const sidebarItems = [
         </p>
       </section>
 
-      <section id="problem">
+      <section id="roadblocks">
         <h3 class="text-2xl font-semibold text-white">Roadblocks</h3>
         <p>There were a few constraints.</p>
+        <br />
         <div class="card-container">
           <div class="card">
             <h4 class="text-xl font-medium text-white">Component Libraries</h4>
@@ -147,358 +147,132 @@ const sidebarItems = [
               pages, mobile UIs work best when elements are stacked on one
               another. Unfortunately, the flat design and reliance on infinite
               scrolling made the app difficult to adapt to mobile simply by
-              moving elements around on the page.
+              shifting elements around on the page.
             </p>
           </div>
+          <!--
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Interactivity on Hover
+            </h4>
+            <p>
+              Since this application was initially designed with desktop users
+              in mind, it includes a lot of buttons that were only accessible
+              to users with working mice.
+            </p>
+          </div>
+          -->
         </div>
+        <p>
+          I needed to take an already dense UI, by desktop standards, and
+          transform it to feel at home on smaller devices without losing
+          functionality.
+        </p>
       </section>
 
-      <section id="updateFlow">
-        <h3 class="text-2xl font-semibold text-white">Update Flow</h3>
-        <div class="card-container">
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Week 1: Planning and Setup
-            </h4>
-            <p>
-              The initial phase involved setting up the project structure using
-              Astro and integrating React for component management. Key
-              decisions included using TypeScript for type safety and selecting
-              Flowbite for UI components to expedite development.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Week 2: Core Functionality Development
-            </h4>
-            <p>
-              Focused on developing core components such as <code
-                >TypeCoverage.tsx</code
-              > and <code>PokeFinder.tsx</code>. Implemented type coverage
-              algorithms to evaluate team strengths and weaknesses.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Week 3: API Integration and Optimization
-            </h4>
-            <p>
-              Integrated external APIs like PokeAPI and Smogon to fetch
-              real-time Pokemon data and tier information. Optimized data
-              fetching mechanisms to ensure minimal latency and efficient state
-              management.
-            </p>
-          </div>
+      <section id="proposals">
+        <h3 class="text-2xl font-semibold text-white">Navigation Proposals</h3>
+        <p>
+          There were a couple ways to do this, each with their own set of
+          problems.
+        </p>
+        <div>
+          <h2>IOS-like Tab Bar</h2>
+          <p>Pros: Easily accessible for one-handed use</p>
+          <p>
+            Cons: Clunky, Can't see added Pokémon, Not enough UI
+            elements/settings to fill 3+ pages
+          </p>
         </div>
-      </section>
-
-      <section id="layout">
-        <h3 class="text-2xl font-semibold text-white">Layout</h3>
-        <div class="card-container">
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Responsive Design</h4>
-            <p>
-              The application features a fully responsive layout, ensuring
-              usability across various devices and screen sizes. Utilized CSS
-              Flexbox and Grid for flexible component arrangement.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Component-Based Architecture
-            </h4>
-            <p>
-              Adopted a component-based architecture to promote reusability and
-              maintainability. Key components include <code>PokeParty.tsx</code
-              >, <code>MoveSelect.tsx</code>, and <code>PokeFinder.tsx</code>.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Sidebar Navigation</h4>
-            <p>
-              Implemented a sidebar for easy navigation between different
-              sections of the teambuilder. The sidebar dynamically updates based
-              on user interactions and current focus.
-            </p>
-          </div>
+        <div>
+          <h2>Material Design</h2>
+          <p>Pros:</p>
+          <p>Cons:</p>
         </div>
       </section>
 
       <section id="interactions">
-        <h3 class="text-2xl font-semibold text-white">Interactions</h3>
+        <h3 class="text-2xl font-semibold text-white">Interactivity Tweaks</h3>
         <div class="row-card-container">
           <div class="row-card">
             <h4 class="text-xl font-medium text-white">
-              Dynamic Type Coverage
+              Reduce Reliance on Hover
             </h4>
             <p>
-              The <code>TypeCoverage.tsx</code> component dynamically calculates
-              and displays the team's type strengths and weaknesses, providing users
-              with actionable insights for optimization.
+              Mobile users don't want signifiers of interactivity on hover. This
+              is because hover states are not easily accessible on touch
+              devices, and can lead to confusion and frustration for users.
+              Therefore, it's important to design interactions that are clear
+              and intuitive, without relying on hover states. In addition, it's
+              crucial to consider the diversity of mobile devices and their
+              capabilities. Some devices may not support hover states at all,
+              while others may have limited support. Designing interactions that
+              work across a wide range of devices and screen sizes is essential
+              for a seamless user experience.
             </p>
-            <pre>
-{`const TypeCoverage = ({
-  pokemonParty,
-  selectedTeam,
-  setEnableToast,
-}: TypeCoverageProps): JSX.Element => {
-  const [defensiveCoverage, setDefensiveCoverage] = useState<Record<string, number>>({});
-  const [offensiveCoverage, setOffensiveCoverage] = useState<Record<string, number>>({});
-  // ... Additional state and logic
-
-  useEffect(() => {
-    // Calculate defensive and offensive coverage
-  }, [pokemonInfoList, movesList]);
-
-  return (
-    <div className='flex gap-4 max-md:flex-col'>
-      {/* Offensive Spread */}
-      <div className='relative rounded bg-stone-50 p-4 md:w-1/2'>
-        <h3 className='p-2 pb-4 text-center font-semibold'>Offensive Spread</h3>
-        {/* Tooltip and Grid Display */}
-      </div>
-      {/* Defensive Spread */}
-      <div className='relative rounded bg-stone-50 p-4 md:w-1/2'>
-        <h3 className='p-2 pb-4 text-center font-semibold'>Defensive Spread</h3>
-        {/* Tooltip and Grid Display */}
-      </div>
-    </div>
-  );
-};
-export default TypeCoverage;`}</pre>
           </div>
           <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Move Selection and Validation
-            </h4>
+            <h4 class="text-xl font-medium text-white">Action Feedback</h4>
             <p>
-              The <code>MoveSelect.tsx</code> component allows users to select and
-              validate moves for each Pokemon, ensuring compliance with game rules
-              and strategic diversity.
+              Mobile users often struggle to perceive the effects of their
+              actions on a touchscreen device. This is because the tactile
+              feedback and visual cues that are present on desktop devices, such
+              as a mouse cursor changing shape or a button's state changing, are
+              not as pronounced on mobile devices. To address this, it's
+              essential to design interactions that provide clear and immediate
+              feedback to the user, ensuring they understand the outcome of
+              their actions. This can be achieved through visual cues like
+              animations, color changes, or text updates that clearly indicate
+              the result of a user's interaction. By doing so, mobile users can
+              confidently navigate and interact with the application, even
+              without the visual feedback provided by a mouse.
             </p>
-            <pre>
-{`const MoveSelect = ({
-  selectedPokemon,
-  pokemonParty,
-  setPokemonParty,
-  selectedTeam,
-}: MoveSelectProps) => {
-  const [selectedMove, setSelectedMove] = useState<string>('');
-
-  const handleMoveChange = (move: string) => {
-    setSelectedMove(move);
-    setPokemonParty(prevParty => {
-      const newParty = [...prevParty];
-      newParty[selectedTeam][selectedPokemon].moves = [
-        ...newParty[selectedTeam][selectedPokemon].moves,
-        move,
-      ].slice(0, 4); // Limit to 4 moves
-      return newParty;
-    });
-  };
-
-  return (
-    <div className='move-select'>
-      {/* Move selection logic */}
-    </div>
-  );
-};
-export default MoveSelect;`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Ability Selection with Tooltips
-            </h4>
-            <p>
-              The <code>PokemonAbilitySelector.tsx</code> component enables users
-              to select abilities for their Pokemon, featuring tooltips that provide
-              detailed ability descriptions.
-            </p>
-            <pre>
-{`
-const PokemonAbilitySelector: React.FC<PokemonAbilitySelectorProps> = ({
-  pokemonInfo,
-  pokemonParty,
-  selectedTeam,
-  selectedPokemon,
-  setPokemonParty,
-}) => {
-  const handleAbilitySelect = useCallback(
-    (abilityName: string) => {
-      setPokemonParty(prevParty => {
-        const newParty = [...prevParty];
-        newParty[selectedTeam][selectedPokemon].ability = abilityName;
-        return newParty;
-      });
-    },
-    [selectedTeam, selectedPokemon, setPokemonParty]
-  );
-
-  return (
-    <div className='ability-selector'>
-      {/* Ability selection logic with tooltips */}
-    </div>
-  );
-};
-export default PokemonAbilitySelector;
-`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Level Management</h4>
-            <p>
-              The <code>LevelSelect.tsx</code> component allows users to input and
-              validate Pokemon levels, ensuring they remain within permissible ranges.
-            </p>
-            <pre>
-{`
-const LevelSelect = ({
-  selectedPokemon,
-  pokemonParty,
-  setPokemonParty,
-  selectedTeam,
-}: LevelSelectProps) => {
-  const [levelInput, setLevelInput] = useState<string>('');
-  const [levelError, setLevelError] = useState<string>('');
-
-  useEffect(() => {
-    if (pokemonParty[selectedTeam][selectedPokemon]?.level) {
-      setLevelInput(pokemonParty[selectedTeam][selectedPokemon].level.toString());
-    } else {
-      setLevelInput('');
-    }
-  }, [selectedPokemon, selectedTeam, pokemonParty]);
-
-  const validateAndSetLevel = (level: number) => {
-    if (level >= 1 && level <= 100) {
-      setPokemonParty(prevParty => {
-        const newParty = [...prevParty];
-        newParty[selectedTeam][selectedPokemon].level = level;
-        return newParty;
-      });
-      setLevelError('');
-      return true;
-    } else {
-      setLevelError('Level must be between 1 and 100');
-      return false;
-    }
-  };
-
-  return (
-    <div className='level-select'>
-      {/* Level input and validation */}
-    </div>
-  );
-};
-export default LevelSelect;
-`}</pre>
           </div>
         </div>
       </section>
 
       <section id="visualDesign">
-        <h3 class="text-2xl font-semibold text-white">Visual Design</h3>
+        <h3 class="text-2xl font-semibold text-white">Visual Adaptations</h3>
         <div class="card-container">
           <div class="card">
-            <h4 class="text-xl font-medium text-white">Color Palette</h4>
+            <h4 class="text-xl font-medium text-white">Margins</h4>
             <p>
-              Developed a cohesive color palette that aligns with the Pokemon
-              theme. Utilized type colors to represent different Pokemon types,
-              enhancing visual clarity and user experience.
+              Margins needed to be radically cut to fit as much information into
+              the modals as possible. The original mobile adaptation had
+              character-size margins on every container, making for a
+              clausterphobic experience.
             </p>
+            <p>X - Image 1</p>
+            <p>Check - Image 2</p>
           </div>
+
           <div class="card">
-            <h4 class="text-xl font-medium text-white">Typography</h4>
+            <h4 class="text-xl font-medium text-white">PWA Migration</h4>
             <p>
-              Selected fonts that balance readability with aesthetic appeal.
-              Employed varying font sizes and weights to establish a clear
-              hierarchy and guide user interactions.
+              The Kingdra Teambuilder app's transition to a Progressive Web App
+              (PWA) significantly enhanced the mobile user experience. PWAs
+              provide a native app-like experience with seamless interaction,
+              home screen installation, and offline capabilities. This allows
+              users to manage their Pokémon teams without an internet
+              connection, making the app more accessible and convenient. PWAs
+              also offer faster load times, improved performance, and enhanced
+              security features. The transition to a PWA has greatly improved
+              the mobile user experience, offering a more immersive, accessible,
+              and engaging interaction with the app.
             </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Imagery and Icons</h4>
-            <p>
-              Incorporated high-quality sprites and custom icons to represent
-              Pokemon, abilities, and moves. This visual representation aids
-              users in quickly identifying and selecting team components.
-            </p>
+            <p>X - Image 1</p>
+            <p>Check - Image 2</p>
           </div>
         </div>
       </section>
 
       <section id="finalDesigns">
-        <h3 class="text-2xl font-semibold text-white">Final Designs</h3>
+        <h3 class="text-2xl font-semibold text-white">User Flow</h3>
+        <p>So how does this all come together?</p>
+        <br />
         <div class="row-card-container">
           <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Desktop Version</h4>
-            <p>
-              The desktop version showcases the full feature set of the
-              teambuilder, including detailed type coverage, ability selection,
-              and move optimization tools. The layout leverages ample screen
-              space for a comprehensive overview.
-            </p>
-            <pre>
-{`
-const PokeFinder = ({
-  gameMode,
-  setPokemonParty,
-  setEnableToast,
-  selectedTeam,
-}: PokeFinderProps) => {
-  // Component logic for fetching and displaying Pokemon
-  return (
-    <div className='poke-finder'>
-      {/* Search and filter functionalities */}
-      {/* Display of Pokemon cards */}
-    </div>
-  );
-};
-export default PokeFinder;
-`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Mobile Adaptation</h4>
-            <p>
-              Optimized the layout for mobile devices by implementing responsive
-              design principles. Ensured that essential features remain
-              accessible and the interface remains intuitive on smaller screens.
-            </p>
-            <pre>
-{`
-const PokeParty = ({
-  pokemonParty,
-  teamNames,
-  setTeamNames,
-  setPokemonParty,
-  setSelectedPokemon,
-  setEnableToast,
-  selectedTeam,
-  setNumTeams,
-}: PokePartyProps) => {
-  return (
-    <div className='poke-party'>
-      {/* Display of Pokemon slots */}
-      {/* Team management functionalities */}
-    </div>
-  );
-};
-export default PokeParty;
-`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Embedded Version</h4>
-            <p>
-              Tuned the final design for embedding within other platforms or
-              websites. Ensured that performance remains optimal and the
-              interface integrates seamlessly with varying host environments.
-            </p>
-            <pre>
-{`
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  // API logic for fetching and serving Pokemon data
-  res.status(200).json({ pokemonData: filteredPokemonData });
-};
-export default handler;
-`}</pre>
+            <h2>Image</h2>
           </div>
         </div>
       </section>
@@ -506,51 +280,50 @@ export default handler;
       <section id="retrospective">
         <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
         <p>
-          The Kingdra Pokemon Teambuilder project successfully delivered a
-          feature-rich application that meets the needs of both casual and
-          competitive players. Reflecting on the development process, several
-          key learnings emerged:
+          The Kingdra Pokemon Teambuilder redesign was a rewarding experience,
+          especially in overcoming the challenges of adapting a dense desktop UI
+          for mobile without sacrificing core functionality. Key takeaways from
+          the project include:
         </p>
+        <br />
         <ul>
           <li>
-            <strong>Technology Selection:</strong> Choosing the right combination
-            of frameworks and libraries, such as React and Astro, facilitated a seamless
-            development experience and a performant end product.
+            <strong>Design Flexibility:</strong> Working within the constraints of
+            the
+            <code>Flowbite</code> component library highlighted the importance of
+            selecting adaptable tools for cross-platform applications, and the tradeoffs
+            of relying on predefined component systems.
           </li>
           <li>
-            <strong>API Integration:</strong> Efficiently integrating multiple APIs
-            required robust error handling and data normalization to ensure consistency
-            across the application.
+            <strong>Mobile-Centric UX:</strong> Reimagining navigation and interactions
+            with mobile in mind underscored the significance of gesture-friendly
+            elements, avoiding hover-based functionality, and minimizing scroll times.
           </li>
           <li>
-            <strong>User Experience:</strong> Prioritizing responsive design and
-            intuitive interactions significantly enhanced user satisfaction and engagement.
+            <strong>Iterative Testing:</strong> Consistently testing with mobile
+            users was crucial in identifying and refining areas like responsiveness
+            and interactive feedback, helping build a more cohesive experience.
           </li>
           <li>
-            <strong>State Management:</strong> Implementing effective state management
-            strategies using React Hooks and Context API ensured scalability and
-            maintainability as the project grew.
-          </li>
-          <li>
-            <strong>Iterative Development:</strong> Adopting an iterative approach
-            allowed for continuous testing and refinement, leading to a polished
-            final product.
+            <strong>PWA Benefits:</strong> Transitioning to a PWA was transformative,
+            enabling offline access, faster load times, and a more app-like experience.
+            This added an entirely new layer of functionality for mobile users.
           </li>
         </ul>
         <br />
-        <p>Future Improvements could include:</p>
+        <p>Future Considerations:</p>
         <ul>
           <li>
-            Enhancing the move and ability recommendation algorithms with
-            machine learning techniques.
+            Further enhancement of the UI with more custom components to improve
+            flexibility.
           </li>
           <li>
-            Expanding the application's compatibility with additional Pokemon
-            game formats and rulesets.
+            Experimenting with machine learning for smarter Pokemon
+            recommendations tailored to user preferences and competitive trends.
           </li>
           <li>
-            Incorporating user feedback mechanisms to continuously adapt and
-            improve features.
+            Adding more adaptive content and supporting features for additional
+            game formats, expanding the application's scope.
           </li>
         </ul>
       </section>

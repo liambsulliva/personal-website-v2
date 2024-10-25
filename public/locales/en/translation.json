@@ -59,10 +59,9 @@
   },
   "caseStudy": {
     "overview": "<0>Overview</0>",
-    "highlights": "<0>Highlights</0>",
     "context": "<0>Context</0>",
-    "problem": "<0>The Problem</0>",
-    "updateFlow": "<0>Update Flow</0>",
+    "roadblocks": "<0>Roadblocks</0>",
+    "proposals": "<0>Proposals</0>",
     "layout": "<0>Layout</0>",
     "interactions": "<0>Interactions</0>",
     "visualDesign": "<0>Visual Design</0>",
