@@ -40,35 +40,48 @@ const sidebarItems = [
 
       <Image class="mt-8" src={PokeDraft} alt="Kingdra Teambuilder" />
 
-      <ProjectDescription
-        projectRole={["Software Engineering", "Product Design"]}
-        team={["Solo"]}
-        tools={["Next.js", "TypeScript", "Tailwind", "Clerk", "MongoDB"]}
-        timeline={["Ongoing"]}
-      />
+      <div class="flex justify-center">
+        <ProjectDescription
+          projectRole={["Software Engineering", "Product Design"]}
+          team={["Solo"]}
+          tools={["Next.js", "TypeScript", "Tailwind", "Clerk", "MongoDB"]}
+          timeline={["Ongoing"]}
+        />
+      </div>
 
       <!-- Scaffolded Sections Start Here -->
 
-      <section class="pb-10 pt-10" id="overview">
-        <h3 class="text-2xl font-semibold text-white">Overview</h3>
-        <p>
-          My friends and I back home in Virginia host a biannual Pokèmon Draft
-          League. Like it sounds, it's a fantasy league, but for Pokèmon instead
-          of football or some other traditional sport. In the spring of 2024, I
-          was looking for a project to help me learn Next.js, so I decided to
-          create a little application that tracks the point values that you have
-          and automatically subtracts those points based on which Pokèmon you
-          draft. It worked well enough, and it eased the cognitive load of
-          trying to track point values AND construct hypothetical teams while
-          your opponents are picking in real-time.
-        </p>
-        <br />
-        <p>
-          After building this, I started to notice that the Pokèmon Teambuilders
-          that exist on the market today are pretty lackluster. So, I decided to
-          take the opportunity to transform the project into a full-fledged
-          Pokèmon Teambuilder. That's how I landed on <strong>Kingdra</strong>.
-        </p>
+      <section
+        class="flex flex-col justify-between md:flex-row md:gap-24"
+        id="overview"
+      >
+        <h3 class="text-2xl font-semibold text-white">Context</h3>
+        <div class="">
+          <p>
+            My friends and I back home in Virginia host a biannual Pokémon Draft
+            League. Like it sounds, it's a fantasy league, but for Pokémon
+            instead of football or some other traditional sport.
+          </p>
+          <br />
+          <p>
+            In the spring of 2024, I was looking for a project to help me learn
+            Next.js, so I decided to create a little application that tracks the
+            point values that you have and automatically subtracts those points
+            based on which Pokémon you draft. It worked well enough, and it
+            eased the cognitive load of trying to track point values AND
+            construct hypothetical teams while your opponents are picking in
+            real-time.
+          </p>
+          <br />
+          <p>
+            After building this, I started to notice that the Pokémon
+            Teambuilders that exist on the market today are pretty lackluster.
+            So, I decided to take the opportunity to transform the project into
+            a full-fledged Pokémon Teambuilder. That's how I landed on <strong
+              >Kingdra</strong
+            >.
+          </p>
+        </div>
       </section>
 
       <section id="highlights">
@@ -95,7 +108,7 @@ const sidebarItems = [
               Many existing tools do not cater to both casual and competitive
               players. Kingdra aims to address these gaps by providing a robust
               platform that not only enhances the user experience, but meets the
-              needs of all Pokèmon players.
+              needs of all Pokémon players.
             </p>
           </div>
           <div class="card">
@@ -112,11 +125,11 @@ const sidebarItems = [
             >
             <h4 class="text-xl font-medium text-white">Cloud Sync</h4>
             <p>
-              Pokèmon Showdown is infamous for lacking cloud storage. Users
-              traditionally needed to export their Pokèmon as a text file to
+              Pokémon Showdown is infamous for lacking cloud storage. Users
+              traditionally needed to export their Pokémon as a text file to
               re-import on other computers, as the data for teams is cached in
-              localStorage. I believe this is a half baked solution, and Pokèmon
-              fans deserve better.
+              <code>localStorage</code>. I believe this is a half baked
+              solution, and Pokémon fans deserve better.
             </p>
           </div>
           <div class="card">
@@ -136,7 +149,7 @@ const sidebarItems = [
             </h4>
             <p>
               Modern Pokémon teambuilders often include insights into what types
-              a team is weakest to, but none analyze each Pokèmon's attacking
+              a team is weakest to, but none analyze each Pokémon's attacking
               moves to determine which types the team can't cover. Kingdra
               addresses this in its <code>TypeCoverage</code> component (desktop
               exclusive).
@@ -145,302 +158,64 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="context">
-        <h3 class="text-2xl font-semibold text-white">Context</h3>
-        <p>
-          The project was initiated to create a robust teambuilder tool that
-          addresses the needs of Pokemon enthusiasts. Existing tools lacked
-          comprehensive features and user-friendly interfaces, prompting the
-          need for a solution that combines functionality with ease of use. The
-          Kingdra Pokemon Teambuilder aims to fill this gap by offering a
-          platform that supports detailed team customization, strategic
-          planning, and performance analysis.
-        </p>
-      </section>
-
       <section id="problem">
-        <h3 class="text-2xl font-semibold text-white">Problem</h3>
-        <p>The main challenges included:</p>
-        <ul>
-          <li>
-            Providing accurate type coverage analysis to assist in strategic
-            team building.
-          </li>
-          <li>
-            Ensuring real-time synchronization with external APIs for up-to-date
-            Pokemon data.
-          </li>
-          <li>
-            Maintaining optimal performance despite the complexity of
-            calculations and interactive features.
-          </li>
-          <li>
-            Designing an intuitive user interface that caters to both beginners
-            and advanced players.
-          </li>
-        </ul>
-      </section>
-
-      <section id="updateFlow">
-        <h3 class="text-2xl font-semibold text-white">Update Flow</h3>
-        <div class="card-container">
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Week 1: Planning and Setup
-            </h4>
-            <p>
-              The initial phase involved setting up the project structure using
-              Astro and integrating React for component management. Key
-              decisions included using TypeScript for type safety and selecting
-              Flowbite for UI components to expedite development.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Week 2: Core Functionality Development
-            </h4>
-            <p>
-              Focused on developing core components such as <code
-                >TypeCoverage.tsx</code
-              > and <code>PokeFinder.tsx</code>. Implemented type coverage
-              algorithms to evaluate team strengths and weaknesses.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Week 3: API Integration and Optimization
-            </h4>
-            <p>
-              Integrated external APIs like PokeAPI and Smogon to fetch
-              real-time Pokemon data and tier information. Optimized data
-              fetching mechanisms to ensure minimal latency and efficient state
-              management.
-            </p>
-          </div>
-        </div>
+        <h3 class="text-2xl font-semibold text-white">Research & Planning</h3>
+        <p>Lorem ipsum dolor sit amet...</p>
       </section>
 
       <section id="layout">
         <h3 class="text-2xl font-semibold text-white">Layout</h3>
-        <div class="card-container">
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Responsive Design</h4>
-            <p>
-              The application features a fully responsive layout, ensuring
-              usability across various devices and screen sizes. Utilized CSS
-              Flexbox and Grid for flexible component arrangement.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Component-Based Architecture
-            </h4>
-            <p>
-              Adopted a component-based architecture to promote reusability and
-              maintainability. Key components include <code>PokeParty.tsx</code
-              >, <code>MoveSelect.tsx</code>, and <code>PokeFinder.tsx</code>.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Sidebar Navigation</h4>
-            <p>
-              Implemented a sidebar for easy navigation between different
-              sections of the teambuilder. The sidebar dynamically updates based
-              on user interactions and current focus.
-            </p>
-          </div>
-        </div>
+        <p>The layout was designed to follow an S-curve.</p>
       </section>
 
       <section id="interactions">
-        <h3 class="text-2xl font-semibold text-white">Interactions</h3>
-        <div class="row-card-container">
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Dynamic Type Coverage
-            </h4>
-            <p>
-              The <code>TypeCoverage.tsx</code> component dynamically calculates
-              and displays the team's type strengths and weaknesses, providing users
-              with actionable insights for optimization.
-            </p>
-            <pre>
-{`const TypeCoverage = ({
-  pokemonParty,
-  selectedTeam,
-  setEnableToast,
-}: TypeCoverageProps): JSX.Element => {
-  const [defensiveCoverage, setDefensiveCoverage] = useState<Record<string, number>>({});
-  const [offensiveCoverage, setOffensiveCoverage] = useState<Record<string, number>>({});
-  // ... Additional state and logic
-
-  useEffect(() => {
-    // Calculate defensive and offensive coverage
-  }, [pokemonInfoList, movesList]);
-
-  return (
-    <div className='flex gap-4 max-md:flex-col'>
-      {/* Offensive Spread */}
-      <div className='relative rounded bg-stone-50 p-4 md:w-1/2'>
-        <h3 className='p-2 pb-4 text-center font-semibold'>Offensive Spread</h3>
-        {/* Tooltip and Grid Display */}
-      </div>
-      {/* Defensive Spread */}
-      <div className='relative rounded bg-stone-50 p-4 md:w-1/2'>
-        <h3 className='p-2 pb-4 text-center font-semibold'>Defensive Spread</h3>
-        {/* Tooltip and Grid Display */}
-      </div>
-    </div>
-  );
-};
-export default TypeCoverage;`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Move Selection and Validation
-            </h4>
-            <p>
-              The <code>MoveSelect.tsx</code> component allows users to select and
-              validate moves for each Pokemon, ensuring compliance with game rules
-              and strategic diversity.
-            </p>
-            <pre>
-{`const MoveSelect = ({
-  selectedPokemon,
-  pokemonParty,
-  setPokemonParty,
-  selectedTeam,
-}: MoveSelectProps) => {
-  const [selectedMove, setSelectedMove] = useState<string>('');
-
-  const handleMoveChange = (move: string) => {
-    setSelectedMove(move);
-    setPokemonParty(prevParty => {
-      const newParty = [...prevParty];
-      newParty[selectedTeam][selectedPokemon].moves = [
-        ...newParty[selectedTeam][selectedPokemon].moves,
-        move,
-      ].slice(0, 4); // Limit to 4 moves
-      return newParty;
-    });
-  };
-
-  return (
-    <div className='move-select'>
-      {/* Move selection logic */}
-    </div>
-  );
-};
-export default MoveSelect;`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Ability Selection with Tooltips
-            </h4>
-            <p>
-              The <code>PokemonAbilitySelector.tsx</code> component enables users
-              to select abilities for their Pokemon, featuring tooltips that provide
-              detailed ability descriptions.
-            </p>
-            <pre>
-{`
-const PokemonAbilitySelector: React.FC<PokemonAbilitySelectorProps> = ({
-  pokemonInfo,
-  pokemonParty,
-  selectedTeam,
-  selectedPokemon,
-  setPokemonParty,
-}) => {
-  const handleAbilitySelect = useCallback(
-    (abilityName: string) => {
-      setPokemonParty(prevParty => {
-        const newParty = [...prevParty];
-        newParty[selectedTeam][selectedPokemon].ability = abilityName;
-        return newParty;
-      });
-    },
-    [selectedTeam, selectedPokemon, setPokemonParty]
-  );
-
-  return (
-    <div className='ability-selector'>
-      {/* Ability selection logic with tooltips */}
-    </div>
-  );
-};
-export default PokemonAbilitySelector;
-`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Level Management</h4>
-            <p>
-              The <code>LevelSelect.tsx</code> component allows users to input and
-              validate Pokemon levels, ensuring they remain within permissible ranges.
-            </p>
-            <pre>
-{`
-const LevelSelect = ({
-  selectedPokemon,
-  pokemonParty,
-  setPokemonParty,
-  selectedTeam,
-}: LevelSelectProps) => {
-  const [levelInput, setLevelInput] = useState<string>('');
-  const [levelError, setLevelError] = useState<string>('');
-
-  useEffect(() => {
-    if (pokemonParty[selectedTeam][selectedPokemon]?.level) {
-      setLevelInput(pokemonParty[selectedTeam][selectedPokemon].level.toString());
-    } else {
-      setLevelInput('');
-    }
-  }, [selectedPokemon, selectedTeam, pokemonParty]);
-
-  const validateAndSetLevel = (level: number) => {
-    if (level >= 1 && level <= 100) {
-      setPokemonParty(prevParty => {
-        const newParty = [...prevParty];
-        newParty[selectedTeam][selectedPokemon].level = level;
-        return newParty;
-      });
-      setLevelError('');
-      return true;
-    } else {
-      setLevelError('Level must be between 1 and 100');
-      return false;
-    }
-  };
-
-  return (
-    <div className='level-select'>
-      {/* Level input and validation */}
-    </div>
-  );
-};
-export default LevelSelect;
-`}</pre>
-          </div>
-        </div>
+        <h3 class="text-2xl font-semibold text-white">The Problem</h3>
+        <p>How do I make this work for mobile??</p>
       </section>
 
       <section id="visualDesign">
         <h3 class="text-2xl font-semibold text-white">Visual Design</h3>
         <div class="card-container">
           <div class="card">
-            <h4 class="text-xl font-medium text-white">Color Palette</h4>
+            <h4 class="text-xl font-medium text-white">
+              General UI - Color Palette
+            </h4>
             <p>
-              Developed a cohesive color palette that aligns with the Pokemon
-              theme. Utilized type colors to represent different Pokemon types,
-              enhancing visual clarity and user experience.
+              I used a fairly boring color palette for the UI elements. White,
+              black, shades of gray, and a deep blue for accents. I kept it
+              simple to keep the interface from feeling too cluttered. The
+              pokemon sprites are already quite colorful, and the blue accents
+              fall in line with the blue of the Kingdra logo.
             </p>
           </div>
           <div class="card">
-            <h4 class="text-xl font-medium text-white">Typography</h4>
+            <!-- typeBadges.map(() => {}) -->
+            <h4 class="text-xl font-medium text-white">
+              Type Badges - Color Palette
+            </h4>
             <p>
-              Selected fonts that balance readability with aesthetic appeal.
-              Employed varying font sizes and weights to establish a clear
-              hierarchy and guide user interactions.
+              I used a fairly boring color palette for the UI elements. White,
+              black, shades of gray, and a deep blue for accents. I kept it
+              simple to keep the interface from feeling too cluttered. The
+              pokemon sprites are already quite colorful, and the blue accents
+              fall in line with the blue of the Kingdra logo.
             </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Font Choice - Typography
+            </h4>
+            <p>
+              For this project, I settled on Figtree for my font. I needed a
+              single sans-serif that could feel playful while also being usable
+              across the entire application.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Font Size - Typography
+            </h4>
+            <p>Fonts were</p>
           </div>
           <div class="card">
             <h4 class="text-xl font-medium text-white">Imagery and Icons</h4>
@@ -631,7 +406,7 @@ export default handler;
   }
 
   section {
-    padding: 2rem;
+    padding: 4rem 2rem;
     margin: 0 2rem;
     border-bottom: 1px solid #353535;
   }
