@@ -7,7 +7,7 @@ import Footer from "../../layouts/Footer.astro";
 import Button from "../../components/Button.astro";
 import SideBar from "../../components/SideBar.astro";
 import ProjectDescription from "../../components/ProjectDescription.astro";
-import PokeDraft from "../../images/pokedraft.png";
+import Mockup from "../../images/mockup.png";
 import { Image } from "astro:assets";
 
 changeLanguage("en");
@@ -41,14 +41,16 @@ const sidebarItems = [
         A Comprehensive Tool for Building and Managing Pokemon Teams, June 2024
       </h2>
 
-      <Image class="mt-8" src={PokeDraft} alt="Kingdra Teambuilder" />
+      <Image class="mt-8" src={Mockup} alt="Kingdra Teambuilder" />
 
-      <ProjectDescription
-        projectRole={["Software Engineering", "Product Design"]}
-        team={["Solo"]}
-        tools={["Next.js", "TypeScript", "Tailwind", "Clerk", "MongoDB"]}
-        timeline={["Ongoing"]}
-      />
+      <div class="flex justify-center">
+        <ProjectDescription
+          projectRole={["Software Engineering", "Product Design"]}
+          team={["Solo"]}
+          tools={["Next.js", "TypeScript", "Tailwind", "Clerk", "MongoDB"]}
+          timeline={["Ongoing"]}
+        />
+      </div>
 
       <!-- Scaffolded Sections Start Here -->
 
@@ -166,225 +168,57 @@ const sidebarItems = [
 
       <section id="layout">
         <h3 class="text-2xl font-semibold text-white">Layout</h3>
-        <div class="card-container">
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Responsive Design</h4>
-            <p>
-              The application features a fully responsive layout, ensuring
-              usability across various devices and screen sizes. Utilized CSS
-              Flexbox and Grid for flexible component arrangement.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">
-              Component-Based Architecture
-            </h4>
-            <p>
-              Adopted a component-based architecture to promote reusability and
-              maintainability. Key components include <code>PokeParty.tsx</code
-              >, <code>MoveSelect.tsx</code>, and <code>PokeFinder.tsx</code>.
-            </p>
-          </div>
-          <div class="card">
-            <h4 class="text-xl font-medium text-white">Sidebar Navigation</h4>
-            <p>
-              Implemented a sidebar for easy navigation between different
-              sections of the teambuilder. The sidebar dynamically updates based
-              on user interactions and current focus.
-            </p>
-          </div>
-        </div>
+        <p>The layout was designed to follow an S-curve.</p>
       </section>
 
       <section id="interactions">
-        <h3 class="text-2xl font-semibold text-white">Interactions</h3>
-        <div class="row-card-container">
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Dynamic Type Coverage
-            </h4>
-            <p>
-              The <code>TypeCoverage.tsx</code> component dynamically calculates
-              and displays the team's type strengths and weaknesses, providing users
-              with actionable insights for optimization.
-            </p>
-            <pre>
-{`const TypeCoverage = ({
-  pokemonParty,
-  selectedTeam,
-  setEnableToast,
-}: TypeCoverageProps): JSX.Element => {
-  const [defensiveCoverage, setDefensiveCoverage] = useState<Record<string, number>>({});
-  const [offensiveCoverage, setOffensiveCoverage] = useState<Record<string, number>>({});
-  // ... Additional state and logic
-
-  useEffect(() => {
-    // Calculate defensive and offensive coverage
-  }, [pokemonInfoList, movesList]);
-
-  return (
-    <div className='flex gap-4 max-md:flex-col'>
-      {/* Offensive Spread */}
-      <div className='relative rounded bg-stone-50 p-4 md:w-1/2'>
-        <h3 className='p-2 pb-4 text-center font-semibold'>Offensive Spread</h3>
-        {/* Tooltip and Grid Display */}
-      </div>
-      {/* Defensive Spread */}
-      <div className='relative rounded bg-stone-50 p-4 md:w-1/2'>
-        <h3 className='p-2 pb-4 text-center font-semibold'>Defensive Spread</h3>
-        {/* Tooltip and Grid Display */}
-      </div>
-    </div>
-  );
-};
-export default TypeCoverage;`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Move Selection and Validation
-            </h4>
-            <p>
-              The <code>MoveSelect.tsx</code> component allows users to select and
-              validate moves for each Pokemon, ensuring compliance with game rules
-              and strategic diversity.
-            </p>
-            <pre>
-{`const MoveSelect = ({
-  selectedPokemon,
-  pokemonParty,
-  setPokemonParty,
-  selectedTeam,
-}: MoveSelectProps) => {
-  const [selectedMove, setSelectedMove] = useState<string>('');
-
-  const handleMoveChange = (move: string) => {
-    setSelectedMove(move);
-    setPokemonParty(prevParty => {
-      const newParty = [...prevParty];
-      newParty[selectedTeam][selectedPokemon].moves = [
-        ...newParty[selectedTeam][selectedPokemon].moves,
-        move,
-      ].slice(0, 4); // Limit to 4 moves
-      return newParty;
-    });
-  };
-
-  return (
-    <div className='move-select'>
-      {/* Move selection logic */}
-    </div>
-  );
-};
-export default MoveSelect;`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Ability Selection with Tooltips
-            </h4>
-            <p>
-              The <code>PokemonAbilitySelector.tsx</code> component enables users
-              to select abilities for their Pokemon, featuring tooltips that provide
-              detailed ability descriptions.
-            </p>
-            <pre>
-{`
-const PokemonAbilitySelector: React.FC<PokemonAbilitySelectorProps> = ({
-  pokemonInfo,
-  pokemonParty,
-  selectedTeam,
-  selectedPokemon,
-  setPokemonParty,
-}) => {
-  const handleAbilitySelect = useCallback(
-    (abilityName: string) => {
-      setPokemonParty(prevParty => {
-        const newParty = [...prevParty];
-        newParty[selectedTeam][selectedPokemon].ability = abilityName;
-        return newParty;
-      });
-    },
-    [selectedTeam, selectedPokemon, setPokemonParty]
-  );
-
-  return (
-    <div className='ability-selector'>
-      {/* Ability selection logic with tooltips */}
-    </div>
-  );
-};
-export default PokemonAbilitySelector;
-`}</pre>
-          </div>
-          <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Level Management</h4>
-            <p>
-              The <code>LevelSelect.tsx</code> component allows users to input and
-              validate Pokemon levels, ensuring they remain within permissible ranges.
-            </p>
-            <pre>
-{`
-const LevelSelect = ({
-  selectedPokemon,
-  pokemonParty,
-  setPokemonParty,
-  selectedTeam,
-}: LevelSelectProps) => {
-  const [levelInput, setLevelInput] = useState<string>('');
-  const [levelError, setLevelError] = useState<string>('');
-
-  useEffect(() => {
-    if (pokemonParty[selectedTeam][selectedPokemon]?.level) {
-      setLevelInput(pokemonParty[selectedTeam][selectedPokemon].level.toString());
-    } else {
-      setLevelInput('');
-    }
-  }, [selectedPokemon, selectedTeam, pokemonParty]);
-
-  const validateAndSetLevel = (level: number) => {
-    if (level >= 1 && level <= 100) {
-      setPokemonParty(prevParty => {
-        const newParty = [...prevParty];
-        newParty[selectedTeam][selectedPokemon].level = level;
-        return newParty;
-      });
-      setLevelError('');
-      return true;
-    } else {
-      setLevelError('Level must be between 1 and 100');
-      return false;
-    }
-  };
-
-  return (
-    <div className='level-select'>
-      {/* Level input and validation */}
-    </div>
-  );
-};
-export default LevelSelect;
-`}</pre>
-          </div>
-        </div>
+        <h3 class="text-2xl font-semibold text-white">The Problem</h3>
+        <p>How do I make this work for mobile??</p>
       </section>
 
       <section id="visualDesign">
         <h3 class="text-2xl font-semibold text-white">Visual Design</h3>
         <div class="card-container">
           <div class="card">
-            <h4 class="text-xl font-medium text-white">Color Palette</h4>
+            <h4 class="text-xl font-medium text-white">
+              General UI - Color Palette
+            </h4>
             <p>
-              Developed a cohesive color palette that aligns with the Pokemon
-              theme. Utilized type colors to represent different Pokemon types,
-              enhancing visual clarity and user experience.
+              I used a fairly boring color palette for the UI elements. White,
+              black, shades of gray, and a deep blue for accents. I kept it
+              simple to keep the interface from feeling too cluttered. The
+              pokemon sprites are already quite colorful, and the blue accents
+              fall in line with the blue of the Kingdra logo.
             </p>
           </div>
           <div class="card">
-            <h4 class="text-xl font-medium text-white">Typography</h4>
+            <!-- typeBadges.map(() => {}) -->
+            <h4 class="text-xl font-medium text-white">
+              Type Badges - Color Palette
+            </h4>
             <p>
-              Selected fonts that balance readability with aesthetic appeal.
-              Employed varying font sizes and weights to establish a clear
-              hierarchy and guide user interactions.
+              I used a fairly boring color palette for the UI elements. White,
+              black, shades of gray, and a deep blue for accents. I kept it
+              simple to keep the interface from feeling too cluttered. The
+              pokemon sprites are already quite colorful, and the blue accents
+              fall in line with the blue of the Kingdra logo.
             </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Font Choice - Typography
+            </h4>
+            <p>
+              For this project, I settled on Figtree for my font. I needed a
+              single sans-serif that could feel playful while also being usable
+              across the entire application.
+            </p>
+          </div>
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Font Size - Typography
+            </h4>
+            <p>Fonts were</p>
           </div>
           <div class="card">
             <h4 class="text-xl font-medium text-white">Imagery and Icons</h4>
@@ -575,7 +409,7 @@ export default handler;
   }
 
   section {
-    padding: 2rem;
+    padding: 4rem 2rem;
     margin: 0 2rem;
     border-bottom: 1px solid #353535;
   }
