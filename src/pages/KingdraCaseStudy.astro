@@ -14,7 +14,6 @@ const sidebarItems = [
   { i18nKey: "caseStudy.context", href: "#context" },
   { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
   { i18nKey: "caseStudy.proposals", href: "#proposals" },
-  { i18nKey: "caseStudy.layout", href: "#layout" },
   { i18nKey: "caseStudy.interactions", href: "#interactions" },
   { i18nKey: "caseStudy.visualDesign", href: "#visualDesign" },
   { i18nKey: "caseStudy.finalDesigns", href: "#finalDesigns" },
@@ -79,34 +78,51 @@ const sidebarItems = [
         <h3 class="text-2xl font-semibold text-white">Context</h3>
         <p>
           In June of 2024, I started development for this Pokémon Teambuilder
-          project as a way to learn Next.js and build my first real full-stack
-          application. The project was a lot of trial and error, and I spent a
-          ton of time linking up database schemas, calling APIs, and writing the
-          core logic that allowed the Teambuilder to mimic the math that the
-          core Pokémon games use to calculate stats. After deploying the app, I
-          enlisted the help of my Pokémon fan friends to test the app. One
-          problem was clear <strong>immediately</strong>.
+          project as a way to learn <a
+            class="text-link"
+            href="https://nextjs.org/"
+            target="_blank"
+            rel="noreferrer">Next.js</a
+          > and build my first real full-stack application. The project was a lot
+          of trial and error, and I spent a ton of time linking up database schemas,
+          calling APIs, and writing the core logic that allowed the Teambuilder to
+          <a
+            class="text-link"
+            href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
+            target="_blank"
+            rel="noreferrer">mimic the math</a
+          > that the core Pokémon games use to calculate stats. After deploying the
+          app, I enlisted the help of my Pokémon fan friends to test the app. One
+          problem was clear immediately.
         </p>
         <br />
 
-        <h2 class="text-white">
-          The mobile experience was absolutely horrendous.
-        </h2>
+        <div class="row-card">
+          <h2 class="text-white">
+            The mobile experience was absolutely horrendous.
+          </h2>
+        </div>
+
         <p>
           They initially tested the app on their phones, because why wouldn't
-          they? Mobile users make up over 60% of internet traffic. Many of them
-          were running errands when I posted the question in the discord, and
-          thought they could check it out really quick on their break. The
-          interface forced them to scroll for entire seconds to find the Pokémon
-          they were looking to find, and the infinite scrolling feature
-          significantly favored desktop users, who could leverage the width of
-          the screen to quickly scan for the Pokémon they wanted.
+          they? Mobile users make up <a
+            class="text-link"
+            href="https://explodingtopics.com/blog/mobile-internet-traffic#mobile-internet-top-stats"
+            target="_blank"
+            rel="noreferrer">over 60% of global internet traffic</a
+          >. Many of them were running errands when I posted the question in the
+          Discord, and thought they could check it out really quick on their
+          break. They were in for a rude awakening. The interface forced them to scroll for entire seconds to find
+          the Pokémon they were looking to find, and the infinite scrolling
+          feature significantly favored desktop users, who could leverage the
+          width of the screen to quickly scan for the Pokémon they wanted.
         </p>
         <br />
         <p>
           The message was loud and clear. The UI needed to be rebuilt with
           portable devices in mind.
         </p>
+        <!-- DEVICE MOCKUP HERE -->
       </section>
 
       <section id="roadblocks">
@@ -174,7 +190,7 @@ const sidebarItems = [
           problems.
         </p>
         <div>
-          <h2>IOS-like Tab Bar</h2>
+          <h2 class="text-white">IOS-like Tab Bar</h2>
           <p>Pros: Easily accessible for one-handed use</p>
           <p>
             Cons: Clunky, Can't see added Pokémon, Not enough UI
@@ -182,7 +198,7 @@ const sidebarItems = [
           </p>
         </div>
         <div>
-          <h2>Material Design</h2>
+          <h2 class="text-white">Material Design</h2>
           <p>Pros:</p>
           <p>Cons:</p>
         </div>
@@ -239,6 +255,15 @@ const sidebarItems = [
               character-size margins on every container, making for a
               clausterphobic experience.
             </p>
+            <p>X - Image 1</p>
+            <p>Check - Image 2</p>
+          </div>
+
+          <div class="card">
+            <h4 class="text-xl font-medium text-white">
+              Convert Tabs to Dropdowns
+            </h4>
+            <p>The horizontal tabs that existed</p>
             <p>X - Image 1</p>
             <p>Check - Image 2</p>
           </div>
@@ -338,6 +363,30 @@ const sidebarItems = [
     max-width: calc(100% - 2rem);
   }
 
+  .text-link {
+    color: var(--header-color);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+  .text-link:after {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: var(--header-color);
+    transition:
+      width 0.2s ease 0s,
+      left 0.2s ease 0s;
+    width: 0;
+  }
+  .text-link:hover:after {
+    width: 100%;
+    left: 0;
+  }
+
   .content {
     margin-bottom: 5rem;
   }
@@ -389,10 +438,6 @@ const sidebarItems = [
     main {
       flex-direction: column;
       width: 100%;
-    }
-
-    .content {
-      padding: 0 1rem;
     }
 
     .sidebar {
