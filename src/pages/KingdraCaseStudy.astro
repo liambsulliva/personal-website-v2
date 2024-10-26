@@ -8,6 +8,7 @@ import SideBar from "../components/SideBar.astro";
 import ProjectDescription from "../components/ProjectDescription.astro";
 import Mockup from "../images/mockup.png";
 import { Image } from "astro:assets";
+import iPhone from "../images/blank-iphone-mockup.png";
 
 const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
@@ -22,12 +23,12 @@ const sidebarItems = [
 ---
 
 <Layout title="Kingdra Pokemon Teambuilder Case Study">
-  <div class="btn-container">
+  <div class="m-8">
     <Button label={"Back"} href={localizePath("/")} />
   </div>
-  <main>
+  <main class="mx-auto flex w-[1150px] max-w-[calc(100%-2rem)] flex-row">
     <SideBar navItems={sidebarItems} className="fixed right-12 top-56 -z-10" />
-    <div class="content">
+    <div class="mb-20">
       <h1 class="mt-4 text-center text-5xl font-bold text-white">
         Kingdra Pokemon Teambuilder
       </h1>
@@ -74,54 +75,64 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="context">
-        <h3 class="text-2xl font-semibold text-white">Context</h3>
-        <p>
-          In June of 2024, I started development for this Pokémon Teambuilder
-          project as a way to learn <a
-            class="text-link"
-            href="https://nextjs.org/"
-            target="_blank"
-            rel="noreferrer">Next.js</a
-          > and build my first real full-stack application. The project was a lot
-          of trial and error, and I spent a ton of time linking up database schemas,
-          calling APIs, and writing the core logic that allowed the Teambuilder to
-          <a
-            class="text-link"
-            href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
-            target="_blank"
-            rel="noreferrer">mimic the math</a
-          > that the core Pokémon games use to calculate stats. After deploying the
-          app, I enlisted the help of my Pokémon fan friends to test the app. One
-          problem was clear immediately.
-        </p>
-        <br />
+      <section id="context" class="flex gap-8 max-lg:flex-col">
+        <div>
+          <h3 class="text-2xl font-semibold text-white">Context</h3>
+          <p>
+            In June of 2024, I started development for this Pokémon Teambuilder
+            project as a way to learn <a
+              class="text-link"
+              href="https://nextjs.org/"
+              target="_blank"
+              rel="noreferrer">Next.js</a
+            > and build my first real full-stack application. The project was a lot
+            of trial and error, and I spent a ton of time linking up database schemas,
+            calling APIs, and writing the core logic that allowed the Teambuilder
+            to
+            <a
+              class="text-link"
+              href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
+              target="_blank"
+              rel="noreferrer">mimic the math</a
+            > that the core Pokémon games use to calculate stats. After deploying
+            the app, I enlisted the help of my Pokémon fan friends to test the app.
+            One problem was clear immediately.
+          </p>
+          <br />
 
-        <div class="row-card">
-          <h2 class="text-white">
-            The mobile experience was absolutely horrendous.
-          </h2>
+          <div class="row-card">
+            <h2 class="text-white">
+              The mobile experience was absolutely horrendous.
+            </h2>
+          </div>
+
+          <p>
+            They initially tested the app on their phones, because why wouldn't
+            they? Mobile users make up <a
+              class="text-link"
+              href="https://explodingtopics.com/blog/mobile-internet-traffic#mobile-internet-top-stats"
+              target="_blank"
+              rel="noreferrer">over 60% of global internet traffic</a
+            >. Many of them were running errands when I posted the question in
+            the Discord, and thought they could check it out really quick on
+            their break. They were in for a rude awakening. The interface forced
+            them to scroll for entire seconds to find the Pokémon they were
+            looking to find, and the infinite scrolling feature significantly
+            favored desktop users, who could leverage the width of the screen to
+            quickly scan for the Pokémon they wanted.
+          </p>
+          <br />
+          <p>
+            The message was loud and clear. The UI needed to be rebuilt with
+            portable devices in mind.
+          </p>
         </div>
 
-        <p>
-          They initially tested the app on their phones, because why wouldn't
-          they? Mobile users make up <a
-            class="text-link"
-            href="https://explodingtopics.com/blog/mobile-internet-traffic#mobile-internet-top-stats"
-            target="_blank"
-            rel="noreferrer">over 60% of global internet traffic</a
-          >. Many of them were running errands when I posted the question in the
-          Discord, and thought they could check it out really quick on their
-          break. They were in for a rude awakening. The interface forced them to scroll for entire seconds to find
-          the Pokémon they were looking to find, and the infinite scrolling
-          feature significantly favored desktop users, who could leverage the
-          width of the screen to quickly scan for the Pokémon they wanted.
-        </p>
-        <br />
-        <p>
-          The message was loud and clear. The UI needed to be rebuilt with
-          portable devices in mind.
-        </p>
+        <Image
+          src={iPhone}
+          alt={"iPhone"}
+          style=" min-width: 300px; min-height: 533px; object-fit: contain;"
+        />
         <!-- DEVICE MOCKUP HERE -->
       </section>
 
@@ -131,6 +142,17 @@ const sidebarItems = [
         <br />
         <div class="card-container">
           <div class="card">
+            <svg
+              class="mx-auto my-2"
+              xmlns="http://www.w3.org/2000/svg"
+              width="7rem"
+              height="8rem"
+              viewBox="0 0 20 20"
+              ><path
+                fill="white"
+                d="M3.5 2C2.67 2 2 2.67 2 3.498v12.981c0 .828.671 1.498 1.5 1.498h1c.827 0 1.499-.67 1.499-1.498V3.498C5.999 2.67 5.327 2 4.499 2zm4.998 0c-.828 0-1.5.67-1.5 1.498v12.981c0 .828.672 1.498 1.5 1.498h1c.828 0 1.499-.67 1.499-1.498V3.498c0-.827-.671-1.498-1.5-1.498zm7.22 4.157a1.5 1.5 0 0 0-1.87-1.106l-.745.21a1.5 1.5 0 0 0-1.06 1.742l2.003 9.799a1.5 1.5 0 0 0 1.839 1.151l.985-.25c.79-.2 1.274-.994 1.092-1.787z"
+              ></path></svg
+            >
             <h4 class="text-xl font-medium text-white">Component Libraries</h4>
             <p>
               I used the <code>Flowbite</code> component library to build the UI.
@@ -141,7 +163,19 @@ const sidebarItems = [
             </p>
           </div>
           <div class="card">
+            <svg
+              class="mx-auto my-2"
+              xmlns="http://www.w3.org/2000/svg"
+              width="8rem"
+              height="8rem"
+              viewBox="0 0 20 20"
+              ><path
+                fill="white"
+                d="M6.25 3.5a3.25 3.25 0 0 0 0 6.5h7.5a1.75 1.75 0 1 1 0 3.5H4.56l.22-.22a.75.75 0 1 0-1.06-1.06l-1.5 1.5a.75.75 0 0 0 0 1.06l1.5 1.5a.75.75 0 1 0 1.06-1.06l-.22-.22h9.19a3.25 3.25 0 0 0 0-6.5h-7.5a1.75 1.75 0 1 1 0-3.5h10a.75.75 0 0 0 0-1.5z"
+              ></path></svg
+            >
             <h4 class="text-xl font-medium text-white">The S-Curve Design</h4>
+
             <p>
               I initially designed the UI with an S-Curve design to make the
               elements easy to track for users on desktops. This was a
@@ -151,6 +185,17 @@ const sidebarItems = [
             </p>
           </div>
           <div class="card">
+            <svg
+              class="mx-auto my-2"
+              xmlns="http://www.w3.org/2000/svg"
+              width="7rem"
+              height="8rem"
+              viewBox="0 0 24 24"
+              ><path
+                fill="white"
+                d="m12 2l4 4h-3v7.85l6.53 3.76L21 15.03l1.5 5.47l-5.5 1.46l1.53-2.61L12 15.58l-6.53 3.77L7 21.96L1.5 20.5L3 15.03l1.47 2.58L11 13.85V6H8z"
+              ></path></svg
+            >
             <h4 class="text-xl font-medium text-white">
               Lack of Dimensionality
             </h4>
@@ -176,11 +221,13 @@ const sidebarItems = [
           </div>
           -->
         </div>
-        <p>
-          I needed to take an already dense UI, by desktop standards, and
-          transform it to feel at home on smaller devices without losing
-          functionality.
-        </p>
+        <div class="row-card text-center">
+          <p class="">The Goal?</p>
+          <h2 class="text-center text-white">
+            Take a dense UI, even by desktop standards, and make it feel at home
+            on smaller devices.
+          </h2>
+        </div>
       </section>
 
       <section id="proposals">
@@ -355,14 +402,6 @@ const sidebarItems = [
 </Layout>
 
 <style>
-  main {
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    width: 1150px;
-    max-width: calc(100% - 2rem);
-  }
-
   .text-link {
     color: var(--header-color);
     text-decoration: none;
@@ -385,10 +424,6 @@ const sidebarItems = [
   .text-link:hover:after {
     width: 100%;
     left: 0;
-  }
-
-  .content {
-    margin-bottom: 5rem;
   }
 
   h3,
@@ -415,10 +450,6 @@ const sidebarItems = [
     width: 100%;
     height: 100%;
     border: none;
-  }
-
-  .btn-container {
-    margin: 2rem;
   }
 
   section {
