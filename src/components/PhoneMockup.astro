@@ -22,9 +22,23 @@ const { contentImage, phoneImage } = Astro.props;
     height={533}
   />
   <div
-    class="absolute -right-1 -top-1 z-30 mt-3 flex h-12 w-fit items-center rounded-lg border border-[#333] bg-[#1a1a1a] px-2 py-1 md:mt-4"
+    class="absolute right-0 top-4 z-30 flex h-10 items-center gap-1 rounded-lg border border-[#333] bg-[#1a1a1a] p-3"
   >
-    <p class="p-1 text-xl text-[#e0e0e0]">Scroll Me!</p>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      ><g fill="#e0e0e0"
+        ><path
+          d="m9.172 16.818l-1.415 1.414L12 22.475l4.243-4.243l-1.415-1.414L12 19.647zm5.656-9.636l1.415-1.414L12 1.525L7.757 5.768l1.415 1.414L12 4.354z"
+        ></path><path
+          fill-rule="evenodd"
+          d="M12 9a3 3 0 1 1 0 6a3 3 0 0 1 0-6m0 2a1 1 0 1 1 0 2a1 1 0 0 1 0-2"
+          clip-rule="evenodd"></path></g
+      ></svg
+    >
+    <p class="m-0 text-sm font-medium text-[#e0e0e0]">Scroll Me!</p>
   </div>
 </div>
 
