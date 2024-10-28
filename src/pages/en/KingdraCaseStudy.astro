@@ -449,6 +449,17 @@ const sidebarItems = [
     aspect-ratio: 9/16;
   }
 
+  @media (max-width: 1024px) {
+    .mockup-content {
+      transform: translate(-155px, -50%);
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .mockup-content::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+  }
+
   .text-link {
     color: var(--header-color);
     text-decoration: none;
