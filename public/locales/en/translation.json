@@ -67,6 +67,118 @@
     "flow": "<0>Flow</0>",
     "retrospective": "<0>Retrospective</0>"
   },
+  "kingdraCaseStudy": {
+    "title": "Kingdra Pokemon Teambuilder",
+    "subtitle": "The Journey to Mobile - October 2024",
+    "projectDetails": {
+      "role": ["Software Engineering", "Product Design"],
+      "team": ["Solo"],
+      "tools": ["Next.js", "TypeScript", "Tailwind", "Figma"],
+      "timeline": ["1 Month"]
+    },
+    "overview": {
+      "title": "<0>Overview</0>",
+      "content": "<0>Following the creation of my Pokemon Teambuilder in June, users testing the web app on their phone ran into a significantly higher rate of bugs and grievances compared to their peers on desktop platforms. Mobile was an afterthought during the initial development process.</0><1>I tasked myself with rebuilding the UI for mobile devices, reducing the cost of interaction and easing the cognitive load for users that want to use the application on the go.</1><2>These improvements reduced the overall scrolling time between UI elements and significantly reduced time to select Pokémon for a given team.</2>"
+    },
+    "context": {
+      "title": "<0>Context</0>",
+      "content": "<0>In June of 2024, I started development for this Pokémon Teambuilder project as a way to learn <1>Next.js</1> and build my first real full-stack application. The project was a lot of trial and error, and I spent a ton of time linking up database schemas, calling APIs, and writing the core logic that allowed the Teambuilder to <2>mimic the math</2> that the core Pokémon games use to calculate stats. After deploying the app, I enlisted the help of my Pokémon fan friends to test the app. One problem was clear immediately.</0>",
+      "quote": "<0>The mobile experience was absolutely horrendous.</0>",
+      "mobileUsers": "<0>They initially tested the app on their phones, because why wouldn't they? Mobile users make up <1>over 60% of global internet traffic</1>. Many of them were running errands when I posted the question in the Discord, and thought they could check it out really quick on their break. They were in for a rude awakening. The interface forced them to scroll for entire seconds to find the Pokémon they were looking to find, and the infinite scrolling feature significantly favored desktop users, who could leverage the width of the screen to quickly scan for the Pokémon they wanted.</0>",
+      "conclusion": "<0>The message was loud and clear. The UI needed to be rebuilt with portable devices in mind.</0>"
+    },
+    "roadblocks": {
+      "title": "<0>Roadblocks</0>",
+      "intro": "<0>There were a few issues right out the gate...</0>",
+      "componentLibraries": {
+        "title": "<0>Component Libraries</0>",
+        "content": "<0>I used the <1>Flowbite</1> component library to build the UI. This saved me a lot of time initially, but locked me into an inflexible ecosystem that hindered my ability to design the page responsively. The opportunity cost of switching off this UI library was too high. I would need to work within their framework for my redesign.</0>"
+      },
+      "sCurve": {
+        "title": "<0>The S-Curve Design</0>",
+        "content": "<0>I initially designed the UI with an S-Curve design to make the elements easy to track for users on desktops. This was a miscalculation on my part, as it meant that the interface would be significantly hindered on screens without significant horizontal real-estate.</0>"
+      },
+      "dimensionality": {
+        "title": "<0>Lack of Dimensionality</0>",
+        "content": "<0>Mobile apps work best when using stacked UI elements and gestures for navigation. Unfortunately, web apps lack native gesture support without heavy use of JavaScript. I had to design around these limitations while still aiming for a responsive experience.</0>"
+      },
+      "goal": {
+        "question": "<0>THE GOAL?</0>",
+        "answer": "<0>Take a dense UI, even by desktop standards, and make it feel at home on smaller devices.</0>"
+      }
+    },
+    "considerations": {
+      "title": "<0>Considerations</0>",
+      "intro": "<0>Before diving into the redesign, I needed to consider a few key aspects of the mobile experience:</0>",
+      "hoverState": {
+        "title": "<0>Hover State Interactions</0>",
+        "content": "<0>Mobile devices don't have hover states, which were a key part of the desktop experience. I needed to find alternative ways to display information that was previously shown on hover.</0>"
+      },
+      "feedback": {
+        "title": "<0>Visual Feedback</0>",
+        "content": "<0>Touch interactions need clear visual feedback to indicate successful actions. The desktop version relied heavily on hover states for this feedback.</0>"
+      },
+      "hierarchy": {
+        "title": "<0>Visual Hierarchy</0>",
+        "content": "<0>The information hierarchy needed to be more pronounced on mobile, where screen real estate is limited and users can't see as much content at once.</0>"
+      }
+    },
+    "proposals": {
+      "title": "<0>Proposals</0>",
+      "intro": "<0>After considering the limitations and requirements, I proposed two main approaches to solving the mobile interface problems:</0>",
+      "tabBar": {
+        "title": "<0>Tab Bar Navigation</0>",
+        "prosLabel": "<0>Pros</0>",
+        "pros": "<0>Familiar mobile pattern, reduces cognitive load, clear navigation structure</0>",
+        "consLabel": "<0>Cons</0>",
+        "cons": "<0>Limited to bottom of screen, requires additional UI components, potential conflicts with existing layout</0>"
+      },
+      "material": {
+        "title": "<0>Material Design Pattern</0>",
+        "prosLabel": "<0>Pros</0>",
+        "pros": "<0>Established design system, comprehensive documentation, built-in responsive behaviors</0>",
+        "consLabel": "<0>Cons</0>",
+        "cons": "<0>Significant refactoring required, potential performance impact, design consistency challenges</0>"
+      }
+    },
+    "adaptations": {
+      "title": "<0>Adaptations</0>",
+      "hamburger": {
+        "title": "<0>Hamburger Menu Implementation</0>",
+        "content": "<0>Implemented a collapsible hamburger menu to conserve space while maintaining access to all navigation options.</0>"
+      }
+    },
+    "flow": {
+      "title": "<0>Flow</0>",
+      "intro": "<0>The new mobile interface flow was designed to minimize user friction and optimize for touch interactions:</0>"
+    },
+    "retrospective": {
+      "title": "<0>Retrospective</0>",
+      "intro": "<0>Looking back at the mobile adaptation process, several key lessons emerged:</0>",
+      "componentLibrary": {
+        "title": "<0>Component Library Selection</0>",
+        "content": "<0>Future projects should prioritize component libraries with strong mobile-first design principles from the start.</0>"
+      },
+      "touchNavigation": {
+        "title": "<0>Touch Navigation</0>",
+        "content": "<0>Implementing touch-friendly navigation patterns early in development would have prevented many of the challenges faced during the adaptation.</0>"
+      },
+      "pwa": {
+        "title": "<0>Progressive Web App Considerations</0>",
+        "content": "<0>The potential for PWA implementation should be considered from the project's inception to ensure optimal mobile experience.</0>"
+      },
+      "userFeedback": {
+        "title": "<0>User Feedback Integration</0>",
+        "content": "<0>Regular testing with mobile users throughout development would have identified issues earlier in the process.</0>"
+      },
+      "future": {
+        "title": "<0>Future Improvements</0>",
+        "gestures": "<0>Implement native-feeling gesture controls for common actions</0>",
+        "components": "<0>Develop custom components optimized for mobile interaction</0>",
+        "performance": "<0>Further optimize performance for slower mobile connections</0>"
+      }
+    }
+  },
   "footer": {
     "content": "<0>With Love, Liam Sullivan</0>"
   },
