@@ -10,6 +10,7 @@ import Mockup from "../images/mockup.png";
 import { Image } from "astro:assets";
 import iPhone from "../images/blank-iphone-mockup.png";
 import MobileView from "../images/kingdra-mobile-view.png";
+import PhoneMockup from "../components/PhoneMockup.astro";
 
 const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
@@ -101,8 +102,10 @@ const sidebarItems = [
           </p>
           <br />
 
-          <div class="row-card">
-            <h2 class="text-white">
+          <div
+            class="mb-6 border-l-2 border-[#454545] bg-[var(--card-color)] !p-4"
+          >
+            <h2 class="!m-0 text-white">
               The mobile experience was absolutely horrendous.
             </h2>
           </div>
@@ -128,25 +131,8 @@ const sidebarItems = [
             portable devices in mind.
           </p>
         </div>
-        <!-- TODO: Extract into new component -->
         <div class="lg:sticky lg:top-8 lg:w-1/3">
-          <div class="mockup-container">
-            <div class="mockup-content">
-              <Image
-                src={MobileView}
-                alt={"Mobile View"}
-                width={300}
-                height={533}
-              />
-            </div>
-            <Image
-              src={iPhone}
-              alt={"iPhone"}
-              class="mockup-phone"
-              width={300}
-              height={533}
-            />
-          </div>
+          <PhoneMockup contentImage={MobileView} phoneImage={iPhone} />
         </div>
       </section>
 
@@ -234,12 +220,14 @@ const sidebarItems = [
           </div>
           -->
         </div>
-        <div class="row-card mt-4 items-center">
-          <p>THE GOAL?</p>
+        <div class="relative mt-4 py-8 text-center">
+          <div class="mx-auto mb-6 h-[1px] w-1/3 bg-[#333]"></div>
+          <p class="!text-center">THE GOAL?</p>
           <h2 class="my-0 text-white">
             Take a dense UI, even by desktop standards, and make it feel at home
             on smaller devices.
           </h2>
+          <div class="mx-auto mt-6 h-[1px] w-1/3 bg-[#333]"></div>
         </div>
       </section>
 
@@ -551,7 +539,7 @@ const sidebarItems = [
 
     section {
       padding: 2rem;
-      border-bottom: 1px solid #353535;
+      /* border-bottom: 1px solid #353535; */
     }
 
     h2 {
