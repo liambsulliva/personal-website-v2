@@ -131,8 +131,8 @@ const sidebarItems = [
             portable devices in mind.
           </p>
         </div>
+        <!-- TODO: Extract into new component -->
         <div class="lg:sticky lg:top-8 lg:w-1/3">
-          <!-- Added positioning and width -->
           <div class="mockup-container">
             <div class="mockup-content">
               <Image
@@ -248,22 +248,45 @@ const sidebarItems = [
 
       <section id="proposals">
         <h3 class="text-2xl font-semibold text-white">Navigation Proposals</h3>
-        <p>
+        <p class="pb-4">
           There were a couple ways to do this, each with their own set of
           problems.
         </p>
-        <div>
-          <h2 class="text-white">IOS-like Tab Bar</h2>
-          <p>Pros: Easily accessible for one-handed use</p>
-          <p>
-            Cons: Clunky, Can't see added Pokémon, Not enough UI
-            elements/settings to fill 3+ pages
-          </p>
-        </div>
-        <div>
-          <h2 class="text-white">Material Design</h2>
-          <p>Pros:</p>
-          <p>Cons:</p>
+        <div class="flex flex-wrap justify-between gap-4 max-lg:flex-col">
+          <div
+            class="mb-4 w-[calc(50%-0.5rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-4 max-lg:w-full"
+          >
+            <div
+              class="h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
+            >
+              <h2 class="items-center text-white">IMAGE</h2>
+            </div>
+            <h4 class="text-xl font-medium text-white">IOS-like Tab Bar</h4>
+            <p class="text-[#d0d0d0]">
+              <span class="font-medium text-white">Pros:</span> Easily accessible
+              for one-handed use
+            </p>
+            <p class="text-[#d0d0d0]">
+              <span class="font-medium text-white">Cons:</span> Clunky, Can't see
+              added Pokémon, Not enough UI elements/settings to fill 3+ pages
+            </p>
+          </div>
+          <div
+            class="mb-4 w-[calc(50%-0.5rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-4 max-lg:w-full"
+          >
+            <div
+              class="h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
+            >
+              <h2 class="items-center text-white">IMAGE</h2>
+            </div>
+            <h4 class="text-xl font-medium text-white">Material Design</h4>
+            <p class="text-[#d0d0d0]">
+              <span class="font-medium text-white">Pros:</span>
+            </p>
+            <p class="text-[#d0d0d0]">
+              <span class="font-medium text-white">Cons:</span>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -355,9 +378,18 @@ const sidebarItems = [
         <h3 class="text-2xl font-semibold text-white">User Flow</h3>
         <p>So how does this all come together?</p>
         <br />
-        <div class="row-card-container">
-          <div class="row-card">
-            <h2>Image</h2>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div class="row-card h-[600px]">
+            <h2>IMAGE</h2>
+          </div>
+          <div class="row-card h-[600px]">
+            <h2>IMAGE</h2>
+          </div>
+          <div class="row-card h-[600px]">
+            <h2>IMAGE</h2>
+          </div>
+          <div class="row-card h-[600px]">
+            <h2>IMAGE</h2>
           </div>
         </div>
       </section>
