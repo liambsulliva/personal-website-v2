@@ -9,6 +9,7 @@ import ProjectDescription from "../components/ProjectDescription.astro";
 import Mockup from "../images/mockup.png";
 import { Image } from "astro:assets";
 import iPhone from "../images/blank-iphone-mockup.png";
+import MobileView from "../images/kingdra-mobile-view.png";
 
 const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
@@ -128,11 +129,23 @@ const sidebarItems = [
           </p>
         </div>
 
-        <Image
-          src={iPhone}
-          alt={"iPhone"}
-          style="min-width: 300px; min-height: 533px; object-fit: contain;"
-        />
+        <div class="mockup-container">
+          <div class="mockup-content">
+            <Image
+              src={MobileView}
+              alt={"Mobile View"}
+              width={300}
+              height={533}
+            />
+          </div>
+          <Image
+            src={iPhone}
+            alt={"iPhone"}
+            class="mockup-phone"
+            width={300}
+            height={533}
+          />
+        </div>
         <!-- DEVICE MOCKUP HERE -->
       </section>
 
@@ -401,6 +414,49 @@ const sidebarItems = [
 </Layout>
 
 <style>
+  .mockup-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 2rem auto;
+    aspect-ratio: 9/16;
+  }
+
+  .mockup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: auto; /* Changed from fixed height */
+    aspect-ratio: 9/16; /* Added to maintain phone screen ratio */
+    overflow-y: auto;
+    z-index: 1;
+  }
+
+  .mockup-phone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    aspect-ratio: 9/16;
+  }
+
+  @media (max-width: 1024px) {
+    .mockup-content {
+      transform: translate(-155px, -50%);
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .mockup-content::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+  }
+
   .text-link {
     color: var(--header-color);
     text-decoration: none;
