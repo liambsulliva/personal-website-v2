@@ -12,6 +12,10 @@ import { Image } from "astro:assets";
 import iPhone from "../../images/blank-iphone-mockup.png";
 import MobileView from "../../images/kingdra-mobile-view.png";
 import PhoneMockup from "../../components/PhoneMockup.astro";
+import flow1 from "../../images/flow-1.PNG";
+import flow2 from "../../images/flow-2.PNG";
+import flow3 from "../../images/flow-3.PNG";
+import flow4 from "../../images/flow-4.PNG";
 
 changeLanguage("en");
 
@@ -831,26 +835,84 @@ const sidebarItems = [
         <h3 class="!mb-2 text-2xl font-semibold text-white">Flow</h3>
         <p>So how does this all come together?</p>
         <br />
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div
-            class="flex h-[600px] w-full flex-col gap-2 rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
-          >
-            <h2 class="text-[#666]">Image</h2>
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+          <div class="flex gap-4">
+            <div
+              class="max-w-[200px] overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+            >
+              <Image
+                src={flow1}
+                alt="Flow Image 1"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <p class="text-sm text-[#d0d0d0]">
+              The landing page features a clean, vertical layout optimized for
+              mobile viewing. Users can quickly scan through their pokemon in an
+              intuitive top-to-bottom format. There are also options for
+              importing or exporting the current team from/to <a
+                class="text-link"
+                href="https://play.pokemonshowdown.com/"
+                target="_blank"
+                rel="noreferrer">Pokemon Showdown</a
+              >.
+            </p>
           </div>
-          <div
-            class="flex h-[600px] w-full flex-col gap-2 rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
-          >
-            <h2 class="text-[#666]">Image</h2>
+
+          <div class="flex gap-4">
+            <div
+              class="max-w-[200px] overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+            >
+              <Image
+                src={flow2}
+                alt="Flow Image 2"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <p class="text-sm text-[#d0d0d0]">
+              The hamburger menu expands to reveal configuration settings like
+              the competitive/casual toggle and team selection options. It also
+              contains the login button, which turns into a user icon when
+              logged in. Clicking this icon reveals account settings.
+            </p>
           </div>
-          <div
-            class="flex h-[600px] w-full flex-col gap-2 rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
-          >
-            <h2 class="text-[#666]">Image</h2>
+
+          <div class="flex gap-4">
+            <div
+              class="max-w-[200px] overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+            >
+              <Image
+                src={flow3}
+                alt="Flow Image 3"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <p class="text-sm text-[#d0d0d0]">
+              Individual Pokemon stats and moves can be modified through an
+              intuitive modal interface with reduced margins, keeping the main
+              view clean and focused on the current party. In casual mode, these
+              stats are replaced by a tabbable menu to reveal encounter
+              locations and alternate forms.
+            </p>
           </div>
-          <div
-            class="flex h-[600px] w-full flex-col gap-2 rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
-          >
-            <h2 class="text-[#666]">Image</h2>
+
+          <div class="flex gap-4">
+            <div
+              class="max-w-[200px] overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+            >
+              <Image
+                src={flow4}
+                alt="Flow Image 4"
+                class="h-full w-full object-cover"
+              />
+            </div>
+            <p class="text-sm text-[#d0d0d0]">
+              Adding a Pokemon is as intuitive as clicking the big button at the
+              top of the landing page. It will open this modal, which allows you
+              to use competitive tier (if applicable), generation, and a search
+              in order to find exactly what you're looking for quickly. Multiple
+              Pokemon can be added without needing to re-open the menu.
+            </p>
           </div>
         </div>
       </section>
