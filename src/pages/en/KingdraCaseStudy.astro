@@ -27,7 +27,7 @@ const sidebarItems = [
 ];
 ---
 
-<Layout title="Kingdra Pokemon Teambuilder Case Study">
+<Layout title="The Journey to Mobile - A Case Study">
   <div class="m-8">
     <Button label={"Back"} href={localizePath("/")} />
   </div>
@@ -310,7 +310,7 @@ const sidebarItems = [
                   animations and visual changes that could enhance the user's
                   confidence without overwhelming the interface. This balance
                   between feedback and simplicity became a key consideration in
-                  our mobile adaptation.
+                  my mobile adaptation.
                 </p>
               </div>
             </div>
@@ -367,15 +367,45 @@ const sidebarItems = [
               <h2 class="items-center text-[#666]">Image</h2>
             </div>
             <h4 class="!mb-2 text-xl font-medium text-white">Bottom Tab Bar</h4>
-            <p class="mb-2 text-[#d0d0d0]">
-              <span class="font-medium text-white">Pros:</span> Easily accessible
-              for one-handed use, familiar to iOS users, clean and minimalist interface
-            </p>
-            <p class="text-[#d0d0d0]">
-              <span class="font-medium text-white">Cons:</span> Limited screen real
-              estate for content, can't see added Pokémon without switching tabs,
-              not enough features to justify multiple tabs
-            </p>
+            <div class="space-y-3">
+              <div class="flex items-start gap-4 rounded-lg bg-[#1a1a1a] p-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  class="flex-shrink-0"
+                >
+                  <path
+                    fill="#0E9F6E"
+                    d="M23 10a2 2 0 0 0-2-2h-6.32l.96-4.57c.02-.1.03-.21.03-.32c0-.41-.17-.79-.44-1.06L14.17 1L7.59 7.58C7.22 7.95 7 8.45 7 9v10a2 2 0 0 0 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73zM1 21h4V9H1z"
+                  ></path>
+                </svg>
+                <p class="text-[#d0d0d0]">
+                  Easily accessible for one-handed use, familiar to iOS users,
+                  clean and minimalist interface
+                </p>
+              </div>
+              <div class="flex items-start gap-4 rounded-lg bg-[#1a1a1a] p-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  class="flex-shrink-0"
+                >
+                  <path
+                    fill="#F05252"
+                    d="M19 15h4V3h-4m-4 0H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2a2 2 0 0 0 2 2h6.31l-.95 4.57c-.02.1-.03.2-.03.31c0 .42.17.79.44 1.06L9.83 23l6.58-6.59c.37-.36.59-.86.59-1.41V5a2 2 0 0 0-2-2"
+                  ></path>
+                </svg>
+                <p class="text-[#d0d0d0]">
+                  Limited screen real estate for content, can't see added
+                  Pokémon without switching tabs, not enough features to justify
+                  multiple tabs
+                </p>
+              </div>
+            </div>
           </div>
           <div
             class="mb-8 w-[calc(50%-1rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
@@ -388,16 +418,45 @@ const sidebarItems = [
             <h4 class="!mb-2 text-xl font-medium text-white">
               Material Design
             </h4>
-            <p class="mb-2 text-[#d0d0d0]">
-              <span class="font-medium text-white">Pros:</span> Familiar to Android
-              users, excellent support for modals and floating action buttons, clear
-              visual hierarchy
-            </p>
-            <p class="text-[#d0d0d0]">
-              <span class="font-medium text-white">Cons:</span> May feel out of place
-              on iOS devices, animations can be resource-intensive, requires significant
-              rework of existing Flowbite components
-            </p>
+            <div class="space-y-3">
+              <div class="flex items-start gap-4 rounded-lg bg-[#1a1a1a] p-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  class="flex-shrink-0"
+                >
+                  <path
+                    fill="#0E9F6E"
+                    d="M23 10a2 2 0 0 0-2-2h-6.32l.96-4.57c.02-.1.03-.21.03-.32c0-.41-.17-.79-.44-1.06L14.17 1L7.59 7.58C7.22 7.95 7 8.45 7 9v10a2 2 0 0 0 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73zM1 21h4V9H1z"
+                  ></path>
+                </svg>
+                <p class="text-[#d0d0d0]">
+                  Familiar to Android users, excellent support for modals and
+                  floating action buttons, clear visual hierarchy
+                </p>
+              </div>
+              <div class="flex items-start gap-4 rounded-lg bg-[#1a1a1a] p-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  class="flex-shrink-0"
+                >
+                  <path
+                    fill="#F05252"
+                    d="M19 15h4V3h-4m-4 0H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2a2 2 0 0 0 2 2h6.31l-.95 4.57c-.02.1-.03.2-.03.31c0 .42.17.79.44 1.06L9.83 23l6.58-6.59c.37-.36.59-.86.59-1.41V5a2 2 0 0 0-2-2"
+                  ></path>
+                </svg>
+                <p class="text-[#d0d0d0]">
+                  May feel out of place on iOS devices, animations can be
+                  resource-intensive, requires significant rework of existing
+                  Flowbite components
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
