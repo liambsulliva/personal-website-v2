@@ -16,10 +16,10 @@ const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
   { i18nKey: "caseStudy.context", href: "#context" },
   { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
-  { i18nKey: "caseStudy.considerations", href: "#interactions" },
+  { i18nKey: "caseStudy.considerations", href: "#considerations" },
   { i18nKey: "caseStudy.proposals", href: "#proposals" },
-  { i18nKey: "caseStudy.visualAdaptations", href: "#visualDesign" },
-  { i18nKey: "caseStudy.userFlow", href: "#finalDesigns" },
+  { i18nKey: "caseStudy.adaptations", href: "#adaptations" },
+  { i18nKey: "caseStudy.flow", href: "#flow" },
   { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
 ];
 ---
@@ -79,7 +79,7 @@ const sidebarItems = [
 
       <section id="context" class="flex gap-8 max-lg:flex-col">
         <div class="lg:w-2/3">
-          <h3 class="text-2xl font-semibold text-white">Context</h3>
+          <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
           <p>
             In June of 2024, I started development for this Pokémon Teambuilder
             project as a way to learn <a
@@ -137,7 +137,7 @@ const sidebarItems = [
       </section>
 
       <section id="roadblocks">
-        <h3 class="!mb-1 text-2xl font-semibold text-white">Roadblocks</h3>
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Roadblocks</h3>
         <p class="pb-3">There were a few issues right out the gate...</p>
         <div class="card-container">
           <div class="card">
@@ -234,7 +234,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="interactions">
+      <section id="considerations">
         <h3 class="!mb-1 text-2xl font-semibold text-white">Considerations</h3>
         <p class="!mb-4">
           Interacting with the web is radically different on mobile devices.
@@ -309,7 +309,7 @@ const sidebarItems = [
       </section>
 
       <section id="proposals">
-        <h3 class="!mb-1 text-2xl font-semibold text-white">Proposals</h3>
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Proposals</h3>
         <p class="pb-4">
           There were a couple ways to do this, each with their own set of
           problems.
@@ -359,8 +359,8 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="visualDesign">
-        <h3 class="text-2xl font-semibold text-white">Visual Adaptations</h3>
+      <section id="adaptations">
+        <h3 class="text-2xl font-semibold text-white">Adaptations</h3>
         <div class="card-container">
           <div class="card">
             <div class="mb-4 flex gap-4">
@@ -722,8 +722,8 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="finalDesigns">
-        <h3 class="text-2xl font-semibold text-white">User Flow</h3>
+      <section id="flow">
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Flow</h3>
         <p>So how does this all come together?</p>
         <br />
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -753,50 +753,63 @@ const sidebarItems = [
       <section id="retrospective">
         <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
         <p>
-          The Kingdra Pokemon Teambuilder redesign was a rewarding experience,
-          especially in overcoming the challenges of adapting a dense desktop UI
-          for mobile without sacrificing core functionality. Key takeaways from
-          the project include:
+          Taking the Kingdra Teambuilder from desktop to mobile taught me a lot
+          about the nuances of responsive design. What started as a simple
+          adaptation turned into a deep dive into mobile UX patterns and the
+          challenges of preserving complex functionality on smaller screens.
         </p>
         <br />
         <ul>
           <li>
-            <strong>Design Flexibility:</strong> Working within the constraints of
-            the
-            <code>Flowbite</code> component library highlighted the importance of
-            selecting adaptable tools for cross-platform applications, and the tradeoffs
-            of relying on predefined component systems.
+            <strong>The Component Library Dilemma:</strong> One of the biggest early
+            hurdles was working within Flowbite's constraints. While it had served
+            me well for desktop, its rigid desktop-first approach meant I had to
+            get creative with mobile features. In hindsight, this reinforced how
+            crucial it is to evaluate libraries through a mobile lens from the start.
           </li>
           <li>
-            <strong>Mobile-Centric UX:</strong> Reimagining navigation and interactions
-            with mobile in mind underscored the significance of gesture-friendly
-            elements, avoiding hover-based functionality, and minimizing scroll times.
+            <strong>Rethinking Touch Navigation:</strong> The S-curve layout that
+            worked so smoothly on desktop became a major pain point. Converting hover
+            states and complex layouts into a touch-friendly interface meant going
+            back to basics. The switch to modals and dropdowns wasn't just a compromise
+            - it ended up creating a more focused, intuitive experience for mobile
+            users.
           </li>
           <li>
-            <strong>Iterative Testing:</strong> Consistently testing with mobile
-            users was crucial in identifying and refining areas like responsiveness
-            and interactive feedback, helping build a more cohesive experience.
+            <strong>The PWA Game-Changer:</strong> Making the jump to a Progressive
+            Web App had a bigger impact than expected. Load times dropped by over
+            60%, and while offline functionality was limited due to MongoDB, the
+            improved caching and performance made a huge difference. This was especially
+            noticeable for players accessing the app in areas with slower connections.
           </li>
           <li>
-            <strong>PWA Benefits:</strong> Transitioning to a PWA was transformative,
-            enabling offline access, faster load times, and a more app-like experience.
-            This added an entirely new layer of functionality for mobile users.
+            <strong>Learning from Users:</strong> The Pokemon community's feedback
+            was eye-opening. While desktop users dove deep into stats and analysis,
+            mobile users just wanted to build teams quickly. This insight led us
+            to streamline the mobile interface around rapid team composition, keeping
+            the detailed number-crunching a tap away when needed.
           </li>
         </ul>
         <br />
-        <p>Future Considerations:</p>
+        <p><strong>Going Forward?</strong></p>
         <ul>
           <li>
-            Further enhancement of the UI with more custom components to improve
-            flexibility.
+            First up is adding gesture controls - imagine being able to swipe
+            between moves or drag to reorder team members. Small touches like
+            these could make the mobile experience feel much more natural. I'm
+            looking at potentially diving into React Native in the not so
+            distant future.
           </li>
           <li>
-            Experimenting with machine learning for smarter Pokemon
-            recommendations tailored to user preferences and competitive trends.
+            I'm also planning to gradually break free from Flowbite by building
+            custom components that work seamlessly across all devices. It's a
+            big undertaking, but worth it for the flexibility we'll gain.
           </li>
           <li>
-            Adding more adaptive content and supporting features for additional
-            game formats, expanding the application's scope.
+            The community has been asking for better sharing features, so I'm
+            looking into native share integration. Being able to quickly export
+            teams to Pokemon Showdown or share them on Discord would be a huge
+            quality-of-life improvement.
           </li>
         </ul>
       </section>
