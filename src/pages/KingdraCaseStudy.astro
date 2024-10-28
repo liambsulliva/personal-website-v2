@@ -16,10 +16,10 @@ const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
   { i18nKey: "caseStudy.context", href: "#context" },
   { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
+  { i18nKey: "caseStudy.considerations", href: "#interactions" },
   { i18nKey: "caseStudy.proposals", href: "#proposals" },
-  { i18nKey: "caseStudy.interactions", href: "#interactions" },
-  { i18nKey: "caseStudy.visualDesign", href: "#visualDesign" },
-  { i18nKey: "caseStudy.finalDesigns", href: "#finalDesigns" },
+  { i18nKey: "caseStudy.visualAdaptations", href: "#visualDesign" },
+  { i18nKey: "caseStudy.userFlow", href: "#finalDesigns" },
   { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
 ];
 ---
@@ -138,7 +138,7 @@ const sidebarItems = [
 
       <section id="roadblocks">
         <h3 class="!mb-1 text-2xl font-semibold text-white">Roadblocks</h3>
-        <p class="pb-3">There were a few constraints...</p>
+        <p class="pb-3">There were a few issues right out the gate...</p>
         <div class="card-container">
           <div class="card">
             <svg
@@ -204,12 +204,10 @@ const sidebarItems = [
               Lack of Dimensionality
             </h4>
             <p>
-              Native smartphone applications often stack elements on top of one
-              another to function. Whether it be through modals or additional
-              pages, mobile UIs work best when elements are stacked on one
-              another. Unfortunately, the flat design and reliance on infinite
-              scrolling made the app difficult to adapt to mobile simply by
-              shifting elements around on the page.
+              Mobile apps work best when using stacked UI elements and gestures
+              for navigation. Unfortunately, web apps lack native gesture
+              support without heavy use of JavaScript. I had to design around
+              these limitations while still aiming for a responsive experience.
             </p>
           </div>
           <!--
@@ -236,10 +234,82 @@ const sidebarItems = [
         </div>
       </section>
 
+      <section id="interactions">
+        <h3 class="!mb-1 text-2xl font-semibold text-white">Considerations</h3>
+        <p class="!mb-4">
+          Interacting with the web is radically different on mobile devices.
+        </p>
+        <div class="row-card-container">
+          <div class="row-card">
+            <div class="flex gap-6 max-md:flex-col">
+              <div class="flex flex-shrink-0 items-center justify-center p-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 16 16"
+                  ><path
+                    fill="white"
+                    d="M1 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5a2 2 0 0 1-1.164 1.818a1.5 1.5 0 0 0-.275-.379l-.446-.446A1 1 0 0 0 14 10V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4v1H3a2 2 0 0 1-2-2zm7.854 3.146A.5.5 0 0 0 8 8.5v6a.5.5 0 0 0 .9.3l1.35-1.8h2.25a.5.5 0 0 0 .354-.854zM9 13V9.707L11.293 12H10a.5.5 0 0 0-.4.2z"
+                  ></path></svg
+                >
+              </div>
+              <div>
+                <h4 class="text-xl font-medium text-white">
+                  Hover State Alternatives
+                </h4>
+                <p>
+                  While hover states work well for desktop interfaces, they
+                  present an interesting challenge on touch devices. Since
+                  mobile users can't easily preview interactive elements through
+                  hover, I had to consider alternative ways to communicate
+                  interactivity. This led me to explore more explicit visual
+                  indicators and touch-friendly patterns that could work
+                  alongside existing hover states, rather than replacing them
+                  entirely. The goal was to enhance the mobile experience while
+                  maintaining the sophisticated interactions that desktop users
+                  enjoy.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="row-card">
+            <div class="flex gap-6 max-md:flex-col">
+              <div class="flex flex-shrink-0 items-center justify-center p-6">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 24 24"
+                  ><path
+                    fill="white"
+                    d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
+                  ></path></svg
+                >
+              </div>
+              <div>
+                <h4 class="text-xl font-medium text-white">
+                  Interactive Feedback
+                </h4>
+                <p>
+                  The transition from mouse-based to touch interactions opened
+                  up interesting possibilities for user feedback. While desktop
+                  users benefit from cursor changes and hover states, touch
+                  interfaces allow for more direct, physical interactions. We
+                  explored ways to complement these interactions with subtle
+                  animations and visual changes that could enhance the user's
+                  confidence without overwhelming the interface. This balance
+                  between feedback and simplicity became a key consideration in
+                  our mobile adaptation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="proposals">
-        <h3 class="!mb-1 text-2xl font-semibold text-white">
-          Navigation Proposals
-        </h3>
+        <h3 class="!mb-1 text-2xl font-semibold text-white">Proposals</h3>
         <p class="pb-4">
           There were a couple ways to do this, each with their own set of
           problems.
@@ -285,80 +355,6 @@ const sidebarItems = [
               on iOS devices, animations can be resource-intensive, requires significant
               rework of existing Flowbite components
             </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="interactions">
-        <h3 class="text-2xl font-semibold text-white">Interactivity Tweaks</h3>
-        <div class="row-card-container">
-          <div class="row-card">
-            <div class="flex gap-6 max-md:flex-col">
-              <div class="flex flex-shrink-0 items-center justify-center p-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="8rem"
-                  height="8rem"
-                  viewBox="0 0 16 16"
-                  ><path
-                    fill="white"
-                    d="M1 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5a2 2 0 0 1-1.164 1.818a1.5 1.5 0 0 0-.275-.379l-.446-.446A1 1 0 0 0 14 10V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4v1H3a2 2 0 0 1-2-2zm7.854 3.146A.5.5 0 0 0 8 8.5v6a.5.5 0 0 0 .9.3l1.35-1.8h2.25a.5.5 0 0 0 .354-.854zM9 13V9.707L11.293 12H10a.5.5 0 0 0-.4.2z"
-                  ></path></svg
-                >
-              </div>
-              <div>
-                <h4 class="text-xl font-medium text-white">
-                  Reduce Reliance on Hover
-                </h4>
-                <p>
-                  Mobile users don't want signifiers of interactivity on hover.
-                  This is because hover states are not easily accessible on
-                  touch devices, and can lead to confusion and frustration for
-                  users. Therefore, it's important to design interactions that
-                  are clear and intuitive, without relying on hover states. In
-                  addition, it's crucial to consider the diversity of mobile
-                  devices and their capabilities. Some devices may not support
-                  hover states at all, while others may have limited support.
-                  Designing interactions that work across a wide range of
-                  devices and screen sizes is essential for a seamless user
-                  experience.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="row-card">
-            <div class="flex gap-6 max-md:flex-col">
-              <div class="flex flex-shrink-0 items-center justify-center p-6">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="8rem"
-                  height="8rem"
-                  viewBox="0 0 24 24"
-                  ><path
-                    fill="white"
-                    d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
-                  ></path></svg
-                >
-              </div>
-              <div>
-                <h4 class="text-xl font-medium text-white">Action Feedback</h4>
-                <p>
-                  Mobile users often struggle to perceive the effects of their
-                  actions on a touchscreen device. This is because the tactile
-                  feedback and visual cues that are present on desktop devices,
-                  such as a mouse cursor changing shape or a button's state
-                  changing, are not as pronounced on mobile devices. To address
-                  this, it's essential to design interactions that provide clear
-                  and immediate feedback to the user, ensuring they understand
-                  the outcome of their actions. This can be achieved through
-                  visual cues like animations, color changes, or text updates
-                  that clearly indicate the result of a user's interaction. By
-                  doing so, mobile users can confidently navigate and interact
-                  with the application, even without the visual feedback
-                  provided by a mouse.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -413,12 +409,73 @@ const sidebarItems = [
                 </div>
               </div>
             </div>
+            <h4 class="text-xl font-medium text-white">Hamburger Menu</h4>
+            <p>
+              The original desktop navigation relied heavily on a fixed sidebar,
+              which consumed too much valuable screen space on mobile devices.
+              Implementing a hamburger menu allowed us to tuck away navigation
+              items when not in use, while still maintaining quick access to all
+              sections of the application. This pattern is particularly familiar
+              to mobile users and helped reduce cognitive load while preserving
+              the full functionality of the navigation system.
+            </p>
+          </div>
+          <div class="card">
+            <div class="mb-4 flex gap-4">
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  Before Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  After Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
             <h4 class="text-xl font-medium text-white">Margins</h4>
             <p>
-              Margins needed to be radically cut to fit as much information into
-              the modals as possible. The original mobile adaptation had
-              character-size margins on every container, making for a
-              clausterphobic experience.
+              The original desktop layout used generous margins to create visual
+              breathing room, but this wasn't feasible on mobile screens. I
+              significantly reduced margins while maintaining just enough
+              spacing to preserve touch target sizes and readability. This
+              allowed me to maximize the limited screen real estate and fit more
+              functional elements into view, particularly within modal
+              interfaces where space was at a premium.
             </p>
           </div>
 
@@ -472,7 +529,16 @@ const sidebarItems = [
             <h4 class="text-xl font-medium text-white">
               Convert Tabs to Dropdowns
             </h4>
-            <p>The horizontal tabs that existed</p>
+            <p>
+              The horizontal tab system that worked well on desktop became
+              unwieldy on mobile devices, often requiring horizontal scrolling
+              or breaking across multiple lines. By converting these tabs into
+              dropdown menus, I maintained all filtering and categorization
+              options while creating a more compact, mobile-friendly interface.
+              This change was particularly important for the Pokemon selection
+              interface, where users needed quick access to different categories
+              and filtering options.
+            </p>
           </div>
 
           <div class="card">
@@ -524,8 +590,133 @@ const sidebarItems = [
             </div>
             <h4 class="text-xl font-medium text-white">PWA Migration</h4>
             <p>
-              The Kingdra Teambuilder app's transition to a Progressive Web App
-              (PWA) significantly enhanced the mobile user experience...
+              The Kingdra Teambuilder's transition to a Progressive Web App
+              (PWA) significantly enhanced the mobile user experience. This
+              upgrade provided faster loading times through caching, and allowed
+              users to install the app directly to their home screen. The PWA
+              implementation also improved performance by reducing server
+              requests, making the mobile experience feel more native and
+              responsive.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="mb-6 flex gap-4">
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  Before Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  After Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h4 class="text-xl font-medium text-white">
+              "Add Pokemon" Button + Modal
+            </h4>
+            <p>
+              The desktop version's Pokemon selection interface was spread
+              across the page and relied heavily on width. I scrapped keeping
+              selections on the same page, instead implementing a button that
+              opens a full-screen modal. This creates a clear hierarchy, reduces
+              cognitive load, and makes adding Pokemon accessible from anywhere.
+              The modal provides a focused selection experience with
+              touch-optimized filtering and search controls.
+            </p>
+          </div>
+          <div class="card">
+            <div class="mb-6 flex gap-4">
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  Before Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  After Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h4 class="text-xl font-medium text-white">
+              Horizontal Pokemon Slots
+            </h4>
+            <p>
+              The original grid layout was replaced with a horizontal list of
+              Pokemon slots. This change maintains visibility of the entire team
+              while conserving horizontal space, allowing users to easily scan
+              through their team members. The horizontal layout also provides a
+              natural touch interaction pattern that's familiar to mobile users,
+              making team management more intuitive on smaller screens.
             </p>
           </div>
         </div>
