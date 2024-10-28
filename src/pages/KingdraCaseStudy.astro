@@ -154,11 +154,16 @@ const sidebarItems = [
             >
             <h4 class="text-xl font-medium text-white">Component Libraries</h4>
             <p>
-              I used the <code>Flowbite</code> component library to build the UI.
-              This saved me a lot of time initially, but locked me into an inflexible
-              ecosystem that hindered my ability to design the page responsively.
-              The opportunity cost of switching off this UI library was too high.
-              I would need to work within their framework for my redesign.
+              I used the <a
+                class="text-link"
+                href="https://flowbite.com/"
+                target="_blank"
+                rel="noreferrer">Flowbite</a
+              > component library to build the UI. This saved me a lot of time initially,
+              but locked me into an inflexible ecosystem that hindered my ability
+              to design the page responsively. The opportunity cost of switching
+              off this UI library was too high. I would need to work within their
+              framework for my redesign.
             </p>
           </div>
           <div class="card">
@@ -237,39 +242,48 @@ const sidebarItems = [
           There were a couple ways to do this, each with their own set of
           problems.
         </p>
-        <div class="flex flex-wrap justify-between gap-4 max-lg:flex-col">
+        <div class="flex flex-wrap justify-between gap-8 max-lg:flex-col">
           <div
-            class="mb-4 w-[calc(50%-0.5rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-4 max-lg:w-full"
+            class="mb-8 w-[calc(50%-1rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
           >
             <div
-              class="h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
+              class="mb-6 h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
             >
-              <h2 class="items-center text-white">IMAGE</h2>
+              <h2 class="items-center text-[#666]">Image</h2>
             </div>
-            <h4 class="text-xl font-medium text-white">IOS-like Tab Bar</h4>
-            <p class="text-[#d0d0d0]">
+            <h4 class="!mb-2 text-xl font-medium text-white">
+              IOS-like Tab Bar
+            </h4>
+            <p class="mb-2 text-[#d0d0d0]">
               <span class="font-medium text-white">Pros:</span> Easily accessible
-              for one-handed use
+              for one-handed use, familiar to iOS users, clean and minimalist interface
             </p>
             <p class="text-[#d0d0d0]">
-              <span class="font-medium text-white">Cons:</span> Clunky, Can't see
-              added Pokémon, Not enough UI elements/settings to fill 3+ pages
+              <span class="font-medium text-white">Cons:</span> Limited screen real
+              estate for content, can't see added Pokémon without switching tabs,
+              not enough features to justify multiple tabs
             </p>
           </div>
           <div
-            class="mb-4 w-[calc(50%-0.5rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-4 max-lg:w-full"
+            class="mb-8 w-[calc(50%-1rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
           >
             <div
-              class="h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
+              class="mb-6 h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
             >
-              <h2 class="items-center text-white">IMAGE</h2>
+              <h2 class="items-center text-[#666]">Image</h2>
             </div>
-            <h4 class="text-xl font-medium text-white">Material Design</h4>
-            <p class="text-[#d0d0d0]">
-              <span class="font-medium text-white">Pros:</span>
+            <h4 class="!mb-2 text-xl font-medium text-white">
+              Material Design
+            </h4>
+            <p class="mb-2 text-[#d0d0d0]">
+              <span class="font-medium text-white">Pros:</span> Familiar to Android
+              users, excellent support for modals and floating action buttons, clear
+              visual hierarchy
             </p>
             <p class="text-[#d0d0d0]">
-              <span class="font-medium text-white">Cons:</span>
+              <span class="font-medium text-white">Cons:</span> May feel out of place
+              on iOS devices, animations can be resource-intensive, requires significant
+              rework of existing Flowbite components
             </p>
           </div>
         </div>
@@ -279,38 +293,72 @@ const sidebarItems = [
         <h3 class="text-2xl font-semibold text-white">Interactivity Tweaks</h3>
         <div class="row-card-container">
           <div class="row-card">
-            <h4 class="text-xl font-medium text-white">
-              Reduce Reliance on Hover
-            </h4>
-            <p>
-              Mobile users don't want signifiers of interactivity on hover. This
-              is because hover states are not easily accessible on touch
-              devices, and can lead to confusion and frustration for users.
-              Therefore, it's important to design interactions that are clear
-              and intuitive, without relying on hover states. In addition, it's
-              crucial to consider the diversity of mobile devices and their
-              capabilities. Some devices may not support hover states at all,
-              while others may have limited support. Designing interactions that
-              work across a wide range of devices and screen sizes is essential
-              for a seamless user experience.
-            </p>
+            <div class="flex gap-6 max-md:flex-col">
+              <div class="flex flex-shrink-0 items-center justify-center p-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 16 16"
+                  ><path
+                    fill="white"
+                    d="M1 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5a2 2 0 0 1-1.164 1.818a1.5 1.5 0 0 0-.275-.379l-.446-.446A1 1 0 0 0 14 10V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4v1H3a2 2 0 0 1-2-2zm7.854 3.146A.5.5 0 0 0 8 8.5v6a.5.5 0 0 0 .9.3l1.35-1.8h2.25a.5.5 0 0 0 .354-.854zM9 13V9.707L11.293 12H10a.5.5 0 0 0-.4.2z"
+                  ></path></svg
+                >
+              </div>
+              <div>
+                <h4 class="text-xl font-medium text-white">
+                  Reduce Reliance on Hover
+                </h4>
+                <p>
+                  Mobile users don't want signifiers of interactivity on hover.
+                  This is because hover states are not easily accessible on
+                  touch devices, and can lead to confusion and frustration for
+                  users. Therefore, it's important to design interactions that
+                  are clear and intuitive, without relying on hover states. In
+                  addition, it's crucial to consider the diversity of mobile
+                  devices and their capabilities. Some devices may not support
+                  hover states at all, while others may have limited support.
+                  Designing interactions that work across a wide range of
+                  devices and screen sizes is essential for a seamless user
+                  experience.
+                </p>
+              </div>
+            </div>
           </div>
           <div class="row-card">
-            <h4 class="text-xl font-medium text-white">Action Feedback</h4>
-            <p>
-              Mobile users often struggle to perceive the effects of their
-              actions on a touchscreen device. This is because the tactile
-              feedback and visual cues that are present on desktop devices, such
-              as a mouse cursor changing shape or a button's state changing, are
-              not as pronounced on mobile devices. To address this, it's
-              essential to design interactions that provide clear and immediate
-              feedback to the user, ensuring they understand the outcome of
-              their actions. This can be achieved through visual cues like
-              animations, color changes, or text updates that clearly indicate
-              the result of a user's interaction. By doing so, mobile users can
-              confidently navigate and interact with the application, even
-              without the visual feedback provided by a mouse.
-            </p>
+            <div class="flex gap-6 max-md:flex-col">
+              <div class="flex flex-shrink-0 items-center justify-center p-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 24 24"
+                  ><path
+                    fill="white"
+                    d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
+                  ></path></svg
+                >
+              </div>
+              <div>
+                <h4 class="text-xl font-medium text-white">Action Feedback</h4>
+                <p>
+                  Mobile users often struggle to perceive the effects of their
+                  actions on a touchscreen device. This is because the tactile
+                  feedback and visual cues that are present on desktop devices,
+                  such as a mouse cursor changing shape or a button's state
+                  changing, are not as pronounced on mobile devices. To address
+                  this, it's essential to design interactions that provide clear
+                  and immediate feedback to the user, ensuring they understand
+                  the outcome of their actions. This can be achieved through
+                  visual cues like animations, color changes, or text updates
+                  that clearly indicate the result of a user's interaction. By
+                  doing so, mobile users can confidently navigate and interact
+                  with the application, even without the visual feedback
+                  provided by a mouse.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -319,6 +367,52 @@ const sidebarItems = [
         <h3 class="text-2xl font-semibold text-white">Visual Adaptations</h3>
         <div class="card-container">
           <div class="card">
+            <div class="mb-4 flex gap-4">
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  Before Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  After Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
             <h4 class="text-xl font-medium text-white">Margins</h4>
             <p>
               Margins needed to be radically cut to fit as much information into
@@ -326,35 +420,113 @@ const sidebarItems = [
               character-size margins on every container, making for a
               clausterphobic experience.
             </p>
-            <p>X - Image 1</p>
-            <p>Check - Image 2</p>
           </div>
 
           <div class="card">
+            <div class="mb-4 flex gap-4">
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  Before Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  After Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
             <h4 class="text-xl font-medium text-white">
               Convert Tabs to Dropdowns
             </h4>
             <p>The horizontal tabs that existed</p>
-            <p>X - Image 1</p>
-            <p>Check - Image 2</p>
           </div>
 
           <div class="card">
+            <div class="mb-4 flex gap-4">
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  Before Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="relative w-full">
+                <div
+                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
+                >
+                  After Image
+                </div>
+                <div
+                  class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
             <h4 class="text-xl font-medium text-white">PWA Migration</h4>
             <p>
               The Kingdra Teambuilder app's transition to a Progressive Web App
-              (PWA) significantly enhanced the mobile user experience. PWAs
-              provide a native app-like experience with seamless interaction,
-              home screen installation, and offline capabilities. This allows
-              users to manage their Pokémon teams without an internet
-              connection, making the app more accessible and convenient. PWAs
-              also offer faster load times, improved performance, and enhanced
-              security features. The transition to a PWA has greatly improved
-              the mobile user experience, offering a more immersive, accessible,
-              and engaging interaction with the app.
+              (PWA) significantly enhanced the mobile user experience...
             </p>
-            <p>X - Image 1</p>
-            <p>Check - Image 2</p>
           </div>
         </div>
       </section>
@@ -365,16 +537,16 @@ const sidebarItems = [
         <br />
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div class="row-card h-[600px]">
-            <h2>IMAGE</h2>
+            <h2 class="text-[#666]">Image</h2>
           </div>
           <div class="row-card h-[600px]">
-            <h2>IMAGE</h2>
+            <h2 class="text-[#666]">Image</h2>
           </div>
           <div class="row-card h-[600px]">
-            <h2>IMAGE</h2>
+            <h2 class="text-[#666]">Image</h2>
           </div>
           <div class="row-card h-[600px]">
-            <h2>IMAGE</h2>
+            <h2 class="text-[#666]">Image</h2>
           </div>
         </div>
       </section>
