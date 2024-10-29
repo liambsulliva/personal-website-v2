@@ -15,6 +15,7 @@ import flow1 from "../images/flow-1.webp";
 import flow2 from "../images/flow-2.webp";
 import flow3 from "../images/flow-3.webp";
 import flow4 from "../images/flow-4.webp";
+import ioslayout from "../images/ioslayout.png";
 
 const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
@@ -366,9 +367,13 @@ const sidebarItems = [
             class="mb-8 w-[calc(50%-1rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
           >
             <div
-              class="mb-6 h-[450px] w-full rounded-xl border border-[#333] bg-[var(--card-color)] p-4"
+              class="mx-auto mb-6 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
             >
-              <h2 class="items-center text-[#666]">Image</h2>
+              <Image
+                src={ioslayout}
+                alt="Bottom Tab Bar"
+                class="h-full w-full object-cover"
+              />
             </div>
             <h4 class="!mb-2 text-xl font-medium text-white">Bottom Tab Bar</h4>
             <div class="space-y-3">
