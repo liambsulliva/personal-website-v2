@@ -279,9 +279,10 @@ const sidebarItems = [
                   mobile users can't easily preview interactive elements through
                   hover, I had to consider alternative ways to communicate
                   interactivity. This led me to explore more explicit visual
-                  indicators, like touching badges and . The goal was to enhance
-                  the mobile experience while maintaining the sophisticated
-                  interactions that desktop users enjoy.
+                  indicators, like touching information toggles to uncover speed
+                  stat boosts instead of hovering over the stat itself. The goal
+                  was to enhance the mobile experience while maintaining the
+                  sophisticated interactions that desktop users enjoy.
                 </p>
               </div>
             </div>
@@ -308,12 +309,11 @@ const sidebarItems = [
                   The transition from mouse-based to touch interactions opened
                   up interesting possibilities for user feedback. While desktop
                   users benefit from cursor changes and hover states, touch
-                  interfaces allow for more direct, physical interactions. I
-                  explored ways to complement these interactions with subtle
-                  animations and visual changes that could enhance the user's
-                  confidence without overwhelming the interface. This balance
-                  between feedback and simplicity became a key consideration in
-                  my mobile adaptation.
+                  interfaces allow for more direct, physical interactions.
+                  Unfortunately, this also comes with the drawback of physical
+                  reach. I had to ensure that all of the elements on the page
+                  were reasonably reachable by thumb for a traditionally
+                  right-handed person.
                 </p>
               </div>
             </div>
@@ -341,9 +341,9 @@ const sidebarItems = [
                   simultaneous display of multiple features and data points. On
                   mobile, this approach would overwhelm users and create
                   cognitive overload. I needed to carefully prioritize
-                  information, creating a clear hierarchy that presents the most
-                  important data first while making secondary information easily
-                  accessible through progressive disclosure. This was
+                  information, creating a clear hierarchy through modals and
+                  careful placement of buttons, presenting the most important
+                  data first when scanning the page from top to bottom. This was
                   particularly important for the Pokemon selection interface,
                   where users needed to be able to quickly filter down to what
                   they want through competitive tier and/or generation.
