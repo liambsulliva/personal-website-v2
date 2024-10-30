@@ -526,13 +526,14 @@ const sidebarItems = [
             </div>
             <h4 class="text-xl font-medium text-white">Hamburger Menu</h4>
             <p>
-              The original desktop navigation relied heavily on a fixed sidebar,
-              which consumed too much valuable screen space on mobile devices.
-              Implementing a hamburger menu allowed me to tuck away navigation
-              items when not in use, while still maintaining quick access to all
-              sections of the application. This pattern is particularly familiar
-              to mobile users and helped reduce cognitive load while preserving
-              the full functionality of the navigation system.
+              The original desktop navigation relied heavily on a fixed infinite
+              scrolling component, which consumed too much valuable screen space
+              on mobile devices. Implementing a hamburger menu allowed me to
+              tuck away navigation items when not in use, while still
+              maintaining quick access to all sections of the application. This
+              pattern is particularly familiar to mobile users and helped reduce
+              cognitive load while preserving the full functionality of the
+              navigation system.
             </p>
           </div>
           <div class="card">
@@ -646,8 +647,8 @@ const sidebarItems = [
             </h4>
             <p>
               The horizontal tab system that worked well on desktop became
-              unwieldy on mobile devices, often requiring horizontal scrolling
-              or breaking across multiple lines. By converting these tabs into
+              unwieldy on mobile devices, requiring horizontal scrolling or
+              breaking across multiple lines. By converting these tabs into
               dropdown menus, I maintained all filtering and categorization
               options while creating a more compact, mobile-friendly interface.
               This change was particularly important for the Pokemon selection
@@ -709,9 +710,9 @@ const sidebarItems = [
               (PWA) significantly enhanced the mobile user experience. This
               upgrade provided faster loading times through caching, and allowed
               users to install the app directly to their home screen. The PWA
-              implementation also improved performance by reducing server
-              requests, making the mobile experience feel more native and
-              responsive.
+              implementation also improved performance by reducing the need for
+              server side props, making the mobile experience feel more native
+              and responsive.
             </p>
           </div>
 
