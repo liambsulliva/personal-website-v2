@@ -369,9 +369,11 @@ const sidebarItems = [
           <div
             class="mb-8 h-full rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
           >
-            <div class="mb-6 flex w-full justify-center gap-4 max-sm:flex-row">
+            <div
+              class="mb-6 flex w-full flex-col justify-center gap-4 sm:flex-row"
+            >
               <div
-                class="w-1/3 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
+                class="w-1/3 max-sm:w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
               >
                 <Image
                   src={menubar1}
@@ -380,7 +382,7 @@ const sidebarItems = [
                 />
               </div>
               <div
-                class="w-1/3 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
+                class="w-1/3 max-sm:hidden overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
               >
                 <Image
                   src={menubar2}
@@ -389,7 +391,7 @@ const sidebarItems = [
                 />
               </div>
               <div
-                class="w-1/3 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
+                class="w-1/3 max-sm:hidden overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
               >
                 <Image
                   src={menubar3}
