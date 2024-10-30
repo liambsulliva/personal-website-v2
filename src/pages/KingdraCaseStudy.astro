@@ -65,6 +65,7 @@ const sidebarItems = [
         src={UXBanner}
         alt="Kingdra Teambuilder"
         class="mx-auto max-h-[700px] w-auto"
+        loading="eager"
       />
 
       <div class="flex justify-center">
@@ -523,8 +524,7 @@ const sidebarItems = [
             <p>
               Replaced the fixed infinite scrolling navigation with a
               collapsible hamburger menu to save valuable screen space. This
-              familiar mobile pattern maintains full functionality while
-              reducing visual clutter.
+              mobile pattern is familiar, while maintaining full functionality.
             </p>
           </div>
 
@@ -636,8 +636,8 @@ const sidebarItems = [
             <p>
               Transformed the horizontal tab system into dropdown menus to
               prevent line breaks and maintain filtering options in a
-              mobile-friendly format, particularly useful for the Pokemon
-              selection interface.
+              mobile-friendly format, which was particularly useful for the
+              Pokemon selection interface.
             </p>
           </div>
 
@@ -690,9 +690,9 @@ const sidebarItems = [
             </div>
             <h4 class="text-xl font-medium text-white">PWA Migration</h4>
             <p>
-              Enhanced mobile experience through PWA implementation, enabling
-              app installation, faster loading times through caching, and
-              improved performance with reduced server-side operations.
+              Enhanced the mobile experience through PWA implementation,
+              enabling app installation, faster loading times through caching,
+              and improved performance with reduced server-side operations.
             </p>
           </div>
 
@@ -748,8 +748,8 @@ const sidebarItems = [
             </h4>
             <p>
               Replaced the spread-out Pokemon selection interface with a focused
-              full-screen modal, accessible via a single button. Features
-              touch-optimized controls for filtering and searching.
+              full-screen modal, accessible via a single "Add Pokemon" button.
+              Features touch-optimized controls for filtering and searching.
             </p>
           </div>
 
@@ -805,8 +805,9 @@ const sidebarItems = [
             </h4>
             <p>
               Converted the grid layout to a horizontal list, making team
-              management more intuitive on mobile while maintaining full team
-              visibility. Provides a natural touch-friendly scanning experience.
+              management more intuitive on mobile and increasing the Pokemon
+              editor's touch target. Provides a natural scanning experience from
+              top to bottom.
             </p>
           </div>
         </div>
@@ -903,40 +904,43 @@ const sidebarItems = [
         <ul>
           <li>
             <strong>The Component Library Dilemma:</strong> Flowbite's rigid structure,
-            while perfect for desktop, required creative CSS solutions for mobile
-            adaptation. This experience highlighted the importance of mobile-first
-            planning in web development.
+            while perfect for desktop, required creative CSS solutions to adapt to
+            mobile. This highlighted the importance of mobile-first design in web
+            development.
           </li>
           <li>
             <strong>Rethinking Touch Navigation:</strong> Replacing the desktop sidebar
-            with a hamburger menu proved more than just a space-saving measure. The
-            new navigation system, with its touch-optimized design, created a more
-            intuitive mobile experience.
+            with a hamburger menu proved to be more than just a space-saving measure.
+            The new navigation system, with its touch-optimized design and easy reachability,
+            made for a much more intuitive mobile experience.
           </li>
           <li>
             <strong>The PWA Game-Changer:</strong> The Progressive Web App implementation
-            brought unexpected benefits, particularly in load times and performance.
-            Despite MongoDB limiting offline functionality, the improved caching
-            made a significant difference for users with slower connections.
+            brought a lot ofbenefits, particularly in load times and performance.
+            Despite MongoDB limiting its offline functionality, the improved caching
+            made a significant difference in load times and performance.
           </li>
         </ul>
         <br />
         <p><strong>Going Forward?</strong></p>
         <ul>
           <li>
-            The type coverage module needs a mobile-friendly redesign. A
-            gesture-based system could make this desktop-optimized tool more
-            accessible on mobile devices.
+            The type coverage module needs to be re-implemented. In the current
+            horizontal list implementation, displaying it on mobile is simply
+            not feasible yet. A gesture-based system could make this
+            desktop-optimized tool more accessible on mobile devices.
           </li>
           <li>
             Enhanced filtering options by types, stats, and moves would improve
-            the user experience, especially on mobile where screen space is
-            limited.
+            the user experience, especially on mobile and tablets where screen
+            space is limited and only two columns of Pokemon can be shown at one
+            time.
           </li>
           <li>
             Future development will focus on replacing Flowbite components with
             custom, device-agnostic solutions to improve flexibility and
-            maintainability.
+            maintainability. By removing these dependencies, I'll have much more
+            freedom in creating custom layouts.
           </li>
         </ul>
       </section>
