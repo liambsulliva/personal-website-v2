@@ -47,15 +47,13 @@
   },
   "caseStudy": {
     "overview": "<0>Überblick</0>",
-    "highlights": "<0>Höhepunkte</0>",
     "context": "<0>Kontext</0>",
-    "problem": "<0>Problem</0>",
-    "updateFlow": "<0>Update-Flow</0>",
-    "layout": "<0>Layout</0>",
-    "interactions": "<0>Interaktionen</0>",
-    "visualDesign": "<0>Visuelles</0>",
-    "finalDesigns": "<0>Endergebnisse</0>",
-    "retrospective": "<0>Fazit</0>"
+    "roadblocks": "<0>Hindernisse</0>",
+    "considerations": "<0>Überlegungen</0>",
+    "navigation": "<0>Navigation</0>",
+    "adaptations": "<0>Anpassungen</0>",
+    "flow": "<0>Ablauf</0>",
+    "retrospective": "<0>Rückblick</0>"
   },
   "footer": {
     "content": "<0>Mit Liebe, Liam Sullivan</0>"
