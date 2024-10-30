@@ -471,7 +471,11 @@ const sidebarItems = [
       </section>
 
       <section id="adaptations">
-        <h3 class="text-2xl font-semibold text-white">Adaptations</h3>
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Adaptations</h3>
+        <p class="pb-4">
+          After settling on a layout that worked, I immediately jumped into
+          Tailwind to make some adjustments.
+        </p>
         <div class="card-container">
           <div class="card">
             <div class="mb-4 flex gap-4">
@@ -524,7 +528,7 @@ const sidebarItems = [
             <p>
               The original desktop navigation relied heavily on a fixed sidebar,
               which consumed too much valuable screen space on mobile devices.
-              Implementing a hamburger menu allowed us to tuck away navigation
+              Implementing a hamburger menu allowed me to tuck away navigation
               items when not in use, while still maintaining quick access to all
               sections of the application. This pattern is particularly familiar
               to mobile users and helped reduce cognitive load while preserving
@@ -932,31 +936,26 @@ const sidebarItems = [
           <li>
             <strong>The Component Library Dilemma:</strong> One of the biggest early
             hurdles was working within Flowbite's constraints. While it had served
-            me well for desktop, its rigid desktop-first approach meant I had to
-            get creative with mobile features. In hindsight, this reinforced how
-            crucial it is to evaluate libraries through a mobile lens from the start.
+            me well for desktop, its rigid, often unstylable components made me need
+            to get crafty with my CSS to keep components from stretching off the
+            page. In hindsight, this reinforced how crucial it is to evaluate web
+            apps from a mobile perspective from the start.
           </li>
           <li>
-            <strong>Rethinking Touch Navigation:</strong> The S-curve layout that
-            worked so smoothly on desktop became a major pain point. Converting hover
-            states and complex layouts into a touch-friendly interface meant going
-            back to basics. The switch to modals and dropdowns wasn't just a compromise
-            - it ended up creating a more focused, intuitive experience for mobile
-            users.
+            <strong>Rethinking Touch Navigation:</strong> The fixed sidebar that
+            worked so well on desktop became a major pain point. Converting the navigation
+            into a hamburger menu wasn't just about saving space - it was chosen
+            because it follows classic mobile web conventions for navigation. The
+            final implementation, with its clear visual feedback and generous touch
+            areas, ended up creating a more focused, intuitive experience that felt
+            natural on mobile devices.
           </li>
           <li>
             <strong>The PWA Game-Changer:</strong> Making the jump to a Progressive
-            Web App had a bigger impact than expected. Load times dropped by over
-            60%, and while offline functionality was limited due to MongoDB, the
-            improved caching and performance made a huge difference. This was especially
-            noticeable for players accessing the app in areas with slower connections.
-          </li>
-          <li>
-            <strong>Learning from Users:</strong> The Pokemon community's feedback
-            was eye-opening. While desktop users dove deep into stats and analysis,
-            mobile users just wanted to build teams quickly. This insight led us
-            to streamline the mobile interface around rapid team composition, keeping
-            the detailed number-crunching a tap away when needed.
+            Web App had a bigger impact than expected. Load times dropped significantly,
+            and while offline functionality was limited due to MongoDB, the improved
+            caching and performance made a huge difference. This was especially noticeable
+            for players accessing the app in areas with slower connections.
           </li>
         </ul>
         <br />
@@ -970,15 +969,16 @@ const sidebarItems = [
             distant future.
           </li>
           <li>
-            I'm also planning to gradually break free from Flowbite by building
-            custom components that work seamlessly across all devices. It's a
-            big undertaking, but worth it for the flexibility I'll gain.
+            Even with the addition of modals, users are still forced into long
+            scrolls if they're not sure exactly what they are looking for. Being
+            able to filter by types, stats, and/or moves would be a great
+            addition for both mobile and desktop. However, it would make the
+            biggest difference on mobile due to its tiny screen width.
           </li>
           <li>
-            Performance optimization is next on the roadmap. While the PWA
-            helped tremendously, there's still room to improve load times and
-            reduce data usage. I'm looking into refactoring some of my reactive
-            state, as I have a lot of unnecessary re-renders.
+            I'm also planning to gradually break free from Flowbite by building
+            custom components that work seamlessly across all devices. It's an
+            undertaking for sure, but worth it for the flexibility I'll gain.
           </li>
         </ul>
       </section>
