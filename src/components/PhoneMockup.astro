@@ -56,7 +56,7 @@ const { contentImage, phoneImage } = Astro.props;
   .mockup-container {
     position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     margin: 0 auto;
     aspect-ratio: 9/16;
   }
@@ -67,6 +67,7 @@ const { contentImage, phoneImage } = Astro.props;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
+    max-width: 270px;
     height: auto;
     aspect-ratio: 9/16;
     overflow-y: auto;
@@ -92,7 +93,7 @@ const { contentImage, phoneImage } = Astro.props;
 
   @media (max-width: 1024px) {
     .mockup-content {
-      transform: translate(-155px, -50%);
+      transform: translate(-50%, -50%);
     }
   }
 </style>

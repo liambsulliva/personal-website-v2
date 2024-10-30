@@ -2,7 +2,7 @@
 import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
 import Background from "../Background.astro";
-import Experience from "../Experience.astro";
+import UX from "../ux.astro";
 import Photography from "../Photography.astro";
 import Projects from "../Projects.astro";
 import Blog from "../Blog.astro";
@@ -17,7 +17,7 @@ changeLanguage("en");
 const sidebarItems = [
     { i18nKey: "background.header", href: "#background" },
     { i18nKey: "projects.header", href: "#projects" },
-    { i18nKey: "experience.header", href: "#experience" },
+    { i18nKey: "ux.header", href: "#ux" },
     { i18nKey: "photography.header", href: "#photography" },
     { i18nKey: "blog.header", href: "#blog" },
 ];
@@ -46,8 +46,8 @@ const sidebarItems = [
       <div id="projects" class="fade-in">
         <Projects />
       </div>
-      <div id="experience" class="card">
-        <Experience />
+      <div id="ux" class="fade-in">
+        <UX />
       </div>
       <div id="photography" class="card">
         <Photography />
