@@ -17,8 +17,19 @@ import flow2 from "../../images/flow-2.webp";
 import flow3 from "../../images/flow-3.webp";
 import flow4 from "../../images/flow-4.webp";
 import menubar1 from "../../images/menubar1.png";
-import menubar2 from "../../images/menubar2.png";
-import menubar3 from "../../images/menubar3.png";
+import iconbar from "../../images/iconbar.png";
+import hamburgerBefore from "../../images/hamburger-before.png";
+import hamburgerAfter from "../../images/hamburger-after.png";
+import horizontalBefore from "../../images/horizontalslots-before.png";
+import horizontalAfter from "../../images/horizontalslots-after.png";
+import marginsBefore from "../../images/margins-before.png";
+import marginsAfter from "../../images/margins-after.png";
+import modalBefore from "../../images/modal-before.png";
+import modalAfter from "../../images/modal-after.png";
+import pwaBefore from "../../images/pwa-before.jpg";
+import pwaAfter from "../../images/pwa-after.jpg";
+import tabsBefore from "../../images/tabs-before.png";
+import tabsAfter from "../../images/tabs-after.png";
 
 changeLanguage("en");
 
@@ -365,40 +376,18 @@ const sidebarItems = [
           After brainstorming a bit, I started prototyping some layouts, neither
           of which I fully loved.
         </p>
-        <div class="flex flex-col flex-wrap justify-between gap-8">
+        <div class="flex gap-8 max-lg:flex-col">
           <div
-            class="mb-8 h-full rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
+            class="h-full rounded-xl border border-[#333] bg-[var(--card-color)] p-6 lg:w-1/2"
           >
             <div
-              class="mb-6 flex w-full flex-col justify-center gap-4 sm:flex-row"
+              class="mb-6 w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
             >
-              <div
-                class="w-1/3 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1 max-sm:w-full"
-              >
-                <Image
-                  src={menubar1}
-                  alt="Bottom Tab Bar"
-                  class="h-full w-full rounded-lg object-contain"
-                />
-              </div>
-              <div
-                class="w-1/3 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1 max-sm:hidden"
-              >
-                <Image
-                  src={menubar2}
-                  alt="Bottom Tab Bar"
-                  class="h-full w-full rounded-lg object-contain"
-                />
-              </div>
-              <div
-                class="w-1/3 overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1 max-sm:hidden"
-              >
-                <Image
-                  src={menubar3}
-                  alt="Bottom Tab Bar"
-                  class="h-full w-full rounded-lg object-contain"
-                />
-              </div>
+              <Image
+                src={menubar1}
+                alt="Bottom Tab Bar"
+                class="h-full w-full rounded-lg object-contain"
+              />
             </div>
             <h4 class="!mb-2 text-xl font-medium text-white">Bottom Tab Bar</h4>
             <div class="space-y-3">
@@ -440,12 +429,20 @@ const sidebarItems = [
               </div>
             </div>
           </div>
+
           <div
-            class="mb-8 w-[calc(50%-1rem)] rounded-xl border border-[#333] bg-[var(--card-color)] p-6 max-lg:w-full"
+            class="h-full rounded-xl border border-[#333] bg-[var(--card-color)] p-6 lg:w-1/2"
           >
-            <h4 class="!mb-2 text-xl font-medium text-white">
-              Material Design
-            </h4>
+            <div
+              class="mb-6 w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)] p-1"
+            >
+              <Image
+                src={iconbar}
+                alt="Bottom Tab Bar"
+                class="h-full w-full rounded-lg object-contain"
+              />
+            </div>
+            <h4 class="!mb-2 text-xl font-medium text-white">Icons Up Top</h4>
             <div class="space-y-3">
               <div class="flex items-start gap-4 rounded-lg bg-[#1a1a1a] p-4">
                 <svg
@@ -461,8 +458,8 @@ const sidebarItems = [
                   ></path>
                 </svg>
                 <p class="text-[#d0d0d0]">
-                  Familiar to Android users, excellent support for modals and
-                  floating action buttons, clear visual hierarchy
+                  Keeps bottom navigation clear for content and eliminates need
+                  for sidebars or nested menus
                 </p>
               </div>
               <div class="flex items-start gap-4 rounded-lg bg-[#1a1a1a] p-4">
@@ -479,9 +476,8 @@ const sidebarItems = [
                   ></path>
                 </svg>
                 <p class="text-[#d0d0d0]">
-                  May feel out of place on iOS devices, animations can be
-                  resource-intensive, requires significant rework of existing
-                  Flowbite components
+                  Hard to reach with one hand, confusing to new users who may
+                  not know what the icons do
                 </p>
               </div>
             </div>
@@ -497,13 +493,13 @@ const sidebarItems = [
         </p>
         <div class="card-container">
           <div class="card">
-            <div class="mb-4 flex gap-4">
+            <div class="mb-4 flex flex-col gap-4">
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  Before Image
-                </div>
+                <Image
+                  src={hamburgerBefore}
+                  alt="Navigation before hamburger menu"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
                 >
@@ -521,11 +517,11 @@ const sidebarItems = [
                 </div>
               </div>
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  After Image
-                </div>
+                <Image
+                  src={hamburgerAfter}
+                  alt="Navigation after hamburger menu"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
                 >
@@ -555,14 +551,15 @@ const sidebarItems = [
               navigation system.
             </p>
           </div>
+
           <div class="card">
-            <div class="mb-4 flex gap-4">
+            <div class="mb-4 flex flex-col gap-4">
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  Before Image
-                </div>
+                <Image
+                  src={marginsBefore}
+                  alt="UI before margin adjustments"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
                 >
@@ -580,11 +577,11 @@ const sidebarItems = [
                 </div>
               </div>
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  After Image
-                </div>
+                <Image
+                  src={marginsAfter}
+                  alt="UI after margin adjustments"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
                 >
@@ -615,13 +612,13 @@ const sidebarItems = [
           </div>
 
           <div class="card">
-            <div class="mb-6 flex gap-4">
+            <div class="mb-4 flex flex-col gap-4">
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  Before Image
-                </div>
+                <Image
+                  src={tabsBefore}
+                  alt="Navigation before tab conversion"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
                 >
@@ -639,11 +636,11 @@ const sidebarItems = [
                 </div>
               </div>
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  After Image
-                </div>
+                <Image
+                  src={tabsAfter}
+                  alt="Navigation after tab conversion"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
                 >
@@ -677,13 +674,13 @@ const sidebarItems = [
           </div>
 
           <div class="card">
-            <div class="mb-4 flex gap-4">
+            <div class="mb-4 flex flex-col gap-4">
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  Before Image
-                </div>
+                <Image
+                  src={pwaBefore}
+                  alt="App before PWA implementation"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
                 >
@@ -701,11 +698,11 @@ const sidebarItems = [
                 </div>
               </div>
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  After Image
-                </div>
+                <Image
+                  src={pwaAfter}
+                  alt="App after PWA implementation"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
                 >
@@ -736,13 +733,13 @@ const sidebarItems = [
           </div>
 
           <div class="card">
-            <div class="mb-6 flex gap-4">
+            <div class="mb-4 flex flex-col gap-4">
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  Before Image
-                </div>
+                <Image
+                  src={modalBefore}
+                  alt="UI before modal implementation"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
                 >
@@ -760,11 +757,11 @@ const sidebarItems = [
                 </div>
               </div>
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  After Image
-                </div>
+                <Image
+                  src={modalAfter}
+                  alt="UI after modal implementation"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
                 >
@@ -795,14 +792,15 @@ const sidebarItems = [
               touch-optimized filtering and search controls.
             </p>
           </div>
+
           <div class="card">
-            <div class="mb-6 flex gap-4">
+            <div class="mb-4 flex flex-col gap-4">
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  Before Image
-                </div>
+                <Image
+                  src={horizontalBefore}
+                  alt="Pokemon slots before horizontal layout"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-red-500/20 p-1 text-red-500"
                 >
@@ -820,11 +818,11 @@ const sidebarItems = [
                 </div>
               </div>
               <div class="relative w-full">
-                <div
-                  class="flex aspect-video w-full items-center justify-center rounded-lg bg-[#1a1a1a] text-[#666]"
-                >
-                  After Image
-                </div>
+                <Image
+                  src={horizontalAfter}
+                  alt="Pokemon slots after horizontal layout"
+                  class="aspect-video w-full rounded-lg object-cover"
+                />
                 <div
                   class="absolute right-2 top-2 flex items-center justify-center rounded-full bg-green-500/20 p-1 text-green-500"
                 >
