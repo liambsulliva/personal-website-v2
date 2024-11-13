@@ -40,7 +40,7 @@ const sidebarItems = [
       </h2></Trans
     >
     <div class="section-divider">
-      <div>
+      <div class="first-section">
         <Trans i18nKey={sidebarItems[0].i18nKey}>
           <p class="section-labels" style="text-transform: uppercase;"></p>
         </Trans>
@@ -194,6 +194,9 @@ const sidebarItems = [
         flex-direction: column;
         align-items: center;
         gap: 0;
+      }
+      .first-section {
+        margin-top: 1.5rem;
       }
     }
     @media (max-width: 768px) {
