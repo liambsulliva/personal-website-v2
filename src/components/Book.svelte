@@ -1,21 +1,28 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import FrontCover from "../images/Cover-Front.webp";
-  import BackCover from "../images/Cover-Back.webp";
+  import FrontCover from "../images/Cover-Front.webp?url";
+  import BackCover from "../images/Cover-Back.webp?url";
+  import Bookmark from "./Bookmark.svelte";
 
   export let class_ = "";
   let book: HTMLElement;
 
   let isHovering = false;
+  export let isFlipped = false;
+  export let page = 0;
 
   let tiltX = 9;
   let tiltY = -9;
   let rotateY = 0;
-  let translateX = 0;
-  let translateY = 0;
   let spineDisplay = "block";
   let paperBlockDisplay = "block";
 
+  const totalPages = 35;
+  let pages: HTMLElement[] = [];
+
+  $: {
+    rotateY = isFlipped ? 180 : 0;
+  }
 
   function handleMouseMove(event: MouseEvent) {
     if (!isHovering) return;
@@ -42,6 +49,7 @@
     book.addEventListener("mousemove", handleMouseMove);
     book.addEventListener("mouseenter", handleMouseEnter);
     book.addEventListener("mouseleave", handleMouseLeave);
+
     return () => {
       book.removeEventListener("mousemove", handleMouseMove);
       book.removeEventListener("mouseenter", handleMouseEnter);
@@ -52,42 +60,47 @@
 
 <div
   bind:this={book}
-  class="book {class_}"
-  style="transform: rotateX({tiltX}deg) rotateY({tiltY + rotateY}deg) translateX({translateX}%) translateY({translateY}%)"
+  class="book {class_} {isFlipped ? 'flipped' : ''}"
+  style="transform: rotateX({tiltX}deg) rotateY({tiltY + rotateY}deg)"
 >
   <div class="front">
     <img
-      src={FrontCover.src}
+      src={FrontCover}
       alt="Front Cover"
       class="rounded-r w-full h-full object-cover"
     />
   </div>
   <div class="back">
     <img
-      src={BackCover.src}
+      src={BackCover}
       alt="Back Cover"
       class="rounded-r w-full h-full object-cover"
     />
   </div>
   <div class="spine" style="display: {spineDisplay};"></div>
   <div class="paper-block" style="display: {paperBlockDisplay};"></div>
+  {#each Array(totalPages) as _, i}
+    <div bind:this={pages[i]} class="page" style="z-index: {totalPages - i};">
+      {#if i + 1 === 3 || i + 1 === 5 || i + 1 === 9 || i + 1 === 12 || i + 1 === 22 || i + 1 === 33}
+        <div style="position: relative; z-index: 1000;">
+          <Bookmark targetPage={i + 1} bind:page {isFlipped} />
+        </div>
+      {/if}
+    </div>
+  {/each}
 </div>
 
 <style>
   .book {
     transform-style: preserve-3d;
     position: relative;
-    margin: 5vmin;
-    cursor: default;
-    transition:
-      transform 0.5s ease-out,
-      width 0.5s ease-out,
-      height 0.5s ease-out;
+    margin: 5vmin auto;
+    cursor: pointer;
+    transition: transform 0.5s ease-out;
     max-width: 75vw;
-    height: 50vmin;
-    width: 70vmin;
+    height: 52.5vmin;
+    width: 75vmin;
     z-index: 40;
-    margin: 2rem auto;
   }
 
   .front,
@@ -101,6 +114,10 @@
     transition:
       transform 0.5s ease,
       box-shadow 0.35s ease-in-out;
+    /* Fix GPU Rendering Bug on bookOpen (Chromium) */
+    backface-visibility: visible;
+    -webkit-backface-visibility: visible;
+    /* -------------------------------- */
   }
 
   .page,
@@ -116,9 +133,9 @@
   }
 
   .spine {
-    width: 65px;
+    width: 55px;
     height: 100%;
-    left: -6.5%;
+    left: -1.5rem;
     background: #252525;
     transform: rotateY(-90deg) translateX(-40%);
     transform-style: preserve-3d;
@@ -160,12 +177,16 @@
   }
 
   .page {
+    position: absolute;
     width: 98%;
     height: 98%;
     top: 1%;
     left: 1%;
     background: #fdfdfd;
     transform: translateZ(0);
+    /* Browser Performance Optimization for Chromium, partial support in Firefox */
+    will-change: transform;
+    /* -------------------------------- */
     border-radius: 0 5px 5px 0;
   }
 
@@ -175,7 +196,7 @@
 
   @media screen and (max-width: 600px) {
     .spine {
-      transform: rotateY(-90deg) translateX(-40%) translateZ(10px);
+      transform: rotateY(-90deg) translateX(-40%);
     }
   }
 </style>
