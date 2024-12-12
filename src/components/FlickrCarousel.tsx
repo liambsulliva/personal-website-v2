@@ -92,13 +92,9 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
             data-carousel-item
           >
             <div className="relative h-full w-full">
-              <div
-                className={`absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030] transition-opacity duration-300 ${
-                  loadedImages[index] && photos[index]
-                    ? "opacity-0"
-                    : "opacity-100"
-                }`}
-              />
+              {!loadedImages[index] && (
+                <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
+              )}
               {photos[index] && (
                 <img
                   src={photos[index]}
