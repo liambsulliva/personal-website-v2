@@ -59,14 +59,23 @@ const WordpressFetcher = () => {
         <a href={post.link} rel="noreferrer" target="_blank" key={index}>
           <div className="m-8 mx-16 mt-0 rounded-xl border border-[#333] bg-[#181818] p-6 hover:bg-[#202020]">
             {post.imageUrl && (
-              <img
-                src={post.imageUrl}
-                alt={post.title}
-                className="mb-4 h-48 w-full rounded-t-lg object-cover"
-              />
+              <div className="relative h-48 w-full">
+                <div className="absolute inset-0 animate-pulse rounded-t-lg bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
+                <img
+                  src={post.imageUrl}
+                  alt={post.title}
+                  className="absolute inset-0 h-full w-full rounded-t-lg object-cover opacity-0 transition-opacity duration-300"
+                  loading="lazy"
+                  onLoad={(e) => {
+                    (e.target as HTMLImageElement).style.opacity = "1";
+                  }}
+                />
+              </div>
             )}
             <div className="flex flex-row items-center gap-2">
-              <h2 className="m-0 mb-2 text-left font-bold">{post.title}</h2>
+              <h2 className="m-0 mb-2 mt-3 text-left font-bold">
+                {post.title}
+              </h2>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="0.75rem"
