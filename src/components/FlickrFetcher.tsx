@@ -118,6 +118,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
               alt={alt}
               {...restImageProps}
               className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300"
+              loading="lazy"
               onLoad={(e) => {
                 (e.target as HTMLImageElement).style.opacity = "1";
               }}
