@@ -73,7 +73,7 @@ const WordpressFetcher = () => {
               </div>
             )}
             <div className="flex flex-row items-center gap-2">
-              <h2 className="m-0 mb-2 mt-3 text-left font-bold">
+              <h2 className="text-white m-0 mb-2 mt-3 text-left font-bold">
                 {post.title}
               </h2>
               <svg
