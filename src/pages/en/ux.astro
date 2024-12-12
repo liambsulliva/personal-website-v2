@@ -2,6 +2,8 @@
 import { changeLanguage } from "i18next";
 // @ts-ignore
 import { Trans } from "astro-i18next/components";
+// @ts-ignore
+import { localizePath } from "astro-i18next";
 import { Image } from "astro:assets";
 import Mockup from "../../images/mockup.png";
 
@@ -10,18 +12,14 @@ changeLanguage("en");
 
 <ul class="main-list">
   <a
-    href="/KingdraCaseStudy"
+    href={localizePath("/KingdraCaseStudy")}
     aria-label="Health and Safety Experts GmbH"
     class="group flex cursor-pointer items-stretch gap-6"
   >
     <div
       class="relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-[#333333] bg-[#151515] group-hover:bg-[#181818]"
     >
-      <Image
-        src={Mockup}
-        alt="UX Banner"
-        class="h-full w-full object-cover"
-      />
+      <Image src={Mockup} alt="UX Banner" class="h-full w-full object-cover" />
       <div class="main-list-header p-8">
         <div class="icon-set">
           <Trans i18nKey="ux.content1.title">
