@@ -8,7 +8,7 @@ import ArrowLink from "../../components/ArrowLink.astro";
 changeLanguage("de");
 ---
 
-<div class="posts fade-in">
+<div class="posts">
   <WordpressPreview numberOfPosts={1} client:idle />
   <ArrowLink href={localizePath("/BlogPage/")} label={t("blog.viewAll")} />
 </div>
@@ -29,29 +29,4 @@ changeLanguage("de");
       padding: 0.25rem;
     }
   }
-
-  .fade-in {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-  }
-
-  .fade-in.visible {
-    opacity: 1;
-  }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const elements = document.querySelectorAll(".fade-in");
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-        }
-      });
-    });
-
-    elements.forEach((element) => observer.observe(element));
-  });
-</script>
