@@ -14,10 +14,8 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
   lang,
 }) => {
   const [photos, setPhotos] = useState<string[]>([]);
-  const [loadedImages, setLoadedImages] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(true);
   const [photoIndex, setPhotoIndex] = useState<number[]>([]);
-  const [photoQuality, setPhotoQuality] = useState("n");
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -42,7 +40,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
       while (randomPhotos.length < 5) {
         //console.log(indexes[count])
         const randomPhoto = photosArray[indexes[count]];
-        const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_${photoQuality}.jpg`;
+        const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_b.jpg`;
         if (!randomPhotos.includes(photoUrl)) {
           randomPhotos.push(photoUrl);
         }
@@ -74,27 +72,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
     };
 
     fetchPhotos();
-  }, [photoQuality]);
-
-  let handleImageLoad = () => {
-    setLoadedImages((prevCount) => {
-      const newCount = prevCount + 1;
-      if (newCount % 5 === 0) {
-        updateQuality();
-      }
-      return newCount;
-    });
-  };
-
-  const updateQuality = () => {
-    if (photoQuality === "n") {
-      //console.log('Setting to Medium!');
-      setPhotoQuality("z");
-    } else if (photoQuality === "z") {
-      //console.log('Setting to Large!')
-      setPhotoQuality("c");
-    }
-  };
+  }, []);
 
   return (
     <div
@@ -112,7 +90,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
           <img
             src={photos[0]}
             alt={""}
-            onLoad={handleImageLoad}
             className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
           />
         </div>
@@ -121,7 +98,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
           <img
             src={photos[1]}
             alt={""}
-            onLoad={handleImageLoad}
             className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
           />
         </div>
@@ -130,7 +106,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
           <img
             src={photos[2]}
             alt={""}
-            onLoad={handleImageLoad}
             className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
           />
         </div>
@@ -139,7 +114,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
           <img
             src={photos[3]}
             alt={""}
-            onLoad={handleImageLoad}
             className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
           />
         </div>
@@ -148,7 +122,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
           <img
             src={photos[4]}
             alt={""}
-            onLoad={handleImageLoad}
             className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
           />
         </div>
