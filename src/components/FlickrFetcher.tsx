@@ -108,6 +108,22 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
       <PhotoAlbum
         photos={photos}
         layout="masonry"
+        renderPhoto={({
+          photo,
+          imageProps: { alt, style, ...restImageProps },
+        }) => (
+          <div style={{ position: "relative", ...style }}>
+            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
+            <img
+              alt={alt}
+              {...restImageProps}
+              className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300"
+              onLoad={(e) => {
+                (e.target as HTMLImageElement).style.opacity = "1";
+              }}
+            />
+          </div>
+        )}
         columns={(containerWidth) => {
           if (containerWidth < 400) return 2;
           if (containerWidth < 800) return 3;
