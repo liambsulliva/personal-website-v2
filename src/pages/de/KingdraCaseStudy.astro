@@ -82,7 +82,7 @@ const sidebarItems = [
 
       <!-- Scaffolded Sections Start Here -->
 
-      <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
+      <section class="fade-in pb-10 pt-10 md:flex md:gap-20" id="overview">
         <h3 class="text-2xl font-semibold text-white">Overview</h3>
         <div>
           <p>
@@ -107,7 +107,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="context" class="flex gap-8 max-lg:flex-col">
+      <section id="context" class="fade-in flex gap-8 max-lg:flex-col">
         <div class="lg:w-2/3">
           <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
           <p>
@@ -168,7 +168,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="roadblocks">
+      <section id="roadblocks" class="fade-in">
         <h3 class="!mb-2 text-2xl font-semibold text-white">Roadblocks</h3>
         <p class="pb-3">There were a few issues right out the gate...</p>
         <div class="card-container">
@@ -253,7 +253,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="considerations">
+      <section id="considerations" class="fade-in">
         <h3 class="!mb-1 text-2xl font-semibold text-white">Considerations</h3>
         <p class="!mb-4">
           Interacting with the web is radically different on mobile devices.
@@ -354,7 +354,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="navigation">
+      <section id="navigation" class="fade-in">
         <h3 class="!mb-2 text-2xl font-semibold text-white">Navigation</h3>
         <p class="pb-4">
           After brainstorming a bit, I started prototyping some layouts, neither
@@ -469,7 +469,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="adaptations">
+      <section id="adaptations" class="fade-in">
         <h3 class="!mb-2 text-2xl font-semibold text-white">Adaptations</h3>
         <p class="pb-4">
           After settling on a layout that worked, I immediately jumped into
@@ -816,7 +816,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="flow">
+      <section id="flow" class="fade-in">
         <h3 class="!mb-2 text-2xl font-semibold text-white">Flow</h3>
         <p>So how does this all come together?</p>
         <br />
@@ -895,7 +895,7 @@ const sidebarItems = [
         </div>
       </section>
 
-      <section id="retrospective">
+      <section id="retrospective" class="fade-in">
         <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
         <p>
           Converting the Kingdra Teambuilder to mobile revealed valuable lessons
@@ -1141,5 +1141,30 @@ const sidebarItems = [
       white-space: pre-wrap;
       word-break: break-word;
     }
+
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+    }
   </style>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const elements = document.querySelectorAll(".fade-in");
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      });
+
+      elements.forEach((element) => observer.observe(element));
+    });
+  </script>
 </Layout>
