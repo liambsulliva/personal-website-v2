@@ -3,7 +3,9 @@
   "subheader": "<0>I want to make the web as <1>fun</1> as it is <2>functional</2>.</0>",
   "background": {
     "header": "<0>About</0>",
-    "content": "<0>When I was in middle school, I began shooting portrait photography with my uncle's old <1>Nikon D200</1>. I loved the excuse it gave me to create, and I quickly became obsessed with the intersection between technology and art.</0><2>Nowadays, I'm a <3>Computer Science</3> and <4>Digital Narrative and Interactive Design (DNID)</4> double major at the University of Pittsburgh. While I'm mainly focused on my degree, I have been dabbling in front-end web development when I have time off studying. It's a lot of fun, and I'm always looking for new projects to work on when I have the time... (never)</2><5>Ultimately, I want to create websites that I could see myself using every day.</5>"
+    "p1": "<0>When I was in middle school, I began shooting portrait photography with my uncle's old <1>Nikon D200</1>. I loved the excuse it gave me to create, and I quickly became obsessed with the intersection between technology and art.</0>",
+    "p2": "<0>Nowadays, I'm a <1>Computer Science</1> and <2>Digital Narrative and Interactive Design (DNID)</2> double major at the University of Pittsburgh. While I'm mainly focused on my degree, I have been dabbling in front-end web development when I have time off studying. It's a lot of fun, and I'm always looking for new projects to work on when I have the time... (never)</0>",
+    "p3": "<0>Ultimately, I want to create websites that I could see myself using every day.</0>"
   },
   "skills": {
     "header": "<0>Tools</0>"
