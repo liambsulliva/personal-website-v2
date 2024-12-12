@@ -23,6 +23,7 @@ const WordpressFetcher = () => {
           title: decodedTitle,
           excerpt: truncatedExcerpt,
           link: post.URL,
+          imageUrl: post.featured_image || null,
         };
       });
 
@@ -55,8 +56,15 @@ const WordpressFetcher = () => {
   return (
     <div className="flex-row">
       {wordpressData.map((post: any, index: number) => (
-        <a href={post.link} rel="noreferrer" target="_blank">
-          <div className="m-8 mt-0 rounded-xl border border-[#333] bg-[#181818] p-8 hover:bg-[#202020]">
+        <a href={post.link} rel="noreferrer" target="_blank" key={index}>
+          <div className="m-8 mt-0 rounded-xl border border-[#333] bg-[#181818] p-6 hover:bg-[#202020]">
+            {post.imageUrl && (
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className="mb-4 h-48 w-full rounded-t-lg object-cover"
+              />
+            )}
             <div className="flex flex-row items-center gap-2">
               <h2 className="m-0 mb-2 text-left font-bold">{post.title}</h2>
               <svg
