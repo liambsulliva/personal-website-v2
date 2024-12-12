@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Loader from "./Loader";
 
 interface FlickrCarouselProps {
   apiKey: string;
@@ -7,7 +6,6 @@ interface FlickrCarouselProps {
   lang: string;
 }
 
-// TODO: Switch to different CDN to randomize indexes on server-side, optimizing carousel performance
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
   apiKey,
   userId,
@@ -16,6 +14,13 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
   const [photos, setPhotos] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [photoIndex, setPhotoIndex] = useState<number[]>([]);
+  const [loadedImages, setLoadedImages] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -25,7 +30,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
       const data = await response.json();
 
       const photosArray = data.photos.photo;
-      //console.log(data);
       const randomPhotos: string[] = [];
 
       let indexes;
@@ -38,7 +42,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
 
       let count = 0;
       while (randomPhotos.length < 5) {
-        //console.log(indexes[count])
         const randomPhoto = photosArray[indexes[count]];
         const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_b.jpg`;
         if (!randomPhotos.includes(photoUrl)) {
@@ -74,59 +77,50 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
     fetchPhotos();
   }, []);
 
+  const handleImageLoad = (index: number) => {
+    setLoadedImages((prev) => {
+      const newState = [...prev];
+      newState[index] = true;
+      return newState;
+    });
+  };
+
   return (
     <div
       id="default-carousel"
       className="relative w-full"
       data-carousel="static"
     >
-      {/* Carousel wrapper */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-        {isLoading && <Loader lang={lang} />}
-      </div>
       <div className="relative h-56 overflow-hidden rounded-lg md:h-96 lg:mx-28">
-        {/* Item 1 */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src={photos[0]}
-            alt={""}
-            className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-          />
-        </div>
-        {/* Item 2 */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src={photos[1]}
-            alt={""}
-            className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-          />
-        </div>
-        {/* Item 3 */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src={photos[2]}
-            alt={""}
-            className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-          />
-        </div>
-        {/* Item 4 */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src={photos[3]}
-            alt={""}
-            className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-          />
-        </div>
-        {/* Item 5 */}
-        <div className="hidden duration-700 ease-in-out" data-carousel-item>
-          <img
-            src={photos[4]}
-            alt={""}
-            className="absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2"
-          />
-        </div>
+        {[0, 1, 2, 3, 4].map((index) => (
+          <div
+            key={index}
+            className="hidden duration-700 ease-in-out"
+            data-carousel-item
+          >
+            <div className="relative h-full w-full">
+              <div
+                className={`absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030] transition-opacity duration-300 ${
+                  loadedImages[index] && photos[index]
+                    ? "opacity-0"
+                    : "opacity-100"
+                }`}
+              />
+              {photos[index] && (
+                <img
+                  src={photos[index]}
+                  alt=""
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className={`absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
+                    loadedImages[index] ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => handleImageLoad(index)}
+                />
+              )}
+            </div>
+          </div>
+        ))}
       </div>
-      {/* Slider controls */}
       <button
         type="button"
         className="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
