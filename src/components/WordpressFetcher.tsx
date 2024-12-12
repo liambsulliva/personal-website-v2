@@ -57,7 +57,7 @@ const WordpressFetcher = () => {
     <div className="flex-row">
       {wordpressData.map((post: any, index: number) => (
         <a href={post.link} rel="noreferrer" target="_blank" key={index}>
-          <div className="m-8 mx-16 mt-0 rounded-xl border border-[#333] bg-[#181818] p-6 hover:bg-[#202020]">
+          <div className="m-8 mx-4 mt-0 rounded-xl border border-[#333] bg-[#181818] p-6 hover:bg-[#202020] md:mx-16">
             {post.imageUrl && (
               <div className="relative h-48 w-full">
                 <div className="absolute inset-0 animate-pulse rounded-t-lg bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
