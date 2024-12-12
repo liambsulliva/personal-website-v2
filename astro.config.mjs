@@ -7,7 +7,6 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
   integrations: [tailwind(), react(), astroI18next(), svelte()],
   adapter: vercel(),
 });

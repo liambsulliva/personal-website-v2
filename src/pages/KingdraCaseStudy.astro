@@ -1,12 +1,12 @@
 ---
 // @ts-ignore
 import { localizePath } from "astro-i18next";
+import { t } from "i18next";
 import Layout from "../layouts/Layout.astro";
 import Footer from "../layouts/Footer.astro";
 import Button from "../components/Button.astro";
 import SideBar from "../components/SideBar.astro";
 import ProjectDescription from "../components/ProjectDescription.astro";
-import Mockup from "../images/mockup.png";
 import { Image } from "astro:assets";
 import iPhone from "../images/blank-iphone-mockup.png";
 import MobileView from "../images/kingdra-mobile-view.png";
@@ -45,7 +45,7 @@ const sidebarItems = [
 
 <Layout title="The Journey to Mobile - A Case Study">
   <div class="m-8">
-    <Button label={"Back"} href={localizePath("/")} />
+    <Button label={t("misc.backBtn")} href={localizePath("/")} />
   </div>
   <main class="mx-auto flex w-[1150px] max-w-full flex-row">
     <SideBar
