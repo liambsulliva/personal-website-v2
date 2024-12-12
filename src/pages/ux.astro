@@ -16,7 +16,20 @@ import Mockup from "../images/mockup.png";
     <div
       class="relative flex h-full w-full flex-col overflow-hidden rounded-xl border border-[#333333] bg-[#151515] group-hover:bg-[#181818]"
     >
-      <Image src={Mockup} alt="UX Banner" class="h-full w-full object-cover" />
+      <div class="relative w-full">
+        <div
+          id="shimmer"
+          class="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]"
+        >
+        </div>
+        <Image
+          src={Mockup}
+          alt="UX Banner"
+          class="relative h-full w-full object-cover opacity-0 transition-opacity duration-300"
+          onload="this.style.opacity='1'; document.getElementById('shimmer').style.display='none';"
+          loading="lazy"
+        />
+      </div>
       <div class="main-list-header p-8">
         <div class="icon-set">
           <Trans i18nKey="ux.content1.title">
