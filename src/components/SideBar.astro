@@ -1,13 +1,11 @@
 ---
 import { Trans } from "astro-i18next/components";
 
-// Define the structure of a navigation item
 interface NavItem {
   i18nKey: string;
   href: string;
 }
 
-// Update Props interface
 interface Props {
   navItems: NavItem[];
   id?: string;

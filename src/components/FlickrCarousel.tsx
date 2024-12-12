@@ -3,16 +3,10 @@ import React, { useEffect, useState } from "react";
 interface FlickrCarouselProps {
   apiKey: string;
   userId: string;
-  lang: string;
 }
 
-const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
-  apiKey,
-  userId,
-  lang,
-}) => {
+const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
   const [photos, setPhotos] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [photoIndex, setPhotoIndex] = useState<number[]>([]);
   const [loadedImages, setLoadedImages] = useState<boolean[]>([
     false,
@@ -49,7 +43,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({
         }
         count++;
       }
-      setIsLoading(false);
       setPhotos(randomPhotos);
     };
 

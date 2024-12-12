@@ -108,10 +108,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
       <PhotoAlbum
         photos={photos}
         layout="masonry"
-        renderPhoto={({
-          photo,
-          imageProps: { alt, style, ...restImageProps },
-        }) => (
+        renderPhoto={({ imageProps: { alt, style, ...restImageProps } }) => (
           <div style={{ position: "relative", ...style }}>
             <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
             <img
