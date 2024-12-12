@@ -1,6 +1,7 @@
 ---
 import { t } from "i18next";
 import { Trans } from "astro-i18next/components";
+const wikiUrl = `https://${t("misc.lang")}.wikipedia.org/wiki/Nikon_D200`;
 ---
 
 <div class="text">
@@ -8,8 +9,9 @@ import { Trans } from "astro-i18next/components";
     <p>
       When I was in middle school, I began shooting portrait photography with my
       uncle's old <a
-        href=`https://${t("misc.lang")}.wikipedia.org/wiki/Nikon_D200`
+        href={wikiUrl}
         target="_blank"
+        rel="noopener noreferrer"
         class="text-link">Nikon D200</a
       >. I loved the excuse it gave me to create, and I quickly became obsessed
       with the intersection between technology and art.
@@ -20,10 +22,12 @@ import { Trans } from "astro-i18next/components";
       Nowadays, I'm a <a
         href="https://www.sci.pitt.edu/academics/undergraduate-majors/computer-science"
         target="_blank"
+        rel="noopener noreferrer"
         class="text-link">Computer Science</a
       > and <a
         href="https://www.sci.pitt.edu/academics/undergraduate-majors/digital-narrative-and-interactive-design"
         target="_blank"
+        rel="noopener noreferrer"
         class="text-link">Digital Narrative and Interactive Design (DNID)</a
       > double major at the University of Pittsburgh. While I'm mainly focused on
       my degree, I have been dabbling in front-end web development when I have time
