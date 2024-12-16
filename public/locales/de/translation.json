@@ -20,8 +20,8 @@
   "projects": {
     "header": "<0>Projekte</0>",
     "content1": {
-      "title": "Persönliche Website v1",
-      "description": "Mein ursprünglicher Versuch, eine persönliche Website zu erstellen. Wie es in der Komplexität wuchs ich es zu React portiert."
+      "title": "HERL - Durch die Jahre",
+      "description": "Ein interaktives 3D-Fotobuch, das die 30-jährige Geschichte der Human Engineering Research Labs mit dem Ministerium für Veteranenangelegenheiten dokumentiert."
     },
     "content2": {
       "title": "Kingdra Teambuilder",

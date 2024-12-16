@@ -20,8 +20,8 @@
   "projects": {
     "header": "<0>Projects</0>",
     "content1": {
-      "title": "Personal Website v1",
-      "description": "My original crack at a personal website. As it grew in complexity I ported it to React. Keep in mind that information presented is most likely outdated."
+      "title": "HERL - Through The Years",
+      "description": "A 3D interactive scrapbook, documenting Human Engineering Research Labs' 30 year history with the Department of Veteran's Affairs."
     },
     "content2": {
       "title": "Kingdra Teambuilder",
