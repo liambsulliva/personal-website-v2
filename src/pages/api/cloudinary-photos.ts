@@ -15,7 +15,7 @@ export const GET: APIRoute = async ({ url }) => {
   try {
     const result = await cloudinary.api.resources({
       type: "upload",
-      prefix: "cloudydesktop/portfolio/",
+      prefix: "",
       max_results: 12,
       next_cursor: nextCursor || undefined,
       sort_by: "created_at",

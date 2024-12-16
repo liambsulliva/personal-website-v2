@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -13,6 +13,7 @@ interface Photo {
   src: string;
   width: number;
   height: number;
+  srcSet?: Array<{ src: string; width: number; height: number }>;
 }
 
 const ImageFetcher: React.FC<ImageFetcherProps> = ({ lang }) => {
@@ -22,11 +23,19 @@ const ImageFetcher: React.FC<ImageFetcherProps> = ({ lang }) => {
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
 
+  // Add refs to track loading state and prevent duplicate requests
+  const loadingRef = useRef(false);
+  const cursorRef = useRef<string | null>(null);
+
   const fetchPhotos = useCallback(
     async (cursor?: string) => {
-      if (!hasMore || isLoading) return;
+      // Prevent duplicate requests
+      if (!hasMore || loadingRef.current || cursor === cursorRef.current)
+        return;
 
+      loadingRef.current = true;
       setIsLoading(true);
+
       try {
         const url = cursor
           ? `/api/cloudinary-photos?next_cursor=${encodeURIComponent(cursor)}`
@@ -53,34 +62,47 @@ const ImageFetcher: React.FC<ImageFetcherProps> = ({ lang }) => {
         );
         setNextCursor(data.next_cursor);
         setHasMore(!!data.next_cursor);
+        cursorRef.current = cursor || null;
       } catch (error) {
         console.error("Error fetching photos:", error);
       }
+
+      loadingRef.current = false;
       setIsLoading(false);
     },
-    [hasMore, isLoading],
+    [hasMore],
   );
 
+  // Initial load
   useEffect(() => {
-    fetchPhotos();
-  }, []);
+    if (photos.length === 0) {
+      fetchPhotos();
+    }
+  }, [fetchPhotos, photos.length]);
 
-  // Infinite scroll handler
+  // Infinite scroll handler with debounce
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 1000
-      ) {
-        if (nextCursor && !isLoading && hasMore) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const scrolledToBottom =
+          window.innerHeight + window.scrollY >=
+          document.documentElement.scrollHeight - 1000;
+
+        if (scrolledToBottom && nextCursor && !loadingRef.current && hasMore) {
           fetchPhotos(nextCursor);
         }
-      }
+      }, 100);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [nextCursor, isLoading, hasMore, fetchPhotos]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, [nextCursor, hasMore, fetchPhotos]);
 
   return (
     <div className="m-8 pb-16 max-md:m-3">
