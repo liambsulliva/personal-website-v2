@@ -23,7 +23,7 @@ export default function FlickrTag({ label }: LoaderProps) {
           isClicked ? "text-black" : "text-white"
         } transition-all duration-300 group-hover:translate-x-[-15px]`}
       >
-        {label}
+        {label.charAt(0).toUpperCase() + label.slice(1)}
       </p>
     </button>
   );
