@@ -4,6 +4,7 @@ import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Loader from "./Loader";
 import "yet-another-react-lightbox/styles.css";
+import FlickrMenu from "./FlickrMenu";
 
 interface FlickrFetcherProps {
   apiKey: string;
@@ -105,6 +106,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
 
   return (
     <div className="m-8 pb-16 max-md:m-3">
+      <FlickrMenu />
       <PhotoAlbum
         photos={photos}
         layout="masonry"
