@@ -7,7 +7,6 @@ interface FlickrCarouselProps {
 
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
   const [photos, setPhotos] = useState<string[]>([]);
-  const [photoIndex, setPhotoIndex] = useState<number[]>([]);
   const [loadedImages, setLoadedImages] = useState<boolean[]>([
     false,
     false,
@@ -19,56 +18,25 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
   useEffect(() => {
     const fetchPhotos = async () => {
       const response = await fetch(
-        `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&per_page=50&format=json&nojsoncallback=1`,
+        `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=72177720322629076&user_id=${userId}&format=json&nojsoncallback=1`,
       );
       const data = await response.json();
 
-      const photosArray = data.photos.photo;
-      const randomPhotos: string[] = [];
+      const photosArray = data.photoset.photo;
+      const albumPhotos: string[] = [];
 
-      let indexes;
-      if (photoIndex.length < 5) {
-        indexes = await generateRandomIndexes(photosArray);
-        setPhotoIndex(indexes);
-      } else {
-        indexes = photoIndex;
+      // GET: 5 photos from Carousel album
+      for (let i = 0; i < 5; i++) {
+        const photo = photosArray[i];
+        const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`;
+        albumPhotos.push(photoUrl);
       }
 
-      let count = 0;
-      while (randomPhotos.length < 5) {
-        const randomPhoto = photosArray[indexes[count]];
-        const photoUrl = `https://farm${randomPhoto.farm}.staticflickr.com/${randomPhoto.server}/${randomPhoto.id}_${randomPhoto.secret}_b.jpg`;
-        if (!randomPhotos.includes(photoUrl)) {
-          randomPhotos.push(photoUrl);
-        }
-        count++;
-      }
-      setPhotos(randomPhotos);
-    };
-
-    const generateRandomIndexes = async (photosArray: any) => {
-      let randomIndexes: number[] = [];
-      while (randomIndexes.length < 5) {
-        const randomIndex = Math.floor(Math.random() * photosArray.length);
-        if (!randomIndexes.includes(randomIndex)) {
-          const randomPhoto = photosArray[randomIndex];
-          const sizesResponse = await fetch(
-            `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${randomPhoto.id}&format=json&nojsoncallback=1`,
-          );
-          const sizesData = await sizesResponse.json();
-          const photoSize = sizesData.sizes.size.find(
-            (size: any) => size.label === "Large",
-          );
-          if (photoSize.width > photoSize.height) {
-            randomIndexes.push(randomIndex);
-          }
-        }
-      }
-      return randomIndexes;
+      setPhotos(albumPhotos);
     };
 
     fetchPhotos();
-  }, []);
+  }, [apiKey, userId]);
 
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => {
