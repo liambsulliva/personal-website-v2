@@ -49,26 +49,27 @@ const {
     </div>
 
     <div class="box-shadow-lg flex flex-col p-4 md:flex-grow">
-      <div class="flex flex-row items-center gap-2">
-        <h5 class="mx-2 mb-2 text-2xl font-bold tracking-tight text-white">
+      <h5 class="mx-2 mb-2 text-2xl font-bold tracking-tight text-white">
+        <span class="inline">
           {title}
-        </h5>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="0.75rem"
-          height="0.75rem"
-          viewBox="0 0 24 24"
-        >
-          <path
-            fill="none"
-            stroke="#d0d0d0"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2.5"
-            d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
-          ></path>
-        </svg>
-      </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="0.75rem"
+            height="0.75rem"
+            viewBox="0 0 24 24"
+            class="ml-1 inline-block align-baseline"
+          >
+            <path
+              fill="none"
+              stroke="#d0d0d0"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2.5"
+              d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+            ></path>
+          </svg>
+        </span>
+      </h5>
       <p class="mx-2 mb-3 flex-grow font-normal text-[#d0d0d0]">
         {description}
       </p>
