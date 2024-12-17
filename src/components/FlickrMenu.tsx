@@ -42,39 +42,43 @@ export default function FlickrMenu() {
   }, []);
 
   return (
-    <div className="mb-4 flex items-center gap-4">
+    <div className="relative mb-4">
       {showLeftButton && (
-        <button
-          onClick={() => {
-            if (containerRef.current) {
-              containerRef.current.scrollLeft -= 200;
-            }
-          }}
-          aria-label="Scroll tags left"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-white"
+        <div className="absolute left-0 top-0 z-10 flex h-full items-center">
+          <div className="absolute h-full w-24 bg-gradient-to-r from-[#0F0F0F] to-transparent" />
+          <button
+            onClick={() => {
+              if (containerRef.current) {
+                containerRef.current.scrollLeft -= 200;
+              }
+            }}
+            className="relative pl-1"
+            aria-label="Scroll tags left"
           >
-            <path d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-white"
+            >
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+        </div>
       )}
       <div
         ref={containerRef}
-        className="scrollbar-hide flex gap-4 overflow-x-auto"
-        style={{ 
+        className="scrollbar-hide flex gap-4 overflow-x-auto max-md:px-5"
+        style={{
           scrollBehavior: "smooth",
-          msOverflowStyle: "none",  /* IE and Edge */
-          scrollbarWidth: "none",   /* Firefox */
+          msOverflowStyle: "none",
+          scrollbarWidth: "none",
         }}
         id="tagContainer"
       >
@@ -83,29 +87,33 @@ export default function FlickrMenu() {
         ))}
       </div>
       {showRightButton && (
-        <button
-          onClick={() => {
-            if (containerRef.current) {
-              containerRef.current.scrollLeft += 200;
-            }
-          }}
-          aria-label="Scroll tags right"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="text-white"
+        <div className="absolute right-0 top-0 z-10 flex h-full items-center">
+          <button
+            onClick={() => {
+              if (containerRef.current) {
+                containerRef.current.scrollLeft += 200;
+              }
+            }}
+            className="relative z-10 pr-1"
+            aria-label="Scroll tags right"
           >
-            <path d="M9 18l6-6-6-6" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-white"
+            >
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+          <div className="absolute right-0 h-full w-24 bg-gradient-to-l from-black to-transparent" />
+        </div>
       )}
     </div>
   );
