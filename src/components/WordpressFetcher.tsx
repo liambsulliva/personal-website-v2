@@ -73,24 +73,29 @@ const WordpressFetcher = () => {
               </div>
             )}
             <div className="flex flex-row items-center gap-2">
-              <h2 className="m-0 mb-2 mt-3 text-left font-bold text-white">
-                {post.title}
-              </h2>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="0.75rem"
-                height="0.75rem"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="none"
-                  stroke="#d0d0d0"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2.5"
-                  d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
-                />
-              </svg>
+              <div>
+                <h2 className="m-0 mb-2 mt-3 text-left font-bold text-white">
+                  <span className="inline">
+                    {post.title}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="0.75rem"
+                      height="0.75rem"
+                      viewBox="0 0 24 24"
+                      className="ml-2 inline-block align-baseline"
+                    >
+                      <path
+                        fill="none"
+                        stroke="#d0d0d0"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2.5"
+                        d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+                      />
+                    </svg>
+                  </span>
+                </h2>
+              </div>
             </div>
 
             <p className="m-0 text-[#d0d0d0]">{post.excerpt}</p>
