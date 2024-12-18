@@ -19,11 +19,11 @@ export default function FlickrTag({
       <p
         className={`${
           isSelected ? "text-black" : "text-white"
-        } transition-all duration-100 group-hover:translate-x-[-15px]`}
+        } text-nowrap transition-all duration-100 group-hover:translate-x-[-15px]`}
       >
         {label
           .split(" ")
-          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
           .join(" ")}
       </p>
     </button>
