@@ -1,4 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+
+interface NavigationButtonProps {
+  label: string;
+  isSelected?: boolean;
+  onSelect: () => void;
+  direction: "prev" | "next";
+}
+
+const NavigationButton: React.FC<NavigationButtonProps> = ({
+  label,
+  onSelect,
+  direction,
+  isSelected = false,
+}) => {
+  return (
+    <button
+      onClick={onSelect}
+      className={`relative flex w-fit flex-row gap-2 rounded-[15px] border border-[#353535] ${isSelected ? "bg-[#f0f0f0]" : "bg-[#181818]"} px-2.5 py-1 transition-all duration-100 md:px-4 md:py-2 ${isSelected ? "hover:bg-[#e0e0e0]" : "hover:bg-[#252525]"} flex items-center justify-center active:scale-95`}
+    >
+      <p
+        className={` ${isSelected ? "text-black" : "text-white"} text-nowrap transition-all duration-100 group-hover:translate-x-[-15px]`}
+      >
+        {direction === "prev" ? "←" : ""}
+        {direction === "next" ? "→" : ""}
+      </p>
+    </button>
+  );
+};
 
 interface FlickrCarouselProps {
   apiKey: string;
@@ -7,6 +35,7 @@ interface FlickrCarouselProps {
 
 const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
   const [photos, setPhotos] = useState<string[]>([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
   const [loadedImages, setLoadedImages] = useState<boolean[]>([
     false,
     false,
@@ -15,24 +44,30 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     false,
   ]);
 
+  const carouselRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const fetchPhotos = async () => {
-      const response = await fetch(
-        `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=72177720322629076&user_id=${userId}&format=json&nojsoncallback=1`,
-      );
-      const data = await response.json();
+      try {
+        const response = await fetch(
+          `https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=${apiKey}&photoset_id=72177720322629076&user_id=${userId}&format=json&nojsoncallback=1`,
+        );
+        const data = await response.json();
 
-      const photosArray = data.photoset.photo;
-      const albumPhotos: string[] = [];
+        const photosArray = data.photoset.photo;
+        const albumPhotos: string[] = [];
 
-      // GET: 5 photos from Carousel album
-      for (let i = 0; i < 5; i++) {
-        const photo = photosArray[i];
-        const photoUrl = `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`;
-        albumPhotos.push(photoUrl);
+        // GET: 5 photos from Carousel album
+        for (let i = 0; i < 5; i++) {
+          const photo = photosArray[i];
+          const photoUrl = `https://farm${photo.farm}.staticFlickr.com/${photo.server}/${photo.id}_${photo.secret}_b.jpg`;
+          albumPhotos.push(photoUrl);
+        }
+
+        setPhotos(albumPhotos);
+      } catch (error) {
+        console.error("Failed to fetch Flickr photos:", error);
       }
-
-      setPhotos(albumPhotos);
     };
 
     fetchPhotos();
@@ -46,86 +81,82 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
     });
   };
 
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % 5);
+  }, []);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + 5) % 5);
+  }, []);
+
+  // Keyboard Nav
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") nextSlide();
+      if (e.key === "ArrowLeft") prevSlide();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [nextSlide, prevSlide]);
+
   return (
     <div
-      id="default-carousel"
-      className="relative w-full"
-      data-carousel="static"
+      ref={carouselRef}
+      className="relative h-64 w-full overflow-hidden md:h-96"
     >
-      <div className="relative h-56 overflow-hidden rounded-lg md:h-96 lg:mx-28">
+      {/* Carousel Images */}
+      {photos.map((photo, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${index === currentSlide ? "z-10 opacity-100" : "z-0 opacity-0"} `}
+        >
+          {/* Placeholder Gradient */}
+          {!loadedImages[index] && (
+            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
+          )}
+
+          {/* Image */}
+          {photo && (
+            <img
+              src={photo}
+              alt={`Carousel slide ${index + 1}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              className="absolute left-1/2 top-1/2 max-h-full max-w-full -translate-x-1/2 -translate-y-1/2 object-contain"
+              onLoad={() => handleImageLoad(index)}
+            />
+          )}
+        </div>
+      ))}
+
+      {/* Previous Button */}
+      <div className="absolute left-3 top-1/2 z-20 -translate-y-1/2">
+        <NavigationButton
+          label="Previous"
+          onSelect={prevSlide}
+          direction="prev"
+        />
+      </div>
+
+      {/* Next Button */}
+      <div className="absolute right-3 top-1/2 z-20 -translate-y-1/2">
+        <NavigationButton label="Next" onSelect={nextSlide} direction="next" />
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 space-x-2 md:bottom-4">
         {[0, 1, 2, 3, 4].map((index) => (
-          <div
+          <button
             key={index}
-            className="hidden duration-700 ease-in-out"
-            data-carousel-item
-          >
-            <div className="relative h-full w-full">
-              {!loadedImages[index] && (
-                <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
-              )}
-              {photos[index] && (
-                <img
-                  src={photos[index]}
-                  alt=""
-                  loading={index === 0 ? "eager" : "lazy"}
-                  className={`absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2 transition-opacity duration-300 ${
-                    loadedImages[index] ? "opacity-100" : "opacity-0"
-                  }`}
-                  onLoad={() => handleImageLoad(index)}
-                />
-              )}
-            </div>
-          </div>
+            onClick={() => setCurrentSlide(index)}
+            className={`h-3 w-3 rounded-full ${
+              index === currentSlide
+                ? "bg-white"
+                : "bg-white/50 hover:bg-white/75"
+            } `}
+          />
         ))}
       </div>
-      <button
-        type="button"
-        className="group absolute start-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-        data-carousel-prev
-      >
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
-          <svg
-            className="h-4 w-4 text-white dark:text-gray-800 rtl:rotate-180"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 6 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 1 1 5l4 4"
-            />
-          </svg>
-          <span className="sr-only">Previous</span>
-        </span>
-      </button>
-      <button
-        type="button"
-        className="group absolute end-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-        data-carousel-next
-      >
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70">
-          <svg
-            className="h-4 w-4 text-white dark:text-gray-800 rtl:rotate-180"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 6 10"
-          >
-            <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="m1 9 4-4-4-4"
-            />
-          </svg>
-          <span className="sr-only">Next</span>
-        </span>
-      </button>
     </div>
   );
 };
