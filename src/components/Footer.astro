@@ -1,0 +1,84 @@
+---
+import { Trans } from "astro-i18next/components";
+import { Image } from "astro:assets";
+import Icon from "../images/footer.svg";
+---
+
+<span class="divide-y"></span>
+<footer>
+  <div class="flex items-center gap-3 max-sm:flex-col">
+    <Image id="astro-image" class="h-8" src={Icon} alt="Icon" />
+    <Trans i18nKey="footer.content"
+      ><h3 class="text-[14px] font-medium text-[#ccc] max-sm:hidden">
+        Built with Love by Liam Sullivan
+      </h3></Trans
+    >
+  </div>
+  <ul class="flex gap-8 max-sm:grid max-sm:grid-cols-2">
+    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+      <a
+        href="mailto:liambsullivan@gmail.com"
+        rel="noopener noreferrer"
+        target="_blank">Email</a
+      >
+    </li>
+    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+      <a
+        href="https://flowcv.com/resume/ida15ih5ad"
+        rel="noopener noreferrer"
+        target="_blank">Resumé</a
+      >
+    </li>
+    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+      <a
+        href="https://linkedin.com/in/liambsulliva"
+        rel="noopener noreferrer"
+        target="_blank">LinkedIn</a
+      >
+    </li>
+    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+      <a
+        href="https://github.com/liambsulliva"
+        rel="noopener noreferrer"
+        target="_blank">GitHub</a
+      >
+    </li>
+  </ul>
+</footer>
+
+<style>
+  footer {
+    width: 100vw;
+    background-color: var(--footer-color);
+    border-top: 1px solid #252525;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 2rem;
+    gap: 2rem;
+    margin-top: 2em;
+  }
+
+  @media (max-width: 640px) {
+    footer {
+      align-items: start;
+    }
+  }
+
+  .icons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+    transition: scale 1s cubic-bezier(0, 0.5, 0.5, 1);
+  }
+
+  .icons a:hover {
+    transform: scale(1.075);
+  }
+
+  .icons a:active {
+    transform: scale(1);
+  }
+</style>
