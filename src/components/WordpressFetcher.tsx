@@ -59,7 +59,7 @@ const WordpressFetcher = () => {
         <a href={post.link} rel="noreferrer" target="_blank" key={index}>
           <div className="m-8 mx-4 mt-0 rounded-xl border border-[#333] bg-[#181818] p-6 hover:bg-[#202020] md:mx-16">
             {post.imageUrl && (
-              <div className="relative h-48 w-full">
+              <div className="relative h-48 md:h-96 w-full">
                 <div className="absolute inset-0 animate-pulse rounded-t-lg bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
                 <img
                   src={post.imageUrl}
