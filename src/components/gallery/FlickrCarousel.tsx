@@ -8,15 +8,13 @@ interface NavigationButtonProps {
 }
 
 const NavigationButton: React.FC<NavigationButtonProps> = ({
-  label,
   onSelect,
   direction,
-  isSelected = false,
 }) => {
   return (
     <button
       onClick={onSelect}
-      className={`relative flex w-fit flex-row items-center justify-center gap-2 rounded-[15px] bg-[#f0f0f0]/50 backdrop-blur-sm px-2 py-0.5 transition-all duration-100 hover:bg-[#e0e0e0]/70 active:scale-95`}
+      className={`relative flex w-fit flex-row items-center justify-center gap-2 rounded-full bg-[#f0f0f0]/50 px-2 py-0.5 backdrop-blur-sm transition-all duration-100 hover:bg-[#e0e0e0]/70 active:scale-95`}
     >
       <p
         className={`text-nowrap text-black transition-all duration-100 group-hover:translate-x-[-15px]`}
