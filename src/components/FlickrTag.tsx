@@ -16,12 +16,12 @@ export default function FlickrTag({ label }: LoaderProps) {
       onClick={handleClick}
       className={`relative flex w-fit flex-row gap-2 rounded-[15px] border border-[#353535] ${
         isClicked ? "bg-[#f0f0f0]" : "bg-[#181818]"
-      } px-4 py-2 transition-all duration-300 ${isClicked ? "hover:bg-[#e0e0e0]" : "hover:bg-[#252525]"} active:scale-95`}
+      } px-4 py-2 transition-all duration-100 ${isClicked ? "hover:bg-[#e0e0e0]" : "hover:bg-[#252525]"} active:scale-95`}
     >
       <p
         className={`${
           isClicked ? "text-black" : "text-white"
-        } transition-all duration-300 group-hover:translate-x-[-15px]`}
+        } transition-all duration-100 group-hover:translate-x-[-15px]`}
       >
         {label.charAt(0).toUpperCase() + label.slice(1)}
       </p>
