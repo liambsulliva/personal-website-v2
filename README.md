@@ -48,4 +48,4 @@ All commands are run from the root of the project, from a terminal:
 - `astro build`: Builds the project for production.
 - `astro preview`: Previews the production build locally.
 
-Make sure to install the Astro CLI by running `npm install astro`.
+Make sure to install the Astro CLI by running `npm install astro`. 
