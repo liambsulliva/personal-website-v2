@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import FrontCover from "../images/Cover-Front.webp?url";
-  import BackCover from "../images/Cover-Back.webp?url";
+  import FrontCover from "../../public/images/Cover-Front.webp?url";
+  import BackCover from "../../public/images/Cover-Back.webp?url";
   import Bookmark from "./Bookmark.svelte";
 
   export let class_ = "";

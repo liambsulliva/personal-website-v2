@@ -1,0 +1,30 @@
+---
+// @ts-ignore
+import { localizePath } from "astro-i18next";
+import { t } from "i18next";
+import WordpressPreview from "../components/WordpressPreview.tsx";
+import ArrowLink from "../components/ArrowLink.astro";
+---
+
+<div class="posts">
+  <WordpressPreview numberOfPosts={1} client:idle />
+  <ArrowLink href={localizePath("/blog/")} label={t("blog.viewAll")} />
+</div>
+
+<style>
+  .posts {
+    display: flex;
+    flex-direction: row;
+    margin: 0.25rem 1rem;
+    padding: 0.5rem;
+    gap: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    .posts {
+      flex-direction: column;
+      gap: 1rem;
+      padding: 0.25rem;
+    }
+  }
+</style>

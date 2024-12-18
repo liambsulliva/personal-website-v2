@@ -1,47 +1,45 @@
 ---
 // @ts-ignore
 import { localizePath } from "astro-i18next";
-import { t, changeLanguage } from "i18next";
-import Layout from "../../layouts/Layout.astro";
-import Footer from "../../layouts/Footer.astro";
-import BackLink from "../../components/BackLink.astro";
-import SideBar from "../../layouts/SideBar.astro";
-import ProjectDescription from "../../components/ProjectDescription.astro";
+import { t } from "i18next";
+import Layout from "../layouts/Layout.astro";
+import Footer from "../layouts/Footer.astro";
+import BackLink from "../components/BackLink.astro";
+import SideBar from "../layouts/SideBar.astro";
+import ProjectDescription from "../components/ProjectDescription.astro";
 import { Image } from "astro:assets";
-import iPhone from "../../images/blank-iphone-mockup.png";
-import MobileView from "../../images/kingdra-mobile-view.png";
-import PhoneMockup from "../../components/PhoneMockup.astro";
-import flow1 from "../../images/flow-1.webp";
-import flow2 from "../../images/flow-2.webp";
-import flow3 from "../../images/flow-3.webp";
-import flow4 from "../../images/flow-4.webp";
-import menubar1 from "../../images/menubar1.png";
-import iconbar from "../../images/iconbar.png";
-import hamburgerBefore from "../../images/hamburger-before.png";
-import hamburgerAfter from "../../images/hamburger-after.png";
-import horizontalBefore from "../../images/horizontalslots-before.png";
-import horizontalAfter from "../../images/horizontalslots-after.png";
-import marginsBefore from "../../images/margins-before.png";
-import marginsAfter from "../../images/margins-after.png";
-import modalBefore from "../../images/modal-before.png";
-import modalAfter from "../../images/modal-after.png";
-import pwaBefore from "../../images/pwa-before.jpg";
-import pwaAfter from "../../images/pwa-after.jpg";
-import tabsBefore from "../../images/tabs-before.png";
-import tabsAfter from "../../images/tabs-after.png";
-import UXBanner from "../../images/ux-banner.png";
-
-changeLanguage("en");
+import iPhone from "../../public/images/blank-iphone-mockup.png";
+import MobileView from "../../public/images/kingdra-mobile-view.png";
+import PhoneMockup from "../components/PhoneMockup.astro";
+import flow1 from "../../public/images/flow-1.webp";
+import flow2 from "../../public/images/flow-2.webp";
+import flow3 from "../../public/images/flow-3.webp";
+import flow4 from "../../public/images/flow-4.webp";
+import menubar1 from "../../public/images/menubar1.png";
+import iconbar from "../../public/images/iconbar.png";
+import hamburgerBefore from "../../public/images/hamburger-before.png";
+import hamburgerAfter from "../../public/images/hamburger-after.png";
+import horizontalBefore from "../../public/images/horizontalslots-before.png";
+import horizontalAfter from "../../public/images/horizontalslots-after.png";
+import marginsBefore from "../../public/images/margins-before.png";
+import marginsAfter from "../../public/images/margins-after.png";
+import modalBefore from "../../public/images/modal-before.png";
+import modalAfter from "../../public/images/modal-after.png";
+import pwaBefore from "../../public/images/pwa-before.jpg";
+import pwaAfter from "../../public/images/pwa-after.jpg";
+import tabsBefore from "../../public/images/tabs-before.png";
+import tabsAfter from "../../public/images/tabs-after.png";
+import UXBanner from "../../public/images/ux-banner.png";
 
 const sidebarItems = [
-    { i18nKey: "caseStudy.overview", href: "#overview" },
-    { i18nKey: "caseStudy.context", href: "#context" },
-    { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
-    { i18nKey: "caseStudy.considerations", href: "#considerations" },
-    { i18nKey: "caseStudy.navigation", href: "#navigation" },
-    { i18nKey: "caseStudy.adaptations", href: "#adaptations" },
-    { i18nKey: "caseStudy.flow", href: "#flow" },
-    { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
+  { i18nKey: "caseStudy.overview", href: "#overview" },
+  { i18nKey: "caseStudy.context", href: "#context" },
+  { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
+  { i18nKey: "caseStudy.considerations", href: "#considerations" },
+  { i18nKey: "caseStudy.navigation", href: "#navigation" },
+  { i18nKey: "caseStudy.adaptations", href: "#adaptations" },
+  { i18nKey: "caseStudy.flow", href: "#flow" },
+  { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
 ];
 ---
 

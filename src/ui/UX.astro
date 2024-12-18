@@ -1,18 +1,15 @@
 ---
-import { changeLanguage } from "i18next";
 // @ts-ignore
 import { Trans } from "astro-i18next/components";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import { Image } from "astro:assets";
-import Mockup from "../../images/mockup.png";
-
-changeLanguage("en");
+import Mockup from "../../public/images/mockup.png";
 ---
 
 <ul class="main-list">
   <a
-    href={localizePath("/KingdraCaseStudy")}
+    href={localizePath("/kingdra-case-study")}
     aria-label="Kingdra Case Study"
     class="group flex cursor-pointer items-stretch gap-6"
   >

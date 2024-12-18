@@ -1,9 +1,10 @@
 ---
 // @ts-ignore
 import { localizePath } from "astro-i18next";
+import Layout from "../../layouts/Layout.astro";
+import BackLink from "../../components/BackLink.astro";
+import FlickrFetcher from "../../components/gallery/FlickrFetcher.jsx";
 import { t, changeLanguage } from "i18next";
-import Carousel from "../../components/FlickrCarousel.jsx";
-import ArrowLink from "../../components/ArrowLink.astro";
 
 changeLanguage("de");
 
@@ -11,31 +12,37 @@ const apiKey = import.meta.env.FLICKR_API_KEY;
 const userId = import.meta.env.FLICKR_USER_ID;
 ---
 
-<div class="content">
-  <Carousel {apiKey} {userId} client:visible />
-  <ArrowLink
-    href={localizePath("/PortfolioPage/")}
-    label={t("photography.viewAll")}
-  />
-</div>
+<Layout title="Portfolio">
+  <div class="content">
+    <div class="btn-container">
+      <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
+    </div>
+    <FlickrFetcher {apiKey} {userId} lang={t("misc.lang")} client:load />
+  </div>
+</Layout>
 
 <style>
-  :root {
-    --card-title: #94b8f9;
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
   }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
   .content {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    list-style-type: none;
-    width: 100%;
-    margin: 1rem;
-    padding: 1rem 0.5rem;
-    gap: 3rem;
+    align-items: left;
   }
-  @media screen and (max-width: 768px) {
-    .content {
-      padding: 1rem 1.25rem;
-    }
+
+  .btn-container {
+    margin: 2rem;
   }
 </style>
