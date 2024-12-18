@@ -116,7 +116,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
 
   return (
     <div className="m-8 pb-16 max-md:m-3">
-      <FlickrMenu onTagChange={handleTagChange} />
+      <FlickrMenu lang={lang} onTagChange={handleTagChange} />
       <PhotoAlbum
         photos={photos}
         layout="masonry"

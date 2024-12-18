@@ -2,33 +2,34 @@ import FlickrTag from "./FlickrTag";
 import { useState, useEffect, useRef } from "react";
 
 const flickrTags = [
-  "all",
-  "basketball",
-  "cosplay",
-  "esports",
-  "football",
-  "music",
-  "outdoors",
-  "portraits",
-  "soccer",
-  "sports",
-  "studio",
-  "volleyball",
+  { en: "all", de: "alle" },
+  { en: "basketball", de: "Basketball" },
+  { en: "cosplay", de: "Cosplay" },
+  { en: "esports", de: "E-Sport" },
+  { en: "football", de: "Football" },
+  { en: "music", de: "Musik" },
+  { en: "outdoors", de: "Draußen" },
+  { en: "portraits", de: "Porträts" },
+  { en: "soccer", de: "Fußball" },
+  { en: "sports", de: "Sport" },
+  { en: "studio", de: "Studio" },
+  { en: "volleyball", de: "Volleyball" },
 ];
 
 interface FlickrMenuProps {
+  lang: string;
   onTagChange: (tag: string) => void;
 }
 
-export default function FlickrMenu({ onTagChange }: FlickrMenuProps) {
+export default function FlickrMenu({ onTagChange, lang }: FlickrMenuProps) {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string>("all");
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleTagSelect = (tag: string) => {
-    setSelectedTag(tag);
-    onTagChange(tag === "all" ? "" : tag);
+  const handleTagSelect = (tag: { en: string; de: string }) => {
+    setSelectedTag(tag.en);
+    onTagChange(tag.en === "all" ? "" : tag.en);
   };
 
   useEffect(() => {
@@ -95,11 +96,11 @@ export default function FlickrMenu({ onTagChange }: FlickrMenuProps) {
         }}
         id="tagContainer"
       >
-        {flickrTags.map((tag: string) => (
+        {flickrTags.map((tag) => (
           <FlickrTag
-            key={tag}
-            label={tag}
-            isSelected={selectedTag === tag}
+            key={tag.en}
+            label={lang === "de" ? tag.de : tag.en}
+            isSelected={selectedTag === tag.en}
             onSelect={() => handleTagSelect(tag)}
           />
         ))}
