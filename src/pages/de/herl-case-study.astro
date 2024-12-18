@@ -1,0 +1,629 @@
+---
+// @ts-ignore
+import { localizePath } from "astro-i18next";
+import Layout from "../../layouts/Layout.astro";
+import BackLink from "../../components/BackLink.astro";
+import SideBar from "../../layouts/SideBar.astro";
+import Book from "../../components/Book.svelte";
+import ProjectDescription from "../../components/ProjectDescription.astro";
+import { t, changeLanguage } from "i18next";
+
+changeLanguage("de");
+
+const sidebarItems = [
+    { i18nKey: "caseStudy.overview", href: "#overview" },
+    { i18nKey: "caseStudy.context", href: "#context" },
+    { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
+    { i18nKey: "caseStudy.considerations", href: "#considerations" },
+    { i18nKey: "caseStudy.navigation", href: "#navigation" },
+    { i18nKey: "caseStudy.adaptations", href: "#adaptations" },
+    { i18nKey: "caseStudy.flow", href: "#flow" },
+    { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
+];
+---
+
+<Layout title="HERL Through The Years">
+  <div class="btn-container">
+    <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
+  </div>
+  <main class="mx-auto flex w-[1150px] max-w-full flex-row">
+    <SideBar
+      navItems={sidebarItems}
+      className="fixed right-[calc((100vw-1150px)/2-7rem)] top-56"
+    />
+    <div class="mb-20">
+      <h1 class="mt-4 text-center text-5xl font-bold text-white">
+        HERL Through The Years
+      </h1>
+      <h2 class="mb-8 text-center text-[1rem] text-[#d0d0d0]">
+        Human Engineering Research Labs - September 2024
+      </h2>
+
+      <Book client:load />
+
+      <ProjectDescription
+        projectRole={["Software Engineering", "Product Design"]}
+        team={["Solo"]}
+        tools={["Svelte", "TypeScript", "CSS 3D", "Vite"]}
+        timeline={["3 Months"]}
+      />
+
+      <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
+        <h3 class="text-2xl font-semibold text-white">Overview</h3>
+        <div>
+          <p>
+            This case study explores the development of an interactive digital
+            book for the Human Engineering Research Labs (HERL). The project
+            aimed to transform their physical historical booklet into an
+            engaging web experience, focusing on creating a performant and
+            visually appealing presentation that maintains the familiar book
+            metaphor.
+          </p>
+        </div>
+      </section>
+
+      <section id="context">
+        <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
+        <p>
+          The project began with a clear directive: create a digital version of
+          HERL's historical booklet that would be embedded within their website.
+          Rather than converting the content into a traditional webpage format,
+          I chose to preserve and enhance the book metaphor, creating an
+          interactive 3D experience that would feel familiar to users while
+          taking advantage of web technologies.
+        </p>
+        <br />
+        <p>
+          The decision to use Svelte was driven by the project's specific
+          constraints. The final product needed to be embedded in an iframe on
+          HERL's website, which meant performance was crucial. Svelte's
+          compilation to vanilla JavaScript, without the overhead of a virtual
+          DOM, made it an ideal choice for this use case.
+        </p>
+      </section>
+
+      <section id="roadblocks">
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Roadblocks</h3>
+        <p class="pb-3">Several key challenges emerged during development:</p>
+        <div class="card-container">
+          <div class="card">
+            <svg
+              class="mx-auto my-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="7rem"
+              height="7rem"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="white"
+                d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18c-.21 0-.41-.06-.57-.18l-7.9-4.44A.991.991 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44c.16-.12.36-.18.57-.18c.21 0 .41.06.57.18l7.9 4.44c.32.17.53.5.53.88v9M12 4.15L6.04 7.5L12 10.85l5.96-3.35L12 4.15M5 15.91l6 3.38v-6.71L5 9.21v6.7m14 0v-6.7l-6 3.37v6.71l6-3.38Z"
+              ></path>
+            </svg>
+            <h4 class="text-xl font-medium text-white">
+              3D Animation Complexity
+            </h4>
+            <p>
+              Initial attempts with Three.js and Threlte proved too complex for
+              the book interface. CSS 3D transforms offered a simpler, more
+              performant solution while maintaining the desired visual effects.
+            </p>
+          </div>
+
+          <div class="card">
+            <svg
+              class="mx-auto my-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="7rem"
+              height="7rem"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="white"
+                d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z"
+              ></path>
+            </svg>
+            <h4 class="text-xl font-medium text-white">Iframe Integration</h4>
+            <p>
+              The requirement to embed within HERL's website iframe introduced
+              strict limitations on content presentation and scrolling behavior,
+              demanding creative solutions for content display.
+            </p>
+          </div>
+
+          <div class="card">
+            <svg
+              class="mx-auto my-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="7rem"
+              height="7rem"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="white"
+                d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14z"
+              ></path>
+            </svg>
+            <h4 class="text-xl font-medium text-white">
+              Performance Constraints
+            </h4>
+            <p>
+              The host website's existing overhead required careful
+              optimization, influencing the choice of Svelte and leading to the
+              implementation of strategic content loading patterns.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="considerations">
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Considerations</h3>
+        <div class="row-card-container">
+          <div class="row-card">
+            <div class="flex gap-6 max-md:flex-col">
+              <div
+                class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="white"
+                    d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10s-4.477 10-10 10zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm2-1.645V14h-2v-1.5a1 1 0 0 1 1-1a1.5 1.5 0 1 0-1.471-1.794l-1.962-.393A3.5 3.5 0 1 1 13 13.355z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="my-auto">
+                <h4 class="!mb-1 text-xl font-medium text-white">
+                  Content Readability
+                </h4>
+                <p>
+                  The digital book needed to maintain readability while fitting
+                  within the iframe constraints. This influenced decisions about
+                  content layout, text sizing, and the implementation of
+                  expandable sections for longer content.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row-card">
+            <div class="flex gap-6 max-md:flex-col">
+              <div
+                class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 24 24"
+                >
+                  <path fill="white" d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="my-auto">
+                <h4 class="!mb-1 text-xl font-medium text-white">
+                  Content Organization
+                </h4>
+                <p>
+                  With extensive historical content spanning multiple decades,
+                  organizing information required careful consideration of page
+                  layout and navigation systems, leading to the implementation
+                  of the bookmark system.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="navigation">
+        <h3 class="!mb-2 text-2xl font-medium text-white">Navigation</h3>
+        <p class="pb-6">
+          The navigation system evolved significantly throughout development,
+          ultimately landing on a bookmark-based approach for quick access to
+          key years:
+        </p>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div
+            class="w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+          >
+            <div class="p-4">
+              <h4 class="mb-2 text-lg font-medium text-white">
+                Bookmark System
+              </h4>
+              <p class="text-sm text-[#d0d0d0]">
+                Implemented bookmarks at significant years (1995, 1996, 2001,
+                2004, 2011, and 2023) to provide quick navigation through the
+                timeline. The bookmarks are positioned vertically along the
+                right edge of the book and work in both open and closed states.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+          >
+            <div class="p-4">
+              <h4 class="mb-2 text-lg font-medium text-white">
+                Page Navigation
+              </h4>
+              <p class="text-sm text-[#d0d0d0]">
+                Added intuitive controls including arrow key navigation and page
+                numbers for easier tracking of position within the book. The
+                system includes smooth transitions and visual feedback for user
+                interactions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="adaptations">
+        <h3 class="!mb-2 text-2xl font-semibold text-white">Adaptations</h3>
+        <p class="pb-3">
+          The project underwent several key adaptations to optimize performance
+          and user experience:
+        </p>
+
+        <div class="row-card-container">
+          <div class="row-card">
+            <div class="flex gap-6 max-md:flex-col">
+              <div
+                class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="white"
+                    d="M15 4a8 8 0 0 1 8 8a8 8 0 0 1-8 8a8 8 0 0 1-8-8a8 8 0 0 1 8-8m0 2a6 6 0 0 0-6 6a6 6 0 0 0 6 6a6 6 0 0 0 6-6a6 6 0 0 0-6-6m-1 2h1.5v3.78l2.33 2.33l-1.06 1.06L14 12.4V8"
+                  ></path>
+                </svg>
+              </div>
+              <div class="my-auto">
+                <h4 class="!mb-1 text-xl font-medium text-white">
+                  Content Loading Strategy
+                </h4>
+                <p>
+                  Implemented delayed content loading and image preloading
+                  system that fetches content 5 pages ahead, creating seamless
+                  transitions between pages while preventing browser overwhelm.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row-card">
+            <div class="flex gap-6 max-md:flex-col">
+              <div
+                class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="8rem"
+                  height="8rem"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="white"
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="my-auto">
+                <h4 class="!mb-1 text-xl font-medium text-white">
+                  Fixed Dimensions
+                </h4>
+                <p>
+                  Shifted from a responsive design to fixed dimensions (1000 x
+                  750 pixels) to ensure consistent presentation within the
+                  iframe, with strategic downsizing at specific breakpoints for
+                  smaller screens.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="flow">
+        <h3 class="!mb-2 text-2xl font-medium text-white">Flow</h3>
+        <p class="pb-6">
+          The final user flow was designed to be intuitive while maintaining the
+          book metaphor throughout the experience:
+        </p>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div
+            class="w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+          >
+            <div class="p-4">
+              <h4 class="mb-2 text-lg font-medium text-white">Initial State</h4>
+              <p class="text-sm text-[#d0d0d0]">
+                Users encounter a closed book that responds to mouse movement,
+                creating a sense of depth through subtle 3D transformations. The
+                cover design maintains HERL's branding while inviting
+                interaction.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+          >
+            <div class="p-4">
+              <h4 class="mb-2 text-lg font-medium text-white">
+                Book Interaction
+              </h4>
+              <p class="text-sm text-[#d0d0d0]">
+                Clicking opens the book with a smooth animation, revealing the
+                first pages. Users can navigate using arrow keys, clicking page
+                edges, or the bookmark system for key historical moments.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="w-full overflow-hidden rounded-xl border border-[#333] bg-[var(--card-color)]"
+          >
+            <div class="p-4">
+              <h4 class="mb-2 text-lg font-medium text-white">
+                Content Exploration
+              </h4>
+              <p class="text-sm text-[#d0d0d0]">
+                Each spread presents historical content with a mix of text and
+                images. The layout maintains readability while preserving the
+                feeling of reading a physical book, with page-turning animations
+                enhancing the experience.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="retrospective">
+        <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
+        <p>
+          Developing HERL Through The Years revealed valuable insights about
+          creating engaging digital narratives while working within technical
+          constraints.
+        </p>
+        <br />
+        <ul>
+          <li>
+            <strong>Performance Optimization:</strong> The shift from Three.js to
+            CSS 3D transforms, coupled with strategic content loading, proved crucial
+            for maintaining smooth animations while handling extensive historical
+            content.
+          </li>
+          <li>
+            <strong>Navigation Evolution:</strong> The bookmark system emerged as
+            an elegant solution to balance quick access to key moments with the book
+            metaphor, enhancing usability without sacrificing the visual design.
+          </li>
+          <li>
+            <strong>Fixed vs. Responsive:</strong> The decision to optimize for fixed
+            dimensions, while initially challenging, ultimately led to a more polished
+            and reliable presentation within the iframe context.
+          </li>
+        </ul>
+        <br />
+        <p><strong>Future Considerations</strong></p>
+        <ul>
+          <li>
+            Implement offline caching capabilities to improve load times and
+            reduce server requests
+          </li>
+          <li>
+            Explore touch-based interactions for improved tablet and mobile
+            device support
+          </li>
+          <li>
+            Consider creating a standalone version that could serve as a
+            template for other historical documentation projects
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  /* Broken on Safari... disable for now */
+  @supports (hanging-punctuation: first) and (font: -apple-system-body) and
+    (-webkit-appearance: none) {
+    .mockup-container,
+    .mockup-content,
+    .mockup-phone {
+      display: none;
+    }
+  }
+
+  .mockup-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    aspect-ratio: 9/16;
+  }
+
+  .mockup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: auto; /* Changed from fixed height */
+    aspect-ratio: 9/16; /* Added to maintain phone screen ratio */
+    overflow-y: auto;
+    z-index: 1;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .mockup-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+
+  .mockup-phone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+    aspect-ratio: 9/16;
+  }
+
+  @media (max-width: 1024px) {
+    .mockup-content {
+      transform: translate(-155px, -50%);
+    }
+  }
+
+  .text-link {
+    color: var(--header-color);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+  .text-link:after {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: var(--header-color);
+    transition:
+      width 0.2s ease 0s,
+      left 0.2s ease 0s;
+    width: 0;
+  }
+  .text-link:hover:after {
+    width: 100%;
+    left: 0;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+    text-align: left;
+  }
+
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  li {
+    color: #d0d0d0;
+    list-style-type: disc;
+    margin-left: 1.25rem;
+    padding: 0.25rem;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  section {
+    padding: 2rem;
+    /* border-bottom: 1px solid #353535; */
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  @media (max-width: 1000px) {
+    main {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .sidebar {
+      display: none;
+    }
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  .card {
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+
+  .card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .card {
+      width: 100%;
+    }
+  }
+
+  .row-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .row-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  code {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: "Courier New", Courier, monospace;
+  }
+
+  pre {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow: auto;
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+</style>

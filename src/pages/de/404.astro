@@ -1,0 +1,16 @@
+---
+import { changeLanguage } from "i18next";
+import Layout from "../../layouts/Layout.astro";
+
+changeLanguage("de");
+---
+
+<Layout title="Page Not Found...">
+  <div
+    class="flex min-h-[80vh] flex-col items-center justify-center px-4 text-center"
+  >
+    <h1 class="mb-2 text-4xl md:text-6xl">Uh oh...</h1>
+    <p class="max-w-md">That page doesn't exist. Let's get you back home.</p>
+    <a href="/" class="text-link mt-8">Click Here</a>
+  </div>
+</Layout>
