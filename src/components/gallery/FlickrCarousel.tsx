@@ -15,6 +15,9 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
     <button
       onClick={onSelect}
       className={`relative flex w-fit flex-row items-center justify-center gap-2 rounded-full bg-[#f0f0f0]/50 px-2 py-0.5 backdrop-blur-sm transition-all duration-100 hover:bg-[#e0e0e0]/70 active:scale-95`}
+      aria-label={
+        direction === "next" ? "Next image" : "Previous image"
+      }
     >
       <p
         className={`text-nowrap text-black transition-all duration-100 group-hover:translate-x-[-15px]`}
@@ -113,7 +116,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
           {photo && (
             <img
               src={photo}
-              aria-label={`Carousel slide ${index + 1}`}
+              aria-label={`Image ${index + 1}`}
               loading={index === 0 ? "eager" : "lazy"}
               className="absolute inset-0 h-full w-full object-cover"
               onLoad={() => handleImageLoad(index)}
@@ -138,6 +141,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
+            aria-label={`Select image ${index}`}
             className={`h-3 w-3 rounded-full ${
               index === currentSlide
                 ? "bg-white"
