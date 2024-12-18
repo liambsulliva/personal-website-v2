@@ -35,13 +35,11 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
     const perPage = 20;
     const tagsParam = selectedTag ? `&tags=${selectedTag}` : "";
     const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&user_id=${userId}${tagsParam}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
-    //console.log(url);
+
     const response = await fetch(url);
     const data = await response.json();
-    //console.log(data);
-    if (numPages === -1) {
-      setNumPages(data.photos.pages);
-    }
+
+    setNumPages(data.photos.pages);
 
     const photoBatch = data.photos.photo.map(async (photo: any) => {
       const newPhoto = await fetchPhotoByID(photo.id);
@@ -52,7 +50,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
 
     setPhotos((prevData) => [...prevData, ...fetchedPhotos]);
     setIsLoading(false);
-  }, [apiKey, userId, currentPage, numPages, selectedTag]);
+  }, [apiKey, userId, currentPage, selectedTag]);
 
   useEffect(() => {
     fetchPhotos();
@@ -90,16 +88,17 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight;
-      const scrollTop = document.documentElement.scrollTop;
-      const clientHeight = document.documentElement.clientHeight;
+      if (!isLoading) {
+        const scrollHeight = document.documentElement.scrollHeight;
+        const scrollTop = document.documentElement.scrollTop;
+        const clientHeight = document.documentElement.clientHeight;
 
-      if (
-        scrollTop + clientHeight >= scrollHeight - 200 &&
-        !isLoading &&
-        currentPage < numPages
-      ) {
-        setCurrentPage((prevPage) => prevPage + 1);
+        if (
+          scrollTop + clientHeight >= scrollHeight - 200 &&
+          currentPage < numPages
+        ) {
+          setCurrentPage((prev) => prev + 1);
+        }
       }
     };
 
