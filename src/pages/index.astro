@@ -24,11 +24,20 @@ const sidebarItems = [
   <main>
     <LanguagePicker />
     <SideBar navItems={sidebarItems} className="right-18 fixed top-72" />
-    <Trans i18nKey="header"
-      ><h1 class="condensed">
-        Hi! My name is <span class="text-gradient">Liam</span>
-      </h1></Trans
-    >
+    <div class="header-desktop flex w-full justify-center">
+      <Trans i18nKey="header">
+        <h1 class="condensed">
+          Hi! My name is <span class="text-gradient">Liam</span>
+        </h1>
+      </Trans>
+    </div>
+    <div class="header-mobile flex w-full justify-center">
+      <Trans i18nKey="headerMobile">
+        <h1 class="condensed">
+          I'm <span class="text-gradient">Liam</span>
+        </h1>
+      </Trans>
+    </div>
     <Trans i18nKey="subheader"
       ><h2 class="condensed">
         I want to make the web as <strong>fun</strong> as it is <strong
@@ -213,6 +222,18 @@ const sidebarItems = [
         display: flex;
         font-weight: 700;
         margin-left: 1rem;
+      }
+    }
+    .header-mobile {
+      display: none;
+    }
+
+    @media (max-width: 695px) {
+      .header-desktop {
+        display: none;
+      }
+      .header-mobile {
+        display: inline;
       }
     }
   </style>

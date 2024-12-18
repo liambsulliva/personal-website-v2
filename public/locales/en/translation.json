@@ -1,5 +1,6 @@
 {
   "header": "<0>Hi! My name is <1>Liam</1></0>",
+  "headerMobile": "<0>I'm <1>Liam</1></0>",
   "subheader": "<0>I want to make the web as <1>fun</1> as it is <2>functional</2>.</0>",
   "background": {
     "header": "<0>About</0>",
