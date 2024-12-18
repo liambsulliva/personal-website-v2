@@ -28,11 +28,14 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [numPages, setNumPages] = useState(-1);
+  const [selectedTag, setSelectedTag] = useState<string>("");
 
   const fetchPhotos = useCallback(async () => {
     setIsLoading(true);
     const perPage = 20;
-    const url = `https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=${apiKey}&user_id=${userId}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
+    const tagsParam = selectedTag ? `&tags=${selectedTag}` : "";
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&user_id=${userId}${tagsParam}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
+    //console.log(url);
     const response = await fetch(url);
     const data = await response.json();
     //console.log(data);
@@ -49,7 +52,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
 
     setPhotos((prevData) => [...prevData, ...fetchedPhotos]);
     setIsLoading(false);
-  }, [apiKey, userId, currentPage, numPages]);
+  }, [apiKey, userId, currentPage, numPages, selectedTag]);
 
   useEffect(() => {
     fetchPhotos();
@@ -104,9 +107,16 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isLoading, currentPage, numPages]);
 
+  const handleTagChange = (tag: string) => {
+    setSelectedTag(tag);
+    setPhotos([]);
+    setCurrentPage(1);
+    setNumPages(-1);
+  };
+
   return (
     <div className="m-8 pb-16 max-md:m-3">
-      <FlickrMenu />
+      <FlickrMenu onTagChange={handleTagChange} />
       <PhotoAlbum
         photos={photos}
         layout="masonry"

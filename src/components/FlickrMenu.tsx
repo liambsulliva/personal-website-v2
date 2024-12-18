@@ -10,13 +10,27 @@ const flickrTags = [
   "portraits",
   "soccer",
   "sports",
+  "studio",
   "volleyball",
 ];
 
-export default function FlickrMenu() {
+interface FlickrMenuProps {
+  onTagChange: (tag: string) => void;
+}
+
+export default function FlickrMenu({ onTagChange }: FlickrMenuProps) {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
+  const [selectedTag, setSelectedTag] = useState<string>("");
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleTagSelect = (tag: string) => {
+    setSelectedTag((prev) => {
+      const newTag = prev === tag ? "" : tag;
+      onTagChange(newTag);
+      return newTag;
+    });
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -83,7 +97,12 @@ export default function FlickrMenu() {
         id="tagContainer"
       >
         {flickrTags.map((tag: string) => (
-          <FlickrTag key={tag} label={tag} />
+          <FlickrTag
+            key={tag}
+            label={tag}
+            isSelected={selectedTag === tag}
+            onSelect={() => handleTagSelect(tag)}
+          />
         ))}
       </div>
       {showRightButton && (
