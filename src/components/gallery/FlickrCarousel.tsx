@@ -99,7 +99,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
 
   return (
     <div ref={carouselRef} className="relative aspect-video w-full">
-      {/* Carousel Images */}
+      {/* Image Container */}
       {photos.map((photo, index) => (
         <div
           key={index}
@@ -110,7 +110,6 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
             <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
           )}
 
-          {/* Image */}
           {photo && (
             <img
               src={photo}
@@ -123,7 +122,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
         </div>
       ))}
 
-      {/* Previous Button */}
+      {/* Nav Buttons */}
       <div className="absolute left-6 top-1/2 z-20 -translate-y-1/2">
         <NavigationButton
           label="Previous"
@@ -131,13 +130,9 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
           direction="prev"
         />
       </div>
-
-      {/* Next Button */}
       <div className="absolute right-6 top-1/2 z-20 -translate-y-1/2">
         <NavigationButton label="Next" onSelect={nextSlide} direction="next" />
       </div>
-
-      {/* Slide Indicators */}
       <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 space-x-2">
         {[0, 1, 2, 3, 4].map((index) => (
           <button
