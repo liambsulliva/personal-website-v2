@@ -2,11 +2,13 @@ import FlickrTag from "./FlickrTag";
 import { useState, useEffect, useRef } from "react";
 
 const flickrTags = [
+  "all",
   "basketball",
   "cosplay",
   "esports",
   "football",
   "music",
+  "outdoors",
   "portraits",
   "soccer",
   "sports",
@@ -21,15 +23,12 @@ interface FlickrMenuProps {
 export default function FlickrMenu({ onTagChange }: FlickrMenuProps) {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
-  const [selectedTag, setSelectedTag] = useState<string>("");
+  const [selectedTag, setSelectedTag] = useState<string>("all");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleTagSelect = (tag: string) => {
-    setSelectedTag((prev) => {
-      const newTag = prev === tag ? "" : tag;
-      onTagChange(newTag);
-      return newTag;
-    });
+    setSelectedTag(tag);
+    onTagChange(tag === "all" ? "" : tag);
   };
 
   useEffect(() => {

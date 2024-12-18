@@ -21,7 +21,10 @@ export default function FlickrTag({
           isSelected ? "text-black" : "text-white"
         } transition-all duration-100 group-hover:translate-x-[-15px]`}
       >
-        {label.charAt(0).toUpperCase() + label.slice(1)}
+        {label
+          .split(" ")
+          .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" ")}
       </p>
     </button>
   );
