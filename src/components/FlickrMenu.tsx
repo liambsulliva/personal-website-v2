@@ -131,7 +131,7 @@ export default function FlickrMenu({ onTagChange, lang }: FlickrMenuProps) {
               <path d="M9 18l6-6-6-6" />
             </svg>
           </button>
-          <div className="absolute right-0 h-full w-24 bg-gradient-to-l from-black to-transparent" />
+          <div className="absolute right-0 h-full w-24 bg-gradient-to-l from-[#0F0F0F] to-transparent" />
         </div>
       )}
     </div>
