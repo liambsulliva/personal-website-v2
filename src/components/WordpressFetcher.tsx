@@ -54,7 +54,7 @@ const WordpressFetcher = () => {
   }, []);
 
   return (
-    <div className="mx-auto max-w-[1200px] flex-row">
+    <div className="mx-auto max-w-[1450px] flex-row">
       {wordpressData.map((post: any, index: number) => (
         <a href={post.link} rel="noreferrer" target="_blank" key={index}>
           <div className="m-8 mx-4 mt-0 rounded-xl border border-[#333] bg-[#181818] p-6 hover:bg-[#202020] md:mx-16">
