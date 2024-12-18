@@ -2,7 +2,7 @@
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.astro";
+import BackLink from "../components/BackLink.astro";
 import FlickrFetcher from "../components/FlickrFetcher.jsx";
 import { t } from "i18next";
 const apiKey = import.meta.env.FLICKR_API_KEY;
@@ -12,7 +12,7 @@ const userId = import.meta.env.FLICKR_USER_ID;
 <Layout title="Portfolio">
   <div class="content">
     <div class="btn-container">
-      <Button label={t("misc.backBtn")} href={localizePath("/")} />
+      <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
     </div>
     <FlickrFetcher {apiKey} {userId} lang={t("misc.lang")} client:load />
   </div>

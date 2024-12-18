@@ -2,7 +2,7 @@
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../../layouts/Layout.astro";
-import Button from "../../components/Button.astro";
+import BackLink from "../../components/BackLink.astro";
 import WordpressFetcher from "../../components/WordpressFetcher.tsx";
 import { t, changeLanguage } from "i18next";
 
@@ -39,7 +39,7 @@ changeLanguage("en");
 <Layout title="Blog">
   <div class="content">
     <div class="btn-container">
-      <Button label={t("misc.backBtn")} href={localizePath("/")} />
+      <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
     </div>
     <div class="mb-8 text-left">
       <h1 class="mb-2 text-2xl font-bold">Berlin</h1>

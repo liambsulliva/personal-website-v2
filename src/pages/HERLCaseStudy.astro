@@ -2,11 +2,11 @@
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 import Layout from "../layouts/Layout.astro";
-import Button from "../components/Button.astro";
+import BackLink from "../components/BackLink.astro";
 import SideBar from "../components/SideBar.astro";
 import Book from "../components/Book.svelte";
 import ProjectDescription from "../components/ProjectDescription.astro";
-
+import { t } from "i18next";
 const sidebarItems = [
   { i18nKey: "caseStudy.overview", href: "#overview" },
   { i18nKey: "caseStudy.context", href: "#context" },
@@ -21,7 +21,7 @@ const sidebarItems = [
 
 <Layout title="HERL Through The Years">
   <div class="btn-container">
-    <Button label={"Back"} href={localizePath("/")} />
+    <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
   </div>
   <main class="mx-auto flex w-[1150px] max-w-full flex-row">
     <SideBar
