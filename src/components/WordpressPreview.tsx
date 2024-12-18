@@ -56,7 +56,7 @@ const WordpressFetcher = ({ numberOfPosts }: WordpressFetcherProps) => {
   }, [numberOfPosts]);
 
   return (
-    <div className="flex-row dark:border-gray-700 dark:bg-gray-800">
+    <div className="flex-row">
       {wordpressData.map((post: any, index: number) => (
         <div key={index}>
           <h2 className="m-0 mb-2 text-left font-bold text-white">
