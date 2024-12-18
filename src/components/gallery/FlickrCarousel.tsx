@@ -113,7 +113,7 @@ const FlickrCarousel: React.FC<FlickrCarouselProps> = ({ apiKey, userId }) => {
           {photo && (
             <img
               src={photo}
-              alt={`Carousel slide ${index + 1}`}
+              aria-label={`Carousel slide ${index + 1}`}
               loading={index === 0 ? "eager" : "lazy"}
               className="absolute inset-0 h-full w-full object-cover"
               onLoad={() => handleImageLoad(index)}
