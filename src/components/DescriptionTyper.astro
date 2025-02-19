@@ -1,0 +1,108 @@
+---
+interface Props {
+  untyped: string;
+}
+const { untyped } = Astro.props;
+---
+
+<div class="condensed mb-4 mt-2">
+  <h2 class="untyped mx-0 inline">
+    {untyped}
+  </h2>
+  <h2 class="typed mx-0 inline">
+    <span class="typed-text font-bold text-white"></span>
+    <span class="cursor blink-animation text-[#bbb]">|</span>
+  </h2>
+</div>
+
+<script>
+  // Animation config
+  const config = {
+    typeDelay: 100,
+    deleteDelay: 75,
+    pauseDelay: 2500,
+  };
+
+  // Phrases to cycle through
+  const phrases = ["wierder", "more playful", "thoughtful again"];
+
+  const getNextPhraseIndex = (currentIndex: number, totalPhrases: number) =>
+    (currentIndex + 1) % totalPhrases;
+
+  const createDelay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const updateText = (element: HTMLElement, text: string) => {
+    element.textContent = text;
+    return text;
+  };
+
+  const runTypingAnimation = async (
+    phrases: Array<string>,
+    typedElement: HTMLElement
+  ) => {
+    let currentPhraseIndex = 0;
+
+    while (true) {
+      const currentPhrase = phrases[currentPhraseIndex];
+      let displayedText = "";
+
+      // Type out the phrase
+      for (let i = 0; i < currentPhrase.length; i++) {
+        displayedText = currentPhrase.substring(0, i + 1);
+        updateText(typedElement, displayedText);
+        await createDelay(config.typeDelay);
+      }
+
+      await createDelay(config.pauseDelay);
+
+      // Delete the phrase
+      for (let i = currentPhrase.length; i > 0; i--) {
+        displayedText = currentPhrase.substring(0, i - 1);
+        updateText(typedElement, displayedText);
+        await createDelay(config.deleteDelay);
+      }
+
+      await createDelay(config.pauseDelay);
+
+      currentPhraseIndex = getNextPhraseIndex(
+        currentPhraseIndex,
+        phrases.length
+      );
+    }
+  };
+
+  // Initialize the animation
+  const initializeTypingAnimation = () => {
+    const typedPhrases: HTMLElement | null =
+      document.querySelector(".typed-text");
+    if (typedPhrases && phrases.length > 0) {
+      runTypingAnimation(phrases, typedPhrases);
+    }
+  };
+
+  // Start animation onMount
+  document.addEventListener("DOMContentLoaded", initializeTypingAnimation);
+</script>
+
+<style>
+  .cursor {
+    width: 2rem;
+    height: 1rem;
+    background-color: #bbb;
+  }
+
+  .cursor.blink-animation {
+    animation: blink 0.75s step-end infinite;
+  }
+
+  @keyframes blink {
+    from,
+    to {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

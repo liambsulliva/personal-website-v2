@@ -1,5 +1,4 @@
 ---
-import { changeLanguage } from "i18next";
 import Layout from "../../layouts/Layout.astro";
 import Background from "../../ui/Background.astro";
 import UX from "../../ui/UX.astro";
@@ -9,7 +8,9 @@ import Blog from "../../ui/Blog.astro";
 import Footer from "../../layouts/Footer.astro";
 import LanguagePicker from "../../components/LanguagePicker.astro";
 import SideBar from "../../layouts/SideBar.astro";
+import DescriptionTyper from "../../components/DescriptionTyper.astro";
 import { Trans } from "astro-i18next/components";
+import { t, changeLanguage } from "i18next";
 
 changeLanguage("en");
 
@@ -21,6 +22,8 @@ const sidebarItems = [
     { i18nKey: "photography.header", href: "#photography" },
     { i18nKey: "blog.header", href: "#blog" },
 ];
+// Define phrases to be typed out in the animation
+const descriptionPhrases = ["fun", "functional"];
 ---
 
 <Layout title="Liam Sullivan">
@@ -41,13 +44,7 @@ const sidebarItems = [
         </h1>
       </Trans>
     </div>
-    <Trans i18nKey="subheader"
-      ><h2 class="condensed">
-        I want to make the web as <strong>fun</strong> as it is <strong
-          >functional</strong
-        >.
-      </h2></Trans
-    >
+    <DescriptionTyper untyped={t("subheader.untyped")} />
     <div class="section-divider">
       <div class="first-section">
         <Trans i18nKey={sidebarItems[0].i18nKey}>

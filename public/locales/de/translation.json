@@ -1,7 +1,9 @@
 {
   "header": "<0>Hallo! Ich heiße <1>Liam</1></0>",
   "headerMobile": "<0>Ich bin <1>Liam</1></0>",
-  "subheader": "<0>Ich möchte, dass das Internet <1>schön</1> und <2>schnell</2> ist</0>",
+  "subheader": {
+    "untyped": "Ich möchte, dass das Internet"
+  },
   "background": {
     "header": "<0>Mich</0>",
     "p1": "<0>Als ich in der Mittelstufe war, begann ich mit der alten <1>Nikon D200</1> meines Onkels Porträts zu fotografieren. Ich liebte die Möglichkeit, die es mir gab, kreativ zu sein, und war schnell von der Intersektion zwischen Technologie und Kunst besessen.</0>",
