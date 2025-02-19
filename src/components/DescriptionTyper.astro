@@ -1,8 +1,9 @@
 ---
 interface Props {
   untyped: string;
+  typed: string[];
 }
-const { untyped } = Astro.props;
+const { untyped, typed } = Astro.props;
 ---
 
 <div class="condensed mb-4 mt-2">
@@ -15,34 +16,28 @@ const { untyped } = Astro.props;
   </h2>
 </div>
 
-<script>
-  // Animation config
+<script define:vars={{ typed }}>
+  // Window reference to pass to client
+  window.typedPhrases = typed;
+
   const config = {
     typeDelay: 100,
     deleteDelay: 75,
     pauseDelay: 2500,
   };
 
-  // Phrases to cycle through
-  const phrases = ["wierder", "more playful", "thoughtful again"];
-
-  const getNextPhraseIndex = (currentIndex: number, totalPhrases: number) =>
+  const getNextPhraseIndex = (currentIndex, totalPhrases) =>
     (currentIndex + 1) % totalPhrases;
 
-  const createDelay = (ms: number) =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+  const createDelay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  const updateText = (element: HTMLElement, text: string) => {
+  const updateText = (element, text) => {
     element.textContent = text;
     return text;
   };
 
-  const runTypingAnimation = async (
-    phrases: Array<string>,
-    typedElement: HTMLElement
-  ) => {
+  const runTypingAnimation = async (phrases, typedElement) => {
     let currentPhraseIndex = 0;
-
     while (true) {
       const currentPhrase = phrases[currentPhraseIndex];
       let displayedText = "";
@@ -53,7 +48,6 @@ const { untyped } = Astro.props;
         updateText(typedElement, displayedText);
         await createDelay(config.typeDelay);
       }
-
       await createDelay(config.pauseDelay);
 
       // Delete the phrase
@@ -62,7 +56,6 @@ const { untyped } = Astro.props;
         updateText(typedElement, displayedText);
         await createDelay(config.deleteDelay);
       }
-
       await createDelay(config.pauseDelay);
 
       currentPhraseIndex = getNextPhraseIndex(
@@ -74,10 +67,9 @@ const { untyped } = Astro.props;
 
   // Initialize the animation
   const initializeTypingAnimation = () => {
-    const typedPhrases: HTMLElement | null =
-      document.querySelector(".typed-text");
-    if (typedPhrases && phrases.length > 0) {
-      runTypingAnimation(phrases, typedPhrases);
+    const typedPhrases = document.querySelector(".typed-text");
+    if (typedPhrases && typed.length > 0) {
+      runTypingAnimation(typed, typedPhrases);
     }
   };
 
@@ -91,11 +83,9 @@ const { untyped } = Astro.props;
     height: 1rem;
     background-color: #bbb;
   }
-
   .cursor.blink-animation {
     animation: blink 0.75s step-end infinite;
   }
-
   @keyframes blink {
     from,
     to {

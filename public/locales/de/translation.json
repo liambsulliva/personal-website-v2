@@ -2,7 +2,8 @@
   "header": "<0>Hallo! Ich heiße <1>Liam</1></0>",
   "headerMobile": "<0>Ich bin <1>Liam</1></0>",
   "subheader": {
-    "untyped": "Ich möchte, dass das Internet"
+    "untyped": "Ich möchte, dass das Internet",
+    "typed": ["wieder", "spielerischer", "gedankenvoller wird"]
   },
   "background": {
     "header": "<0>Mich</0>",

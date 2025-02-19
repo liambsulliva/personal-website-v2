@@ -44,7 +44,10 @@ const descriptionPhrases = ["fun", "functional"];
         </h1>
       </Trans>
     </div>
-    <DescriptionTyper untyped={t("subheader.untyped")} />
+    <DescriptionTyper
+      untyped={t("subheader.untyped")}
+      typed={t("subheader.typed", { returnObjects: true })}
+    />
     <div class="section-divider">
       <div class="first-section">
         <Trans i18nKey={sidebarItems[0].i18nKey}>
