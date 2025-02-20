@@ -6,7 +6,7 @@ interface Props {
 const { untyped, typed } = Astro.props;
 ---
 
-<div class="condensed mt-2 text-center max-sm:mx-12 sm:mb-4">
+<div class="parent condensed mt-2 text-center sm:mb-4">
   <h2 class="untyped mx-0 inline">
     {untyped}
   </h2>
@@ -89,6 +89,11 @@ const { untyped, typed } = Astro.props;
 </script>
 
 <style>
+  @media screen and (max-width: 450px) {
+    .parent {
+      max-width: 14rem;
+    }
+  }
   .cursor {
     width: 1rem;
     background-color: #bbb;
