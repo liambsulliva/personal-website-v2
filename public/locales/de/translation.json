@@ -3,7 +3,16 @@
   "headerMobile": "<0>Ich bin <1>Liam</1></0>",
   "subheader": {
     "untyped": "Ich möchte, dass das Internet",
-    "typed": ["wieder", "spielerischer", "gedankenvoller wird"]
+    "typed": [
+      "angenehm",
+      "nahtlos",
+      "zugänglich",
+      "leicht",
+      "intuitiv",
+      "schnell",
+      "zuverlässig",
+      "whimsisch"
+    ]
   },
   "background": {
     "header": "<0>Mich</0>",

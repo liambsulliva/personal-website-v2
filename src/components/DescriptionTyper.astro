@@ -6,7 +6,7 @@ interface Props {
 const { untyped, typed } = Astro.props;
 ---
 
-<div class="condensed mb-4 mt-2">
+<div class="condensed mt-2 text-center max-sm:mx-12 sm:mb-4">
   <h2 class="untyped mx-0 inline">
     {untyped}
   </h2>
@@ -26,6 +26,15 @@ const { untyped, typed } = Astro.props;
     pauseDelay: 2500,
   };
 
+  // Shuffles the word bank before displaying in sequential order
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   const getNextPhraseIndex = (currentIndex, totalPhrases) =>
     (currentIndex + 1) % totalPhrases;
 
@@ -38,6 +47,8 @@ const { untyped, typed } = Astro.props;
 
   const runTypingAnimation = async (phrases, typedElement) => {
     let currentPhraseIndex = 0;
+    shuffleArray(phrases);
+
     while (true) {
       const currentPhrase = phrases[currentPhraseIndex];
       let displayedText = "";
@@ -79,8 +90,7 @@ const { untyped, typed } = Astro.props;
 
 <style>
   .cursor {
-    width: 2rem;
-    height: 1rem;
+    width: 1rem;
     background-color: #bbb;
   }
   .cursor.blink-animation {

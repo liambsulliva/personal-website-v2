@@ -3,7 +3,18 @@
   "headerMobile": "<0>I'm <1>Liam</1></0>",
   "subheader": {
     "untyped": "I want to make the web ",
-    "typed": ["wierder", "more playful", "thoughtful again"]
+    "typed": [
+      "delightful",
+      "seamless",
+      "accessible",
+      "lightweight",
+      "intuitive",
+      "snappy",
+      "engaging",
+      "reliable",
+      "whimsical",
+      "expressive"
+    ]
   },
   "background": {
     "header": "<0>About</0>",
