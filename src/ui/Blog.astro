@@ -3,6 +3,9 @@ import Card from "../components/Card.astro";
 import portraittutorial from "../../public/images/portrait-tutorial.png";
 import wiimanual from "../../public/images/wii-manual.png";
 import { t } from "i18next";
+import ArrowLink from "../components/ArrowLink.astro";
+// @ts-ignore
+import { localizePath } from "astro-i18next";
 ---
 
 <div class="content">
@@ -26,27 +29,28 @@ import { t } from "i18next";
       externalLink={false}
     />
   </div>
-
-  <style>
-    .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      list-style-type: none;
-      width: 100%;
-      gap: 2.5rem;
-    }
-    .grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      gap: 2rem;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (max-width: 850px) {
-      .grid {
-        grid-template-columns: repeat(1, 1fr);
-      }
-    }
-  </style>
 </div>
+<ArrowLink href={localizePath("/editorial/")} label={t("blog.viewAll")} />
+<style>
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    list-style-type: none;
+    width: 100%;
+    gap: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 850px) {
+    .grid {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+</style>
