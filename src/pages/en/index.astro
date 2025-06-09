@@ -11,6 +11,7 @@ import SideBar from "../../layouts/SideBar.astro";
 import DescriptionTyper from "../../components/DescriptionTyper.astro";
 import { Trans } from "astro-i18next/components";
 import { t, changeLanguage } from "i18next";
+import ArrowLink from "../../components/ArrowLink.astro";
 
 changeLanguage("en");
 
@@ -86,7 +87,7 @@ const descriptionPhrases = ["fun", "functional"];
         <Trans i18nKey={sidebarItems[4].i18nKey}>
           <p class="section-labels" style="text-transform: uppercase;"></p>
         </Trans>
-        <div id="blog" class="card">
+        <div id="blog" class="fade-in">
           <Blog />
         </div>
       </div>

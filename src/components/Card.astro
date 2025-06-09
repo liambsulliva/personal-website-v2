@@ -13,13 +13,14 @@ const {
   banner3text,
   img,
   demoBtn,
+  externalLink,
 } = Astro.props;
 ---
 
 <a
   href={demoBtn}
   aria-label={title}
-  target="_blank"
+  target={externalLink ? "_blank" : "_self"}
   class="group flex cursor-pointer items-stretch gap-6"
 >
   <div
@@ -52,7 +53,7 @@ const {
       <h5 class="mx-2 mb-2 text-2xl font-bold tracking-tight text-white">
         <span class="inline">
           {title}
-          <svg
+          {externalLink && (<svg
             xmlns="http://www.w3.org/2000/svg"
             width="0.75rem"
             height="0.75rem"
@@ -66,8 +67,9 @@ const {
               stroke-linejoin="round"
               stroke-width="2.5"
               d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
-            ></path>
-          </svg>
+              ></path>
+            </svg>
+          )}
         </span>
       </h5>
       <p class="mx-2 mb-3 flex-grow font-normal text-[#d0d0d0]">

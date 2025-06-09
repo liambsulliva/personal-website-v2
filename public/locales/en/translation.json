@@ -59,8 +59,16 @@
     "viewAll": "Portfolio"
   },
   "blog": {
-    "header": "<0>Blog</0>",
-    "viewAll": "Berlin"
+    "header": "<0>Editorial</0>",
+    "content1": {
+      "title": "The Forgotten Charm of Gaming Manuals",
+      "description": "A faithful recreation of a Nintendo Wii manual layout, containing a think-piece that dives into gaming's shift away from physical media."
+    },
+    "content2": {
+      "title": "Portrait Guide",
+      "description": "A magazine-style layout that explains best practices for shooting portraits with a DSLR camera, including lighting, composition, and post-processing."
+    },
+    "viewAll": "Archive"
   },
   "caseStudy": {
     "overview": "<0>Overview</0>",
