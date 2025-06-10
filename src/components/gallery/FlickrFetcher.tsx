@@ -29,27 +29,48 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [numPages, setNumPages] = useState(-1);
   const [selectedTag, setSelectedTag] = useState<string>("");
+  const [errors, setErrors] = useState<string[]>([]);
 
   const fetchPhotos = useCallback(async () => {
     setIsLoading(true);
-    const perPage = 20;
-    const tagsParam = selectedTag ? `&tags=${selectedTag}` : "";
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&user_id=${userId}${tagsParam}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
+    //console.log(`Fetching photos. Page: ${currentPage}, Tag: ${selectedTag || "none"}`);
 
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+      const perPage = 20;
+      const tagsParam = selectedTag ? `&tags=${selectedTag}` : "";
+      const url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&user_id=${userId}${tagsParam}&format=json&nojsoncallback=1&page=${currentPage}&per_page=${perPage}`;
 
-    setNumPages(data.photos.pages);
+      //console.log(`Fetching from URL: ${url}`);
+      const response = await fetch(url);
+      const data = await response.json();
 
-    const photoBatch = data.photos.photo.map(async (photo: any) => {
-      const newPhoto = await fetchPhotoByID(photo.id);
-      return newPhoto;
-    });
+      //console.log(`Got response. Total pages: ${data.photos.pages}, Total photos: ${data.photos.total}`);
+      setNumPages(data.photos.pages);
 
-    const fetchedPhotos = await Promise.all(photoBatch);
+      if (!data.photos.photo || data.photos.photo.length === 0) {
+        //console.warn("No photos found in response");
+        setIsLoading(false);
+        return;
+      }
 
-    setPhotos((prevData) => [...prevData, ...fetchedPhotos]);
-    setIsLoading(false);
+      const photoBatch = data.photos.photo.map(async (photo: any) => {
+        //console.log(`Processing photo ID: ${photo.id}`);
+        const newPhoto = await fetchPhotoByID(photo.id);
+        return newPhoto;
+      });
+
+      const fetchedPhotos = await Promise.all(photoBatch);
+      // Filter out nonexistent photos, avoids crashing entire component
+      const validPhotos = fetchedPhotos.filter((photo) => photo !== null);
+      //console.log(`Successfully fetched ${validPhotos.length} valid photos out of ${fetchedPhotos.length} total`);
+
+      setPhotos((prevData) => [...prevData, ...validPhotos]);
+    } catch (error) {
+      //console.error("Error fetching photos:", error);
+      setErrors((prev) => [...prev, `Error fetching photos: ${error}`]);
+    } finally {
+      setIsLoading(false);
+    }
   }, [apiKey, userId, currentPage, selectedTag]);
 
   useEffect(() => {
@@ -57,33 +78,95 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
   }, [fetchPhotos]);
 
   const fetchPhotoByID = async (photoID: string) => {
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
-    const response = await fetch(url);
-    const data = await response.json();
-    const photoData = data.sizes.size;
+    //console.log(`Fetching sizes for photo ID: ${photoID}`);
+    try {
+      const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&photo_id=${photoID}&format=json&nojsoncallback=1`;
+      const response = await fetch(url);
+      const data = await response.json();
 
-    const desiredSize = photoData.find(
-      (size: any) => size.label === "Original",
-    );
-    if (!desiredSize) {
-      console.error(`Desired size not found for photoID: ${photoID}`);
-      return null;
-    }
+      if (data.stat !== "ok") {
+        //console.error(`Error response from Flickr API for photo ${photoID}:`, data);
+        return null;
+      }
 
-    const photo = {
-      src: desiredSize.source,
-      width: desiredSize.width,
-      height: desiredSize.height,
-      srcSet: photoData
-        .filter((_: any, index: number) => [3, 6, 9, 12].includes(index))
+      const photoData = data.sizes.size;
+      //console.log(`Got ${photoData.length} sizes for photo ${photoID}`);
+
+      //console.log(`Available sizes for ${photoID}:`, photoData.map((s: any) => s.label));
+
+      // Try to find the Large size first (biggest available in API)
+      let desiredSize = photoData.find((size: any) => size.label === "Large");
+
+      // If Large not found, use fallback sizes.
+      if (!desiredSize) {
+        //console.warn(`Original size not found for photoID: ${photoID}, trying fallbacks`);
+        const fallbackSizes = [
+          "Large 2048",
+          "Large 1600",
+          "Medium 800",
+          "Medium",
+          "Small",
+        ];
+
+        for (const sizeLabel of fallbackSizes) {
+          desiredSize = photoData.find((size: any) => size.label === sizeLabel);
+          if (desiredSize) {
+            //console.log(`Using fallback size "${sizeLabel}" for photoID: ${photoID}`);
+            break;
+          }
+        }
+      }
+
+      // If still no size found, use the largest available size
+      if (!desiredSize && photoData.length > 0) {
+        //console.warn(`No preferred sizes found for photoID: ${photoID}, using largest available`);
+        // Sort by width descending and pick the largest
+        desiredSize = [...photoData].sort((a, b) => b.width - a.width)[0];
+      }
+
+      if (!desiredSize) {
+        //console.error(`No usable size found for photoID: ${photoID}`);
+        return null;
+      }
+
+      //console.log(`Selected size for ${photoID}: ${desiredSize.label} (${desiredSize.width}x${desiredSize.height})`);
+
+      // Create srcSet from available sizes
+      const srcSet = photoData
+        .filter((size: any) => size.width > 0 && size.height > 0)
+        .sort((a: any, b: any) => a.width - b.width)
+        .filter((_: any, index: number, arr: any[]) => {
+          // Get a reasonable distribution of sizes
+          const total = arr.length;
+          return (
+            index === 0 ||
+            index === Math.floor(total / 3) ||
+            index === Math.floor((2 * total) / 3) ||
+            index === total - 1
+          );
+        })
         .map((size: any) => ({
           src: size.source,
-          width: size.width,
-          height: size.height,
-        })),
-    };
+          width: parseInt(size.width),
+          height: parseInt(size.height),
+        }));
 
-    return photo;
+      const photo = {
+        src: desiredSize.source,
+        width: parseInt(desiredSize.width),
+        height: parseInt(desiredSize.height),
+        srcSet: srcSet.length > 0 ? srcSet : undefined,
+      };
+
+      return photo;
+    } catch (error) {
+      console.error(`Error fetching photo ${photoID}:`, error);
+      setErrors((prev) => [
+        ...prev,
+        `Error fetching photo ${photoID}: ${error}`,
+      ]);
+      return null;
+    }
   };
 
   useEffect(() => {
@@ -97,6 +180,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
           scrollTop + clientHeight >= scrollHeight - 200 &&
           currentPage < numPages
         ) {
+          //console.log("Scroll triggered, loading next page");
           setCurrentPage((prev) => prev + 1);
         }
       }
@@ -107,40 +191,51 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
   }, [isLoading, currentPage, numPages]);
 
   const handleTagChange = (tag: string) => {
+    console.log(`Tag changed to: ${tag}`);
     setSelectedTag(tag);
     setPhotos([]);
     setCurrentPage(1);
     setNumPages(-1);
   };
 
+  if (errors.length > 0) {
+    console.warn("Encountered errors:", errors);
+  }
+
   return (
     <div className="m-8 pb-16 max-md:m-3">
       <FlickrMenu lang={lang} onTagChange={handleTagChange} />
-      <PhotoAlbum
-        photos={photos}
-        layout="masonry"
-        renderPhoto={({ imageProps: { alt, style, ...restImageProps } }) => (
-          <div style={{ position: "relative", ...style }}>
-            <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
-            <img
-              alt={alt}
-              {...restImageProps}
-              className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300"
-              loading="lazy"
-              onLoad={(e) => {
-                (e.target as HTMLImageElement).style.opacity = "1";
-              }}
-            />
-          </div>
-        )}
-        columns={(containerWidth) => {
-          if (containerWidth < 400) return 2;
-          if (containerWidth < 800) return 3;
-          return 4;
-        }}
-        onClick={({ index: current }) => setIndex(current)}
-        defaultContainerWidth={360}
-      />
+      {photos.length > 0 ? (
+        <PhotoAlbum
+          photos={photos}
+          layout="masonry"
+          renderPhoto={({ imageProps: { alt, style, ...restImageProps } }) => (
+            <div style={{ position: "relative", ...style }}>
+              <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
+              <img
+                alt={alt}
+                {...restImageProps}
+                className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300"
+                loading="lazy"
+                onLoad={(e) => {
+                  (e.target as HTMLImageElement).style.opacity = "1";
+                }}
+              />
+            </div>
+          )}
+          columns={(containerWidth) => {
+            if (containerWidth < 400) return 2;
+            if (containerWidth < 800) return 3;
+            return 4;
+          }}
+          onClick={({ index: current }) => setIndex(current)}
+          defaultContainerWidth={360}
+        />
+      ) : !isLoading ? (
+        <div className="flex h-32 w-full items-center justify-center text-white">
+          <p>{lang === "de" ? "Keine Fotos gefunden" : "No photos found"}</p>
+        </div>
+      ) : null}
       <Lightbox
         plugins={[Zoom]}
         index={index}
