@@ -4,11 +4,19 @@ interface WordpressFetcherProps {
   cardsToShow?: number;
 }
 
+interface WordpressPost {
+  title: string;
+  excerpt: string;
+  link: string;
+  imageUrl: string | null;
+}
+
 const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
-  const [wordpressData, setWordpressData] = useState([]);
+  const [wordpressData, setWordpressData] = useState<WordpressPost[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCards, setVisibleCards] = useState(cardsToShow);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [slideWidth, setSlideWidth] = useState(0);
 
   // Responsive handler to adjust cards shown based on screen width
   useEffect(() => {
@@ -27,6 +35,12 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
       if (currentIndex > wordpressData.length - visibleCards) {
         setCurrentIndex(Math.max(0, wordpressData.length - visibleCards));
       }
+
+      // Calculate slide width for animation
+      if (carouselRef.current) {
+        const containerWidth = carouselRef.current.clientWidth;
+        setSlideWidth(containerWidth / visibleCards);
+      }
     };
 
     // Initial setup
@@ -38,6 +52,14 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
     // Cleanup
     return () => window.removeEventListener("resize", handleResize);
   }, [cardsToShow, currentIndex, wordpressData.length, visibleCards]);
+
+  // Recalculate slide width when wordpressData or visibleCards changes
+  useEffect(() => {
+    if (carouselRef.current) {
+      const containerWidth = carouselRef.current.clientWidth;
+      setSlideWidth(containerWidth / visibleCards);
+    }
+  }, [wordpressData, visibleCards]);
 
   useEffect(() => {
     const fetchWordpressData = async () => {
@@ -95,28 +117,46 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
 
   const nextSlide = () => {
     if (wordpressData.length <= visibleCards) return;
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex + 1) % (wordpressData.length - visibleCards + 1),
-    );
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % wordpressData.length);
   };
 
   const prevSlide = () => {
     if (wordpressData.length <= visibleCards) return;
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? wordpressData.length - visibleCards : prevIndex - 1,
+    setCurrentIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + wordpressData.length) % wordpressData.length,
     );
   };
 
-  const visiblePosts = wordpressData.slice(
-    currentIndex,
-    currentIndex + visibleCards,
-  );
+  // Handle circular array logic for visible posts
+  const getVisiblePosts = (): WordpressPost[] => {
+    if (wordpressData.length <= visibleCards) {
+      return wordpressData;
+    }
+
+    const posts: WordpressPost[] = [];
+    for (let i = 0; i < visibleCards; i++) {
+      const index = (currentIndex + i) % wordpressData.length;
+      posts.push(wordpressData[index]);
+    }
+    return posts;
+  };
+
+  const visiblePosts = getVisiblePosts();
+  const showNavigation = wordpressData.length > visibleCards;
+
+  // Calculate card width based on slideWidth
+  const cardWidth =
+    slideWidth > 0
+      ? slideWidth
+      : carouselRef.current
+        ? carouselRef.current.clientWidth / visibleCards
+        : 0;
 
   return (
     <div className="relative mx-auto max-w-[1200px]">
       {/* Navigation buttons */}
-      {wordpressData.length > visibleCards && (
+      {showNavigation && (
         <>
           <button
             onClick={prevSlide}
@@ -168,15 +208,19 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
         <div
           className="flex transition-transform duration-300 ease-in-out"
           style={{
-            transform: `translateX(0px)`,
-            width: `${(100 * visiblePosts.length) / visibleCards}%`,
+            transform: `translateX(-${currentIndex * cardWidth}px)`,
+            width: `auto`,
+            display: "flex",
           }}
         >
-          {visiblePosts.map((post: any, index: number) => (
+          {wordpressData.map((post: WordpressPost, index: number) => (
             <div
               key={index}
               className="flex-shrink-0"
-              style={{ width: `${100 / visiblePosts.length}%` }}
+              style={{
+                width: `${cardWidth}px`,
+                maxWidth: `${cardWidth}px`,
+              }}
             >
               <a
                 href={post.link}
@@ -234,20 +278,23 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
       </div>
 
       {/* Pagination indicators */}
-      {wordpressData.length > visibleCards && (
+      {showNavigation && (
         <div className="mt-4 flex justify-center gap-2">
-          {Array.from({ length: wordpressData.length - visibleCards + 1 }).map(
-            (_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`h-2 w-2 rounded-full ${
-                  currentIndex === index ? "bg-white" : "bg-gray-500"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ),
-          )}
+          {Array.from({ length: wordpressData.length }).map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentIndex(index)}
+              className={`h-2 w-2 rounded-full ${
+                (currentIndex <= index &&
+                  index < currentIndex + visibleCards) ||
+                (currentIndex + visibleCards > wordpressData.length &&
+                  index < (currentIndex + visibleCards) % wordpressData.length)
+                  ? "bg-white"
+                  : "bg-gray-500"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       )}
     </div>
