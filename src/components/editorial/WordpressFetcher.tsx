@@ -36,24 +36,22 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
         setCurrentIndex(Math.max(0, wordpressData.length - visibleCards));
       }
 
-      // Calculate slide width for animation
+      // Calculate card width for animation
       if (carouselRef.current) {
         const containerWidth = carouselRef.current.clientWidth;
         setSlideWidth(containerWidth / visibleCards);
       }
     };
 
-    // Initial setup
+    // Event listener
     handleResize();
-
-    // Add event listener
     window.addEventListener("resize", handleResize);
 
-    // Cleanup
+    // Cleanup event listener on exit to avoid memory leak
     return () => window.removeEventListener("resize", handleResize);
   }, [cardsToShow, currentIndex, wordpressData.length, visibleCards]);
 
-  // Recalculate slide width when wordpressData or visibleCards changes
+  // Recalculate card width when data or card size changes
   useEffect(() => {
     if (carouselRef.current) {
       const containerWidth = carouselRef.current.clientWidth;
@@ -78,7 +76,7 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
         const decodedExcerpt = decodeEntities(strippedExcerpt);
         // Remove the last 10 characters for "Read More"
         let truncatedExcerpt = decodedExcerpt.slice(0, -10);
-        // If visibleCards is 3, limit to 200 characters
+        // If visibleCards is 3, limit to 200 characters for brevity
         if (visibleCards === 3 && truncatedExcerpt.length > 200) {
           truncatedExcerpt = truncatedExcerpt.slice(0, 200) + "...";
         }
@@ -117,32 +115,17 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
 
   const nextSlide = () => {
     if (wordpressData.length <= visibleCards) return;
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % wordpressData.length);
+    setCurrentIndex((prevIndex) =>
+      prevIndex + 1 < wordpressData.length ? prevIndex + 1 : prevIndex,
+    );
   };
 
   const prevSlide = () => {
     if (wordpressData.length <= visibleCards) return;
-    setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + wordpressData.length) % wordpressData.length,
-    );
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
   };
 
-  // Handle circular array logic for visible posts
-  const getVisiblePosts = (): WordpressPost[] => {
-    if (wordpressData.length <= visibleCards) {
-      return wordpressData;
-    }
-
-    const posts: WordpressPost[] = [];
-    for (let i = 0; i < visibleCards; i++) {
-      const index = (currentIndex + i) % wordpressData.length;
-      posts.push(wordpressData[index]);
-    }
-    return posts;
-  };
-
-  const visiblePosts = getVisiblePosts();
+  // Only show arrow navigation when pagination is necessary
   const showNavigation = wordpressData.length > visibleCards;
 
   // Calculate card width based on slideWidth
@@ -158,44 +141,48 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
       {/* Navigation buttons */}
       {showNavigation && (
         <>
-          <button
-            onClick={prevSlide}
-            className="absolute -left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
-            aria-label="Previous"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          {currentIndex > 0 && (
+            <button
+              onClick={prevSlide}
+              className="absolute -left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+              aria-label="Previous"
             >
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute -right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
-            aria-label="Next"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+          )}
+          {currentIndex < wordpressData.length - visibleCards && (
+            <button
+              onClick={nextSlide}
+              className="absolute -right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white hover:bg-black/70"
+              aria-label="Next"
             >
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          )}
         </>
       )}
 
@@ -277,7 +264,7 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
         </div>
       </div>
 
-      {/* Pagination indicators */}
+      {/* Pagination dots */}
       {showNavigation && (
         <div className="mt-4 flex justify-center gap-2">
           {Array.from({ length: wordpressData.length }).map((_, index) => (
@@ -292,7 +279,7 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
                   ? "bg-white"
                   : "bg-gray-500"
               }`}
-              aria-label={`Go to slide ${index + 1}`}
+              aria-label={`Go to card ${index + 1}`}
             />
           ))}
         </div>
