@@ -91,7 +91,6 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
 
       const photoData = data.sizes.size;
       //console.log(`Got ${photoData.length} sizes for photo ${photoID}`);
-
       //console.log(`Available sizes for ${photoID}:`, photoData.map((s: any) => s.label));
 
       // Try to find the Large size first (biggest available in API)
@@ -120,7 +119,6 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
       // If still no size found, use the largest available size
       if (!desiredSize && photoData.length > 0) {
         //console.warn(`No preferred sizes found for photoID: ${photoID}, using largest available`);
-        // Sort by width descending and pick the largest
         desiredSize = [...photoData].sort((a, b) => b.width - a.width)[0];
       }
 
@@ -191,7 +189,7 @@ const FlickrFetcher: React.FC<FlickrFetcherProps> = ({
   }, [isLoading, currentPage, numPages]);
 
   const handleTagChange = (tag: string) => {
-    console.log(`Tag changed to: ${tag}`);
+    //console.log(`Tag changed to: ${tag}`);
     setSelectedTag(tag);
     setPhotos([]);
     setCurrentPage(1);
