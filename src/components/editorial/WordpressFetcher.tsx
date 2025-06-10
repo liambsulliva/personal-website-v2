@@ -54,7 +54,12 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
         const strippedExcerpt = post.excerpt.replace(regex, "");
         const decodedTitle = decodeEntities(strippedTitle);
         const decodedExcerpt = decodeEntities(strippedExcerpt);
-        const truncatedExcerpt = decodedExcerpt.slice(0, -10); // Remove the last 10 characters for "Read More"
+        // Remove the last 10 characters for "Read More"
+        let truncatedExcerpt = decodedExcerpt.slice(0, -10);
+        // If visibleCards is 3, limit to 200 characters
+        if (visibleCards === 3 && truncatedExcerpt.length > 200) {
+          truncatedExcerpt = truncatedExcerpt.slice(0, 200) + "...";
+        }
         return {
           title: decodedTitle,
           excerpt: truncatedExcerpt,
@@ -109,7 +114,7 @@ const WordpressFetcher = ({ cardsToShow = 3 }: WordpressFetcherProps) => {
   );
 
   return (
-    <div className="relative mx-auto max-w-[1450px]">
+    <div className="relative mx-auto max-w-[1200px]">
       {/* Navigation buttons */}
       {wordpressData.length > visibleCards && (
         <>
