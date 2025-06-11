@@ -27,14 +27,14 @@ const LocalFetcher = ({ category = "layouts" }: LocalFetcherProps) => {
           title: "Shooting The Perfect Portrait",
           type: "Article",
           date: "Mar 2025",
-          link: "/layouts/portrait-guide.pdf",
+          link: "/layouts/portrait-tutorial.pdf",
           imageUrl: "/images/portrait-tutorial.png",
         },
         {
           title: "The Forgotten Charm of Gaming Manuals",
           type: "Manual",
           date: "Apr 2025",
-          link: "/layouts/gaming-manuals.pdf",
+          link: "/layouts/wii-manual.pdf",
           imageUrl: "/images/wii-manual.png",
         },
       ];
