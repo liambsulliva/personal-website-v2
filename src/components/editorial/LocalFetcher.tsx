@@ -85,7 +85,7 @@ const LocalFetcher = ({ category = "layouts" }: LocalFetcherProps) => {
   }, [fetchLocalData]);
 
   return (
-    <div className="mx-auto max-w-[1450px]">
+    <div className="mx-auto w-[calc(100vw-5rem)] max-w-[1450px]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {localData.map((card: LocalData, index: number) => (
           <a
