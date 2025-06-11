@@ -87,14 +87,14 @@ const WordpressFetcher = () => {
               )}
               <div className="flex flex-grow flex-col p-5">
                 <h2 className="m-0 text-left text-base font-bold text-white">
-                  <span className="inline">
-                    {post.title}
+                  <div className="flex w-full items-center">
+                    <span className="truncate">{post.title}</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="0.75rem"
                       height="0.75rem"
                       viewBox="0 0 24 24"
-                      className="ml-2 inline-block align-baseline"
+                      className="ml-2 shrink-0"
                     >
                       <path
                         fill="none"
@@ -105,7 +105,7 @@ const WordpressFetcher = () => {
                         d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
                       />
                     </svg>
-                  </span>
+                  </div>
                 </h2>
                 <p className="m-0 text-[#d0d0d0]">Berlin • {post.date}</p>
               </div>
