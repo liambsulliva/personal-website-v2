@@ -60,7 +60,7 @@ const WordpressFetcher = () => {
   }, [fetchWordpressData]);
 
   return (
-    <div className="mx-auto w-[calc(100vw-5rem)] max-w-[1450px]">
+    <div className="mx-auto w-[calc(100vw-4rem)] max-w-[1200px]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {wordpressData.map((post: WordpressPost, index: number) => (
           <a
