@@ -4,13 +4,14 @@ import Background from "../../ui/Background.astro";
 import UX from "../../ui/UX.astro";
 import Photography from "../../ui/Photography.astro";
 import Projects from "../../ui/Projects.astro";
-import Blog from "../../ui/Blog.astro";
+import Editorial from "../../ui/Editorial.astro";
 import Footer from "../../layouts/Footer.astro";
 import LanguagePicker from "../../components/LanguagePicker.astro";
 import SideBar from "../../layouts/SideBar.astro";
 import DescriptionTyper from "../../components/DescriptionTyper.astro";
 import { Trans } from "astro-i18next/components";
 import { t, changeLanguage } from "i18next";
+import ArrowLink from "../../components/ArrowLink.astro";
 
 changeLanguage("en");
 
@@ -20,7 +21,7 @@ const sidebarItems = [
     { i18nKey: "projects.header", href: "#projects" },
     { i18nKey: "ux.header", href: "#ux" },
     { i18nKey: "photography.header", href: "#photography" },
-    { i18nKey: "blog.header", href: "#blog" },
+    { i18nKey: "editorial.header", href: "#editorial" },
 ];
 // Define phrases to be typed out in the animation
 const descriptionPhrases = ["fun", "functional"];
@@ -86,8 +87,8 @@ const descriptionPhrases = ["fun", "functional"];
         <Trans i18nKey={sidebarItems[4].i18nKey}>
           <p class="section-labels" style="text-transform: uppercase;"></p>
         </Trans>
-        <div id="blog" class="card">
-          <Blog />
+        <div id="editorial" class="fade-in">
+          <Editorial />
         </div>
       </div>
     </div>

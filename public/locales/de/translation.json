@@ -56,9 +56,24 @@
     "header": "<0>Fotografie</0>",
     "viewAll": "Portfolio"
   },
-  "blog": {
-    "header": "<0>Blog</0>",
-    "viewAll": "Berlin"
+  "editorial": {
+    "header": "<0>Redaktion</0>",
+    "content1": {
+      "title": "Der vergessene Charme von Spielehandbüchern",
+      "description": "Eine treue Wiedergabe eines Nintendo Wii Manuals, das eine Denkstütze enthält, die sich mit dem Wechsel von physischen Medien in die digitale Welt befasst."
+    },
+    "content2": {
+      "title": "Das perfekte Portrait fotografieren",
+      "description": "Eine Magazine-Artikel-Layout, die die besten Praktiken für das Fotografieren von Porträts mit einem DSLR-Kamera erklärt, einschließlich Beleuchtung, Komposition und Nachbearbeitung."
+    },
+    "badge": "Integration von Text und Design",
+    "viewAll": "Archiv"
+  },
+  "archive": {
+    "header": "<0>Archiv</0>",
+    "layouts": "<0>Layouts</0>",
+    "graphicDesign": "<0>Grafikdesign</0>",
+    "blog": "<0>Blog</0>"
   },
   "caseStudy": {
     "overview": "<0>Überblick</0>",
