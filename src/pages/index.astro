@@ -11,7 +11,6 @@ import SideBar from "../layouts/SideBar.astro";
 import DescriptionTyper from "../components/DescriptionTyper.astro";
 import { Trans } from "astro-i18next/components";
 import { t } from "i18next";
-import ArrowLink from "../components/ArrowLink.astro";
 
 // Define the navigation items to pass as props
 const sidebarItems = [
@@ -21,9 +20,6 @@ const sidebarItems = [
   { i18nKey: "photography.header", href: "#photography" },
   { i18nKey: "editorial.header", href: "#editorial" },
 ];
-
-// Define phrases to be typed out in the animation
-const descriptionPhrases = ["fun", "functional"];
 ---
 
 <Layout title="Liam Sullivan">
