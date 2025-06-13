@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Loader from "../gallery/Loader";
 
 interface LocalFetcherProps {
+  lang?: string;
   category?: string;
 }
 
@@ -14,7 +15,10 @@ interface LocalData {
   imageUrl: string | null;
 }
 
-const LocalFetcher = ({ category = "layouts" }: LocalFetcherProps) => {
+const LocalFetcher = ({
+  category = "layouts",
+  lang = "en",
+}: LocalFetcherProps) => {
   const [localData, setLocalData] = useState<LocalData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,55 +26,104 @@ const LocalFetcher = ({ category = "layouts" }: LocalFetcherProps) => {
     setIsLoading(true);
 
     try {
-      const localPDFs = [
-        {
-          title: "Shooting The Perfect Portrait",
-          type: "Article",
-          date: "Mar 2025",
-          link: "/layouts/portrait-tutorial.pdf",
-          imageUrl: "/images/portrait-tutorial.png",
-        },
-        {
-          title: "The Forgotten Charm of Gaming Manuals",
-          type: "Manual",
-          date: "Apr 2025",
-          link: "/layouts/wii-manual.pdf",
-          imageUrl: "/images/wii-manual.png",
-        },
-      ];
+      const localPDFs = {
+        en: [
+          {
+            title: "Shooting The Perfect Portrait",
+            type: "Article",
+            date: "Mar 2025",
+            link: "/layouts/portrait-tutorial.pdf",
+            imageUrl: "/images/portrait-tutorial.png",
+          },
+          {
+            title: "The Forgotten Charm of Gaming Manuals",
+            type: "Manual",
+            date: "Apr 2025",
+            link: "/layouts/wii-manual.pdf",
+            imageUrl: "/images/wii-manual.png",
+          },
+        ],
+        de: [
+          {
+            title: "Das perfekte Porträt fotografieren",
+            type: "Artikel",
+            date: "März 2025",
+            link: "/layouts/portrait-tutorial.pdf",
+            imageUrl: "/images/portrait-tutorial.png",
+          },
+          {
+            title: "Der vergessene Charme von Spielehandbüchern",
+            type: "Handbuch",
+            date: "Apr 2025",
+            link: "/layouts/wii-manual.pdf",
+            imageUrl: "/images/wii-manual.png",
+          },
+        ],
+      };
 
-      const localImages = [
-        {
-          title: "From Pop to Personal",
-          type: "Logo",
-          date: "Oct 2024",
-          link: "https://pittnews.com/article/190870/blogs/from-pop-to-personal-youre-gonna-go-far/",
-          externalLink: true,
-          imageUrl: "/images/From-Pop-to-Personal.png",
-        },
-        {
-          title: "Do You Not Get the Concept?",
-          type: "Logo",
-          date: "Dec 2024",
-          link: "https://pittnews.com/article/192778/blogs/do-you-not-get-the-concept-with-great-power-theres-a-great-responsibility/",
-          externalLink: true,
-          imageUrl: "/images/music-blog.png",
-        },
-        {
-          title: "Pitt-Branded Instagram Post (Mockup)",
-          type: "Instagram Post",
-          date: "Mar 2025",
-          link: "/layouts/mock-pitt-post.pdf",
-          imageUrl: "/images/mock-pitt-post.png",
-        },
-      ];
+      const localImages = {
+        en: [
+          {
+            title: "From Pop to Personal",
+            type: "Logo",
+            date: "Oct 2024",
+            link: "https://pittnews.com/article/190870/blogs/from-pop-to-personal-youre-gonna-go-far/",
+            externalLink: true,
+            imageUrl: "/images/From-Pop-to-Personal.png",
+          },
+          {
+            title: "Do You Not Get the Concept?",
+            type: "Logo",
+            date: "Dec 2024",
+            link: "https://pittnews.com/article/192778/blogs/do-you-not-get-the-concept-with-great-power-theres-a-great-responsibility/",
+            externalLink: true,
+            imageUrl: "/images/music-blog.png",
+          },
+          {
+            title: "Pitt-Branded Instagram Post (Mockup)",
+            type: "Instagram Post",
+            date: "Mar 2025",
+            link: "/layouts/mock-pitt-post.pdf",
+            imageUrl: "/images/mock-pitt-post.png",
+          },
+        ],
+        de: [
+          {
+            title: "Von Pop zu Persönlich",
+            type: "Logo",
+            date: "Okt 2024",
+            link: "https://pittnews.com/article/190870/blogs/from-pop-to-personal-youre-gonna-go-far/",
+            externalLink: true,
+            imageUrl: "/images/From-Pop-to-Personal.png",
+          },
+          {
+            title: "Verstehst du das Konzept nicht?",
+            type: "Logo",
+            date: "Dez 2024",
+            link: "https://pittnews.com/article/192778/blogs/do-you-not-get-the-concept-with-great-power-theres-a-great-responsibility/",
+            externalLink: true,
+            imageUrl: "/images/music-blog.png",
+          },
+          {
+            title: "Pitt-Branded Instagram-Beitrag (Mockup)",
+            type: "Instagram-Beitrag",
+            date: "März 2025",
+            link: "/layouts/mock-pitt-post.pdf",
+            imageUrl: "/images/mock-pitt-post.png",
+          },
+        ],
+      };
 
       switch (category) {
         case "layouts":
-          setLocalData(localPDFs);
+          setLocalData(
+            localPDFs[lang as keyof typeof localPDFs] || localPDFs.en,
+          );
           break;
         case "graphic-design":
-          setLocalData(localImages);
+          setLocalData(
+            localImages[lang as keyof typeof localImages] || localImages.en,
+          );
           break;
       }
     } catch (error) {
@@ -78,7 +131,7 @@ const LocalFetcher = ({ category = "layouts" }: LocalFetcherProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [category]);
+  }, [category, lang]);
 
   useEffect(() => {
     fetchLocalData();
@@ -142,7 +195,7 @@ const LocalFetcher = ({ category = "layouts" }: LocalFetcherProps) => {
           </a>
         ))}
       </div>
-      {isLoading && <Loader lang="en" />}
+      {isLoading && <Loader lang={lang} />}
     </div>
   );
 };

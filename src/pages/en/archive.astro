@@ -4,6 +4,7 @@ import BackLink from "../../components/BackLink.astro";
 import WordpressFetcher from "../../components/editorial/WordpressFetcher.tsx";
 import LocalFetcher from "../../components/editorial/LocalFetcher.tsx";
 import { t, changeLanguage } from "i18next";
+import { Trans } from "astro-i18next/components";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
 
@@ -37,18 +38,34 @@ changeLanguage("en");
 <Layout title="Archive">
   <div class="content">
     <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
-    <h1 class="my-20 text-5xl font-bold">Archive</h1>
+    <Trans i18nKey="archive.header">
+      <h1 class="my-20 text-5xl font-bold">Archive</h1>
+    </Trans>
     <div class="mx-auto mb-16 flex flex-col">
-      <p class="text-md mb-2 font-bold uppercase">Layouts</p>
-      <LocalFetcher category={"layouts"} client:load />
+      <Trans i18nKey="archive.layouts">
+        <p class="text-md mb-2 font-bold uppercase">Layouts</p>
+      </Trans>
+      <LocalFetcher
+        lang={t("misc.lang") as string}
+        category={"layouts"}
+        client:load
+      />
     </div>
     <div class="mx-auto mb-16 flex flex-col">
-      <p class="text-md mb-2 font-bold uppercase">Graphic Design</p>
-      <LocalFetcher category={"graphic-design"} client:load />
+      <Trans i18nKey="archive.graphicDesign">
+        <p class="text-md mb-2 font-bold uppercase">Graphic Design</p>
+      </Trans>
+      <LocalFetcher
+        lang={t("misc.lang") as string}
+        category={"graphic-design"}
+        client:load
+      />
     </div>
     <div class="mx-auto flex flex-col pb-28">
-      <p class="text-md mb-2 font-bold uppercase">Blog</p>
-      <WordpressFetcher client:load />
+      <Trans i18nKey="archive.blog">
+        <p class="text-md mb-2 font-bold uppercase">Blog</p>
+      </Trans>
+      <WordpressFetcher lang={t("misc.lang") as string} client:load />
     </div>
   </div>
 </Layout>

@@ -68,7 +68,14 @@
       "title": "Shooting The Perfect Portrait",
       "description": "A magazine-style layout that explains best practices for shooting portraits with a DSLR camera, including lighting, composition, and post-processing."
     },
+    "badge": "Integrating Writing and Design",
     "viewAll": "Archive"
+  },
+  "archive": {
+    "header": "<0>Archive</0>",
+    "layouts": "<0>Layouts</0>",
+    "graphicDesign": "<0>Graphic Design</0>",
+    "blog": "<0>Blog</0>"
   },
   "caseStudy": {
     "overview": "<0>Overview</0>",
