@@ -8,20 +8,20 @@ import Book from "../components/Book.svelte";
 import ProjectDescription from "../components/ProjectDescription.astro";
 import { t } from "i18next";
 const sidebarItems = [
-  { i18nKey: "caseStudy.overview", href: "#overview" },
-  { i18nKey: "caseStudy.context", href: "#context" },
-  { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
-  { i18nKey: "caseStudy.considerations", href: "#considerations" },
-  { i18nKey: "caseStudy.navigation", href: "#navigation" },
-  { i18nKey: "caseStudy.adaptations", href: "#adaptations" },
-  { i18nKey: "caseStudy.flow", href: "#flow" },
-  { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
+  { text: "Overview", href: "#overview" },
+  { text: "Context", href: "#context" },
+  { text: "Roadblocks", href: "#roadblocks" },
+  { text: "Considerations", href: "#considerations" },
+  { text: "Navigation", href: "#navigation" },
+  { text: "Adaptations", href: "#adaptations" },
+  { text: "Flow", href: "#flow" },
+  { text: "Retrospective", href: "#retrospective" },
 ];
 ---
 
 <Layout title="HERL Through The Years - Liam Sullivan">
   <div class="btn-container">
-    <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
+    <BackLink label={"Back"} href={localizePath("/")} />
   </div>
   <main class="mx-auto flex w-[1150px] max-w-full flex-row">
     <SideBar

@@ -17,17 +17,17 @@ import ArrowLink from "../components/ArrowLink.astro";
 
 // Define the navigation items to pass as props
 const sidebarItems = [
-  { i18nKey: "background.header", href: "#background" },
-  { i18nKey: "projects.header", href: "#projects" },
-  { i18nKey: "ux.header", href: "#ux" },
-  { i18nKey: "photography.header", href: "#photography" },
-  { i18nKey: "editorial.header", href: "#editorial" },
+  { text: "About", href: "#background" },
+  { text: "Projects", href: "#projects" },
+  { text: "UX", href: "#ux" },
+  { text: "Photography", href: "#photography" },
+  { text: "Editorial", href: "#editorial" },
 ];
 ---
 
 <Layout title="Liam Sullivan">
   <main>
-    <LanguagePicker />
+    {/*<LanguagePicker />*/}
     <SideBar navItems={sidebarItems} className="right-18 fixed top-72" />
     <div class="header-desktop flex w-full justify-center">
       <Trans i18nKey="header">
@@ -44,51 +44,55 @@ const sidebarItems = [
       </Trans>
     </div>
     <DescriptionTyper
-      untyped={t("subheader.untyped")}
-      typed={t("subheader.typed", { returnObjects: true })}
+      untyped="I want to make the web "
+      typed={[
+        "delightful",
+        "seamless",
+        "accessible",
+        "lightweight",
+        "intuitive",
+        "snappy",
+        "engaging",
+        "reliable",
+        "whimsical",
+        "expressive",
+      ]}
     />
     <div class="section-divider">
       <div class="first-section">
-        <Trans i18nKey={sidebarItems[0].i18nKey}>
-          <p class="section-labels" style="text-transform: uppercase;"></p>
-        </Trans>
+        <p class="section-labels" style="text-transform: uppercase;">About</p>
         <div id="background" class="card">
           <Background />
         </div>
       </div>
 
       <div>
-        <Trans i18nKey={sidebarItems[1].i18nKey}>
-          <p class="section-labels" style="text-transform: uppercase;"></p>
-        </Trans>
+        <p class="section-labels" style="text-transform: uppercase;">
+          Projects
+        </p>
         <div id="projects" class="fade-in">
           <Projects />
         </div>
       </div>
       <div>
-        <Trans i18nKey={sidebarItems[2].i18nKey}>
-          <p class="section-labels" style="text-transform: uppercase;"></p>
-        </Trans>
+        <p class="section-labels" style="text-transform: uppercase;">UX</p>
         <div id="ux" class="fade-in">
           <UX />
         </div>
       </div>
       <div>
-        <Trans i18nKey={sidebarItems[3].i18nKey}>
-          <p class="section-labels" style="text-transform: uppercase;"></p>
-        </Trans>
+        <p class="section-labels" style="text-transform: uppercase;">
+          Photography
+        </p>
         <div id="photography" class="card mb-6">
           <Photography />
         </div>
-        <ArrowLink
-          href={localizePath("/photography/")}
-          label={t("photography.viewAll")}
-        />
+        <ArrowLink href={localizePath("/photography/")} label={"Portfolio"} />
       </div>
       <div>
-        <Trans i18nKey={sidebarItems[4].i18nKey}>
-          <p class="section-labels" style="text-transform: uppercase;"></p>
-        </Trans>
+        <p class="section-labels" style="text-transform: uppercase;">
+          Editorial
+        </p>
         <div id="editorial" class="fade-in">
           <Editorial />
         </div>

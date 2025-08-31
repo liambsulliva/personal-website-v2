@@ -2,7 +2,7 @@
 import { Trans } from "astro-i18next/components";
 
 interface NavItem {
-  i18nKey: string;
+  text: string;
   href: string;
 }
 
@@ -21,9 +21,7 @@ const { navItems, id = "fade-nav", className = "" }: Props = Astro.props;
     {
       navItems.map((item) => (
         <li>
-          <Trans i18nKey={item.i18nKey}>
-            <a href={item.href}>{/* Translated text will replace this */}</a>
-          </Trans>
+          <a href={item.href}>{item.text}</a>
         </li>
       ))
     }

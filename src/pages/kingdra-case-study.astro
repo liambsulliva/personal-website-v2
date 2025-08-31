@@ -32,20 +32,20 @@ import tabsAfter from "../../public/images/tabs-after.png";
 import UXBanner from "../../public/images/ux-banner.png";
 
 const sidebarItems = [
-  { i18nKey: "caseStudy.overview", href: "#overview" },
-  { i18nKey: "caseStudy.context", href: "#context" },
-  { i18nKey: "caseStudy.roadblocks", href: "#roadblocks" },
-  { i18nKey: "caseStudy.considerations", href: "#considerations" },
-  { i18nKey: "caseStudy.navigation", href: "#navigation" },
-  { i18nKey: "caseStudy.adaptations", href: "#adaptations" },
-  { i18nKey: "caseStudy.flow", href: "#flow" },
-  { i18nKey: "caseStudy.retrospective", href: "#retrospective" },
+  { text: "Overview", href: "#overview" },
+  { text: "Context", href: "#context" },
+  { text: "Roadblocks", href: "#roadblocks" },
+  { text: "Considerations", href: "#considerations" },
+  { text: "Navigation", href: "#navigation" },
+  { text: "Adaptations", href: "#adaptations" },
+  { text: "Flow", href: "#flow" },
+  { text: "Retrospective", href: "#retrospective" },
 ];
 ---
 
 <Layout title="The Journey to Mobile: A Case Study - Liam Sullivan">
   <div class="m-8">
-    <BackLink label={t("misc.backBtn")} href={localizePath("/")} />
+    <BackLink label={"Back"} href={localizePath("/")} />
   </div>
   <main class="mx-auto flex w-[1150px] max-w-full flex-row">
     <SideBar
