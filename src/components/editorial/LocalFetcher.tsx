@@ -26,7 +26,7 @@ const LocalFetcher = ({
     setIsLoading(true);
 
     try {
-      const localPDFs = {
+      const localLayouts = {
         en: [
           {
             title: "Shooting The Perfect Portrait",
@@ -57,6 +57,25 @@ const LocalFetcher = ({
             date: "Apr 2025",
             link: "/layouts/wii-manual.pdf",
             imageUrl: "/images/wii-manual.png",
+          },
+        ],
+      };
+
+      const localPresentations = {
+        en: [
+          {
+            title: "Club Meeting 8-25 (UX Design Club)",
+            type: "Presentation",
+            date: "Aug 2025",
+            link: "/presentation/clubmeeting1.pdf",
+            imageUrl: "/images/clubmeeting1.png",
+          },
+          {
+            title: "Club Meeting 9-8 (UX Design Club)",
+            type: "Presentation",
+            date: "Sept 2025",
+            link: "/presentation/clubmeeting2.pdf",
+            imageUrl: "/images/clubmeeting2.png",
           },
         ],
       };
@@ -117,12 +136,18 @@ const LocalFetcher = ({
       switch (category) {
         case "layouts":
           setLocalData(
-            localPDFs[lang as keyof typeof localPDFs] || localPDFs.en,
+            localLayouts[lang as keyof typeof localLayouts] || localLayouts.en,
           );
           break;
         case "graphic-design":
           setLocalData(
             localImages[lang as keyof typeof localImages] || localImages.en,
+          );
+          break;
+        case "presentations":
+          setLocalData(
+            localPresentations[lang as keyof typeof localPresentations] ||
+              localPresentations.en,
           );
           break;
       }
