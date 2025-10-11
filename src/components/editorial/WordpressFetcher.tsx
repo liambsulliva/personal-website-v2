@@ -114,7 +114,7 @@ const WordpressFetcher = ({ lang = "en" }) => {
                     </svg>
                   </div>
                 </h2>
-                <p className="m-0 text-[#d0d0d0]">Berlin • {post.date}</p>
+                <p className="m-0 text-[#d0d0d0]">Blog • {post.date}</p>
               </div>
             </div>
           </a>

@@ -71,7 +71,17 @@ import { localizePath } from "astro-i18next";
     </div>
     <div class="mx-auto flex flex-col pb-28">
       <Trans i18nKey="archive.blog">
-        <p class="text-md mb-2 font-bold uppercase">Blog</p>
+        <p class="text-md mb-2 font-bold uppercase">Cooking</p>
+      </Trans>
+      <LocalFetcher
+        lang={t("misc.lang") as string}
+        category={"cooking"}
+        client:load
+      />
+    </div>
+    <div class="mx-auto flex flex-col pb-28">
+      <Trans i18nKey="archive.blog">
+        <p class="text-md mb-2 font-bold uppercase">Berlin</p>
       </Trans>
       <WordpressFetcher lang={t("misc.lang") as string} client:load />
     </div>

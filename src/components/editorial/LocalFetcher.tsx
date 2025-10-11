@@ -94,6 +94,32 @@ const LocalFetcher = ({
         ],
       };
 
+      const localCooking = {
+        en: [
+          {
+            title: "Pickled Onions",
+            type: "Blog",
+            date: "Oct 2025",
+            link: "https://liambsullivan.substack.com/p/pickled-onions",
+            imageUrl: "/images/pickled-onions.jpg",
+          },
+          {
+            title: "Hearts of Palm",
+            type: "Blog",
+            date: "Oct 2025",
+            link: "https://liambsullivan.substack.com/p/hearts-of-palm",
+            imageUrl: "/images/hearts-of-palm.jpg",
+          },
+          {
+            title: "Tofu",
+            type: "Blog",
+            date: "Oct 2025",
+            link: "https://liambsullivan.substack.com/p/tofu",
+            imageUrl: "/images/tofu.jpg",
+          },
+        ],
+      };
+
       const localImages = {
         en: [
           {
@@ -162,6 +188,12 @@ const LocalFetcher = ({
           setLocalData(
             localPresentations[lang as keyof typeof localPresentations] ||
               localPresentations.en,
+          );
+          break;
+        case "cooking":
+          setLocalData(
+            localPresentations[lang as keyof typeof localCooking] ||
+              localCooking.en,
           );
           break;
       }
