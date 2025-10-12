@@ -64,28 +64,28 @@ const LocalFetcher = ({
       const localPresentations = {
         en: [
           {
-            title: "Club Meeting 8-25 (UX Design Club)",
+            title: "Club Meeting 8-25",
             type: "Presentation",
             date: "Aug 2025",
             link: "/presentation/clubmeeting1.pdf",
             imageUrl: "/images/clubmeeting1.png",
           },
           {
-            title: "Club Meeting 9-8 (UX Design Club)",
+            title: "Club Meeting 9-8",
             type: "Presentation",
             date: "Sept 2025",
             link: "/presentation/clubmeeting2.pdf",
             imageUrl: "/images/clubmeeting2.png",
           },
           {
-            title: "Club Meeting 9-15 (UX Design Club)",
+            title: "Club Meeting 9-15",
             type: "Presentation",
             date: "Sept 2025",
             link: "/presentation/clubmeeting3.pdf",
             imageUrl: "/images/clubmeeting3.png",
           },
           {
-            title: "Club Meeting 9-22 (UX Design Club)",
+            title: "Club Meeting 9-22",
             type: "Presentation",
             date: "Sept 2025",
             link: "/presentation/clubmeeting4.pdf",
