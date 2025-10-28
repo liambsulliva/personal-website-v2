@@ -98,6 +98,13 @@ const LocalFetcher = ({
             link: "/presentation/clubmeeting5.pdf",
             imageUrl: "/images/clubmeeting5.png",
           },
+          {
+            title: "Club Meeting 10-27",
+            type: "Presentation",
+            date: "Oct 2025",
+            link: "/presentation/clubmeeting6.pdf",
+            imageUrl: "/images/clubmeeting6.png",
+          },
         ],
       };
 
