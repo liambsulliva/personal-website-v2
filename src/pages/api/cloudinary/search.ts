@@ -1,3 +1,6 @@
+// YOU'RE TELLING ME IT WAS THIS THE WHOLE TIME?
+export const prerender = false;
+
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
