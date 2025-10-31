@@ -23,35 +23,30 @@ export default function CloudinaryMenu({
 
   useEffect(() => {
     const fetchTags = async () => {
-      console.log("=== CloudinaryMenu: Starting tag fetch ===");
+      //console.log("=== CloudinaryMenu: Starting tag fetch ===");
 
       try {
         const url = "/api/cloudinary/tags";
 
-        console.log("Request URL:", url);
+        //console.log("Request URL:", url);
 
         const response = await fetch(url, {
           method: "GET",
         });
 
-        console.log("Response Status:", response.status);
-        console.log("Response OK:", response.ok);
+        //console.log("Response Status:", response.status);
+        //console.log("Response OK:", response.ok);
 
         const data = await response.json();
-        console.log("Tags Response Data:", data);
+        //console.log("Tags Response Data:", data);
 
         if (data.tags && Array.isArray(data.tags)) {
-          console.log(`Found ${data.tags.length} total tags:`, data.tags);
+          //console.log(`Found ${data.tags.length} total tags:`, data.tags);
 
           // Filter out system tags and the "featured" tag (used only for carousel)
           const filteredTags = data.tags
             .filter((tag: string) => !tag.startsWith("_") && tag !== "featured")
             .sort();
-
-          console.log(
-            `After filtering: ${filteredTags.length} tags:`,
-            filteredTags,
-          );
 
           const tagOptions: TagOption[] = [
             { en: "all", de: "alle" },
@@ -61,12 +56,12 @@ export default function CloudinaryMenu({
             })),
           ];
 
-          console.log("Final tag options:", tagOptions);
+          //console.log("Final tag options:", tagOptions);
           setTags(tagOptions);
-          console.log("=== CloudinaryMenu: Tag fetch complete ===");
+          //console.log("=== CloudinaryMenu: Tag fetch complete ===");
         } else {
           console.warn("No tags array in response");
-          console.log("Data structure:", Object.keys(data));
+          //console.log("Data structure:", Object.keys(data));
         }
       } catch (error) {
         console.error("!!! CloudinaryMenu ERROR !!!", error);

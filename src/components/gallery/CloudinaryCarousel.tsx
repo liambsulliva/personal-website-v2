@@ -43,7 +43,7 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      console.log("=== CloudinaryCarousel: Starting fetch ===");
+      // console.log("=== CloudinaryCarousel: Starting fetch ===");
 
       try {
         const requestBody = {
@@ -54,8 +54,8 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
 
         const url = "/api/cloudinary/search";
 
-        console.log("Request URL:", url);
-        console.log("Request Body:", JSON.stringify(requestBody, null, 2));
+        //console.log("Request URL:", url);
+        //console.log("Request Body:", JSON.stringify(requestBody, null, 2));
 
         const response = await fetch(url, {
           method: "POST",
@@ -65,20 +65,20 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
           body: JSON.stringify(requestBody),
         });
 
-        console.log("Response Status:", response.status);
-        console.log("Response OK:", response.ok);
+        //console.log("Response Status:", response.status);
+        //console.log("Response OK:", response.ok);
 
         const data = await response.json();
-        console.log("Response Data:", data);
+        //console.log("Response Data:", data);
 
         if (data.resources && data.resources.length > 0) {
-          console.log(`Found ${data.resources.length} featured images`);
+          //console.log(`Found ${data.resources.length} featured images`);
 
           // Get up to 5 featured images with optimized transformations
           const albumPhotos: string[] = data.resources
             .slice(0, 5)
             .map((resource: any) => {
-              console.log("Processing featured resource:", resource.public_id);
+              //console.log("Processing featured resource:", resource.public_id);
               // Use Cloudinary transformations for optimized carousel display
               return resource.secure_url.replace(
                 "/upload/",
@@ -86,12 +86,12 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
               );
             });
 
-          console.log("Carousel photos:", albumPhotos);
+          //console.log("Carousel photos:", albumPhotos);
           setPhotos(albumPhotos);
-          console.log("=== CloudinaryCarousel: Fetch complete ===");
+          //console.log("=== CloudinaryCarousel: Fetch complete ===");
         } else {
           console.warn("No featured images found in response");
-          console.log("Data structure:", Object.keys(data));
+          //console.log("Data structure:", Object.keys(data));
         }
       } catch (error) {
         console.error("!!! CloudinaryCarousel ERROR !!!", error);

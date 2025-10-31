@@ -29,9 +29,9 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
   const fetchPhotos = useCallback(
     async (cursor: string | null = null) => {
       setIsLoading(true);
-      console.log("=== CloudinaryFetcher: Starting fetch ===");
-      console.log("Selected Tag:", selectedTag || "(none)");
-      console.log("Cursor:", cursor || "(none)");
+      //console.log("=== CloudinaryFetcher: Starting fetch ===");
+      //console.log("Selected Tag:", selectedTag || "(none)");
+      //console.log("Cursor:", cursor || "(none)");
 
       try {
         const maxResults = 20;
@@ -42,7 +42,7 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
           expression += ` AND tags=${selectedTag}`;
         }
 
-        console.log("Search Expression:", expression);
+        //console.log("Search Expression:", expression);
 
         const requestBody: any = {
           expression,
@@ -55,8 +55,8 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
         }
 
         const url = "/api/cloudinary/search";
-        console.log("Request URL:", url);
-        console.log("Request Body:", JSON.stringify(requestBody, null, 2));
+        //console.log("Request URL:", url);
+        //console.log("Request Body:", JSON.stringify(requestBody, null, 2));
 
         const response = await fetch(url, {
           method: "POST",
@@ -66,25 +66,25 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
           body: JSON.stringify(requestBody),
         });
 
-        console.log("Response Status:", response.status);
-        console.log("Response OK:", response.ok);
+        //console.log("Response Status:", response.status);
+        //console.log("Response OK:", response.ok);
 
         const data = await response.json();
-        console.log("Response Data:", data);
+        //console.log("Response Data:", data);
 
         if (!data.resources || data.resources.length === 0) {
           console.warn("No resources found in response");
-          console.log("Data structure:", Object.keys(data));
+          //console.log("Data structure:", Object.keys(data));
           setHasMore(false);
           setIsLoading(false);
           return;
         }
 
-        console.log(`Found ${data.resources.length} resources`);
+        //console.log(`Found ${data.resources.length} resources`);
 
         // Map Cloudinary resources to photo objects
         const fetchedPhotos: Photo[] = data.resources.map((resource: any) => {
-          console.log("Processing resource:", resource.public_id);
+          //console.log("Processing resource:", resource.public_id);
           const baseUrl = resource.secure_url;
 
           // Generate srcSet with different transformations
@@ -123,13 +123,13 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
           };
         });
 
-        console.log(`Processed ${fetchedPhotos.length} photos`);
-        console.log("Next Cursor:", data.next_cursor || "(none)");
+        //console.log(`Processed ${fetchedPhotos.length} photos`);
+        //console.log("Next Cursor:", data.next_cursor || "(none)");
 
         setPhotos((prevData) => [...prevData, ...fetchedPhotos]);
         setNextCursor(data.next_cursor || null);
         setHasMore(!!data.next_cursor);
-        console.log("=== CloudinaryFetcher: Fetch complete ===");
+        //console.log("=== CloudinaryFetcher: Fetch complete ===");
       } catch (error) {
         console.error("!!! CloudinaryFetcher ERROR !!!", error);
         if (error instanceof Error) {
@@ -167,8 +167,8 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
   }, [isLoading, hasMore, nextCursor, fetchPhotos]);
 
   const handleTagChange = (tag: string) => {
-    console.log("=== Tag Changed ===");
-    console.log("New Tag:", tag);
+    //console.log("=== Tag Changed ===");
+    //console.log("New Tag:", tag);
     setSelectedTag(tag);
     setPhotos([]);
     setNextCursor(null);
