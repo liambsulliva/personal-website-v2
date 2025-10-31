@@ -53,6 +53,12 @@ const PhotographyUploader: React.FC = () => {
 
     formData.append("tags", JSON.stringify(uploadTags));
 
+    console.log("Uploading file:", file.name, "with tags:", uploadTags);
+    console.log("FormData entries:");
+    for (const [key, value] of formData.entries()) {
+      console.log(`  ${key}:`, value);
+    }
+
     try {
       const response = await fetch("/api/cloudinary/upload", {
         method: "POST",

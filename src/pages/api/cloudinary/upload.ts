@@ -14,6 +14,12 @@ export const POST: APIRoute = async ({ request }) => {
     apiSecret ? `${apiSecret.substring(0, 4)}...` : "MISSING",
   );
 
+  //* Debug headers
+  console.log("Request headers:");
+  request.headers.forEach((value, key) => {
+    console.log(`  ${key}: ${value}`);
+  });
+
   if (!cloudName || !apiKey || !apiSecret) {
     console.error("Missing Cloudinary credentials");
     return new Response(
@@ -23,6 +29,25 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   try {
+    const contentType = request.headers.get("content-type");
+    console.log("Content-Type:", contentType);
+
+    if (
+      !contentType ||
+      (!contentType.includes("multipart/form-data") &&
+        !contentType.includes("application/x-www-form-urlencoded"))
+    ) {
+      console.error("Invalid Content-Type:", contentType);
+      return new Response(
+        JSON.stringify({
+          error:
+            "Invalid Content-Type. Expected multipart/form-data or application/x-www-form-urlencoded",
+          received: contentType,
+        }),
+        { status: 400, headers: { "Content-Type": "application/json" } },
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File;
     const tagsJson = formData.get("tags") as string;
@@ -45,28 +70,23 @@ export const POST: APIRoute = async ({ request }) => {
 
     console.log("Uploading file:", file.name, "with tags:", tags);
 
-    // Convert file to base64 for Cloudinary upload
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const base64 = buffer.toString("base64");
     const dataURI = `data:${file.type};base64,${base64}`;
 
-    // Prepare upload data
     const uploadData = new FormData();
     uploadData.append("file", dataURI);
-    uploadData.append("upload_preset", "ml_default"); // You may need to create an unsigned preset
+    uploadData.append("upload_preset", "ml_default");
     uploadData.append("api_key", apiKey);
 
-    // Add tags if provided
     if (tags.length > 0) {
       uploadData.append("tags", tags.join(","));
     }
 
-    // Generate signature for signed upload
     const timestamp = Math.round(Date.now() / 1000);
     uploadData.append("timestamp", timestamp.toString());
 
-    // Create signature string
     const paramsToSign: Record<string, string> = {
       timestamp: timestamp.toString(),
     };
@@ -75,7 +95,6 @@ export const POST: APIRoute = async ({ request }) => {
       paramsToSign.tags = tags.join(",");
     }
 
-    // Sort parameters alphabetically and create signature string
     const sortedParams = Object.keys(paramsToSign)
       .sort()
       .map((key) => `${key}=${paramsToSign[key]}`)
@@ -83,7 +102,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     const signatureString = `${sortedParams}${apiSecret}`;
 
-    // Create SHA-1 signature
     const crypto = await import("crypto");
     const signature = crypto
       .createHash("sha1")
@@ -122,10 +140,13 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (!response.ok) {
       console.error("Cloudinary upload failed:", data);
-      return new Response(JSON.stringify({ error: data.error || "Upload failed" }), {
-        status: response.status,
-        headers: { "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: data.error || "Upload failed" }),
+        {
+          status: response.status,
+          headers: { "Content-Type": "application/json" },
+        },
+      );
     }
 
     console.log("Upload successful:", data);
@@ -156,4 +177,3 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 };
-
