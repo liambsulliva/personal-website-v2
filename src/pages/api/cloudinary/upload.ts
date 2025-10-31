@@ -1,5 +1,7 @@
 import type { APIRoute } from "astro";
 
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   console.log("=== API Route: /api/cloudinary/upload ===");
 
@@ -70,23 +72,16 @@ export const POST: APIRoute = async ({ request }) => {
 
     console.log("Uploading file:", file.name, "with tags:", tags);
 
+    // Convert file to base64 for Cloudinary upload
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
     const base64 = buffer.toString("base64");
     const dataURI = `data:${file.type};base64,${base64}`;
 
-    const uploadData = new FormData();
-    uploadData.append("file", dataURI);
-    uploadData.append("upload_preset", "ml_default");
-    uploadData.append("api_key", apiKey);
-
-    if (tags.length > 0) {
-      uploadData.append("tags", tags.join(","));
-    }
-
+    // Generate timestamp for signed upload
     const timestamp = Math.round(Date.now() / 1000);
-    uploadData.append("timestamp", timestamp.toString());
 
+    // Build parameters to sign (must be alphabetically sorted)
     const paramsToSign: Record<string, string> = {
       timestamp: timestamp.toString(),
     };
@@ -95,6 +90,7 @@ export const POST: APIRoute = async ({ request }) => {
       paramsToSign.tags = tags.join(",");
     }
 
+    // Create signature string (params sorted alphabetically + api_secret)
     const sortedParams = Object.keys(paramsToSign)
       .sort()
       .map((key) => `${key}=${paramsToSign[key]}`)
@@ -102,13 +98,27 @@ export const POST: APIRoute = async ({ request }) => {
 
     const signatureString = `${sortedParams}${apiSecret}`;
 
+    console.log("String to sign:", signatureString);
+
+    // Generate SHA-1 signature
     const crypto = await import("crypto");
     const signature = crypto
       .createHash("sha1")
       .update(signatureString)
       .digest("hex");
 
+    console.log("Generated signature:", signature);
+
+    // Prepare upload data
+    const uploadData = new FormData();
+    uploadData.append("file", dataURI);
+    uploadData.append("api_key", apiKey);
+    uploadData.append("timestamp", timestamp.toString());
     uploadData.append("signature", signature);
+
+    if (tags.length > 0) {
+      uploadData.append("tags", tags.join(","));
+    }
 
     const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
