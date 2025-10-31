@@ -1,0 +1,67 @@
+---
+export const prerender = false;
+import Layout from "../layouts/Layout.astro";
+import PhotographyUploader from "../components/uploader/PhotographyUploader.tsx";
+---
+
+<Layout title="Dashboard - Liam Sullivan">
+  <section class="container">
+    <h1>Admin Dashboard</h1>
+    <div class="upload-section">
+      <h2>Photography Uploads</h2>
+      <p class="section-description">
+        Upload photography images. Check "Featured Photography" to mark photos
+        for the featured gallery.
+      </p>
+      <div class="uploader">
+        <PhotographyUploader client:load />
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    h1 {
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: white;
+    }
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+    .upload-section {
+      margin-bottom: 2rem;
+      padding: 2rem;
+      background: rgba(24, 24, 24, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+    }
+    .section-description {
+      color: #a0a0a0;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      margin: 3rem 0;
+    }
+    .uploader {
+      width: 100%;
+    }
+  </style>
+</Layout>
