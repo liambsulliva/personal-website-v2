@@ -2,14 +2,12 @@
 // @ts-ignore
 // import { localizePath } from "astro-i18next";
 // import { t } from "i18next";
-import Carousel from "../components/gallery/FlickrCarousel.tsx";
+import Carousel from "../components/gallery/CloudinaryCarousel.tsx";
 // import ArrowLink from "../components/ArrowLink.astro";
-const apiKey = import.meta.env.FLICKR_API_KEY;
-const userId = import.meta.env.FLICKR_USER_ID;
 ---
 
 <div class="content">
-  <Carousel {apiKey} {userId} client:visible />
+  <Carousel client:visible />
 </div>
 
 <style>

@@ -3,10 +3,8 @@
 import { localizePath } from "astro-i18next";
 import Layout from "../layouts/Layout.astro";
 import BackLink from "../components/BackLink.astro";
-import FlickrFetcher from "../components/gallery/FlickrFetcher.tsx";
+import CloudinaryFetcher from "../components/gallery/CloudinaryFetcher.tsx";
 import { t } from "i18next";
-const apiKey = import.meta.env.FLICKR_API_KEY;
-const userId = import.meta.env.FLICKR_USER_ID;
 ---
 
 <Layout title="Photography - Liam Sullivan">
@@ -14,7 +12,7 @@ const userId = import.meta.env.FLICKR_USER_ID;
     <div class="btn-container">
       <BackLink label={"Back"} href={localizePath("/")} />
     </div>
-    <FlickrFetcher {apiKey} {userId} lang={t("misc.lang")} client:load />
+    <CloudinaryFetcher lang={t("misc.lang")} client:load />
   </div>
 </Layout>
 

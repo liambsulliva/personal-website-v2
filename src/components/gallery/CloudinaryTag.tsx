@@ -1,14 +1,14 @@
-interface FlickrTagProps {
+interface CloudinaryTagProps {
   label: string;
   isSelected: boolean;
   onSelect: () => void;
 }
 
-export default function FlickrTag({
+export default function CloudinaryTag({
   label,
   isSelected,
   onSelect,
-}: FlickrTagProps) {
+}: CloudinaryTagProps) {
   return (
     <button
       onClick={onSelect}

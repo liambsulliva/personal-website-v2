@@ -1,33 +1,87 @@
-import FlickrTag from "./FlickrTag";
+import CloudinaryTag from "./CloudinaryTag";
 import { useState, useEffect, useRef } from "react";
 
-const flickrTags = [
-  { en: "all", de: "alle" },
-  { en: "basketball", de: "Basketball" },
-  { en: "cosplay", de: "Cosplay" },
-  { en: "esports", de: "E-Sport" },
-  { en: "football", de: "Football" },
-  { en: "music", de: "Musik" },
-  { en: "outdoors", de: "Draußen" },
-  { en: "portraits", de: "Porträts" },
-  { en: "soccer", de: "Fußball" },
-  { en: "sports", de: "Sport" },
-  { en: "studio", de: "Studio" },
-  { en: "volleyball", de: "Volleyball" },
-];
-
-interface FlickrMenuProps {
+interface CloudinaryMenuProps {
   lang: string;
   onTagChange: (tag: string) => void;
 }
 
-export default function FlickrMenu({ onTagChange, lang }: FlickrMenuProps) {
+interface TagOption {
+  en: string;
+  de: string;
+}
+
+export default function CloudinaryMenu({
+  onTagChange,
+  lang,
+}: CloudinaryMenuProps) {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string>("all");
+  const [tags, setTags] = useState<TagOption[]>([{ en: "all", de: "alle" }]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleTagSelect = (tag: { en: string; de: string }) => {
+  useEffect(() => {
+    const fetchTags = async () => {
+      console.log("=== CloudinaryMenu: Starting tag fetch ===");
+
+      try {
+        const url = "/api/cloudinary/tags";
+
+        console.log("Request URL:", url);
+
+        const response = await fetch(url, {
+          method: "GET",
+        });
+
+        console.log("Response Status:", response.status);
+        console.log("Response OK:", response.ok);
+
+        const data = await response.json();
+        console.log("Tags Response Data:", data);
+
+        if (data.tags && Array.isArray(data.tags)) {
+          console.log(`Found ${data.tags.length} total tags:`, data.tags);
+
+          // Filter out system tags and the "featured" tag (used only for carousel)
+          const filteredTags = data.tags
+            .filter((tag: string) => !tag.startsWith("_") && tag !== "featured")
+            .sort();
+
+          console.log(
+            `After filtering: ${filteredTags.length} tags:`,
+            filteredTags,
+          );
+
+          const tagOptions: TagOption[] = [
+            { en: "all", de: "alle" },
+            ...filteredTags.map((tag: string) => ({
+              en: tag,
+              de: tag.charAt(0).toUpperCase() + tag.slice(1),
+            })),
+          ];
+
+          console.log("Final tag options:", tagOptions);
+          setTags(tagOptions);
+          console.log("=== CloudinaryMenu: Tag fetch complete ===");
+        } else {
+          console.warn("No tags array in response");
+          console.log("Data structure:", Object.keys(data));
+        }
+      } catch (error) {
+        console.error("!!! CloudinaryMenu ERROR !!!", error);
+        if (error instanceof Error) {
+          console.error("Error message:", error.message);
+          console.error("Error stack:", error.stack);
+        }
+        setTags([{ en: "all", de: "alle" }]);
+      }
+    };
+
+    fetchTags();
+  }, []);
+
+  const handleTagSelect = (tag: TagOption) => {
     setSelectedTag(tag.en);
     onTagChange(tag.en === "all" ? "" : tag.en);
   };
@@ -53,7 +107,7 @@ export default function FlickrMenu({ onTagChange, lang }: FlickrMenuProps) {
       container.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
-  }, []);
+  }, [tags]);
 
   return (
     <div className="relative mb-4">
@@ -96,8 +150,8 @@ export default function FlickrMenu({ onTagChange, lang }: FlickrMenuProps) {
         }}
         id="tagContainer"
       >
-        {flickrTags.map((tag) => (
-          <FlickrTag
+        {tags.map((tag) => (
+          <CloudinaryTag
             key={tag.en}
             label={lang === "de" ? tag.de : tag.en}
             isSelected={selectedTag === tag.en}
