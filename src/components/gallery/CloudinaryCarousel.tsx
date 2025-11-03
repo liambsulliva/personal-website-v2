@@ -26,10 +26,17 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
   );
 };
 
-interface CloudinaryCarouselProps {}
+interface CloudinaryCarouselProps {
+  refreshTrigger?: number;
+  onImagesLoaded?: (imageIds: string[]) => void;
+}
 
-const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
+const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
+  refreshTrigger = 0,
+  onImagesLoaded,
+}) => {
   const [photos, setPhotos] = useState<string[]>([]);
+  const [photoIds, setPhotoIds] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loadedImages, setLoadedImages] = useState<boolean[]>([
     false,
@@ -46,11 +53,22 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
       // console.log("=== CloudinaryCarousel: Starting fetch ===");
 
       try {
-        const requestBody = {
-          expression: "resource_type:image AND tags=featured",
-          max_results: 5,
-          with_field: ["tags"],
-        };
+        // Initial load fetches featured images and random mode is refreshTrigger > 0
+        const isInitialLoad = refreshTrigger === 0;
+
+        const requestBody = isInitialLoad
+          ? {
+              expression: "resource_type:image AND tags=featured",
+              max_results: 5,
+              with_field: ["tags"],
+            }
+          : {
+              expression: "resource_type:image",
+              max_results: 5,
+              with_field: ["tags"],
+              randomize: true,
+              excludeIds: photoIds,
+            };
 
         const url = "/api/cloudinary/search";
 
@@ -72,25 +90,37 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
         //console.log("Response Data:", data);
 
         if (data.resources && data.resources.length > 0) {
-          //console.log(`Found ${data.resources.length} featured images`);
+          //console.log(`Found ${data.resources.length} images`);
 
-          // Get up to 5 featured images with optimized transformations
-          const albumPhotos: string[] = data.resources
-            .slice(0, 5)
-            .map((resource: any) => {
-              //console.log("Processing featured resource:", resource.public_id);
-              // Use Cloudinary transformations for optimized carousel display
+          const selectedResources = data.resources;
+
+          // Map to URLs with optimized transformations
+          const albumPhotos: string[] = selectedResources.map(
+            (resource: any) => {
+              //console.log("Processing resource:", resource.public_id);
+              // Use cld transforms to make carousel load quicker
               return resource.secure_url.replace(
                 "/upload/",
                 "/upload/c_fill,w_1920,h_1080,q_auto,f_auto/",
               );
-            });
+            },
+          );
+
+          const albumPhotoIds: string[] = selectedResources.map(
+            (resource: any) => resource.public_id,
+          );
 
           //console.log("Carousel photos:", albumPhotos);
           setPhotos(albumPhotos);
+          setPhotoIds(albumPhotoIds);
+          setLoadedImages([false, false, false, false, false]);
+          if (onImagesLoaded) {
+            onImagesLoaded(albumPhotoIds);
+          }
+
           //console.log("=== CloudinaryCarousel: Fetch complete ===");
         } else {
-          console.warn("No featured images found in response");
+          console.warn("No images found in response");
           //console.log("Data structure:", Object.keys(data));
         }
       } catch (error) {
@@ -103,7 +133,14 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = () => {
     };
 
     fetchPhotos();
-  }, []);
+  }, [refreshTrigger]);
+
+  // React by resetting to first slide on random btn click
+  useEffect(() => {
+    if (refreshTrigger > 0) {
+      setCurrentSlide(0);
+    }
+  }, [refreshTrigger]);
 
   const handleImageLoad = (index: number) => {
     setLoadedImages((prev) => {

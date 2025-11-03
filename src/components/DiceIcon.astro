@@ -1,0 +1,74 @@
+<div class="space-left">
+  <span class="link">
+    <button type="button" id="dice-button">
+      <span class="icon-wrapper">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1rem"
+          height="1rem"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="currentColor"
+            d="M5 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm2.5 4a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3M10 8.5a1.5 1.5 0 1 1 3 0a1.5 1.5 0 0 1-3 0m6.5-1.5a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3M7.5 14a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3m9 0a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3"
+          ></path>
+        </svg>
+      </span>
+      Random
+    </button>
+  </span>
+</div>
+<style>
+  .space-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0.75rem 1rem;
+  }
+
+  .link {
+    display: inline-block;
+    color: #b0b0b0;
+    font-size: 14px;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  .link button {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    padding-left: 1.15rem;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+  }
+
+  .icon-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+  }
+
+  .link svg {
+    transition: fill 0.3s ease;
+  }
+
+  .link:hover,
+  .link:hover svg path {
+    color: #fff;
+  }
+
+  .link:hover .icon-wrapper {
+    transform: translate(-0.25rem, -50%) rotate(90deg);
+  }
+</style>
+
