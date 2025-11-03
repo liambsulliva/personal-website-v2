@@ -4,23 +4,40 @@
 // import { t } from "i18next";
 import CarouselWithRefresh from "../components/gallery/CarouselWithRefresh.tsx";
 import DiceIcon from "../components/DiceIcon.astro";
+import Loader from "../components/gallery/Loader.tsx";
 // import ArrowLink from "../components/ArrowLink.astro";
 ---
 
 <div class="content">
-  <DiceIcon />
+  <div class="button-container">
+    <DiceIcon />
+    <div id="loader-overlay" class="loader-overlay">
+      <Loader client:only="react" size="3rem" showOfflineMessage={false} />
+    </div>
+  </div>
   <CarouselWithRefresh client:visible />
 </div>
 
 <script>
-  // Setup click handler for dice icon
-  const diceButton = document.getElementById('dice-button');
+  const diceButton = document.getElementById("dice-button");
+  const loaderOverlay = document.getElementById("loader-overlay");
 
-  if (diceButton) {
-    diceButton.addEventListener('click', () => {
-      // Dispatch event for the React component to listen to
-      window.dispatchEvent(new Event('dice-click'));
+  if (diceButton && loaderOverlay) {
+    diceButton.addEventListener("click", () => {
+      window.dispatchEvent(new Event("dice-click"));
     });
+
+    // Listen for loading state changes ala event
+    window.addEventListener("carousel-loading", ((e: CustomEvent) => {
+      const { isLoading } = e.detail;
+      if (isLoading) {
+        diceButton.setAttribute("disabled", "true");
+        loaderOverlay.classList.add("visible");
+      } else {
+        diceButton.removeAttribute("disabled");
+        loaderOverlay.classList.remove("visible");
+      }
+    }) as EventListener);
   }
 </script>
 
@@ -35,7 +52,27 @@ import DiceIcon from "../components/DiceIcon.astro";
     list-style-type: none;
     width: 100%;
     margin: 1rem;
+    margin-top: 0;
     padding: 0.5rem;
-    gap: 3rem;
+    padding-top: 0;
+  }
+  .button-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  .loader-overlay {
+    position: absolute;
+    top: 0;
+    right: 2rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .loader-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
   }
 </style>

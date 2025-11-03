@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import type { SVGProps } from "react";
 
 interface LoaderProps {
-  lang: string;
+  lang?: string;
+  size?: string;
+  showOfflineMessage?: boolean;
 }
 
 export default function EosIconsThreeDotsLoading({
-  lang,
+  lang = "en",
+  size = "4rem",
+  showOfflineMessage = true,
   ...props
 }: SVGProps<SVGSVGElement> & LoaderProps) {
   const [isOffline, setIsOffline] = useState<boolean>(false);
@@ -18,7 +22,8 @@ export default function EosIconsThreeDotsLoading({
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
-    // Initial check
+    // Check for connection on rerender and update "offline" state accordingly
+    // This is disabled in implementations where it is used as an overlay (i.e. carousel randomization)
     setIsOffline(!navigator.onLine);
 
     return () => {
@@ -29,20 +34,15 @@ export default function EosIconsThreeDotsLoading({
 
   return (
     <div className="flex justify-center">
-      {isOffline && lang === "en" && (
+      {showOfflineMessage && isOffline && lang === "en" && (
         <p className="m-4">You seem to have lost connection. Try refreshing?</p>
       )}
-      {isOffline && lang === "de" && (
-        <p className="m-4">
-          Sie scheinen die Verbindung verloren zu haben. Haben Sie versucht, die
-          Verbindung zu aktualisieren?
-        </p>
-      )}
+
       {!isOffline && (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="4rem"
-          height="4rem"
+          width={size}
+          height={size}
           viewBox="0 0 24 24"
           {...props}
         >

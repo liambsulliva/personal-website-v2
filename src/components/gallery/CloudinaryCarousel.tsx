@@ -29,11 +29,13 @@ const NavigationButton: React.FC<NavigationButtonProps> = ({
 interface CloudinaryCarouselProps {
   refreshTrigger?: number;
   onImagesLoaded?: (imageIds: string[]) => void;
+  onLoadingChange?: (isLoading: boolean) => void;
 }
 
 const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
   refreshTrigger = 0,
   onImagesLoaded,
+  onLoadingChange,
 }) => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [photoIds, setPhotoIds] = useState<string[]>([]);
@@ -51,6 +53,10 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
   useEffect(() => {
     const fetchPhotos = async () => {
       // console.log("=== CloudinaryCarousel: Starting fetch ===");
+      // Signal loading start in "random" mode
+      if (refreshTrigger > 0 && onLoadingChange) {
+        onLoadingChange(true);
+      }
 
       try {
         // Initial load fetches featured images and random mode is refreshTrigger > 0
@@ -128,6 +134,11 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
         if (error instanceof Error) {
           console.error("Error message:", error.message);
           console.error("Error stack:", error.stack);
+        }
+      } finally {
+        // Signal loading completion (done fetching from Cloudinary)
+        if (refreshTrigger > 0 && onLoadingChange) {
+          onLoadingChange(false);
         }
       }
     };
