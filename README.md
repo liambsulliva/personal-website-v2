@@ -42,7 +42,7 @@ The dashboard is protected with HTTP Basic Authentication using bcrypt-hashed cr
 
 The application includes several server-side API routes to be used for Cloudinary-related queries:
 
-- **`POST /api/cloudinary/search`** - Filter images by tag
+- **`POST /api/cloudinary/search`** - Filter images by tag, fetch all with included caching
 - **`POST /api/cloudinary/upload`** - Upload images with signed authentication and tag management
 - **`GET /api/cloudinary/tags`** - Retrieve all available image tags from Cloudinary
 

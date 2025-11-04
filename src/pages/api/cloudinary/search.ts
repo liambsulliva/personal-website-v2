@@ -3,6 +3,93 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 
+// Cache for randomization requests
+interface CacheEntry {
+  resources: any[];
+  timestamp: number;
+}
+
+const photoCache = new Map<string, CacheEntry>();
+const CACHE_DURATION = 24 * 60 * 60 * 1000;
+
+// Fetches all photos from Cloudinary when randomizing after 24hrs or cold start
+async function fetchAllPhotos(
+  cloudName: string,
+  apiKey: string,
+  apiSecret: string,
+  expression: string,
+): Promise<any[]> {
+  const auth = btoa(`${apiKey}:${apiSecret}`);
+  const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
+
+  let allResources: any[] = [];
+  let nextCursor: string | null = null;
+
+  do {
+    const requestBody: any = {
+      expression,
+      max_results: 500,
+      with_field: ["tags", "context"],
+    };
+
+    if (nextCursor) {
+      requestBody.next_cursor = nextCursor;
+    }
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${auth}`,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    const data = await response.json();
+
+    if (data.resources) {
+      allResources = allResources.concat(data.resources);
+    }
+
+    nextCursor = data.next_cursor || null;
+  } while (nextCursor);
+
+  console.log(`Fetched ${allResources.length} total photos for cache`);
+  return allResources;
+}
+
+// Grab cached photos or fetch new ones if cache is invalid
+async function getCachedPhotos(
+  cloudName: string,
+  apiKey: string,
+  apiSecret: string,
+  expression: string,
+): Promise<any[]> {
+  const cacheKey = expression;
+  const cached = photoCache.get(cacheKey);
+  const now = Date.now();
+
+  if (cached && now - cached.timestamp < CACHE_DURATION) {
+    // Cache hit! Return pics
+    return cached.resources;
+  }
+
+  // Cache miss! Fetch all photos
+  const resources = await fetchAllPhotos(
+    cloudName,
+    apiKey,
+    apiSecret,
+    expression,
+  );
+
+  photoCache.set(cacheKey, {
+    resources,
+    timestamp: now,
+  });
+
+  return resources;
+}
+
 export const POST: APIRoute = async ({ request }) => {
   console.log("=== API Route: /api/cloudinary/search ===");
 
@@ -28,22 +115,60 @@ export const POST: APIRoute = async ({ request }) => {
   let body;
   try {
     const text = await request.text();
-    console.log("Raw request body:", text);
+    //console.log("Raw request body:", text);
     body = text ? JSON.parse(text) : {};
-    console.log("Parsed request body:", body);
+    //console.log("Parsed request body:", body);
 
-    // Extract custom parameters for server-side processing
     const { randomize, excludeIds, ...cloudinaryBody } = body;
 
+    // Handle randomization via cached data if available
+    if (randomize) {
+      //console.log("Randomization requested, using cache strategy");
+
+      const expression = cloudinaryBody.expression || "resource_type:image";
+      let resources = await getCachedPhotos(
+        cloudName,
+        apiKey,
+        apiSecret,
+        expression,
+      );
+
+      // Filter for landscape shots (width > height)
+      resources = resources.filter(
+        (resource: any) => resource.width > resource.height,
+      );
+
+      // Exclude the initial 5 "featured" images
+      if (excludeIds && excludeIds.length > 0) {
+        resources = resources.filter(
+          (resource: any) => !excludeIds.includes(resource.public_id),
+        );
+      }
+
+      // Randomize (via Fisher-Yates algorithm) and select first 5
+      // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+      const shuffled = [...resources]; // Create a copy to avoid mutating cache
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+
+      const data = {
+        resources: shuffled.slice(0, 5),
+        total_count: shuffled.length,
+      };
+
+      return new Response(JSON.stringify(data), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
+    // Regular (non-randomized) requests - always fetch fresh data for fetcher/featured carousel
     const auth = btoa(`${apiKey}:${apiSecret}`);
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
 
-    console.log("Fetching from:", url);
-
-    // If randomization is requested, fetch a larger set in the API route so there's enough images to shuffle and select from
-    if (randomize) {
-      cloudinaryBody.max_results = 500;
-    }
+    //console.log("Fetching fresh data from:", url);
 
     const response = await fetch(url, {
       method: "POST",
@@ -54,11 +179,11 @@ export const POST: APIRoute = async ({ request }) => {
       body: JSON.stringify(cloudinaryBody),
     });
 
-    console.log("Cloudinary response status:", response.status);
-    console.log("Cloudinary response ok:", response.ok);
+    //console.log("Cloudinary response status:", response.status);
+    //console.log("Cloudinary response ok:", response.ok);
 
     const responseText = await response.text();
-    console.log("Cloudinary raw response:", responseText);
+    //console.log("Cloudinary raw response:", responseText);
 
     let data;
     try {
@@ -75,32 +200,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    console.log("Cloudinary response data:", data);
-
-    // Check for randomization before doing any server-side processing
-    if (randomize && data.resources) {
-      let resources = data.resources;
-
-      // Filter for landscape shots (width > height)
-      resources = resources.filter(
-        (resource: any) => resource.width > resource.height,
-      );
-
-      // Exclude the initial 5 "featured" images
-      if (excludeIds && excludeIds.length > 0) {
-        resources = resources.filter(
-          (resource: any) => !excludeIds.includes(resource.public_id),
-        );
-      }
-
-      // Randomize (via Fisher-Yates algorithm) and select first 5
-      // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-      for (let i = resources.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [resources[i], resources[j]] = [resources[j], resources[i]];
-      }
-      data.resources = resources.slice(0, 5);
-    }
+    //console.log("Cloudinary response data:", data);
 
     return new Response(JSON.stringify(data), {
       status: response.status,
