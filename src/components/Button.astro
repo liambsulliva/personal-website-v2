@@ -1,0 +1,79 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  variant?: "primary" | "secondary";
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  href,
+  label,
+  variant = "secondary",
+  ariaLabel,
+  target = "_blank",
+  rel = "noopener noreferrer",
+}: Props = Astro.props;
+---
+
+<a
+  href={href}
+  target={target}
+  rel={rel}
+  aria-label={ariaLabel || label}
+  class={`button button-${variant}`}
+>
+  <slot name="icon" />
+  <span class="button-text">{label}</span>
+</a>
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 15px;
+    border: 1px solid #353535;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.1s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .button-secondary {
+    background-color: #181818;
+    color: white;
+  }
+
+  .button-secondary:hover {
+    background-color: #252525;
+  }
+
+  .button-primary {
+    background-color: #f0f0f0;
+    color: black;
+    border-color: #353535;
+  }
+
+  .button-primary:hover {
+    background-color: #e0e0e0;
+  }
+
+  .button:active {
+    transform: scale(0.95);
+  }
+
+  .button-text {
+    transition: all 0.1s ease;
+  }
+
+  .button :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+</style>
