@@ -1,7 +1,9 @@
 ---
 import Card from "../components/Card.astro";
-import portraittutorial from "../../public/images/portrait-tutorial.png";
-import wiimanual from "../../public/images/wii-manual.png";
+import {
+  portraitTutorial as portraittutorial,
+  wiiManual as wiimanual,
+} from "../utils/images";
 import ArrowLink from "../components/ArrowLink.astro";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
@@ -29,7 +31,7 @@ import { localizePath } from "astro-i18next";
     />
   </div>
 </div>
-<ArrowLink href={localizePath("/archive/")} label="Archive" />
+<ArrowLink href={localizePath("/other-work/")} label="Other Work" />
 <style>
   .content {
     display: flex;

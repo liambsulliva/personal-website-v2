@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Loader from "../gallery/Loader";
+import { imagePaths } from "../../utils/images";
 
 interface LocalFetcherProps {
   lang?: string;
@@ -33,14 +34,14 @@ const LocalFetcher = ({
             type: "Article",
             date: "Mar 2025",
             link: "/layouts/portrait-tutorial.pdf",
-            imageUrl: "/images/portrait-tutorial.png",
+            imageUrl: imagePaths.editorial.layouts.portraitTutorial,
           },
           {
             title: "The Forgotten Charm of Gaming Manuals",
             type: "Manual",
             date: "Apr 2025",
             link: "/layouts/wii-manual.pdf",
-            imageUrl: "/images/wii-manual.png",
+            imageUrl: imagePaths.editorial.layouts.wiiManual,
           },
         ],
         de: [
@@ -49,14 +50,14 @@ const LocalFetcher = ({
             type: "Artikel",
             date: "März 2025",
             link: "/layouts/portrait-tutorial.pdf",
-            imageUrl: "/images/portrait-tutorial.png",
+            imageUrl: imagePaths.editorial.layouts.portraitTutorial,
           },
           {
             title: "Der vergessene Charme von Spielehandbüchern",
             type: "Handbuch",
             date: "Apr 2025",
             link: "/layouts/wii-manual.pdf",
-            imageUrl: "/images/wii-manual.png",
+            imageUrl: imagePaths.editorial.layouts.wiiManual,
           },
         ],
       };
@@ -68,42 +69,42 @@ const LocalFetcher = ({
             type: "Presentation",
             date: "Aug 2025",
             link: "/presentation/clubmeeting1.pdf",
-            imageUrl: "/images/clubmeeting1.png",
+            imageUrl: imagePaths.editorial.presentations.clubmeeting1,
           },
           {
             title: "Club Meeting 9-8",
             type: "Presentation",
             date: "Sept 2025",
             link: "/presentation/clubmeeting2.pdf",
-            imageUrl: "/images/clubmeeting2.png",
+            imageUrl: imagePaths.editorial.presentations.clubmeeting2,
           },
           {
             title: "Club Meeting 9-15",
             type: "Presentation",
             date: "Sept 2025",
             link: "/presentation/clubmeeting3.pdf",
-            imageUrl: "/images/clubmeeting3.png",
+            imageUrl: imagePaths.editorial.presentations.clubmeeting3,
           },
           {
             title: "Club Meeting 9-22",
             type: "Presentation",
             date: "Sept 2025",
             link: "/presentation/clubmeeting4.pdf",
-            imageUrl: "/images/clubmeeting4.png",
+            imageUrl: imagePaths.editorial.presentations.clubmeeting4,
           },
           {
             title: "Club Meeting 10-6",
             type: "Presentation",
             date: "Oct 2025",
             link: "/presentation/clubmeeting5.pdf",
-            imageUrl: "/images/clubmeeting5.png",
+            imageUrl: imagePaths.editorial.presentations.clubmeeting5,
           },
           {
             title: "Club Meeting 10-27",
             type: "Presentation",
             date: "Oct 2025",
             link: "/presentation/clubmeeting6.pdf",
-            imageUrl: "/images/clubmeeting6.png",
+            imageUrl: imagePaths.editorial.presentations.clubmeeting6,
           },
         ],
       };
@@ -115,21 +116,21 @@ const LocalFetcher = ({
             type: "Blog",
             date: "Oct 2025",
             link: "https://liambsullivan.substack.com/p/pickled-onions",
-            imageUrl: "/images/pickled-onions.jpg",
+            imageUrl: imagePaths.editorial.cooking.pickledOnions,
           },
           {
             title: "Hearts of Palm",
             type: "Blog",
             date: "Oct 2025",
             link: "https://liambsullivan.substack.com/p/hearts-of-palm",
-            imageUrl: "/images/hearts-of-palm.jpg",
+            imageUrl: imagePaths.editorial.cooking.heartsOfPalm,
           },
           {
             title: "Tofu",
             type: "Blog",
             date: "Oct 2025",
             link: "https://liambsullivan.substack.com/p/tofu",
-            imageUrl: "/images/tofu.jpg",
+            imageUrl: imagePaths.editorial.cooking.tofu,
           },
         ],
       };
@@ -142,7 +143,7 @@ const LocalFetcher = ({
             date: "Oct 2024",
             link: "https://pittnews.com/article/190870/blogs/from-pop-to-personal-youre-gonna-go-far/",
             externalLink: true,
-            imageUrl: "/images/From-Pop-to-Personal.png",
+            imageUrl: imagePaths.editorial.graphicDesign.fromPopToPersonal,
           },
           {
             title: "Do You Not Get the Concept?",
@@ -150,14 +151,14 @@ const LocalFetcher = ({
             date: "Dec 2024",
             link: "https://pittnews.com/article/192778/blogs/do-you-not-get-the-concept-with-great-power-theres-a-great-responsibility/",
             externalLink: true,
-            imageUrl: "/images/music-blog.png",
+            imageUrl: imagePaths.editorial.graphicDesign.musicBlog,
           },
           {
             title: "Pitt-Branded Instagram Post (Mockup)",
             type: "Instagram Post",
             date: "Mar 2025",
             link: "/layouts/mock-pitt-post.pdf",
-            imageUrl: "/images/mock-pitt-post.png",
+            imageUrl: imagePaths.editorial.layouts.mockPittPost,
           },
         ],
         de: [
@@ -167,7 +168,7 @@ const LocalFetcher = ({
             date: "Okt 2024",
             link: "https://pittnews.com/article/190870/blogs/from-pop-to-personal-youre-gonna-go-far/",
             externalLink: true,
-            imageUrl: "/images/From-Pop-to-Personal.png",
+            imageUrl: imagePaths.editorial.graphicDesign.fromPopToPersonal,
           },
           {
             title: "Verstehst du das Konzept nicht?",
@@ -175,14 +176,14 @@ const LocalFetcher = ({
             date: "Dez 2024",
             link: "https://pittnews.com/article/192778/blogs/do-you-not-get-the-concept-with-great-power-theres-a-great-responsibility/",
             externalLink: true,
-            imageUrl: "/images/music-blog.png",
+            imageUrl: imagePaths.editorial.graphicDesign.musicBlog,
           },
           {
             title: "Pitt-Branded Instagram-Beitrag (Mockup)",
             type: "Instagram-Beitrag",
             date: "März 2025",
             link: "/layouts/mock-pitt-post.pdf",
-            imageUrl: "/images/mock-pitt-post.png",
+            imageUrl: imagePaths.editorial.layouts.mockPittPost,
           },
         ],
       };

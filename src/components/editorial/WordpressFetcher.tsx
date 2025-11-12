@@ -1,10 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Loader from "../gallery/Loader";
 
-interface LocalFetcherProps {
-  lang?: string;
-}
-
 interface WordpressPost {
   title: string;
   date: string;
@@ -12,15 +8,15 @@ interface WordpressPost {
   imageUrl: string | null;
 }
 
-const WordpressFetcher = ({ lang = "en" }) => {
+const WordpressFetcher = () => {
   const [wordpressData, setWordpressData] = useState<WordpressPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchWordpressData = useCallback(async () => {
     setIsLoading(true);
     const site = `pittbusinesstotheworld.com`;
-    const author = `651`; // My Author ID
-    const url = `https://public-api.wordpress.com/rest/v1.1/sites/${site}/posts/?author=${author}`;
+    const tag = `liam-sullivan`;
+    const url = `https://public-api.wordpress.com/rest/v1.1/sites/${site}/posts/?tag=${tag}`;
 
     try {
       const response = await fetch(url);
@@ -31,13 +27,7 @@ const WordpressFetcher = ({ lang = "en" }) => {
         const strippedTitle = post.title.replace(regex, "");
         const decodedTitle = decodeEntities(strippedTitle);
         const dateObj = new Date(post.date || post.modified || "");
-        const formattedDate = new Intl.DateTimeFormat(
-          lang === "de" ? "de-DE" : "en-US",
-          {
-            month: "short",
-            year: "numeric",
-          },
-        ).format(dateObj);
+        const formattedDate = new Intl.DateTimeFormat("en-US").format(dateObj);
 
         return {
           title: decodedTitle,
