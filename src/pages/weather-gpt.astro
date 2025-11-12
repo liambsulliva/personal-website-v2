@@ -112,44 +112,60 @@ const sidebarItems = [
       <br />
       <ul>
         <li>
-          <strong>AI as an Enhancement Layer:</strong> GPT-3.5 proved excellent at
-          taking structured weather data and explaining it in conversational language.
-          The key was crafting prompts that encouraged concise, practical summaries
-          rather than verbose explanations.
+          <p>
+            <strong>AI as an Enhancement Layer:</strong> GPT-3.5 proved excellent at
+            taking structured weather data and explaining it in conversational language.
+            The key was crafting prompts that encouraged concise, practical summaries
+            rather than verbose explanations.
+          </p>
         </li>
         <li>
-          <strong>Server-Side Processing:</strong> Handling the API calls and AI
+          <p>
+            <strong>Server-Side Processing:</strong> Handling the API calls and AI
           processing on the backend kept the client-side code simple and protected
           API keys. The server-side rendering approach with EJS meant fast initial
           page loads with no client-side JavaScript framework overhead.
+          </p>
         </li>
         <li>
-          <strong>Balancing Speed and Intelligence:</strong> Each weather request
+          <p>
+            <strong>Balancing Speed and Intelligence:</strong> Each weather request
           requires multiple API calls (OpenWeather + OpenAI), which adds latency.
           Implementing smart caching strategies helped reduce repeated calls for
           the same location within short time windows.
+          </p>
         </li>
       </ul>
       <br />
       <p><strong>Future Improvements</strong></p>
-      <ul>
-        <li>
+      <li>
+        <p>
           Implement Redis caching to store recent weather summaries and reduce
           API costs
+        </p>
+      </li>
+      <ul>
+        <li>
+          <p>
+            Add support for severe weather alerts with AI-generated safety
+            recommendations
+          </p>
         </li>
         <li>
-          Add support for severe weather alerts with AI-generated safety
-          recommendations
+          <p>
+            Create personalized summaries based on user preferences (e.g., runner,
+            commuter, outdoor worker)
+          </p>
         </li>
         <li>
-          Create personalized summaries based on user preferences (e.g., runner,
-          commuter, outdoor worker)
+          <p>
+            Explore GPT-4 for more nuanced weather interpretations and
+            context-aware suggestions
+          </p>
         </li>
         <li>
-          Explore GPT-4 for more nuanced weather interpretations and
-          context-aware suggestions
+          <p>Add location autocomplete to improve the search experience</p>
         </li>
-        <li>Add location autocomplete to improve the search experience</li>
       </ul>
     </section>
   </div>

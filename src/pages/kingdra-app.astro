@@ -1,12 +1,7 @@
 ---
 import CaseStudyLayout from "../layouts/CaseStudyLayout.astro";
-import PhoneMockup from "../components/PhoneMockup.astro";
 import { Image } from "astro:assets";
-import {
-  blankIphoneMockup as iPhone,
-  kingdraMobileView as MobileView,
-  uxBanner as UXBanner,
-} from "../utils/images";
+import { uxBanner as UXBanner } from "../utils/images";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -14,7 +9,6 @@ const sidebarItems = [
   { text: "Key Features", href: "#features" },
   { text: "Technical Stack", href: "#stack" },
   { text: "Challenges", href: "#challenges" },
-  { text: "Mobile Adaptation", href: "#mobile" },
   { text: "Roadmap", href: "#roadmap" },
   { text: "Retrospective", href: "#retrospective" },
 ];
@@ -87,7 +81,7 @@ const sidebarItems = [
     </section>
 
     <section id="origin" class="fade-in flex gap-8 max-lg:flex-col">
-      <div class="lg:w-2/3">
+      <div class="">
         <h3 class="!mb-3 text-2xl font-semibold text-white">Origin Story</h3>
         <p>
           The project began in June 2024 as a learning exercise. I wanted to
@@ -132,9 +126,6 @@ const sidebarItems = [
           What started as a learning project became a tool I'm genuinely proud
           of and continue to improve.
         </p>
-      </div>
-      <div class="lg:sticky lg:top-8 lg:w-1/3">
-        <PhoneMockup contentImage={MobileView} phoneImage={iPhone} />
       </div>
     </section>
 
@@ -547,111 +538,6 @@ const sidebarItems = [
       </div>
     </section>
 
-    <section id="mobile" class="fade-in">
-      <h3 class="!mb-1 text-2xl font-semibold text-white">Mobile Adaptation</h3>
-      <p class="!mb-4">
-        After initial deployment, user feedback revealed that the mobile
-        experience needed significant improvement. Mobile users make up <a
-          class="text-link"
-          href="https://explodingtopics.com/blog/mobile-internet-traffic#mobile-internet-top-stats"
-          target="_blank"
-          rel="noreferrer">over 60% of global internet traffic</a
-        >, so this became a priority.
-      </p>
-      <div class="row-card-container">
-        <div class="row-card">
-          <div class="flex gap-6 max-md:flex-col">
-            <div
-              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="8rem"
-                height="8rem"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  fill="white"
-                  d="M1 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5a2 2 0 0 1-1.164 1.818a1.5 1.5 0 0 0-.275-.379l-.446-.446A1 1 0 0 0 14 10V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4v1H3a2 2 0 0 1-2-2zm7.854 3.146A.5.5 0 0 0 8 8.5v6a.5.5 0 0 0 .9.3l1.35-1.8h2.25a.5.5 0 0 0 .354-.854zM9 13V9.707L11.293 12H10a.5.5 0 0 0-.4.2z"
-                ></path>
-              </svg>
-            </div>
-            <div class="my-auto">
-              <h4 class="!mb-1 text-xl font-medium text-white">
-                Touch-Friendly Interactions
-              </h4>
-              <p>
-                Replaced hover states with explicit visual indicators and
-                tappable buttons. The interface was redesigned to ensure all
-                interactive elements are within comfortable thumb reach, with
-                larger touch targets and clearer visual feedback.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="row-card">
-          <div class="flex gap-6 max-md:flex-col">
-            <div
-              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="8rem"
-                height="8rem"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="white"
-                  d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
-                ></path>
-              </svg>
-            </div>
-            <div class="my-auto">
-              <h4 class="!mb-1 text-xl font-medium text-white">
-                Responsive Layout
-              </h4>
-              <p>
-                Converted the S-Curve desktop design to a vertical, mobile-first
-                layout. Pokemon slots changed from a grid to a horizontal
-                scrolling list, and tabs were converted to dropdowns to prevent
-                line breaks and maintain functionality.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="row-card">
-          <div class="flex gap-6 max-md:flex-col">
-            <div
-              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="8rem"
-                height="8rem"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="white"
-                  d="M3 17v2h6v-2H3M3 5v2h10V5H3m10 16v-2h8v-2h-8v-2h-2v6h2M7 9v2H3v2h4v2h2V9H7m14 4v-2H11v2h10m-6-4h2V7h4V5h-4V3h-2v6Z"
-                ></path>
-              </svg>
-            </div>
-            <div class="my-auto">
-              <h4 class="!mb-1 text-xl font-medium text-white">
-                PWA Implementation
-              </h4>
-              <p>
-                Enhanced the mobile experience through Progressive Web App
-                capabilities, enabling app installation, faster loading times
-                through caching, and improved performance. This made the app
-                feel more native on mobile devices.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section id="roadmap" class="fade-in">
       <h3 class="!mb-2 text-2xl font-semibold text-white">Roadmap</h3>
       <p class="pb-4">
@@ -763,19 +649,25 @@ const sidebarItems = [
         <h4 class="!mb-2 text-xl font-medium text-white">Known Issues</h4>
         <ul class="space-y-2">
           <li>
-            <strong>Showdown Export Formatting:</strong> Exports to Showdown may
-            be malformed in cases where EVs are not specified. This requires additional
-            validation logic.
+            <p>
+              <strong>Showdown Export Formatting:</strong> Exports to Showdown may
+              be malformed in cases where EVs are not specified. This requires additional
+              validation logic.
+            </p>
           </li>
           <li>
-            <strong>API Limitations:</strong> Attacks with dashes (-) are indistinguishable
-            from ones with spaces due to API limitations. This affects search and
-            filtering accuracy.
+            <p>
+              <strong>API Limitations:</strong> Attacks with dashes (-) are indistinguishable
+              from ones with spaces due to API limitations. This affects search and
+              filtering accuracy.
+            </p>
           </li>
           <li>
-            <strong>API Call Optimization:</strong> In certain scenarios, the API
-            may be called more than needed after all Pokémon are fetched from infinite
-            scrolling. This requires better caching and request deduplication.
+            <p>
+              <strong>API Call Optimization:</strong> In certain scenarios, the API
+              may be called more than needed after all Pokémon are fetched from infinite
+              scrolling. This requires better caching and request deduplication.
+            </p>
           </li>
         </ul>
       </div>
@@ -792,53 +684,70 @@ const sidebarItems = [
       <br />
       <ul>
         <li>
-          <strong>Full-Stack Mastery:</strong> This project taught me the entire
-          development lifecycle, from database design with MongoDB to GraphQL API
-          creation, React state management, and deployment. Working with Clerk for
-          authentication and Apollo Client for data fetching gave me hands-on experience
-          with modern development tools.
+          <p>
+            <strong>Full-Stack Mastery:</strong> This project taught me the entire
+            development lifecycle, from database design with MongoDB to GraphQL API
+            creation, React state management, and deployment. Working with Clerk
+            for authentication and Apollo Client for data fetching gave me hands-on
+            experience with modern development tools.
+          </p>
         </li>
         <li>
-          <strong>Mobile-First Lessons:</strong> The mobile adaptation phase revealed
-          the importance of considering all device types from the start. Converting
-          a desktop-optimized UI to mobile required rethinking navigation, information
-          hierarchy, and interaction patterns. The PWA implementation significantly
-          improved the mobile experience.
+          <p>
+            <strong>Mobile-First Lessons:</strong> The mobile adaptation phase revealed
+            the importance of considering all device types from the start. Converting
+            a desktop-optimized UI to mobile required rethinking navigation, information
+            hierarchy, and interaction patterns. The PWA implementation significantly
+            improved the mobile experience.
+          </p>
         </li>
         <li>
-          <strong>Component Library Trade-offs:</strong> While Flowbite accelerated
-          initial development, its constraints became apparent during mobile adaptation.
-          This highlighted the importance of evaluating long-term flexibility when
-          choosing dependencies.
+          <p>
+            <strong>Component Library Trade-offs:</strong> While Flowbite accelerated
+            initial development, its constraints became apparent during mobile adaptation.
+            This highlighted the importance of evaluating long-term flexibility when
+            choosing dependencies.
+          </p>
         </li>
         <li>
-          <strong>Performance Optimization:</strong> Managing infinite scroll with
-          1000+ Pokemon, implementing debounced search, and optimizing GraphQL queries
-          taught me valuable lessons about performance optimization in React applications.
+          <p>
+            <strong>Performance Optimization:</strong> Managing infinite scroll with
+            1000+ Pokemon, implementing debounced search, and optimizing GraphQL
+            queries taught me valuable lessons about performance optimization in
+            React applications.
+          </p>
         </li>
       </ul>
       <br />
       <p><strong>Future Considerations</strong></p>
       <ul>
         <li>
-          Replacing Flowbite components with custom, device-agnostic solutions
-          to improve flexibility and maintainability. This will provide more
-          freedom in creating custom layouts and better mobile support.
+          <p>
+            Replacing Flowbite components with custom, device-agnostic solutions
+            to improve flexibility and maintainability. This will provide more
+            freedom in creating custom layouts and better mobile support.
+          </p>
         </li>
         <li>
-          Enhanced filtering options by types, stats, and moves would
-          significantly improve the user experience, especially on mobile
-          devices where screen space is limited.
+          <p>
+            Enhanced filtering options by types, stats, and moves would
+            significantly improve the user experience, especially on mobile
+            devices where screen space is limited.
+          </p>
         </li>
         <li>
-          The type coverage module needs gesture-based interaction for mobile
-          devices. The current horizontal list implementation isn't feasible on
-          smaller screens, requiring a reimagined approach.
+          <p>
+            The type coverage module needs gesture-based interaction for mobile
+            devices. The current horizontal list implementation isn't feasible
+            on smaller screens, requiring a reimagined approach.
+          </p>
         </li>
         <li>
-          Moving search to the backend will enable more sophisticated filtering
-          and better performance, especially as the Pokemon database grows with
-          new generations.
+          <p>
+            Moving search to the backend will enable more sophisticated
+            filtering and better performance, especially as the Pokemon database
+            grows with new generations.
+          </p>
         </li>
       </ul>
       <br />
