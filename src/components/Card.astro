@@ -7,11 +7,11 @@ import Badge from "./Badge.astro";
 const {
   title,
   description,
-  banner1icon,
+  banner1icon: Banner1Icon,
   banner1text,
-  banner2icon,
+  banner2icon: Banner2Icon,
   banner2text,
-  banner3icon,
+  banner3icon: Banner3Icon,
   banner3text,
   img,
   demoBtn,
@@ -50,9 +50,27 @@ const target = projectLink ? undefined : "_blank";
     </div>
 
     <div class="mx-4 flex gap-2">
-      {banner1icon && <Badge svg={banner1icon} text={banner1text} />}
-      {banner2icon && <Badge svg={banner2icon} text={banner2text} />}
-      {banner3icon && <Badge svg={banner3icon} text={banner3text} />}
+      {
+        Banner1Icon && (
+          <Badge text={banner1text}>
+            <Banner1Icon />
+          </Badge>
+        )
+      }
+      {
+        Banner2Icon && (
+          <Badge text={banner2text}>
+            <Banner2Icon />
+          </Badge>
+        )
+      }
+      {
+        Banner3Icon && (
+          <Badge text={banner3text}>
+            <Banner3Icon />
+          </Badge>
+        )
+      }
     </div>
 
     <div class="box-shadow-lg flex flex-col p-4 md:flex-grow">

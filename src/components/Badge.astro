@@ -1,10 +1,14 @@
 ---
-const { svg, text } = Astro.props;
+interface Props {
+  text: string;
+}
+
+const { text }: Props = Astro.props;
 ---
 
 <div class="badge">
   <div class="badge-icon">
-    <Fragment set:html={svg} />
+    <slot />
   </div>
   <div class="badge-text">
     {text}
