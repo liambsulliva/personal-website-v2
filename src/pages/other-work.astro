@@ -7,6 +7,7 @@ import { t } from "i18next";
 import { Trans } from "astro-i18next/components";
 // @ts-ignore
 import { localizePath } from "astro-i18next";
+import Footer from "../layouts/Footer.astro";
 ---
 
 <style>
@@ -25,7 +26,6 @@ import { localizePath } from "astro-i18next";
   }
 
   .content {
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -86,4 +86,5 @@ import { localizePath } from "astro-i18next";
       <WordpressFetcher client:load />
     </div>
   </div>
+  <Footer />
 </Layout>

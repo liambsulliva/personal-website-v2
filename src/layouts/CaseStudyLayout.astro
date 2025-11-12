@@ -5,6 +5,7 @@ import Layout from "./Layout.astro";
 import BackLink from "../components/BackLink.astro";
 import SideBar from "../components/SideBar.astro";
 import ProjectDescription from "../components/ProjectDescription.astro";
+import Footer from "./Footer.astro";
 
 interface Props {
   title: string;
@@ -36,7 +37,7 @@ const {
 ---
 
 <Layout title={pageTitle}>
-  <div class="btn-container">
+  <div class="m-4">
     <BackLink label={"Back"} href={localizePath("/")} />
   </div>
   <main class="mx-auto flex w-[1150px] max-w-full flex-row">
@@ -65,6 +66,7 @@ const {
       <slot />
     </div>
   </main>
+  <Footer />
 </Layout>
 
 <style>
