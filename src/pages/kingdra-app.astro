@@ -1,0 +1,853 @@
+---
+import CaseStudyLayout from "../layouts/CaseStudyLayout.astro";
+import PhoneMockup from "../components/PhoneMockup.astro";
+import { Image } from "astro:assets";
+import {
+  blankIphoneMockup as iPhone,
+  kingdraMobileView as MobileView,
+  uxBanner as UXBanner,
+} from "../utils/images";
+
+const sidebarItems = [
+  { text: "Overview", href: "#overview" },
+  { text: "Origin Story", href: "#origin" },
+  { text: "Key Features", href: "#features" },
+  { text: "Technical Stack", href: "#stack" },
+  { text: "Challenges", href: "#challenges" },
+  { text: "Mobile Adaptation", href: "#mobile" },
+  { text: "Roadmap", href: "#roadmap" },
+  { text: "Retrospective", href: "#retrospective" },
+];
+---
+
+<CaseStudyLayout
+  title="Kingdra Pokemon Teambuilder"
+  subtitle="Full-Stack Pokemon Teambuilder - June 2024"
+  pageTitle="Kingdra Pokemon Teambuilder - Liam Sullivan"
+  sidebarItems={sidebarItems}
+  projectRole={[
+    "Software Engineering",
+    "Product Design",
+    "Full-Stack Development",
+  ]}
+  team={["Solo"]}
+  tools={[
+    "Next.js",
+    "TypeScript",
+    "Tailwind",
+    "React",
+    "GraphQL",
+    "MongoDB",
+    "Clerk",
+    "Apollo Client",
+    "Vitest",
+  ]}
+  timeline={["Ongoing"]}
+  githubLink="https://github.com/liambsulliva/pokemon-teambuilder"
+  demoLink="https://pokedraft.liambsullivan.com"
+  sidebarClassName="fixed right-[calc((100vw-1150px)/2-7rem)] top-56 w-[1350px]"
+  isCaseStudy={false}
+>
+  <Image
+    src={UXBanner}
+    alt="Kingdra Teambuilder"
+    class="mx-auto max-h-[700px] w-auto"
+    loading="eager"
+    slot="hero"
+  />
+
+  <div class="case-study-layout">
+    <section class="fade-in pb-10 pt-10 md:flex md:gap-20" id="overview">
+      <h3 class="text-2xl font-semibold text-white">Overview</h3>
+      <div>
+        <p>
+          Kingdra Pokemon Teambuilder is a full-stack web application I built to
+          solve a problem I encountered while organizing a Pokemon draft league
+          for my friends. What started as a simple tool for managing draft teams
+          evolved into a comprehensive teambuilder that bridges the gap between
+          casual and competitive Pokemon team creation.
+        </p>
+        <br />
+        <p>
+          The project addresses a critical gap in the Pokemon teambuilder
+          market: most existing tools have poor UIs and lack the ability to set
+          moves and stats unless you're using Pokemon Showdown. Additionally,
+          there's a lack of tools that can create both casual and competitive
+          teams in the same place. This application adapts to user preferences,
+          allowing seamless switching between game modes.
+        </p>
+        <br />
+        <p>
+          Built with Next.js, TypeScript, and a modern tech stack, the
+          application features infinite scrolling, real-time stat calculations,
+          user authentication, team management, and full import/export
+          capabilities with Pokemon Showdown.
+        </p>
+      </div>
+    </section>
+
+    <section id="origin" class="fade-in flex gap-8 max-lg:flex-col">
+      <div class="lg:w-2/3">
+        <h3 class="!mb-3 text-2xl font-semibold text-white">Origin Story</h3>
+        <p>
+          The project began in June 2024 as a learning exercise. I wanted to
+          master <a
+            class="text-link"
+            href="https://nextjs.org/"
+            target="_blank"
+            rel="noreferrer">Next.js</a
+          > and build my first real full-stack application. The initial goal was
+          simple: create a tool for managing teams in a Pokemon draft league (think
+          fantasy football, but with Pokemon).
+        </p>
+        <br />
+        <p>
+          However, as I started building, I realized that existing Pokemon
+          teambuilders had significant limitations. Most had terrible UIs, and
+          few allowed you to actually set moves and stats unless you were using <a
+            class="text-link"
+            href="https://play.pokemonshowdown.com/"
+            target="_blank"
+            rel="noreferrer">Pokemon Showdown</a
+          >. More importantly, there was no tool that could seamlessly handle
+          both casual and competitive team building in the same interface.
+        </p>
+        <br />
+        <p>
+          This realization transformed the project from a simple draft tool into
+          a comprehensive teambuilder. I spent countless hours implementing the
+          core logic, including stat calculations that <a
+            class="text-link"
+            href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
+            target="_blank"
+            rel="noreferrer">mimic the exact math</a
+          > used in the core Pokemon games, integrating with external APIs for Pokemon
+          data, and building a robust database schema for team management.
+        </p>
+        <br />
+        <p>
+          The project became an exploration of full-stack development, learning
+          GraphQL, implementing authentication with Clerk, managing state with
+          Apollo Client, and creating a responsive UI that works across devices.
+          What started as a learning project became a tool I'm genuinely proud
+          of and continue to improve.
+        </p>
+      </div>
+      <div class="lg:sticky lg:top-8 lg:w-1/3">
+        <PhoneMockup contentImage={MobileView} phoneImage={iPhone} />
+      </div>
+    </section>
+
+    <section id="features" class="fade-in">
+      <h3 class="!mb-2 text-2xl font-semibold text-white">Key Features</h3>
+      <p class="pb-4">
+        The application includes a comprehensive set of features designed to
+        make team building both powerful and intuitive:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path fill="white" d="M7 19h10V5H7v14zm2-6h6v-2H9v2z"></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">
+            Infinite Scroll + Tabbing
+          </h4>
+          <p>
+            Efficient Pokemon browsing through infinite scrolling with a tabbing
+            system for quick navigation between generations, tiers, and types.
+            Optimized for performance with client-side searching.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Stat Calculator</h4>
+          <p>
+            Real-time stat calculations using Pokemon's IVs, EVs, Natures, and
+            Level. Accurately mimics the exact formulas used in the core Pokemon
+            games for competitive accuracy.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Login System</h4>
+          <p>
+            Secure authentication via Clerk, enabling users to save teams,
+            access their data across devices, and manage multiple teams with
+            persistent storage in MongoDB.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Smogon Breakdown</h4>
+          <p>
+            Integration with Smogon data for competitive insights, including
+            tier information, usage statistics, and recommended sets for
+            competitive play.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">
+            Ability/Nature/Item/Move Select
+          </h4>
+          <p>
+            Comprehensive selectors for all Pokemon customization options with
+            included metadata. Each selection includes detailed information to
+            help users make informed decisions.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Type Matchup Breakdown</h4>
+          <p>
+            Visual type coverage analysis showing offensive and defensive
+            matchups for the entire team, helping users identify weaknesses and
+            strengths.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Multiple Team Support</h4>
+          <p>
+            Users can create, save, and manage multiple teams. Each team is
+            stored independently with full import/export capabilities to Pokemon
+            Showdown format.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path fill="white" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Import/Export</h4>
+          <p>
+            Full compatibility with Pokemon Showdown format. Teams can be
+            imported from Showdown or exported for use in battles, supporting
+            both local and global team sharing.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">
+            Input Validation & EV Limits
+          </h4>
+          <p>
+            Comprehensive validation ensures data integrity, including EV limit
+            enforcement (510 total EVs per Pokemon) and proper stat range
+            validation.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack" class="fade-in">
+      <h3 class="!mb-2 text-2xl font-semibold text-white">Technical Stack</h3>
+      <p class="pb-4">
+        Built with modern technologies chosen for performance, developer
+        experience, and scalability:
+      </p>
+      <div class="row-card-container">
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M11.5 2C6.81 2 3 5.81 3 10.5c0 2.69 1.32 5.09 3.5 6.5v5.5l4-2 4 2v-5.5c2.18-1.41 3.5-3.81 3.5-6.5C18 5.81 14.19 2 11.5 2zm0 2c2.76 0 5 2.24 5 5s-2.24 5-5 5-5-2.24-5-5 2.24-5 5-5z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                Frontend Framework
+              </h4>
+              <p>
+                <strong>Next.js + TypeScript:</strong> Server-side rendering, API
+                routes, and optimized performance. TypeScript ensures type safety
+                across the entire application. <strong>React</strong> handles component
+                state and UI interactions, while <strong>Tailwind CSS</strong> provides
+                utility-first styling. <strong>Flowbite</strong> and <strong
+                  >Flowbite-React</strong
+                > offer pre-built components that accelerate development.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                Backend & Database
+              </h4>
+              <p>
+                <strong>MongoDB + Mongoose:</strong> NoSQL database for flexible
+                team storage and user data management. Mongoose provides schema validation
+                and easy querying. <strong>GraphQL</strong> serves as the API layer
+                with <strong>Apollo Client</strong> managing queries, mutations,
+                and caching on the frontend.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                Authentication & Utilities
+              </h4>
+              <p>
+                <strong>Clerk:</strong> Handles user authentication and session management
+                seamlessly. <strong>Axios</strong> manages HTTP requests, while <strong
+                  >Lodash.debounce</strong
+                > optimizes search input handling. <strong>Node-Fetch</strong> enables
+                server-side API calls to external Pokemon data sources.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                Testing & Development
+              </h4>
+              <p>
+                <strong>Vitest:</strong> Blazing-fast unit testing framework. <strong
+                  >@testing-library/react</strong
+                > enables component testing. <strong>ESLint</strong> and <strong
+                  >Prettier</strong
+                > maintain code quality and consistency throughout the project.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="challenges" class="fade-in">
+      <h3 class="!mb-2 text-2xl font-semibold text-white">Challenges</h3>
+      <p class="pb-3">Several key challenges emerged during development:</p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 18 16"
+          >
+            <path
+              fill="white"
+              d="M3.5 2h-3c-.275 0-.5.225-.5.5v11c0 .275.225.5.5.5h3c.275 0 .5-.225.5-.5v-11c0-.275-.225-.5-.5-.5M3 5H1V4h2zm5.5-3h-3c-.275 0-.5.225-.5.5v11c0 .275.225.5.5.5h3c.275 0 .5-.225.5-.5v-11c0-.275-.225-.5-.5-.5M8 5H6V4h2z"
+            ></path>
+            <path
+              fill="white"
+              d="m11.954 2.773l-2.679 1.35a.5.5 0 0 0-.222.671l4.5 8.93a.5.5 0 0 0 .671.222l2.679-1.35a.5.5 0 0 0 .222-.671l-4.5-8.93a.5.5 0 0 0-.671-.222"
+            ></path>
+            <path fill="white" d="M14.5 13.5a.5.5 0 1 1-1 0a.5.5 0 0 1 1 0"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">
+            Component Library Constraints
+          </h4>
+          <p>
+            Using <a
+              class="text-link"
+              href="https://flowbite.com/"
+              target="_blank"
+              rel="noreferrer">Flowbite</a
+            > saved initial development time but locked me into an inflexible ecosystem.
+            Adapting components for mobile required creative CSS solutions and workarounds.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">API Limitations</h4>
+          <p>
+            External Pokemon APIs have limitations, such as attacks with dashes
+            being indistinguishable from ones with spaces. This required careful
+            data handling and validation on the client side.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">
+            Performance Optimization
+          </h4>
+          <p>
+            Managing infinite scroll with 1000+ Pokemon required careful
+            optimization. Implementing debounced search, efficient state
+            management with Apollo Client, and strategic caching were essential
+            for smooth performance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="mobile" class="fade-in">
+      <h3 class="!mb-1 text-2xl font-semibold text-white">Mobile Adaptation</h3>
+      <p class="!mb-4">
+        After initial deployment, user feedback revealed that the mobile
+        experience needed significant improvement. Mobile users make up <a
+          class="text-link"
+          href="https://explodingtopics.com/blog/mobile-internet-traffic#mobile-internet-top-stats"
+          target="_blank"
+          rel="noreferrer">over 60% of global internet traffic</a
+        >, so this became a priority.
+      </p>
+      <div class="row-card-container">
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill="white"
+                  d="M1 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v5a2 2 0 0 1-1.164 1.818a1.5 1.5 0 0 0-.275-.379l-.446-.446A1 1 0 0 0 14 10V5a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h4v1H3a2 2 0 0 1-2-2zm7.854 3.146A.5.5 0 0 0 8 8.5v6a.5.5 0 0 0 .9.3l1.35-1.8h2.25a.5.5 0 0 0 .354-.854zM9 13V9.707L11.293 12H10a.5.5 0 0 0-.4.2z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                Touch-Friendly Interactions
+              </h4>
+              <p>
+                Replaced hover states with explicit visual indicators and
+                tappable buttons. The interface was redesigned to ensure all
+                interactive elements are within comfortable thumb reach, with
+                larger touch targets and clearer visual feedback.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M12 15q.425 0 .713-.288T13 14t-.288-.712T12 13t-.712.288T11 14t.288.713T12 15m-1-4h2V5h-2zM2 22V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18H6zm3.15-6H20V4H4v13.125zM4 16V4z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                Responsive Layout
+              </h4>
+              <p>
+                Converted the S-Curve desktop design to a vertical, mobile-first
+                layout. Pokemon slots changed from a grid to a horizontal
+                scrolling list, and tabs were converted to dropdowns to prevent
+                line breaks and maintain functionality.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row-card">
+          <div class="flex gap-6 max-md:flex-col">
+            <div
+              class="flex flex-shrink-0 items-center justify-center p-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="8rem"
+                height="8rem"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="white"
+                  d="M3 17v2h6v-2H3M3 5v2h10V5H3m10 16v-2h8v-2h-8v-2h-2v6h2M7 9v2H3v2h4v2h2V9H7m14 4v-2H11v2h10m-6-4h2V7h4V5h-4V3h-2v6Z"
+                ></path>
+              </svg>
+            </div>
+            <div class="my-auto">
+              <h4 class="!mb-1 text-xl font-medium text-white">
+                PWA Implementation
+              </h4>
+              <p>
+                Enhanced the mobile experience through Progressive Web App
+                capabilities, enabling app installation, faster loading times
+                through caching, and improved performance. This made the app
+                feel more native on mobile devices.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="fade-in">
+      <h3 class="!mb-2 text-2xl font-semibold text-white">Roadmap</h3>
+      <p class="pb-4">
+        The project continues to evolve with planned improvements and new
+        features:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 5.2 11.11 5 12 5a7 7 0 0 1 7 7a7 7 0 0 1-7 7m-1-8v6l5.5-3L11 10z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Dark Mode Support</h4>
+          <p>
+            Implementing a comprehensive dark mode theme with user preference
+            detection and persistent settings.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Backend Search</h4>
+          <p>
+            Moving search functionality to the backend for improved performance
+            and more sophisticated filtering capabilities.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Custom Sign-in Page</h4>
+          <p>
+            Creating a branded authentication experience that matches the
+            application's design language.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">Enhanced GraphQL</h4>
+          <p>
+            Expanding GraphQL queries and mutations for more efficient data
+            fetching and better caching strategies.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="white"
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"
+            ></path>
+          </svg>
+          <h4 class="text-xl font-medium text-white">
+            Additional API Integration
+          </h4>
+          <p>
+            Integrating with additional Pokemon-related APIs to expand data
+            sources and provide more comprehensive information.
+          </p>
+        </div>
+      </div>
+      <div
+        class="mt-6 rounded-xl border border-[#333] bg-[var(--card-color)] p-6"
+      >
+        <h4 class="!mb-2 text-xl font-medium text-white">Known Issues</h4>
+        <ul class="space-y-2">
+          <li>
+            <strong>Showdown Export Formatting:</strong> Exports to Showdown may
+            be malformed in cases where EVs are not specified. This requires additional
+            validation logic.
+          </li>
+          <li>
+            <strong>API Limitations:</strong> Attacks with dashes (-) are indistinguishable
+            from ones with spaces due to API limitations. This affects search and
+            filtering accuracy.
+          </li>
+          <li>
+            <strong>API Call Optimization:</strong> In certain scenarios, the API
+            may be called more than needed after all Pokémon are fetched from infinite
+            scrolling. This requires better caching and request deduplication.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="retrospective" class="fade-in">
+      <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
+      <p>
+        Building the Kingdra Pokemon Teambuilder has been an incredible learning
+        experience. What started as a simple draft league tool evolved into a
+        comprehensive full-stack application that addresses real gaps in the
+        Pokemon teambuilder market.
+      </p>
+      <br />
+      <ul>
+        <li>
+          <strong>Full-Stack Mastery:</strong> This project taught me the entire
+          development lifecycle, from database design with MongoDB to GraphQL API
+          creation, React state management, and deployment. Working with Clerk for
+          authentication and Apollo Client for data fetching gave me hands-on experience
+          with modern development tools.
+        </li>
+        <li>
+          <strong>Mobile-First Lessons:</strong> The mobile adaptation phase revealed
+          the importance of considering all device types from the start. Converting
+          a desktop-optimized UI to mobile required rethinking navigation, information
+          hierarchy, and interaction patterns. The PWA implementation significantly
+          improved the mobile experience.
+        </li>
+        <li>
+          <strong>Component Library Trade-offs:</strong> While Flowbite accelerated
+          initial development, its constraints became apparent during mobile adaptation.
+          This highlighted the importance of evaluating long-term flexibility when
+          choosing dependencies.
+        </li>
+        <li>
+          <strong>Performance Optimization:</strong> Managing infinite scroll with
+          1000+ Pokemon, implementing debounced search, and optimizing GraphQL queries
+          taught me valuable lessons about performance optimization in React applications.
+        </li>
+      </ul>
+      <br />
+      <p><strong>Future Considerations</strong></p>
+      <ul>
+        <li>
+          Replacing Flowbite components with custom, device-agnostic solutions
+          to improve flexibility and maintainability. This will provide more
+          freedom in creating custom layouts and better mobile support.
+        </li>
+        <li>
+          Enhanced filtering options by types, stats, and moves would
+          significantly improve the user experience, especially on mobile
+          devices where screen space is limited.
+        </li>
+        <li>
+          The type coverage module needs gesture-based interaction for mobile
+          devices. The current horizontal list implementation isn't feasible on
+          smaller screens, requiring a reimagined approach.
+        </li>
+        <li>
+          Moving search to the backend will enable more sophisticated filtering
+          and better performance, especially as the Pokemon database grows with
+          new generations.
+        </li>
+      </ul>
+      <br />
+      <p>
+        This project continues to evolve, and I'm excited to see where it goes
+        next. The combination of learning new technologies, solving real
+        problems, and building something that Pokemon fans actually use has made
+        this one of my most rewarding projects.
+      </p>
+    </section>
+  </div>
+</CaseStudyLayout>

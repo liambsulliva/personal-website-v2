@@ -1,6 +1,5 @@
 ---
 import CaseStudyLayout from "../layouts/CaseStudyLayout.astro";
-import Footer from "../layouts/Footer.astro";
 import PhoneMockup from "../components/PhoneMockup.astro";
 import { Image } from "astro:assets";
 import {
@@ -40,9 +39,9 @@ const sidebarItems = [
 ---
 
 <CaseStudyLayout
-  title="Kingdra Pokemon Teambuilder"
-  subtitle="The Journey to Mobile - October 2024"
-  pageTitle="The Journey to Mobile: A Case Study - Liam Sullivan"
+  title="The Journey to Mobile"
+  subtitle="Kingdra Pokemon Teambuilder - October 2024"
+  pageTitle="The Journey to Mobile: Kingdra Pokemon Teambuilder - Liam Sullivan"
   sidebarItems={sidebarItems}
   projectRole={["Software Engineering", "Product Design"]}
   team={["Solo"]}
@@ -51,6 +50,7 @@ const sidebarItems = [
   githubLink="https://github.com/liambsulliva/pokemon-teambuilder"
   demoLink="https://pokedraft.liambsullivan.com"
   sidebarClassName="fixed right-[calc((100vw-1150px)/2-7rem)] top-56 w-[1350px]"
+  isCaseStudy={true}
 >
   <Image
     src={UXBanner}

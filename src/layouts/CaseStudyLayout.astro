@@ -19,6 +19,7 @@ interface Props {
   demoLink?: string;
   githubLink?: string;
   sidebarClassName?: string;
+  isCaseStudy?: boolean;
 }
 
 const {
@@ -33,6 +34,7 @@ const {
   demoLink,
   githubLink,
   sidebarClassName = "fixed right-[calc((100vw-1150px)/2-7rem)] top-56",
+  isCaseStudy = false,
 }: Props = Astro.props;
 ---
 
@@ -58,8 +60,8 @@ const {
         team={team}
         tools={tools}
         timeline={timeline}
-        demoLink={demoLink}
-        githubLink={githubLink}
+        demoLink={isCaseStudy ? undefined : demoLink}
+        githubLink={isCaseStudy ? undefined : githubLink}
       />
 
       <!-- Main content slots -->
