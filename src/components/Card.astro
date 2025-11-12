@@ -1,4 +1,6 @@
 ---
+// @ts-ignore
+import { localizePath } from "astro-i18next";
 import { Image } from "astro:assets";
 import Badge from "./Badge.astro";
 
@@ -14,13 +16,17 @@ const {
   img,
   demoBtn,
   externalLink,
+  projectLink,
 } = Astro.props;
+
+const href = projectLink ? localizePath(projectLink) : demoBtn;
+const target = projectLink ? undefined : "_blank";
 ---
 
 <a
-  href={demoBtn}
+  href={href}
   aria-label={title}
-  target="_blank"
+  target={target}
   class="group flex cursor-pointer items-stretch gap-6"
 >
   <div

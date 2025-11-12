@@ -1,0 +1,134 @@
+---
+import CaseStudyLayout from "../layouts/CaseStudyLayout.astro";
+import { Image } from "astro:assets";
+import { recipeapp } from "../utils/images";
+
+const sidebarItems = [
+  { text: "Overview", href: "#overview" },
+  { text: "Context", href: "#context" },
+  { text: "Retrospective", href: "#retrospective" },
+];
+---
+
+<CaseStudyLayout
+  title="Sullivan Family Recipes"
+  subtitle="A Dynamic Recipe Collection - August 2024"
+  pageTitle="Sullivan Family Recipes - Liam Sullivan"
+  sidebarItems={sidebarItems}
+  projectRole={["Full-Stack Development", "UI Design"]}
+  team={["Solo"]}
+  tools={["Astro", "React", "Markdown", "Tailwind"]}
+  timeline={["2 Weeks"]}
+  githubLink="https://github.com/liambsulliva/recipe-website"
+  demoLink="https://recipes.liambsullivan.com"
+>
+  <Image
+    src={recipeapp}
+    alt="Recipe App"
+    class="mx-auto max-h-[700px] w-auto rounded-xl"
+    loading="eager"
+    slot="hero"
+  />
+
+  <div class="case-study-layout">
+    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
+      <h3 class="text-2xl font-semibold text-white">Overview</h3>
+      <div>
+        <p>
+          The Sullivan Family Recipe App is a digital cookbook that preserves
+          and shares classic family recipes passed down through generations.
+          Built with Astro, the site combines dynamic rendering with static
+          generation to create a fast, accessible recipe browsing experience.
+        </p>
+        <br />
+        <p>
+          The project focuses on creating an intuitive interface for discovering
+          recipes while maintaining the personal touch of handwritten recipe
+          cards. Each recipe is written in Markdown and statically generated for
+          optimal performance.
+        </p>
+      </div>
+    </section>
+
+    <section id="context">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
+      <p>
+        The idea for this project came from wanting to digitize my family's
+        collection of recipes that had been accumulated over decades. Many of
+        these recipes existed only on worn recipe cards or in handwritten notes,
+        at risk of being lost or damaged over time.
+      </p>
+      <br />
+      <p>
+        I chose Astro as the framework for its unique approach to static site
+        generation. The landing page is dynamically rendered to showcase
+        featured recipes and categories, while individual recipe pages are
+        statically generated from Markdown files at build time. This hybrid
+        approach provides the best of both worlds: dynamic content organization
+        with the performance benefits of static HTML.
+      </p>
+      <br />
+      <p>
+        The Markdown format made it easy to write and edit recipes with a
+        simple, readable syntax. Each recipe file includes frontmatter for
+        metadata like preparation time, servings, and difficulty, while the
+        recipe instructions are written in plain Markdown, making them easy to
+        update and maintain.
+      </p>
+      <br />
+      <p>
+        React components handle interactive elements like the recipe search and
+        filtering system, while Tailwind provides a clean, responsive design
+        that works beautifully on devices from phones to desktops.
+      </p>
+    </section>
+
+    <section id="retrospective">
+      <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
+      <p>
+        Building the Sullivan Family Recipe App was an excellent opportunity to
+        explore Astro's capabilities while creating something meaningful for my
+        family. The project successfully achieved its goals of preserving
+        recipes and making them easily accessible.
+      </p>
+      <br />
+      <ul>
+        <li>
+          <strong>Markdown as a Content Format:</strong> Using Markdown for recipes
+          proved to be an excellent choice. It's human-readable, version-controllable,
+          and easy for non-technical family members to edit once they understand
+          the basic syntax.
+        </li>
+        <li>
+          <strong>Static Generation Benefits:</strong> The static generation approach
+          means the site loads instantly and requires minimal server resources. Recipe
+          pages are generated once at build time and served as static HTML, resulting
+          in excellent performance and SEO.
+        </li>
+        <li>
+          <strong>Hybrid Rendering:</strong> Astro's ability to combine dynamic rendering
+          on the landing page with static generation for recipe pages provided the
+          perfect balance of flexibility and performance for this use case.
+        </li>
+      </ul>
+      <br />
+      <p><strong>Future Enhancements</strong></p>
+      <ul>
+        <li>
+          Add a recipe submission form that generates pull requests with new
+          Markdown files, allowing family members to contribute recipes without
+          touching code
+        </li>
+        <li>
+          Implement a measurement converter for switching between imperial and
+          metric units
+        </li>
+        <li>Add print-friendly styling optimized for recipe cards</li>
+        <li>
+          Create a meal planning feature to help organize weekly menus using the
+          available recipes
+        </li>
+      </ul>
+    </section>
+  </div>
+</CaseStudyLayout>
