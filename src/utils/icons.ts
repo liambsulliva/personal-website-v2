@@ -8,4 +8,4 @@ export { default as AstroIcon } from "../components/icons/AstroIcon.astro";
 export { default as ReactIcon } from "../components/icons/ReactIcon.astro";
 export { default as NodejsIcon } from "../components/icons/NodejsIcon.astro";
 export { default as TailwindIcon } from "../components/icons/TailwindIcon.astro";
-
+export { default as PittIcon } from "../components/icons/PittIcon.astro";

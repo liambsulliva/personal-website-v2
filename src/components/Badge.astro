@@ -36,10 +36,22 @@ const { text }: Props = Astro.props;
   .badge-icon {
     margin-right: 0.5rem;
     height: 32px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .badge-icon :global(svg) {
+    width: auto;
+    height: 100%;
+    max-width: 32px;
   }
 
   .badge-text {
     font-size: 0.75rem;
     color: #e0e0e0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
