@@ -6,7 +6,6 @@ import { switchReactMenuMockup } from "../utils/images";
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
-  { text: "Technical Details", href: "#technical-details" },
   { text: "Retrospective", href: "#retrospective" },
 ];
 ---
@@ -100,55 +99,6 @@ const sidebarItems = [
           the application
         </p>
       </ul>
-    </section>
-
-    <section id="technical-details">
-      <h3 class="text-2xl font-semibold text-white">Technical Details</h3>
-      <p>
-        The application is built with React 18 and TypeScript, providing a
-        modern development experience with strong type safety. The build process
-        uses esbuild for fast compilation and bundling, creating an optimized
-        application bundle that's stored in the /romfs/ directory for deployment
-        to the Switch.
-      </p>
-      <br />
-      <p><strong>Controls & Interaction</strong></p>
-      <ul>
-        <p>
-          <strong>L/R Shoulder Buttons:</strong> Navigate between pages of games,
-          allowing users to browse through large libraries efficiently
-        </p>
-        <p>
-          <strong>D-Pad/Left Stick:</strong> Navigate between individual games on
-          the current page, providing precise control over selection
-        </p>
-        <p>
-          <strong>A Button:</strong> Launch the selected game, executing the Switch's
-          native application launch functionality
-        </p>
-        <p>
-          <strong>Touch Screen:</strong> Full touch support for selecting and launching
-          games directly, making the interface accessible for handheld mode
-        </p>
-        <p>
-          <strong>Touch Navigation:</strong> On-screen prev/next buttons provide
-          an alternative to shoulder button navigation
-        </p>
-      </ul>
-      <br />
-      <p>
-        The interface features custom font integration (Source Sans Pro) for a
-        polished, professional appearance. Game icons are displayed with
-        truncated titles to maintain a clean layout, and selected games are
-        highlighted to provide clear visual feedback during navigation.
-      </p>
-      <br />
-      <p>
-        Smooth pagination ensures that browsing through installed games feels
-        responsive and natural, even with large game libraries. The pagination
-        system intelligently manages which games are displayed on each page,
-        optimizing rendering performance.
-      </p>
     </section>
 
     <section id="retrospective">
