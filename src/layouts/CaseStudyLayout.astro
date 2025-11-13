@@ -22,6 +22,8 @@ import {
   OpenAIIcon,
   CSS3DIcon,
   ViteIcon,
+  NXLogo,
+  ESBuildIcon,
 } from "../utils/icons";
 import Footer from "./Footer.astro";
 
@@ -75,6 +77,10 @@ function getToolIcon(toolName: string) {
     openai: OpenAIIcon,
     css3d: CSS3DIcon,
     vite: ViteIcon,
+    nx: NXLogo,
+    nxjs: NXLogo,
+    reacttela: ReactIcon,
+    esbuild: ESBuildIcon,
   };
   return iconMap[normalizedName] || null;
 }
