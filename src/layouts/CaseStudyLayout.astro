@@ -60,9 +60,7 @@ function getToolIcon(toolName: string) {
   const iconMap: Record<string, any> = {
     react: ReactIcon,
     typescript: TypeScriptIcon,
-    "next.js": NextjsIcon,
     nextjs: NextjsIcon,
-    "node.js": NodejsIcon,
     nodejs: NodejsIcon,
     tailwind: TailwindIcon,
     tailwindcss: TailwindIcon,
@@ -182,7 +180,7 @@ const displayGithubLink = isCaseStudy ? undefined : githubLink;
           }
         </div>
         <div
-          class="project-info-row mb-6 mt-6 flex w-full flex-row items-start justify-center gap-0 sm:gap-6 md:mt-2"
+          class="project-info-row mb-6 mt-6 flex w-full flex-row items-start justify-center gap-0 pt-4 sm:gap-6 md:mt-2"
         >
           <div
             class="info-block flex flex-1 shrink flex-col items-center px-2 py-2 text-center"
@@ -473,12 +471,16 @@ const displayGithubLink = isCaseStudy ? undefined : githubLink;
       font-size: 1rem !important;
     }
     .project-info-row .info-block {
-      padding-top: 0.6rem;
-      padding-bottom: 0.6rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
     }
     .project-info-row .info-block:not(:last-child) {
       border-bottom: 1.5px solid #80808038;
-      margin-bottom: 0.35rem;
+      margin-bottom: 0;
+      padding-bottom: 2rem;
+    }
+    .project-info-row .info-block:first-child {
+      padding-top: 1rem;
     }
   }
 </style>
