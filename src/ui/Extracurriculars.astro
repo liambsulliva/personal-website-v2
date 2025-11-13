@@ -1,9 +1,6 @@
 ---
 import Card from "../components/Card.astro";
-import {
-  portraitTutorial as portraittutorial,
-  wiiManual as wiimanual,
-} from "../utils/images";
+import { clubmeeting3, clubmeeting6 } from "../utils/images";
 import ArrowLink from "../components/ArrowLink.astro";
 import { PittIcon } from "../utils/icons";
 // @ts-ignore
@@ -13,21 +10,21 @@ import { localizePath } from "astro-i18next";
 <div class="content">
   <div class="grid">
     <Card
-      title="The Forgotten Charm of Gaming Manuals"
-      description="A faithful recreation of a Nintendo Wii manual layout, containing a think-piece that dives into gaming's shift away from physical media."
-      img={wiimanual}
+      title="Color Theory"
+      description="An in-depth presentation exploring how colors influence user interactions with interfaces, covering traditional color theory, RGB color systems, color conventions in UI design, and best practices for accessibility and branding."
+      img={clubmeeting3}
       banner1icon={PittIcon}
-      banner1text="Integrating Writing and Design"
-      demoBtn="/layouts/wii-manual.pdf"
+      banner1text="UX Design Club"
+      demoBtn="/presentation/clubmeeting3.pdf"
       externalLink={false}
     />
     <Card
-      title="Shooting The Perfect Portrait"
-      description="A magazine-style layout that explains best practices for shooting portraits with a DSLR camera, including lighting, composition, and post-processing."
+      title="Storyboarding"
+      description="A presentation framing storyboards and wireframes as essential UX tools, breaking down how to visualize user journeys, create wireframes for structure and hierarchy, and build effective storyboards that put the user first."
       banner1icon={PittIcon}
-      banner1text="Integrating Writing and Design"
-      img={portraittutorial}
-      demoBtn="/layouts/portrait-tutorial.pdf"
+      banner1text="UX Design Club"
+      img={clubmeeting6}
+      demoBtn="/presentation/clubmeeting6.pdf"
       externalLink={false}
     />
   </div>
