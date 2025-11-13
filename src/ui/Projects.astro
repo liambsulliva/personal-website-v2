@@ -2,7 +2,7 @@
 import Card from "../components/Card.astro";
 import {
   herlthroughtheyears,
-  weatherapp,
+  switchReactMenuScreen,
   pokedraft,
   recipeapp,
 } from "../utils/images";
@@ -13,8 +13,7 @@ import {
   TypeScriptIcon,
   AstroIcon,
   ReactIcon,
-  NodejsIcon,
-  TailwindIcon,
+  NXLogo,
 } from "../utils/icons";
 ---
 
@@ -60,16 +59,17 @@ import {
       externalLink={false}
     />
     <Card
-      title="Weather GPT"
-      description="A OpenWeather API sourced weather app that uses GPT-3.5 to summarize weather data on a backend server. Generates HTML dynamically through EJS."
-      img={weatherapp}
-      banner1icon={NodejsIcon}
-      banner1text={"Node.js"}
-      banner2icon={TailwindIcon}
-      banner2text={"Tailwind"}
-      viewBtn="https://github.com/liambsulliva/weather-app"
-      demoBtn="/weather-app"
-      projectLink="/weather-app"
+      title="Switch React Menu"
+      description="A minimalist home menu for the Nintendo Switch, built with React. Uses react-tela to render React components to a canvas, allowing nx.js to natively render to the Switch screen."
+      img={switchReactMenuScreen}
+      banner1icon={ReactIcon}
+      banner1text={"nx.js"}
+      banner1icon={NXLogo}
+      banner2icon={ReactIcon}
+      banner2text={"React"}
+      viewBtn="https://github.com/liambsulliva/switch-react-menu"
+      demoBtn="/switch-react-menu"
+      projectLink="/switch-react-menu"
       externalLink={false}
     />
   </div>

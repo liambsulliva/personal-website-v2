@@ -31,7 +31,8 @@ import herlCoverBack from "../images/case-studies/herl/Cover-Back.webp";
 
 // Projects images
 import pokedraft from "../images/projects/pokedraft.png";
-import weatherapp from "../images/projects/weatherapp.png";
+import switchReactMenuScreen from "../images/projects/switch-react-menu-screen.jpg";
+import switchReactMenuMockup from "../images/projects/switch-react-menu-mockup.png";
 import recipeapp from "../images/projects/recipeapp.png";
 import herlthroughtheyears from "../images/projects/herlthroughtheyears.png";
 import mockup from "../images/projects/mockup.png";
@@ -94,7 +95,8 @@ export {
 
   // Projects
   pokedraft,
-  weatherapp,
+  switchReactMenuScreen,
+  switchReactMenuMockup,
   recipeapp,
   herlthroughtheyears,
   mockup,
@@ -163,7 +165,8 @@ export const imagePaths = {
   },
   projects: {
     pokedraft: "/images/projects/pokedraft.png",
-    weatherapp: "/images/projects/weatherapp.png",
+    switchReactMenuScreen: "/images/projects/switch-react-menu-screen.jpg",
+    switchReactMenuMockup: "/images/projects/switch-react-menu-mockup.png",
     recipeapp: "/images/projects/recipeapp.png",
     herlthroughtheyears: "/images/projects/herlthroughtheyears.png",
     mockup: "/images/projects/mockup.png",
