@@ -1,0 +1,132 @@
+---
+import { codeToHtml } from "shiki";
+
+interface Props {
+  code: string;
+  language?: string;
+  showLineNumbers?: boolean;
+}
+
+const { code, language = "text", showLineNumbers = false }: Props = Astro.props;
+
+const html = await codeToHtml(code, {
+  lang: language,
+  theme: "github-dark",
+  transformers: showLineNumbers
+    ? [
+        {
+          name: "line-numbers",
+          line(node, line) {
+            node.properties["data-line"] = String(line);
+          },
+          code(node) {
+            node.properties["data-line-numbers"] = "true";
+          },
+        },
+      ]
+    : [],
+});
+---
+
+<div class="code-block-container">
+  <div class="code-block-header">
+    <span class="code-block-language">{language}</span>
+  </div>
+  <div class="code-block-wrapper" set:html={html} />
+</div>
+
+<style>
+  .code-block-container {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background-color: #252525;
+    border-bottom: 1px solid #333;
+  }
+
+  .code-block-language {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    font-family: "Geist Sans", Helvetica, system-ui, sans-serif;
+  }
+
+  .code-block-wrapper {
+    overflow: hidden;
+  }
+
+  .code-block-wrapper :global(pre) {
+    margin: 0;
+    padding: 1rem;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    overflow-x: auto;
+    font-family: "Martian Mono", "Courier New", Courier, monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    white-space: pre;
+    word-break: normal;
+    word-wrap: normal;
+  }
+
+  .code-block-wrapper :global(code) {
+    font-family: inherit;
+    font-size: inherit;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* Line numbers styling */
+  .code-block-wrapper :global(pre[data-line-numbers] .line) {
+    position: relative;
+    padding-left: 3rem;
+  }
+
+  .code-block-wrapper :global(pre[data-line-numbers] .line::before) {
+    content: attr(data-line);
+    position: absolute;
+    left: 0;
+    width: 2.5rem;
+    text-align: right;
+    padding-right: 1rem;
+    color: #6e7681;
+    user-select: none;
+  }
+
+  /* Scrollbar styling */
+  .code-block-wrapper :global(pre::-webkit-scrollbar) {
+    height: 8px;
+  }
+
+  .code-block-wrapper :global(pre::-webkit-scrollbar-track) {
+    background: #1e1e1e;
+  }
+
+  .code-block-wrapper :global(pre::-webkit-scrollbar-thumb) {
+    background-color: #444;
+    border-radius: 4px;
+  }
+
+  .code-block-wrapper :global(pre::-webkit-scrollbar-thumb:hover) {
+    background-color: #555;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .code-block-wrapper :global(pre) {
+      font-size: 0.75rem;
+      padding: 0.75rem;
+    }
+  }
+</style>

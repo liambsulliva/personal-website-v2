@@ -2,11 +2,12 @@
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
 import { switchReactMenuMockup } from "../../utils/images";
+import CodeBlock from "../../components/CodeBlock.astro";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
-  { text: "Retrospective", href: "#retrospective" },
+  { text: "Development", href: "#development" },
 ];
 ---
 
@@ -15,14 +16,10 @@ const sidebarItems = [
   subtitle="A Minimalist Home Menu for Nintendo Switch - Built with React"
   pageTitle="Switch React Menu - Liam Sullivan"
   sidebarItems={sidebarItems}
-  projectRole={[
-    "Front-End Development",
-    "React Development",
-    "Nintendo Switch Development",
-  ]}
+  projectRole={["Mobile Development", "UI + UX Design"]}
   team={["Solo"]}
   tools={["React", "TypeScript", "nx.js", "react-tela", "esbuild"]}
-  timeline={["Ongoing"]}
+  timeline={["1 Month"]}
   githubLink="https://github.com/liambsulliva/switch-react-menu"
 >
   <Image
@@ -38,19 +35,24 @@ const sidebarItems = [
       <h3 class="text-2xl font-semibold text-white">Overview</h3>
       <div>
         <p>
-          Switch React Menu is a minimalist home menu for the Nintendo Switch,
-          built with React. This project explores the intersection of web
-          technologies and console development, leveraging react-tela to render
-          React components to a canvas element, which allows the nx.js runtime
-          to natively render the components to the Switch screen.
+          This Nintendo Switch App Launcher is a minimalist implementation of a
+          traditional home menu. It relies on the JavaScript library <a
+            href="https://github.com/TooTallNate/nx.js"
+            target="_blank">nx.js</a
+          >, built by <a href="https://github.com/TooTallNate" target="_blank"
+            >TooTallNate</a
+          >, to render React components to a generic canvas element through the <a
+            href="https://github.com/TooTallNate/react-tela"
+            target="_blank">react-tela</a
+          > library.
         </p>
         <br />
         <p>
-          The application provides a clean, intuitive interface for launching
-          Switch applications, with smooth pagination, gamepad support, and
-          touch screen compatibility. It demonstrates how modern web development
-          frameworks can be adapted for embedded systems and console
-          environments.
+          While the react-tela framework itself is runtime-agnostic, it was the
+          only way I could find to run the JSX runtime on the Nintendo Switch.
+          Even though this interface relies on minimal reactivity, I thought the
+          concept of running a React app on a console was interesting enough to
+          be worth exploring.
         </p>
       </div>
     </section>
@@ -58,129 +60,160 @@ const sidebarItems = [
     <section id="context">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
       <p>
-        This project was born from curiosity about bringing modern web
-        development practices to console development. Traditional Switch
-        homebrew applications are typically built with C/C++, but nx.js provides
-        a JavaScript runtime that opens up new possibilities. I wanted to
-        explore whether React, a framework I'm familiar with from web
-        development, could be adapted for this unique environment.
+        In the Winter of 2024, I found myself with a full break from school for
+        the holidays and a lot of time to kill. It made sense to start working
+        on something new that I could show off, while also keeping the scope
+        small enough that I could realistically finish the thing by the end of
+        the break.
       </p>
       <br />
       <p>
-        The challenge was that React typically renders to the DOM, but the
-        Switch environment requires rendering to a canvas. This is where
-        react-tela comes in—a library that allows React components to be mounted
-        to a canvas element instead of traditional DOM nodes. This abstraction
-        layer makes it possible to use React's component model, state
-        management, and lifecycle methods while still rendering natively to the
-        Switch screen.
+        I had already been pretty invested in the world of Nintendo <a
+          href="https://en.wikipedia.org/wiki/Homebrew_(video_games)"
+          target="_blank">homebrew</a
+        > by this point. I had custom firmware running on not just my switch, but
+        pretty much every Nintendo console I owned (Wii, DSI, 3DS, and Wii U). So
+        I really liked the idea of taking a stab at building an app for a Nintendo
+        console. However, I found the typical options to be a little lacking. Working
+        with C/C++ seemed like it would be too much of a pain to get started, and
+        I didn't want to spend too much time tinkering with the low-level details
+        of the console's APIs in order to build a simple app.
       </p>
       <br />
       <p>
-        The project structure follows React best practices with a
-        component-based architecture:
+        While JavaScript may not be an obvious choice, it's actually relatively
+        fast compared to other high level options like Python, and its frontend
+        ecosystem plays well with UI development.
       </p>
       <br />
+      <p>
+        Ultimately, nx.js ended up being <i>amazing</i> for a couple of reasons:
+      </p>
       <ul>
         <p>
-          <strong>Components:</strong> Reusable UI elements like AppIcon and Navigation
-          components
+          - <strong>Low-Level Control:</strong> The framework gave me shockingly
+          low-level access to the hardware. Through the <a
+            href="https://nxjs.n8.io/runtime/rendering/canvas"
+            target="_blank">Canvas API</a
+          >, I was able to draw pixels and shapes directly to the screen instead
+          of interacting with a <a
+            href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model"
+            target="_blank">Document Object Model (DOM)</a
+          >, like in traditional JavaScript.
         </p>
         <p>
-          <strong>Hooks:</strong> Custom React hooks for gamepad navigation, managing
-          input state, and handling user interactions
+          - <strong>TypeScript Support:</strong> Coming from a Java background, I'm
+          a big fan of what TypeScript brings to JavaScript. Adding <a
+            href="https://en.wikipedia.org/wiki/Type_safety"
+            target="_blank">type safety</a
+          > to code is a common sense addition to any language, and it's become so
+          ingrained in my workflow that I can't really live without it.
         </p>
         <p>
-          <strong>Lib:</strong> Utility functions for game data management, pagination
-          logic, and rendering helpers
-        </p>
-        <p>
-          <strong>Types:</strong> TypeScript definitions ensuring type safety across
-          the application
+          - <strong>React Tooling:</strong> React's declarative UI feels like a natural
+          fit for a quick and dirty app like this. Reacting to state changes felt
+          far more natural to work with than manually updating the UI, especially
+          when it came to handling controller input.
         </p>
       </ul>
     </section>
-
-    <section id="retrospective">
-      <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
+    <br />
+    <section id="development">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
       <p>
-        Building Switch React Menu demonstrated that modern web development
-        frameworks can successfully be adapted for console environments. The
-        project successfully bridges the gap between web development and
-        embedded systems, opening up new possibilities for developers familiar
-        with React.
+        The development process was a bit of a rollercoaster. I started out by
+        trying to use the Canvas API directly, but it was a bit of a pain to
+        work with. I ended up using the react-tela library to render the React
+        components to a canvas, which was a lot easier to work with.
       </p>
       <br />
-      <ul>
-        <li>
-          <p>
-            <strong>React in Non-DOM Environments:</strong> Working with react-tela
-            revealed the flexibility of React's architecture. The component model,
-            hooks, and state management work seamlessly even when rendering to a
-            canvas instead of the DOM. This opens up possibilities for using React
-            in other non-browser environments.
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Input Handling:</strong> Adapting web development patterns for
-            gamepad input required rethinking how user interactions are handled.
-            Custom hooks for gamepad navigation proved essential, abstracting the
-            complexity of input handling while maintaining React's declarative paradigm.
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Performance Considerations:</strong> Console environments have
-            different performance characteristics than web browsers. Optimizing rendering,
-            managing component updates efficiently, and ensuring smooth animations
-            required careful attention to React's rendering lifecycle and canvas
-            drawing operations.
-          </p>
-        </li>
-        <li>
-          <p>
-            <strong>Build Process:</strong> Using esbuild for bundling provided fast
-            build times, which was crucial during development. The build process
-            creates optimized bundles suitable for the Switch's resource constraints
-            while maintaining the development experience of modern JavaScript tooling.
-          </p>
-        </li>
-      </ul>
+      <p>
+        I also had to become familiar with the <a
+          href="https://nxjs.n8.io/runtime/concepts/applications"
+          target="_blank">Switch.Application API</a
+        >. It reads the switch's app titles, authors, and box art from the
+        Switch's app catalog. It can be used to iterate over the app catalog and
+        sort for box art like this:
+      </p>
+      <CodeBlock
+        code={`const switchApps = Array.from(Switch.Application).filter(
+  (app) => app.icon
+);`}
+        language="javascript"
+      />
+      <p>
+        When fetched, images are stored as <a
+          href="https://en.wikipedia.org/wiki/Bitmap"
+          target="_blank">bitmap files</a
+        > in order to render them to the canvas. If images can't be fetched, the
+        loop continues to the next app.
+      </p>
+      <CodeBlock
+        code={`for (const app of switchApps) {
+  let img;
+  if (app.icon) {
+    img = await createImageBitmap(new Blob([app.icon]));
+  }
+  if (!img) continue;
+  //...
+}`}
+        language="javascript"
+      />
+      <p>
+        Each image renders exactly 40 pixels away from each other so that the
+        grid can fit exactly 4 apps across the Switch's 1280 pixel width screen.
+        It offers future proofing in case Nintendo decides to release a new
+        model with a different screen size at some point in the future (though I
+        highly doubt it, given the existence of the <a
+          href="https://en.wikipedia.org/wiki/Nintendo_Switch_2"
+          target="_blank">Switch 2</a
+        >)
+      </p>
       <br />
-      <p><strong>Future Improvements</strong></p>
-      <ul>
-        <li>
-          <p>
-            Add support for custom themes and color schemes, allowing users to
-            personalize the interface
-          </p>
-        </li>
-        <li>
-          <p>
-            Implement game search functionality for users with large game
-            libraries
-          </p>
-        </li>
-        <li>
-          <p>
-            Add support for game favorites and recently played games for quick
-            access
-          </p>
-        </li>
-        <li>
-          <p>
-            Explore additional customization options like grid size preferences
-            and icon display modes
-          </p>
-        </li>
-        <li>
-          <p>
-            Optimize rendering performance for very large game libraries with
-            virtualization
-          </p>
-        </li>
-      </ul>
+      <p>
+        Controller inputs are handled by a custom <a
+          href="https://www.w3schools.com/react/react_hooks.asp"
+          target="_blank">hook</a
+        > that listens for button presses and updates the UI accordingly. It listens
+        for both left and right directional inputs on the stick and D-pad, as well
+        as detecting shoulder buttons to quickly swap pages.
+      </p>
+      <br />
+      <p>
+        While the current implementation provides a solid foundation for
+        browsing and launching apps, there's still plenty of room for growth.
+        Features like filtering apps by name or developer, photo album support,
+        and other improvements would make the experience feel more complete.
+        These aren't too complicated to implement, and the React-forward
+        architecture will make it pretty straightforward to add these things in
+        the future if time permits.
+      </p>
     </section>
   </div>
 </CaseStudyLayout>
+
+<style>
+  a {
+    color: var(--header-color);
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+  a:after {
+    bottom: 0;
+    content: "";
+    height: 2px;
+    left: 50%;
+    position: absolute;
+    background: var(--header-color);
+    transition:
+      width 0.2s ease 0s,
+      left 0.2s ease 0s;
+    width: 0;
+  }
+  a:hover:after {
+    width: 100%;
+    left: 0;
+  }
+</style>
