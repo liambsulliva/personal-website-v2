@@ -158,13 +158,18 @@ const { title } = Astro.props;
   }
   .text-link {
     color: var(--header-color);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--header-color);
+    text-underline-offset: 2px;
     font-weight: 600;
     display: inline;
     position: relative;
   }
 
   @media (hover: hover) {
+    .text-link {
+      text-decoration: none;
+    }
     .text-link:after {
       bottom: -2px;
       content: "";

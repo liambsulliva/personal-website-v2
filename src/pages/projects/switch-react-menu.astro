@@ -195,25 +195,33 @@ const sidebarItems = [
 <style>
   a {
     color: var(--header-color);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-color: var(--header-color);
+    text-underline-offset: 2px;
     font-weight: 600;
     display: inline-block;
     position: relative;
   }
-  a:after {
-    bottom: 0;
-    content: "";
-    height: 2px;
-    left: 50%;
-    position: absolute;
-    background: var(--header-color);
-    transition:
-      width 0.2s ease 0s,
-      left 0.2s ease 0s;
-    width: 0;
-  }
-  a:hover:after {
-    width: 100%;
-    left: 0;
+
+  @media (hover: hover) {
+    a {
+      text-decoration: none;
+    }
+    a:after {
+      bottom: 0;
+      content: "";
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: var(--header-color);
+      transition:
+        width 0.2s ease 0s,
+        left 0.2s ease 0s;
+      width: 0;
+    }
+    a:hover:after {
+      width: 100%;
+      left: 0;
+    }
   }
 </style>
