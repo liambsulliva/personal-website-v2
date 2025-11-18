@@ -1,11 +1,12 @@
 ---
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import Book from "../../components/Book.svelte";
+import CodeBlock from "../../components/CodeBlock.astro";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
-  { text: "Retrospective", href: "#retrospective" },
+  { text: "Development", href: "#development" },
 ];
 ---
 
@@ -59,93 +60,178 @@ const sidebarItems = [
       </p>
       <br />
       <p>
+        The navigation system evolved significantly throughout development,
+        ultimately landing on a bookmark-based approach for quick access to key
+        years (1995, 1996, 2001, 2004, 2011, and 2023). The bookmarks are
+        positioned vertically along the right edge of the book and work in both
+        open and closed states.
+      </p>
+    </section>
+    <br />
+    <section id="development">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+      <p>
         Several key challenges emerged during development. Initial attempts with
         Three.js and Threlte proved too complex for the book interface, so I
         pivoted to CSS 3D transforms which offered a simpler, more performant
         solution. The iframe integration introduced strict limitations on
         content presentation and scrolling behavior, demanding creative
-        solutions for content display. The host website's existing overhead
-        required careful optimization, influencing the choice of Svelte and
-        leading to the implementation of strategic content loading patterns.
+        solutions for content display.
       </p>
       <br />
       <p>
-        The navigation system evolved significantly throughout development,
-        ultimately landing on a bookmark-based approach for quick access to key
-        years (1995, 1996, 2001, 2004, 2011, and 2023). The bookmarks are
-        positioned vertically along the right edge of the book and work in both
-        open and closed states. I also added intuitive controls including arrow
-        key navigation and page numbers for easier tracking of position within
-        the book.
+        The 3D book transformation uses CSS transforms for smooth page turns:
       </p>
-      <br />
-      <p>
-        The project underwent several key adaptations to optimize performance
-        and user experience. I implemented delayed content loading and image
-        preloading that fetches content 5 pages ahead, creating seamless
-        transitions between pages while preventing browser overwhelm. I shifted
-        from a responsive design to fixed dimensions (1000 x 750 pixels) to
-        ensure consistent presentation within the iframe, with strategic
-        downsizing at specific breakpoints for smaller screens.
-      </p>
-    </section>
-
-    <section id="retrospective">
-      <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
-      <p>
+      <CodeBlock
+        code={`// Add CSS 3D transform code here`}
+        language="typescript"
+      />
+      <p class="pb-3">
         Developing HERL Through The Years revealed valuable insights about
         creating engaging digital narratives while working within technical
-        constraints.
+        constraints:
       </p>
-      <br />
-      <ul>
-        <li>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="m23 12l-2.44-2.79l.34-3.69l-3.61-.82L15.4 1.5L12 2.96L8.6 1.5L6.71 4.69L3.1 5.5l.34 3.7L1 12l2.44 2.79l-.34 3.7l3.61.82L8.6 22.5l3.4-1.47l3.4 1.46l1.89-3.19l3.61-.82l-.34-3.69zm-12.91 4.72l-3.8-3.81l1.48-1.48l2.32 2.33l5.85-5.87l1.48 1.48z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">
+            Performance Optimization
+          </h4>
           <p>
-            <strong>Performance Optimization:</strong> The shift from Three.js to
-            CSS 3D transforms, coupled with strategic content loading, proved crucial
-            for maintaining smooth animations while handling extensive historical
-            content.
+            The shift from Three.js to CSS 3D transforms, coupled with strategic
+            content loading, proved crucial for maintaining smooth animations
+            while handling extensive historical content. The host website's
+            existing overhead required careful optimization, influencing the
+            choice of Svelte.
           </p>
-        </li>
-        <li>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Navigation Evolution</h4>
           <p>
-            <strong>Navigation Evolution:</strong> The bookmark system emerged as
-            an elegant solution to balance quick access to key moments with the book
-            metaphor, enhancing usability without sacrificing the visual design.
+            The bookmark system emerged as an elegant solution to balance quick
+            access to key moments with the book metaphor, enhancing usability
+            without sacrificing the visual design. Arrow key navigation and page
+            numbers provide easier tracking of position within the book.
           </p>
-        </li>
-        <li>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Fixed vs. Responsive</h4>
           <p>
-            <strong>Fixed vs. Responsive:</strong> The decision to optimize for fixed
-            dimensions, while initially challenging, ultimately led to a more polished
-            and reliable presentation within the iframe context.
+            The decision to optimize for fixed dimensions (1000 x 750 pixels),
+            while initially challenging, ultimately led to a more polished and
+            reliable presentation within the iframe context, with strategic
+            downsizing at specific breakpoints for smaller screens.
           </p>
-        </li>
-      </ul>
+        </div>
+      </div>
       <br />
       <p>
-        <strong>Future Considerations</strong>
+        The content loading system implements delayed loading and image
+        preloading that fetches content 5 pages ahead:
       </p>
-      <ul>
-        <li>
-          <p>
-            Implement offline caching capabilities to improve load times and
-            reduce server requests
-          </p>
-        </li>
-        <li>
-          <p>
-            Explore touch-based interactions for improved tablet and mobile
-            device support
-          </p>
-        </li>
-        <li>
-          <p>
-            Consider creating a standalone version that could serve as a
-            template for other historical documentation projects
-          </p>
-        </li>
-      </ul>
+      <CodeBlock
+        code={`// Add content preloading code here`}
+        language="typescript"
+      />
+      <p>
+        Future enhancements include implementing offline caching capabilities to
+        improve load times, exploring touch-based interactions for improved
+        tablet and mobile device support, and considering a standalone version
+        that could serve as a template for other historical documentation
+        projects.
+      </p>
     </section>
   </div>
 </CaseStudyLayout>
+
+<style>
+  a {
+    color: var(--header-color);
+    text-decoration: underline;
+    text-decoration-color: var(--header-color);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+
+  @media (hover: hover) {
+    a {
+      text-decoration: none;
+    }
+    a:after {
+      bottom: 0;
+      content: "";
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: var(--header-color);
+      transition:
+        width 0.2s ease 0s,
+        left 0.2s ease 0s;
+      width: 0;
+    }
+    a:hover:after {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  :global(.case-study-layout) .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  :global(.case-study-layout) .card {
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+
+  :global(.case-study-layout) .card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    :global(.case-study-layout) .card {
+      width: 100%;
+    }
+  }
+</style>

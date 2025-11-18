@@ -2,11 +2,12 @@
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
 import { pokedraft } from "../../utils/images";
+import CodeBlock from "../../components/CodeBlock.astro";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
-  { text: "Retrospective", href: "#retrospective" },
+  { text: "Development", href: "#development" },
 ];
 ---
 
@@ -66,50 +67,24 @@ const sidebarItems = [
       <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
       <p>
         The project began in June 2024 as a learning exercise. I wanted to
-        master{" "}
-        <a
-          class="text-link"
-          href="https://nextjs.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
+        master <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
           Next.js
-        </a>{" "}
-        and build my first real full-stack application. The initial goal was simple:
-        create a tool for managing teams in a Pokemon draft league (think fantasy
-        football, but with Pokemon).
+        </a> and build my first real full-stack application. The initial goal was
+        simple: create a tool for managing teams in a Pokemon draft league (think
+        fantasy football, but with Pokemon).
       </p>
       <br />
       <p>
         However, as I started building, I realized that existing Pokemon
         teambuilders had significant limitations. Most had terrible UIs, and few
-        allowed you to actually set moves and stats unless you were using{" "}
-        <a
-          class="text-link"
+        allowed you to actually set moves and stats unless you were using <a
           href="https://play.pokemonshowdown.com/"
           target="_blank"
           rel="noreferrer"
         >
           Pokemon Showdown
-        </a>
-        . More importantly, there was no tool that could seamlessly handle both casual
-        and competitive team building in the same interface.
-      </p>
-      <br />
-      <p>
-        This realization transformed the project from a simple draft tool into a
-        comprehensive teambuilder. I spent countless hours implementing the core
-        logic, including stat calculations that{" "}
-        <a
-          class="text-link"
-          href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
-          target="_blank"
-          rel="noreferrer"
-        >
-          mimic the exact math
-        </a>{" "}
-        used in the core Pokemon games, integrating with external APIs for Pokemon
-        data, and building a robust database schema for team management.
+        </a>. More importantly, there was no tool that could seamlessly handle
+        both casual and competitive team building in the same interface.
       </p>
       <br />
       <p>
@@ -120,94 +95,180 @@ const sidebarItems = [
         Smogon data integration, type matchup analysis, and full Pokemon
         Showdown import/export compatibility.
       </p>
-      <br />
+    </section>
+    <br />
+    <section id="development">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
       <p>
-        Several challenges emerged during development. Using{" "}
-        <a
-          class="text-link"
-          href="https://flowbite.com/"
+        This realization transformed the project from a simple draft tool into a
+        comprehensive teambuilder. I spent countless hours implementing the core
+        logic, including stat calculations that <a
+          href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
           target="_blank"
           rel="noreferrer"
         >
-          Flowbite
-        </a>{" "}
-        saved initial development time but locked me into an inflexible ecosystem,
-        requiring creative CSS solutions for mobile adaptation. External Pokemon
-        APIs have limitations that required careful data handling. Managing infinite
-        scroll with 1000+ Pokemon required debounced search, efficient state management,
-        and strategic caching for smooth performance.
-      </p>
-    </section>
-
-    <section id="retrospective">
-      <h3 class="text-2xl font-semibold text-white">Retrospective</h3>
-      <p>
-        Building the Kingdra Pokemon Teambuilder has been an incredible learning
-        experience. What started as a simple draft league tool evolved into a
-        comprehensive full-stack application that addresses real gaps in the
-        Pokemon teambuilder market.
+          mimic the exact math
+        </a> used in the core Pokemon games, integrating with external APIs for Pokemon
+        data, and building a robust database schema for team management.
       </p>
       <br />
-      <ul>
-        <li>
+      <p>
+        The stat calculation system implements the exact formulas used in the
+        Pokemon games:
+      </p>
+      <CodeBlock
+        code={`// Add stat calculation code here`}
+        language="typescript"
+      />
+      <p class="pb-3">
+        Several key challenges emerged during development that required creative
+        solutions:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81a.488.488 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">
+            Component Library Trade-offs
+          </h4>
           <p>
-            <strong>Full-Stack Mastery:</strong> This project taught me the entire
-            development lifecycle, from database design with MongoDB to GraphQL API
-            creation, React state management, and deployment. Working with Clerk
-            for authentication and Apollo Client for data fetching gave me hands-on
-            experience with modern development tools.
+            While <a
+              href="https://flowbite.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Flowbite
+            </a> accelerated initial development, its constraints became apparent
+            during mobile adaptation. This required creative CSS solutions and highlighted
+            the importance of evaluating long-term flexibility when choosing dependencies.
           </p>
-        </li>
-        <li>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">API Integration</h4>
           <p>
-            <strong>Mobile-First Lessons:</strong> The mobile adaptation phase revealed
-            the importance of considering all device types from the start. Converting
-            a desktop-optimized UI to mobile required rethinking navigation, information
-            hierarchy, and interaction patterns. The PWA implementation significantly
-            improved the mobile experience.
+            External Pokemon APIs have limitations that required careful data
+            handling. Managing infinite scroll with 1000+ Pokemon required
+            debounced search, efficient state management, and strategic caching
+            for smooth performance.
           </p>
-        </li>
-        <li>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Mobile Optimization</h4>
           <p>
-            <strong>Component Library Trade-offs:</strong> While Flowbite accelerated
-            initial development, its constraints became apparent during mobile adaptation.
-            This highlighted the importance of evaluating long-term flexibility when
-            choosing dependencies.
+            The mobile adaptation phase revealed the importance of considering
+            all device types from the start. Converting a desktop-optimized UI
+            to mobile required rethinking navigation, information hierarchy, and
+            interaction patterns. The PWA implementation significantly improved
+            the mobile experience.
           </p>
-        </li>
-        <li>
-          <p>
-            <strong>Performance Optimization:</strong> Managing infinite scroll with
-            1000+ Pokemon, implementing debounced search, and optimizing GraphQL
-            queries taught me valuable lessons about performance optimization in
-            React applications.
-          </p>
-        </li>
-      </ul>
+        </div>
+      </div>
       <br />
       <p>
-        <strong>Future Considerations</strong>
+        The Pokemon Showdown import/export system allows seamless transfer of
+        teams:
       </p>
-      <ul>
-        <li>
-          <p>
-            Replacing Flowbite components with custom, device-agnostic solutions
-            to improve flexibility and maintainability
-          </p>
-        </li>
-        <li>
-          <p>
-            Enhanced filtering options by types, stats, and moves for better
-            user experience on mobile devices
-          </p>
-        </li>
-        <li>
-          <p>
-            Moving search to the backend for more sophisticated filtering and
-            better performance as the Pokemon database grows
-          </p>
-        </li>
-      </ul>
+      <CodeBlock
+        code={`// Add import/export code here`}
+        language="typescript"
+      />
+      <p>
+        Future enhancements include replacing Flowbite components with custom,
+        device-agnostic solutions, enhanced filtering options by types, stats,
+        and moves, and moving search to the backend for more sophisticated
+        filtering as the Pokemon database grows.
+      </p>
     </section>
   </div>
 </CaseStudyLayout>
+
+<style>
+  a {
+    color: var(--header-color);
+    text-decoration: underline;
+    text-decoration-color: var(--header-color);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+
+  @media (hover: hover) {
+    a {
+      text-decoration: none;
+    }
+    a:after {
+      bottom: 0;
+      content: "";
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: var(--header-color);
+      transition:
+        width 0.2s ease 0s,
+        left 0.2s ease 0s;
+      width: 0;
+    }
+    a:hover:after {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  :global(.case-study-layout) .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  :global(.case-study-layout) .card {
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+
+  :global(.case-study-layout) .card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    :global(.case-study-layout) .card {
+      width: 100%;
+    }
+  }
+</style>
