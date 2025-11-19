@@ -95,6 +95,7 @@
     transform-style: preserve-3d;
     position: relative;
     margin: 5vmin auto;
+    margin-bottom: 4rem;
     cursor: pointer;
     transition: transform 0.5s ease-out;
     max-width: 75vw;
