@@ -6,7 +6,11 @@ import CodeBlock from "../../components/CodeBlock.astro";
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
-  { text: "Development", href: "#development" },
+  { text: "Week 1-2", href: "#week1-2" },
+  { text: "Week 3-4", href: "#week3-4" },
+  { text: "Week 5-6", href: "#week5-6" },
+  { text: "Week 8-9", href: "#week8-9" },
+  { text: "Week 10-11", href: "#week10-11" },
 ];
 ---
 
@@ -31,11 +35,18 @@ const sidebarItems = [
       <h3 class="text-2xl font-semibold text-white">Overview</h3>
       <div>
         <p>
-          This case study explores the development of an interactive digital
-          book for the Human Engineering Research Labs (HERL). The project aimed
-          to transform their physical historical booklet into an engaging web
-          experience, focusing on creating a performant and visually appealing
-          presentation that maintains the familiar book metaphor.
+          This project is an interactive digital book for the <a
+            href="https://herl.pitt.edu"
+            target="_blank"
+            rel="noreferrer">Human Engineering Research Labs (HERL)</a
+          >, a research lab at the <a
+            href="https://www.pitt.edu"
+            target="_blank"
+            rel="noreferrer">University of Pittsburgh</a
+          >. It transforms their physical historical booklet into an interactive
+          web experience, creating a performant and visually appealing app that
+          maintains the look and feel of a physical book without their physical
+          limitations.
         </p>
       </div>
     </section>
@@ -43,53 +54,244 @@ const sidebarItems = [
     <section id="context">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
       <p>
-        The project began with a clear directive: create a digital version of
-        HERL's historical booklet that would be embedded within their website.
-        Rather than converting the content into a traditional webpage format, I
-        chose to preserve and enhance the book metaphor, creating an interactive
-        3D experience that would feel familiar to users while taking advantage
-        of web technologies.
+        The project began when I learned of Human Engineering Research Labs
+        looking to hire a HTML/CSS intern to complete a semester-long project.
+        Coming off of the heels of <a
+          href="https://www.abroad.pitt.edu/iipberlin"
+          target="_blank"
+          rel="noreferrer">IIP: Berlin</a
+        >, I had gotten a taste of the working world, and wanted to push things
+        a litle further. I got plenty of experience with WordPress over the
+        summer, but I knew that I needed to drill down on my fundamentals. I
+        shot out an application with absolutely no expectations, and was
+        pleasantly surprised when I got the interview.
       </p>
       <br />
       <p>
-        The decision to use Svelte was driven by the project's specific
-        constraints. The final product needed to be embedded in an iframe on
-        HERL's website, which meant performance was crucial. Svelte's
-        compilation to vanilla JavaScript, without the overhead of a virtual
-        DOM, made it an ideal choice for this use case.
+        I met with my HERL contact, Agustin Urioste, and got to work. I expected
+        to enter work with a stringent set of requirements, as is expected of
+        most internships. All they wanted was from me was to transform their 30
+        year history booklet into some sort of web page. They wanted it to
+        include the images and description assets they provided and make it
+        embeddable into an <a
+          href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe"
+          target="_blank"
+          rel="noreferrer">iframe</a
+        >, but the rest was fair game. I was given free reign to take this
+        project nearly wherever I wanted for school credit, and couldn't be more
+        thrilled.
       </p>
       <br />
-      <p>
-        The navigation system evolved significantly throughout development,
-        ultimately landing on a bookmark-based approach for quick access to key
-        years (1995, 1996, 2001, 2004, 2011, and 2023). The bookmarks are
-        positioned vertically along the right edge of the book and work in both
-        open and closed states.
-      </p>
+      <p>So here is a condensed timeline of this cool project, week by week.</p>
     </section>
     <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+    <section id="week1-2">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">
+        Week 1-2: Foundation & Graphics
+      </h3>
       <p>
-        Several key challenges emerged during development. Initial attempts with
-        Three.js and Threlte proved too complex for the book interface, so I
-        pivoted to CSS 3D transforms which offered a simpler, more performant
-        solution. The iframe integration introduced strict limitations on
-        content presentation and scrolling behavior, demanding creative
-        solutions for content display.
+        Development began with planning and storyboarding. I wanted to create a
+        skeumorphic layout that preserved the visual metaphor of a physical book
+        rather than retrofitting the book into a web format. Needing to embed
+        everything into an iframe introduced several constraints:
       </p>
       <br />
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.11 0-2 .9-2 2m12 4c0 1.66-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3s3 1.34 3 3M6 17c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1H6z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">
+            Readability in Smaller Windows
+          </h4>
+          <p>
+            Content needed to be readable in a small window without overwhelming
+            users. This meant careful consideration of font sizes, spacing, and
+            layout density to ensure the interface remained usable even at
+            constrained viewport dimensions.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8m-5.5-2.5l7.51-3.49L17.5 6.5L9.99 9.99z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Avoiding Scrolling</h4>
+          <p>
+            Scrolling had to be avoided to maintain the visual metaphor of a
+            physical book and provide a better user experience. In the context
+            of an iframe, scrolling feels unintuitive and disorienting, so all
+            content needed to fit within the visible area of the screen.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1a10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49l-8.49 5.66a2 2 0 0 0 0 2.83"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">
+            Performance Criticality
+          </h4>
+          <p>
+            Despite being embedded in an iframe, the app needed to run on a
+            separate page on a fairly antiquated server, so it needed to run as
+            quickly and smoothly as possible. This required careful optimization
+            of assets and code execution to keep it from slowing down the
+            server.
+          </p>
+        </div>
+      </div>
+      <br />
       <p>
-        The 3D book transformation uses CSS transforms for smooth page turns:
+        To address the performance concerns, I chose Svelte over React. While
+        React is an excellent framework, it relies on a <a
+          href="https://legacy.reactjs.org/docs/faq-internals.html"
+          target="_blank"
+          rel="noreferrer">Virtual DOM</a
+        > that must be shipped with the JavaScript. Svelte compiles down to <a
+          href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_getting_started"
+          target="_blank"
+          rel="noreferrer">native JavaScript</a
+        > at build time, without any additional layers of abstraction, making it
+        ideal for an embed.
+      </p>
+      <br />
+      <p>In essence, three key decisions shaped the initial weeks:</p>
+      <br />
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 1.999c1.437 1.437 2.562 4.033 2.845 6.85a11.8 11.8 0 0 0-2.845-1.49zm1.488 14.141A15.6 15.6 0 0 1 12 18.256a15.6 15.6 0 0 1-1.488-2.116l1.488.015zm-1.488-8.79c-.3-.083-.601-.16-.907-.232A15.6 15.6 0 0 1 12 5.001c.471 0 .931.041 1.38.117a12.3 12.3 0 0 0-.907.232z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Framework Selection</h4>
+          <p>
+            Svelte's compilation to vanilla JavaScript without Virtual DOM
+            overhead made it perfect for iframe embedding. It lacks React's
+            large community but delivers exceptional performance for interactive
+            projects with minimal bundle size.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81a.488.488 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Graphics Pivot</h4>
+          <p>
+            Initial attempts with Three.js and Threlte worked but proved too
+            complex for the 3-month timeline. Threlte also didn't offer vertex
+            animation options. The pivot to CSS 3D transforms with
+            <code>transform-style: preserve-3d</code> created convincing 3D animations
+            that ran well in modern browsers, and were much more likely to play nice
+            with the server.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M14.23 12.004a2.23 2.23 0 0 1-2.23 2.23a2.23 2.23 0 0 1-2.23-2.23a2.23 2.23 0 0 1 2.23-2.23a2.23 2.23 0 0 1 2.23 2.23m-9.94 0a9.77 9.77 0 0 1 9.74-9.77v2.47l4.37-3.5L14.03.69v2.47a12.27 12.27 0 0 0-12.24 12.24a12.27 12.27 0 0 0 12.24 12.24a12.27 12.27 0 0 0 12.24-12.24h-2.47a9.77 9.77 0 0 1-9.77 9.77a9.77 9.77 0 0 1-9.74-9.77"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Animation System</h4>
+          <p>
+            Week 2 brought page navigation with arrows and keyboard controls,
+            plus the ability to flip the book when closed. Moving animations
+            from CSS into JavaScript/TypeScript was a bit of a pain, but
+            necessary for flexibility, requiring careful handling of
+            asynchronous execution.
+          </p>
+        </div>
+      </div>
+      <br />
+      <p>
+        Using TypeScript, I created a "holographic" effect that makes the book
+        feel tangible as the mouse slides across its surface. You can see it in
+        the Svelte demo displayed at the top of the page. Here's the code
+        responsible for that effect:
       </p>
       <CodeBlock
-        code={`// Add CSS 3D transform code here`}
+        code={`// Using CSS transform-style: preserve-3d for 3D animations
+const bookElement = document.querySelector('.book');
+
+// Create holographic effect that makes the book feel tangible
+bookElement.style.transformStyle = 'preserve-3d';
+bookElement.style.transform = \`
+  perspective(1000px) 
+  rotateY(\${angle}deg) 
+  rotateX(\${tilt}deg)
+\`;
+
+// Animate page turns with TypeScript
+async function animatePageTurn(pageElement: HTMLElement) {
+  // JS runs asynchronously - must account for execution time
+  await delay(100);
+  pageElement.style.transform = 'rotateY(-180deg)';
+  await delay(800); // Wait for CSS transition to complete
+}`}
         language="typescript"
       />
+    </section>
+
+    <section id="week3-4">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">
+        Week 3-4: Responsiveness & Content
+      </h3>
+      <p>
+        Week 3 focused on making the book responsive for different screen sizes.
+        Since this would be displayed in an iframe, it was important that it
+        rendered well on smaller screens. The content needed to stay
+        consistently legible for both screen widths down to 450px and screen
+        heights down to 500px, since couldn't be sure how small the frame would
+        actually be rendered. Week 4 brought the actual content being added to
+        the page, with all milestones laid out year by year.
+      </p>
+      <br />
       <p class="pb-3">
-        Developing HERL Through The Years revealed valuable insights about
-        creating engaging digital narratives while working within technical
-        constraints:
+        The main challenges during this phase involved balancing content density
+        with readability:
       </p>
       <div class="card-container">
         <div class="card">
@@ -101,18 +303,121 @@ const sidebarItems = [
             viewBox="0 0 24 24"
             ><path
               fill="white"
-              d="m23 12l-2.44-2.79l.34-3.69l-3.61-.82L15.4 1.5L12 2.96L8.6 1.5L6.71 4.69L3.1 5.5l.34 3.7L1 12l2.44 2.79l-.34 3.7l3.61.82L8.6 22.5l3.4-1.47l3.4 1.46l1.89-3.19l3.61-.82l-.34-3.69zm-12.91 4.72l-3.8-3.81l1.48-1.48l2.32 2.33l5.85-5.87l1.48 1.48z"
+              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">
-            Performance Optimization
-          </h4>
+          <h4 class="text-xl font-medium text-white">Responsive Design</h4>
           <p>
-            The shift from Three.js to CSS 3D transforms, coupled with strategic
-            content loading, proved crucial for maintaining smooth animations
-            while handling extensive historical content. The host website's
-            existing overhead required careful optimization, influencing the
-            choice of Svelte.
+            The book and content responsively adjust font size based on screen
+            width and height. The content window doesn't overflow when the
+            screen is small, maintaining legibility across different screen
+            sizes.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8zm4 18H6V4h7v5h5zM8 15.01l1.41 1.41L11 14.84V19h2v-4.16l1.59 1.59L16 15.01L12.01 11z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Content Implementation</h4>
+          <p>
+            Milestones were fully imported with associated images. The layout
+            required scrolling initially due to the amount of content. A cursive
+            text texture from Adobe Stock was added to lean into the skeumorphic
+            design, though it introduced some performance issues.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3m0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08c1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">UX Challenges</h4>
+          <p>
+            Displaying so much content without the book getting in the way
+            became a significant UX challenge. The scrollable layout was a
+            temporary solution, with plans to address this through creative
+            resizing or expandable milestones.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="week5-6">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">
+        Week 5-6: Polish & Performance
+      </h3>
+      <p>
+        Week 5 introduced a bunch of quality-of-life features. A lightbox view
+        for enlarging photos on smaller screens, description shortening with
+        expand/collapse functionality, and a bunch of other minor improvements.
+        Week 6 was primarily bug fixing, addressing the persistent image
+        rendering issue and optimizing performance issues related to page
+        turning.
+      </p>
+      <br />
+      <p>
+        The description truncation system was pretty straightforward to
+        implement. It just used a simple utility function to truncate the
+        description to a given length:
+      </p>
+      <CodeBlock
+        code={`const getTruncatedDescription = (description: string, maxLength: number) => {
+  if (description.length <= maxLength) {
+    return description;
+  }
+
+  const truncated = description.substring(0, maxLength - 3);
+  return truncated + "...";
+};
+
+// Usage with 100 character limit
+let truncateDescription = getTruncatedDescription(
+  milestone.description,
+  100,
+);`}
+        language="typescript"
+      />
+      <p class="pb-3">
+        The lightbox implementation required using <code
+          >npm i --legacy-peer-deps</code
+        > to work around Svelte 5 compatibility issues. This allowed package conflicts
+        to run unchecked, requiring careful monitoring for potential errors. Key
+        improvements during this phase:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M21 17H7V3h14m0-2H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2M3 5H1v16c0 1.1.9 2 2 2h16v-2H3zm11-1l-3.5 4.5l-2.5-3L5 14h12z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Lightbox View</h4>
+          <p>
+            Images can now be enlarged on smaller screens, improving
+            accessibility. The lightbox package required legacy peer
+            dependencies due to Svelte 5 compatibility, but provides essential
+            functionality for viewing detailed images.
           </p>
         </div>
         <div class="card">
@@ -127,12 +432,11 @@ const sidebarItems = [
               d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">Navigation Evolution</h4>
+          <h4 class="text-xl font-medium text-white">Content Positioning</h4>
           <p>
-            The bookmark system emerged as an elegant solution to balance quick
-            access to key moments with the book metaphor, enhancing usability
-            without sacrificing the visual design. Arrow key navigation and page
-            numbers provide easier tracking of position within the book.
+            Content was centered on the Y-axis, eliminating the need for
+            scrolling in most cases. This was crucial for the iframe embedding
+            context where scrolling feels unintuitive and disorienting to users.
           </p>
         </div>
         <div class="card">
@@ -144,33 +448,240 @@ const sidebarItems = [
             viewBox="0 0 24 24"
             ><path
               fill="white"
-              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
+              d="m23 12l-2.44-2.79l.34-3.69l-3.61-.82L15.4 1.5L12 2.96L8.6 1.5L6.71 4.69L3.1 5.5l.34 3.7L1 12l2.44 2.79l-.34 3.7l3.61.82L8.6 22.5l3.4-1.47l3.4 1.46l1.89-3.19l3.61-.82l-.34-3.69zm-12.91 4.72l-3.8-3.81l1.48-1.48l2.32 2.33l5.85-5.87l1.48 1.48z"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">Fixed vs. Responsive</h4>
+          <h4 class="text-xl font-medium text-white">Performance Fixes</h4>
           <p>
-            The decision to optimize for fixed dimensions (1000 x 750 pixels),
-            while initially challenging, ultimately led to a more polished and
-            reliable presentation within the iframe context, with strategic
-            downsizing at specific breakpoints for smaller screens.
+            Fixed persistent bugs with images not rendering in deployment and
+            performance issues related to page turning. The fake text texture
+            optimization and improved page transition handling made the book
+            flip smoothly regardless of content density.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="week8-9">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">
+        Week 8-9: The Pivot & Optimization
+      </h3>
+      <p>
+        After Week 7's mental health break, I made a critical decision: abandon
+        responsive design for multiple screen sizes. Since the app would be
+        displayed in a fixed iframe anyway, I settled on 1000 x 750 pixels
+        following a 4:3 aspect ratio. This gave the book enough height while
+        maintaining landscape orientation, with strategic downsizing at
+        breakpoints for smaller devices.
+      </p>
+      <br />
+      <p class="pb-3">
+        This pivot enabled massive improvements. Each year now gets its own
+        page, blowing up the book to 30+ pages. Scrolling was entirely removed,
+        creating a more seamless presentation that fits better with the book
+        metaphor. Several major changes accompanied this shift:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81a.488.488 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Fixed Dimensions</h4>
+          <p>
+            Abandoning multi-size responsiveness for a fixed 1000 x 750px
+            dimension was a strategic concession. This allowed focus on content
+            quality over responsive complexity, ensuring users wouldn't need to
+            scroll in the iframe context.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89l.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9m-1 5v5l4.25 2.52l.77-1.28l-3.52-2.09V8z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Content Transitions</h4>
+          <p>
+            Week 9 revamped content loading with delays to prevent browser
+            overwhelm. Content, modals, and icons fade smoothly on hide,
+            creating a more polished experience. Years were styled with colors
+            from the booklet and distinct borders.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M21 17H7V3h14m0-2H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2M3 5H1v16c0 1.1.9 2 2 2h16v-2H3zm11-1l-3.5 4.5l-2.5-3L5 14h12z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Image Preloading</h4>
+          <p>
+            Images preload 5 pages in advance using Svelte stores, creating
+            seamless page transitions even when jumping multiple pages. Grey
+            placeholders flash if the server responds slowly, providing better
+            UX than vanilla alt tags.
           </p>
         </div>
       </div>
       <br />
       <p>
-        The content loading system implements delayed loading and image
-        preloading that fetches content 5 pages ahead:
+        The image preloading system uses Svelte stores to maintain state across
+        page transitions:
       </p>
       <CodeBlock
-        code={`// Add content preloading code here`}
+        code={`// Svelte store for managing preloaded images
+import { writable } from 'svelte/store';
+
+interface ImageCache {
+  [pageIndex: number]: string;
+}
+
+export const imageCache = writable<ImageCache>({});
+
+// Preload images 5 pages ahead
+async function preloadImages(currentPage: number) {
+  const pagesToPreload = 5;
+  for (let i = 0; i <= pagesToPreload; i++) {
+    const pageIndex = currentPage + i;
+    const imageUrl = await fetchImageForPage(pageIndex);
+    imageCache.update(cache => ({
+      ...cache,
+      [pageIndex]: imageUrl
+    }));
+  }
+}`}
+        language="typescript"
+      />
+    </section>
+
+    <section id="week10-11">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">
+        Week 10-11: Final Polish
+      </h3>
+      <p>
+        The final weeks brought the bookmark navigation system and finishing
+        touches. Bookmarks were added at strategic years (1995, 1996, 2001,
+        2004, 2011, 2023) positioned vertically along the right edge of the
+        book. They work in both closed and open states, dispatching custom
+        events to either open the book directly to a target page or navigate if
+        already open.
+      </p>
+      <br />
+      <p class="pb-3">
+        The bookmark system directly addressed the navigation concerns from
+        having 30+ pages. Users can jump to major milestones in HERL's timeline
+        without flipping through pages sequentially. The final week added polish
+        that elevated the entire experience:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M19 2H9c-1.1 0-2 .9-2 2v5.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5V4h9v16H9.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V20c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Bookmark Navigation</h4>
+          <p>
+            Bookmarks are positioned vertically along the right edge, featuring
+            dark tab-like styling with vertical text orientation. They grow
+            larger when the book opens (width: 2.5rem → 3.5rem) with smooth
+            state transitions and active styling to indicate current section.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89l.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7s-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9m-1 5v5l4.25 2.52l.77-1.28l-3.52-2.09V8z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Book Flip Animation</h4>
+          <p>
+            The book now flips to its backside when clicking past the last page.
+            Handling multiple booleans tracking state was challenging, but the
+            "backward closing" animation adequately conveys the interaction
+            despite the complexity.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m5 11h-4v4h-2v-4H7v-2h4V7h2v4h4z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Quality of Life</h4>
+          <p>
+            Page numbers on the bottom right help track position. The "Skip
+            Ahead!" prompt with a curved arrow svg guides users to bookmarks,
+            avoiding Chromium's emoji substitution. Device width prompts appear
+            below 800px, guiding users to switch devices rather than rotate.
+          </p>
+        </div>
+      </div>
+      <br />
+      <p>
+        The tutorial prompt positioning uses clever TypeScript to get the book's
+        bounding box without inheriting its 3D transformations:
+      </p>
+      <CodeBlock
+        code={`// SkipAheadPrompt.svelte component
+const bookElement = document.querySelector('.book');
+const bookRect = bookElement.getBoundingClientRect();
+
+// Position relative to book but outside transform context
+const promptStyle = {
+  position: 'absolute',
+  top: bookRect.bottom + 20 + 'px',
+  left: bookRect.right - 100 + 'px'
+};
+
+// This prevents the prompt from inheriting the book's
+// complex 3D transformations during animations`}
         language="typescript"
       />
       <p>
-        Future enhancements include implementing offline caching capabilities to
-        improve load times, exploring touch-based interactions for improved
-        tablet and mobile device support, and considering a standalone version
-        that could serve as a template for other historical documentation
-        projects.
+        The final product successfully transformed HERL's physical booklet into
+        an engaging digital experience. The fixed dimensions, bookmark
+        navigation, image preloading, and smooth animations create a performant,
+        skeumorphic interface that maintains the familiar book metaphor while
+        leveraging modern web technologies.
       </p>
     </section>
   </div>
@@ -206,6 +717,23 @@ const sidebarItems = [
     a:hover:after {
       width: 100%;
       left: 0;
+    }
+  }
+
+  code {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: "Martian Mono", "Courier New", Courier, monospace;
+    font-size: 0.875rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    border: 1px solid #333;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    code {
+      font-size: 0.75rem;
     }
   }
 
