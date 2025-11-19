@@ -85,6 +85,34 @@ function getToolIcon(toolName: string) {
   return iconMap[normalizedName] || null;
 }
 
+function getToolUrl(toolName: string) {
+  const normalizedName = toolName.toLowerCase().replace(/[.\s-]/g, "");
+  const urlMap: Record<string, string> = {
+    react: "https://react.dev/",
+    typescript: "https://www.typescriptlang.org/",
+    nextjs: "https://nextjs.org/",
+    nodejs: "https://nodejs.org/",
+    tailwind: "https://tailwindcss.com/",
+    tailwindcss: "https://tailwindcss.com/",
+    astro: "https://astro.build/",
+    svelte: "https://svelte.dev/",
+    mongodb: "https://www.mongodb.com/",
+    figma: "https://www.figma.com/",
+    photoshop: "https://www.adobe.com/products/photoshop.html",
+    express: "https://expressjs.com/",
+    ejs: "https://ejs.co/",
+    openaiapi: "https://openai.com/api/",
+    openai: "https://openai.com/api/",
+    css3d: "https://www.w3schools.com/css/css3_3dtransforms.asp",
+    vite: "https://vitejs.dev/",
+    nx: "https://nxjs.n8.io/",
+    nxjs: "https://nxjs.n8.io/",
+    reacttela: "https://github.com/TooTallNate/react-tela",
+    esbuild: "https://esbuild.github.io/",
+  };
+  return urlMap[normalizedName] || undefined;
+}
+
 // Determine which links to show based on isCaseStudy flag
 const displayDemoLink = isCaseStudy ? undefined : demoLink;
 const displayGithubLink = isCaseStudy ? undefined : githubLink;
@@ -118,8 +146,9 @@ const displayGithubLink = isCaseStudy ? undefined : githubLink;
             {
               tools.map((tool) => {
                 const IconComponent = getToolIcon(tool);
+                const toolUrl = getToolUrl(tool);
                 return (
-                  <Badge text={tool}>
+                  <Badge text={tool} href={toolUrl}>
                     {IconComponent ? (
                       <IconComponent />
                     ) : (

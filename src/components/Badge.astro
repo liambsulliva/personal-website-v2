@@ -1,19 +1,27 @@
 ---
 interface Props {
   text: string;
+  href?: string;
 }
 
-const { text }: Props = Astro.props;
+const { text, href }: Props = Astro.props;
+const Component = href ? "a" : "div";
 ---
 
-<div class="badge">
+<Component
+  class="badge"
+  href={href}
+  target={href ? "_blank" : undefined}
+  rel={href ? "noopener noreferrer" : undefined}
+  aria-label={href ? `Learn more about ${text}` : undefined}
+>
   <div class="badge-icon">
     <slot />
   </div>
   <div class="badge-text">
     {text}
   </div>
-</div>
+</Component>
 
 <style>
   .badge {
@@ -25,6 +33,10 @@ const { text }: Props = Astro.props;
     margin-bottom: 0;
     border-radius: 0.5rem;
     background-color: #1f2029;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    position: relative;
   }
 
   @media (max-width: 850px) {
@@ -33,12 +45,23 @@ const { text }: Props = Astro.props;
     }
   }
 
+  /* Smooth fade on hover */
+  a.badge:hover {
+    background-color: #252530;
+  }
+
+  /* Squash animation on click */
+  a.badge:active {
+    transform: scale(0.95);
+  }
+
   .badge-icon {
     margin-right: 0.5rem;
     height: 32px;
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    transition: all 0.1s ease;
   }
 
   .badge-icon :global(svg) {
