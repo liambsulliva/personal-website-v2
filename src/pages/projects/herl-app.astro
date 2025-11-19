@@ -178,73 +178,23 @@ const sidebarItems = [
         ideal for an embed.
       </p>
       <br />
-      <p>In essence, three key decisions shaped the initial weeks:</p>
+      <p>
+        Initially, I tried using Three.js and Threlte, but they ended up being
+        too complex for the 3-month timeline. The pivot to CSS's <code
+          >transform-style: preserve-3d</code
+        > created convincing enough 3D animations that I felt comfortable using them.
+        They not only ran better in modern browsers, but were much more likely to
+        play nice with the server, making their relative inflexibility worth the
+        trade-off.
+      </p>
       <br />
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M12 1.999c1.437 1.437 2.562 4.033 2.845 6.85a11.8 11.8 0 0 0-2.845-1.49zm1.488 14.141A15.6 15.6 0 0 1 12 18.256a15.6 15.6 0 0 1-1.488-2.116l1.488.015zm-1.488-8.79c-.3-.083-.601-.16-.907-.232A15.6 15.6 0 0 1 12 5.001c.471 0 .931.041 1.38.117a12.3 12.3 0 0 0-.907.232z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Framework Selection</h4>
-          <p>
-            Svelte's compilation to vanilla JavaScript without Virtual DOM
-            overhead made it perfect for iframe embedding. It lacks React's
-            large community but delivers exceptional performance for interactive
-            projects with minimal bundle size.
-          </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="8rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81a.488.488 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Graphics Pivot</h4>
-          <p>
-            Initial attempts with Three.js and Threlte worked but proved too
-            complex for the 3-month timeline. Threlte also didn't offer vertex
-            animation options. The pivot to CSS 3D transforms with
-            <code>transform-style: preserve-3d</code> created convincing 3D animations
-            that ran well in modern browsers, and were much more likely to play nice
-            with the server.
-          </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M14.23 12.004a2.23 2.23 0 0 1-2.23 2.23a2.23 2.23 0 0 1-2.23-2.23a2.23 2.23 0 0 1 2.23-2.23a2.23 2.23 0 0 1 2.23 2.23m-9.94 0a9.77 9.77 0 0 1 9.74-9.77v2.47l4.37-3.5L14.03.69v2.47a12.27 12.27 0 0 0-12.24 12.24a12.27 12.27 0 0 0 12.24 12.24a12.27 12.27 0 0 0 12.24-12.24h-2.47a9.77 9.77 0 0 1-9.77 9.77a9.77 9.77 0 0 1-9.74-9.77"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Animation System</h4>
-          <p>
-            Week 2 brought page navigation with arrows and keyboard controls,
-            plus the ability to flip the book when closed. Moving animations
-            from CSS into JavaScript/TypeScript was a bit of a pain, but
-            necessary for flexibility, requiring careful handling of
-            asynchronous execution.
-          </p>
-        </div>
-      </div>
+      <p>
+        Week 2 brought page navigation with arrows and keyboard controls, plus
+        the ability to flip the book when closed. Though handling animations
+        through JavaScript/TypeScript was slow relative to CSS, it was worth it
+        for the flexibility it offered. There was simply too many potential app
+        states to handle with the limitations of CSS alone.
+      </p>
       <br />
       <p>
         Using TypeScript, I created a "holographic" effect that makes the book
@@ -253,28 +203,20 @@ const sidebarItems = [
         responsible for that effect:
       </p>
       <CodeBlock
-        code={`// Using CSS transform-style: preserve-3d for 3D animations
-const bookElement = document.querySelector('.book');
-
-// Create holographic effect that makes the book feel tangible
-bookElement.style.transformStyle = 'preserve-3d';
-bookElement.style.transform = \`
-  perspective(1000px) 
-  rotateY(\${angle}deg) 
-  rotateX(\${tilt}deg)
-\`;
-
-// Animate page turns with TypeScript
-async function animatePageTurn(pageElement: HTMLElement) {
-  // JS runs asynchronously - must account for execution time
-  await delay(100);
-  pageElement.style.transform = 'rotateY(-180deg)';
-  await delay(800); // Wait for CSS transition to complete
+        code={`function handleMouseMove(event: MouseEvent) {
+      if (!isHovering || isOpen) return; // Don't animate if the mouse is not hovering or the book is open
+      const rect = book.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      tiltX = ((y - centerY) / centerY) * 10;
+      tiltY = ((centerX - x) / centerX) * 10;
 }`}
         language="typescript"
       />
     </section>
-
+    <br />
     <section id="week3-4">
       <h3 class="!mb-3 text-2xl font-semibold text-white">
         Week 3-4: Responsiveness & Content
@@ -284,9 +226,9 @@ async function animatePageTurn(pageElement: HTMLElement) {
         Since this would be displayed in an iframe, it was important that it
         rendered well on smaller screens. The content needed to stay
         consistently legible for both screen widths down to 450px and screen
-        heights down to 500px, since couldn't be sure how small the frame would
-        actually be rendered. Week 4 brought the actual content being added to
-        the page, with all milestones laid out year by year.
+        heights down to 500px, since I couldn't be sure how small the frame
+        would actually be rendered. Week 4 brought the actual content being
+        added to the page, with all milestones laid out year by year.
       </p>
       <br />
       <p class="pb-3">
@@ -308,10 +250,10 @@ async function animatePageTurn(pageElement: HTMLElement) {
           >
           <h4 class="text-xl font-medium text-white">Responsive Design</h4>
           <p>
-            The book and content responsively adjust font size based on screen
-            width and height. The content window doesn't overflow when the
-            screen is small, maintaining legibility across different screen
-            sizes.
+            The book and content were made responsive by adjusting font size
+            based on screen width and height. The content window doesn't
+            overflow when the screen is small, maintaining legibility across
+            different screen sizes.
           </p>
         </div>
         <div class="card">
@@ -346,17 +288,17 @@ async function animatePageTurn(pageElement: HTMLElement) {
               d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3s-3-1.34-3-3s1.34-3 3-3m0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08c1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">UX Challenges</h4>
+          <h4 class="text-xl font-medium text-white">UX Issues</h4>
           <p>
             Displaying so much content without the book getting in the way
-            became a significant UX challenge. The scrollable layout was a
-            temporary solution, with plans to address this through creative
-            resizing or expandable milestones.
+            became a significant UX challenge throughout the course of the
+            project. The scrollable layout was a temporary solution, with plans
+            to address this through creative resizing or expandable milestones.
           </p>
         </div>
       </div>
     </section>
-
+    <br />
     <section id="week5-6">
       <h3 class="!mb-3 text-2xl font-semibold text-white">
         Week 5-6: Polish & Performance
@@ -373,31 +315,31 @@ async function animatePageTurn(pageElement: HTMLElement) {
       <p>
         The description truncation system was pretty straightforward to
         implement. It just used a simple utility function to truncate the
-        description to a given length:
+        description to a given length within the component:
       </p>
       <CodeBlock
-        code={`const getTruncatedDescription = (description: string, maxLength: number) => {
-  if (description.length <= maxLength) {
-    return description;
-  }
+        code={`<script lang="ts">
+const truncate = (description: string, maxLength: number) => {
+    if (description.length <= maxLength) {
+      return description;
+    }
+    const truncated = description.substring(0, maxLength - 3);
+    return truncated + "...";
+  };
+</script>
 
-  const truncated = description.substring(0, maxLength - 3);
-  return truncated + "...";
-};
-
-// Usage with 100 character limit
-let truncateDescription = getTruncatedDescription(
-  milestone.description,
-  100,
-);`}
-        language="typescript"
+<button on:click={openModal} style="cursor: pointer;" aria-label="description">
+  {truncate(content, length)}
+</button>`}
+        language="svelte"
       />
       <p class="pb-3">
-        The lightbox implementation required using <code
-          >npm i --legacy-peer-deps</code
-        > to work around Svelte 5 compatibility issues. This allowed package conflicts
-        to run unchecked, requiring careful monitoring for potential errors. Key
-        improvements during this phase:
+        The lightbox required me to use <code>npm i --legacy-peer-deps</code> to
+        work around compatibility issues. This allowed package conflicts to run completely
+        unchecked, meaning that I had to keep an eye on the console for potential
+        errors going forward. I couldn't guarantee that all of my packages would
+        work together moving forward. Here are some of the big improvements that
+        were made:
       </p>
       <div class="card-container">
         <div class="card">
@@ -412,12 +354,11 @@ let truncateDescription = getTruncatedDescription(
               d="M21 17H7V3h14m0-2H7c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2M3 5H1v16c0 1.1.9 2 2 2h16v-2H3zm11-1l-3.5 4.5l-2.5-3L5 14h12z"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">Lightbox View</h4>
+          <h4 class="text-xl font-medium text-white">The New Lightbox View</h4>
           <p>
-            Images can now be enlarged on smaller screens, improving
-            accessibility. The lightbox package required legacy peer
-            dependencies due to Svelte 5 compatibility, but provides essential
-            functionality for viewing detailed images.
+            Images could now be enlarged on smaller screens, improving UX for
+            users on smaller screens, and allowing the pictures to be displayed
+            smaller to leave room for the description text.
           </p>
         </div>
         <div class="card">
@@ -434,9 +375,9 @@ let truncateDescription = getTruncatedDescription(
           >
           <h4 class="text-xl font-medium text-white">Content Positioning</h4>
           <p>
-            Content was centered on the Y-axis, eliminating the need for
-            scrolling in most cases. This was crucial for the iframe embedding
-            context where scrolling feels unintuitive and disorienting to users.
+            The app content was centered on the Y-axis, eliminating the need for
+            scrolling in (most) cases. This was crucial for the iframe embedding
+            to work as expected.
           </p>
         </div>
         <div class="card">
@@ -453,31 +394,32 @@ let truncateDescription = getTruncatedDescription(
           >
           <h4 class="text-xl font-medium text-white">Performance Fixes</h4>
           <p>
-            Fixed persistent bugs with images not rendering in deployment and
-            performance issues related to page turning. The fake text texture
-            optimization and improved page transition handling made the book
+            Fixed some random bugs with images not rendering after going through
+            the deployment pipeline, and addressed some issues related to page
+            turning. I also optimized the "fake text" texture to make the book
             flip smoothly regardless of content density.
           </p>
         </div>
       </div>
     </section>
-
+    <br />
     <section id="week8-9">
       <h3 class="!mb-3 text-2xl font-semibold text-white">
         Week 8-9: The Pivot & Optimization
       </h3>
       <p>
-        After Week 7's mental health break, I made a critical decision: abandon
-        responsive design for multiple screen sizes. Since the app would be
-        displayed in a fixed iframe anyway, I settled on 1000 x 750 pixels
-        following a 4:3 aspect ratio. This gave the book enough height while
-        maintaining landscape orientation, with strategic downsizing at
-        breakpoints for smaller devices.
+        Week 7 was a mental health break. I just needed some time off after
+        going full-tilt throughout the whole semester. After which, I made the
+        critical decision to abandon responsive design for multiple screen
+        sizes. Since the app would be displayed in a fixed iframe anyway, I
+        settled on 1000 x 750 pixels following a 4:3 aspect ratio. This gave the
+        book enough height while maintaining landscape orientation, with
+        strategic downsizing at breakpoints for smaller devices.
       </p>
       <br />
       <p class="pb-3">
-        This pivot enabled massive improvements. Each year now gets its own
-        page, blowing up the book to 30+ pages. Scrolling was entirely removed,
+        This pivot enabled massive improvements. Each year now got its own page,
+        blowing up the book to 30+ pages. Scrolling was entirely removed,
         creating a more seamless presentation that fits better with the book
         metaphor. Several major changes accompanied this shift:
       </p>
@@ -497,9 +439,8 @@ let truncateDescription = getTruncatedDescription(
           <h4 class="text-xl font-medium text-white">Fixed Dimensions</h4>
           <p>
             Abandoning multi-size responsiveness for a fixed 1000 x 750px
-            dimension was a strategic concession. This allowed focus on content
-            quality over responsive complexity, ensuring users wouldn't need to
-            scroll in the iframe context.
+            dimension was a worthwhile concession. This allowed focus on content
+            quality over how responsive the app could be.
           </p>
         </div>
         <div class="card">
@@ -518,8 +459,8 @@ let truncateDescription = getTruncatedDescription(
           <p>
             Week 9 revamped content loading with delays to prevent browser
             overwhelm. Content, modals, and icons fade smoothly on hide,
-            creating a more polished experience. Years were styled with colors
-            from the booklet and distinct borders.
+            creating a more polished experience. Years were now styled with
+            colors matching the initial booklet design.
           </p>
         </div>
         <div class="card">
@@ -536,62 +477,51 @@ let truncateDescription = getTruncatedDescription(
           >
           <h4 class="text-xl font-medium text-white">Image Preloading</h4>
           <p>
-            Images preload 5 pages in advance using Svelte stores, creating
-            seamless page transitions even when jumping multiple pages. Grey
-            placeholders flash if the server responds slowly, providing better
-            UX than vanilla alt tags.
+            Images now preloaded 5 pages in advance using <a
+              href="https://svelte.dev/docs/svelte/stores"
+              target="_blank">Svelte Stores</a
+            >, creating seamless page transitions even when jumping multiple
+            pages. Grey placeholders flash if the server responds slowly,
+            providing better UX than vanilla alt tags.
           </p>
         </div>
       </div>
       <br />
       <p>
-        The image preloading system uses Svelte stores to maintain state across
-        page transitions:
+        Here's an example of how the image preloading was done in code (at a
+        high level):
       </p>
       <CodeBlock
-        code={`// Svelte store for managing preloaded images
-import { writable } from 'svelte/store';
-
-interface ImageCache {
-  [pageIndex: number]: string;
-}
-
-export const imageCache = writable<ImageCache>({});
-
-// Preload images 5 pages ahead
-async function preloadImages(currentPage: number) {
-  const pagesToPreload = 5;
-  for (let i = 0; i <= pagesToPreload; i++) {
-    const pageIndex = currentPage + i;
-    const imageUrl = await fetchImageForPage(pageIndex);
-    imageCache.update(cache => ({
-      ...cache,
-      [pageIndex]: imageUrl
-    }));
+        code={`// Runs for the next five pages after the current page
+async function preloadPageImages(pageNum: number) {
+  if (pageComponents[pageNum]) {
+    const images = await getComponentImages(pageComponents[pageNum]);
+    await Promise.all(images.map((src) => imageLoader.preloadImage(src)));
   }
 }`}
         language="typescript"
       />
     </section>
-
+    <br />
     <section id="week10-11">
       <h3 class="!mb-3 text-2xl font-semibold text-white">
         Week 10-11: Final Polish
       </h3>
       <p>
-        The final weeks brought the bookmark navigation system and finishing
-        touches. Bookmarks were added at strategic years (1995, 1996, 2001,
-        2004, 2011, 2023) positioned vertically along the right edge of the
-        book. They work in both closed and open states, dispatching custom
-        events to either open the book directly to a target page or navigate if
-        already open.
+        The final weeks brought in the bookmark navigation system and some
+        finishing touches. Bookmarks were added at strategic years (1995, 1996,
+        2001, 2004, 2011, 2023) where HERL had hit research milestones. Each
+        bookmark was positioned vertically along the right edge of the book,
+        working in both closed and open states. Each bookmark would dispatch
+        custom events to either open the book directly to a target page or
+        navigate to the target page if already open.
       </p>
       <br />
       <p class="pb-3">
-        The bookmark system directly addressed the navigation concerns from
-        having 30+ pages. Users can jump to major milestones in HERL's timeline
-        without flipping through pages sequentially. The final week added polish
-        that elevated the entire experience:
+        The bookmark system directly addressed the UX concerns of having 30+
+        pages to flip through. Users could now jump around the book as needed,
+        using major milestones as landmarks in HERL's timeline. The final week
+        added polish that elevated the entire experience:
       </p>
       <div class="card-container">
         <div class="card">
@@ -610,7 +540,7 @@ async function preloadImages(currentPage: number) {
           <p>
             Bookmarks are positioned vertically along the right edge, featuring
             dark tab-like styling with vertical text orientation. They grow
-            larger when the book opens (width: 2.5rem → 3.5rem) with smooth
+            larger when the book opens (width: 2.5rem to 3.5rem) with smooth
             state transitions and active styling to indicate current section.
           </p>
         </div>
@@ -629,9 +559,9 @@ async function preloadImages(currentPage: number) {
           <h4 class="text-xl font-medium text-white">Book Flip Animation</h4>
           <p>
             The book now flips to its backside when clicking past the last page.
-            Handling multiple booleans tracking state was challenging, but the
-            "backward closing" animation adequately conveys the interaction
-            despite the complexity.
+            Handling multiple variables to track the state of everything was
+            challenging, but the "backward closing" animation still adequately
+            conveyed the idea, even if the animation itself was a bit janky.
           </p>
         </div>
         <div class="card">
@@ -650,8 +580,9 @@ async function preloadImages(currentPage: number) {
           <p>
             Page numbers on the bottom right help track position. The "Skip
             Ahead!" prompt with a curved arrow svg guides users to bookmarks,
-            avoiding Chromium's emoji substitution. Device width prompts appear
-            below 800px, guiding users to switch devices rather than rotate.
+            directing the user to the bookmarks as a core feature of the app.
+            Device width prompts appear below 800px, guiding users to switch
+            devices rather than try to rotate the screen.
           </p>
         </div>
       </div>
@@ -677,89 +608,87 @@ const promptStyle = {
         language="typescript"
       />
       <p>
-        The final product successfully transformed HERL's physical booklet into
-        an engaging digital experience. The fixed dimensions, bookmark
-        navigation, image preloading, and smooth animations create a performant,
-        skeumorphic interface that maintains the familiar book metaphor while
-        leveraging modern web technologies.
+        In the end, the final product successfully transformed HERL's physical booklet into
+        a delightfully engaging digital experience. The fixed dimensions, bookmark
+        navigation, image preloading, and smooth animations created a performant,
+        skeumorphic interface that maintained the idea of a book while leveraging modern web technologies to create a seamless experience for their website. While not perfect, this project really demonstrates the power of 3D in CSS and the flexibility of the Svelte framework.
       </p>
     </section>
   </div>
-</CaseStudyLayout>
-
-<style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
-    position: relative;
-  }
-
-  @media (hover: hover) {
+  <style>
     a {
-      text-decoration: none;
+      color: var(--header-color);
+      text-decoration: underline;
+      text-decoration-color: var(--header-color);
+      text-underline-offset: 2px;
+      font-weight: 600;
+      display: inline-block;
+      position: relative;
     }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
-    }
-    a:hover:after {
-      width: 100%;
-      left: 0;
-    }
-  }
 
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
-  }
+    @media (hover: hover) {
+      a {
+        text-decoration: none;
+      }
+      a:after {
+        bottom: 0;
+        content: "";
+        height: 2px;
+        left: 50%;
+        position: absolute;
+        background: var(--header-color);
+        transition:
+          width 0.2s ease 0s,
+          left 0.2s ease 0s;
+        width: 0;
+      }
+      a:hover:after {
+        width: 100%;
+        left: 0;
+      }
+    }
 
-  @media (max-width: 768px) {
     code {
-      font-size: 0.75rem;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: "Martian Mono", "Courier New", Courier, monospace;
+      font-size: 0.875rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      border: 1px solid #333;
+      white-space: nowrap;
     }
-  }
 
-  :global(.case-study-layout) .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
+    @media (max-width: 768px) {
+      code {
+        font-size: 0.75rem;
+      }
+    }
 
-  :global(.case-study-layout) .card {
-    background-color: var(--card-color);
-    border: 1px solid #333;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    width: calc(33.33% - 0.67rem);
-    margin-bottom: 1rem;
-  }
+    :global(.case-study-layout) .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+    }
 
-  :global(.case-study-layout) .card h4 {
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
     :global(.case-study-layout) .card {
-      width: 100%;
+      background-color: var(--card-color);
+      border: 1px solid #333;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      width: calc(33.33% - 0.67rem);
+      margin-bottom: 1rem;
     }
-  }
-</style>
+
+    :global(.case-study-layout) .card h4 {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      :global(.case-study-layout) .card {
+        width: 100%;
+      }
+    }
+  </style>
+</CaseStudyLayout>
