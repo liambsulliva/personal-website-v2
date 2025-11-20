@@ -1,0 +1,319 @@
+---
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+import { Image } from "astro:assets";
+import { bridgeapp } from "../../utils/images";
+import CodeBlock from "../../components/CodeBlock.astro";
+
+const sidebarItems = [
+  { text: "Overview", href: "#overview" },
+  { text: "Context", href: "#context" },
+  { text: "Development", href: "#development" },
+];
+---
+
+<CaseStudyLayout
+  title="BRIDGE Dashboard"
+  subtitle="ASL Translation Tool - October 2024"
+  pageTitle="BRIDGE Dashboard - Liam Sullivan"
+  sidebarItems={sidebarItems}
+  projectRole={["Full-Stack Development", "UI + UX Design"]}
+  team={["FACETLab @ University of Pittsburgh"]}
+  tools={["Svelte", "TypeScript", "OpenAI API", "Vite"]}
+  timeline={["3 Months"]}
+  githubLink="https://github.com/liambsulliva/bridge-dashboard"
+>
+  <Image
+    src={bridgeapp}
+    alt="BRIDGE Dashboard"
+    class="mx-auto max-h-[700px] w-auto rounded-xl"
+    loading="eager"
+    slot="hero"
+  />
+
+  <div class="case-study-layout">
+    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
+      <h3 class="text-2xl font-semibold text-white">Overview</h3>
+      <div>
+        <p>
+          The BRIDGE Dashboard is an interactive ASL translation tool that
+          converts English text into American Sign Language visual
+          representations for the <a
+            href="https://www.facetlab.pitt.edu/"
+            target="_blank"
+            rel="noreferrer">FACETLab</a
+          > at the University of Pittsburgh. The application combines a curated library
+          of static ASL sign images with AI-generated signs for words not yet in
+          the collection.
+        </p>
+        <br />
+        <p>
+          The project focuses on creating an accessible translation experience
+          with intelligent handling of missing signs. When users enter text
+          containing words without corresponding ASL images, the system prompts
+          them to generate new signs using OpenAI's image generation API,
+          gradually expanding the library with each interaction.
+        </p>
+      </div>
+    </section>
+
+    <section id="context">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
+      <p>
+        The project began in October 2024 when I joined FACETLab's BRIDGE team
+        as an undergraduate developer. The lab needed a web-based tool that
+        could translate English text into ASL representations for their research
+        on accessible communication technology. The initial requirements were
+        straightforward: build an interface that could take text input and
+        display corresponding ASL signs.
+      </p>
+      <br />
+      <p>
+        I started with a primitive implementation using fingerspelling to
+        represent individual letters, presenting the initial demo at the BRIDGE
+        Undergraduate Meeting on October 29th. While fingerspelling worked as a
+        proof of concept, it wasn't practical for full sentences—reading
+        fingerspelled text is slow and tedious compared to word-level signs. The
+        real challenge emerged: how could we build a comprehensive ASL sign
+        library without manually photographing or illustrating thousands of
+        signs?
+      </p>
+      <br />
+      <p>
+        The solution came from combining a curated dictionary of "important
+        words" with AI generation for missing signs. I chose SvelteKit for its
+        elegant state management through Svelte stores and its ability to handle
+        both client-side interactivity and server-side API routes. The
+        framework's reactivity made it natural to coordinate between text input,
+        missing word detection, and the AI generation queue.
+      </p>
+    </section>
+    <br />
+    <section id="development">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+      <p>
+        The architecture revolves around a centralized sign library store that
+        manages all ASL sign data. Using Vite's glob imports, the system
+        preloads letter signs (a-z) and word-level signs at startup, maintaining
+        a dictionary of important words that should have dedicated signs rather
+        than falling back to fingerspelling:
+      </p>
+      <CodeBlock
+        code={`// Centralized sign library with preloaded assets
+const letterImages = import.meta.glob('/src/lib/images/letters/*.png');
+const wordImages = import.meta.glob('/src/lib/images/signs/*.png');
+
+// Convert text to ASL signs, prioritizing word-level over fingerspelling
+export function getSigns(text: string): Sign[] {
+  const words = text.toLowerCase().split(/\\s+/);
+  const signs: Sign[] = [];
+  
+  for (const word of words) {
+    if (wordSigns[word]) {
+      signs.push(wordSigns[word]); // Use word-level sign
+    } else {
+      // Fall back to fingerspelling
+      signs.push(...word.split('').map(char => letterSigns[char]));
+    }
+  }
+  return signs;
+}`}
+        language="typescript"
+      />
+      <p class="pb-3">
+        The user experience flows through several coordinated states. When a
+        user submits text, the app scans for dictionary words lacking images and
+        builds a generation queue. Several technical decisions shaped this
+        implementation:
+      </p>
+      <div class="card-container">
+        <div class="card">
+          <svg
+            class="mx-auto my-4"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="7rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H3V5h18zM11 15h2v-2h2v-2h-2V9h-2v2H9v2h2z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">
+            Sequential Generation Queue
+          </h4>
+          <p>
+            Missing words are processed one at a time through a modal queue
+            system. This prevents overwhelming the OpenAI API with simultaneous
+            requests and gives users control over which signs to generate versus
+            which to skip and fingerspell instead.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="8rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">
+            Dynamic Library Updates
+          </h4>
+          <p>
+            After generating a new sign, the system writes the base64-encoded
+            image to the local filesystem and dynamically reloads it into the
+            sign library store. This ensures newly generated signs are
+            immediately available without requiring an app restart or manual
+            refresh.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="mx-auto my-2"
+            xmlns="http://www.w3.org/2000/svg"
+            width="7rem"
+            height="8rem"
+            viewBox="0 0 24 24"
+            ><path
+              fill="white"
+              d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67l-.5-.68C10.96 2.54 10.05 2 9 2C7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2m-5-2c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1M9 4c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1m11 15H4v-2h16zm0-5H4V8h5.08L7 10.83L8.62 12L12 7.4l3.38 4.6L17 10.83L14.92 8H20z"
+            ></path></svg
+          >
+          <h4 class="text-xl font-medium text-white">Visual Hierarchy</h4>
+          <p>
+            The SignDisplay component distinguishes between word-level signs
+            (larger with yellow ring styling) and letter-level fingerspelling
+            (smaller). Visual separators between words improve readability,
+            making it clear where one word ends and another begins in the ASL
+            translation.
+          </p>
+        </div>
+      </div>
+      <br />
+      <p>
+        The AI generation happens through a SvelteKit API route that interfaces
+        with OpenAI. The prompt is carefully crafted to produce consistent,
+        high-quality ASL illustrations:
+      </p>
+      <CodeBlock
+        code={`// API route: /api/generate-sign/+server.ts
+const prompt = \`American Sign Language (ASL) sign for the word "\${word}", 
+in a black and white illustrative style with a clear hand gesture on a 
+white background. Do not display any text in the final result.\`;
+
+const response = await openai.images.generate({
+  model: 'dall-e-3',
+  prompt,
+  n: 1,
+  size: '1024x1024',
+  response_format: 'b64_json',
+});
+
+// Convert base64 to buffer and save to filesystem
+const imageBuffer = Buffer.from(imageData, 'base64');
+const outputPath = path.join(process.cwd(), 'src/lib/images/signs', \`\${word}.png\`);
+await fs.writeFile(outputPath, imageBuffer);`}
+        language="typescript"
+      />
+      <p>
+        The interface also implements responsive design with media queries to
+        ensure it works within an iframe deployment for the broader BRIDGE Unity
+        application. A blue and yellow color scheme matches FACETLab's branding,
+        while the "What would you like to translate today?" prompt creates a
+        welcoming, GPT-style interface that feels familiar to users.
+      </p>
+      <br />
+      <p>
+        Future enhancements include moving images to a central datastore like
+        AWS S3 for better scalability, using natural language processing through
+        the Compromise npm library to automatically detect important words by
+        identifying parts of speech, and implementing a 3D card stacking effect
+        with gesture-based interaction on a "discover" tab to showcase the
+        growing sign library. The dashboard was presented in a CS 1900 lecture
+        on December 5th, demonstrating how AI can expand accessibility tools in
+        real-time.
+      </p>
+    </section>
+  </div>
+</CaseStudyLayout>
+
+<style>
+  a {
+    color: var(--header-color);
+    text-decoration: underline;
+    text-decoration-color: var(--header-color);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+
+  @media (hover: hover) {
+    a {
+      text-decoration: none;
+    }
+    a:after {
+      bottom: 0;
+      content: "";
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: var(--header-color);
+      transition:
+        width 0.2s ease 0s,
+        left 0.2s ease 0s;
+      width: 0;
+    }
+    a:hover:after {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  code {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: "Martian Mono", "Courier New", Courier, monospace;
+    font-size: 0.875rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    border: 1px solid #333;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    code {
+      font-size: 0.75rem;
+    }
+  }
+
+  :global(.case-study-layout) .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  :global(.case-study-layout) .card {
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+
+  :global(.case-study-layout) .card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    :global(.case-study-layout) .card {
+      width: 100%;
+    }
+  }
+</style>

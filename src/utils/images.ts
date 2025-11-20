@@ -33,7 +33,7 @@ import herlCoverBack from "../images/case-studies/herl/Cover-Back.webp";
 import pokedraft from "../images/projects/pokedraft.png";
 import switchReactMenuScreen from "../images/projects/switch-react-menu-screen.jpg";
 import switchReactMenuMockup from "../images/projects/switch-react-menu-mockup.png";
-import recipeapp from "../images/projects/recipeapp.png";
+import bridgeapp from "../images/projects/bridgeapp.jpg";
 import herlthroughtheyears from "../images/projects/herlthroughtheyears.png";
 import mockup from "../images/projects/mockup.png";
 
@@ -97,7 +97,7 @@ export {
   pokedraft,
   switchReactMenuScreen,
   switchReactMenuMockup,
-  recipeapp,
+  bridgeapp,
   herlthroughtheyears,
   mockup,
 
@@ -167,7 +167,7 @@ export const imagePaths = {
     pokedraft: "/images/projects/pokedraft.png",
     switchReactMenuScreen: "/images/projects/switch-react-menu-screen.jpg",
     switchReactMenuMockup: "/images/projects/switch-react-menu-mockup.png",
-    recipeapp: "/images/projects/recipeapp.png",
+    bridgeapp: "/images/projects/bridgeapp.jpg",
     herlthroughtheyears: "/images/projects/herlthroughtheyears.png",
     mockup: "/images/projects/mockup.png",
   },
