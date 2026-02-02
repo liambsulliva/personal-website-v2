@@ -35,23 +35,19 @@ const sidebarItems = [
       <h3 class="text-2xl font-semibold text-white">Overview</h3>
       <div>
         <p>
-          The BRIDGE Dashboard is an interactive ASL translation tool that
-          converts English text into American Sign Language visual
-          representations for the <a
-            href="https://www.facetlab.pitt.edu/"
-            target="_blank"
-            rel="noreferrer">FACETLab</a
-          > at the University of Pittsburgh. The application combines a curated library
-          of static ASL sign images with AI-generated signs for words not yet in
-          the collection.
+          FACETLab is a research organization at the University of Pittsburgh
+          that specializes in designing adaptive educational technologies for
+          youth in a variety of disciplines. Artificial Intelligence (AI), Human
+          Computer Interaction (HCI), and Educational Psychology are a few of
+          their key focus areas.
         </p>
         <br />
         <p>
-          The project focuses on creating an accessible translation experience
-          with intelligent handling of missing signs. When users enter text
-          containing words without corresponding ASL images, the system prompts
-          them to generate new signs using OpenAI's image generation API,
-          gradually expanding the library with each interaction.
+          The BRIDGE project that I worked with narrows this scope down to
+          members of the deaf and hard of hearing community. Specifically,
+          American Sign Language (ASL) learners. It targets members of this
+          community engaging in STEM learning, as members of this group are
+          historically underrepresented in these fields.
         </p>
       </div>
     </section>
@@ -59,73 +55,17 @@ const sidebarItems = [
     <section id="context">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
       <p>
-        The project began in October 2024 when I joined FACETLab's BRIDGE team
-        as an undergraduate developer. The lab needed a web-based tool that
-        could translate English text into ASL representations for their research
-        on accessible communication technology. The initial requirements were
-        straightforward: build an interface that could take text input and
-        display corresponding ASL signs.
+        There are a variety of reasons that ASL learners struggle with STEM
+        education. For one, there is a lack of consistency between signage for
+        these complex terms. One option is fingerspelling, where students
+        physically sign every single letter in the word, but this process is
+        slow and inefficient for explaining jargon-heavy topics. Students may
+        also use their own made-up signs, which ends up causing problems when
+        different students use differing signage from one another.
       </p>
       <br />
-      <p>
-        I started with a primitive implementation using fingerspelling to
-        represent individual letters, presenting the initial demo at the BRIDGE
-        Undergraduate Meeting on October 29th. While fingerspelling worked as a
-        proof of concept, it wasn't practical for full sentences—reading
-        fingerspelled text is slow and tedious compared to word-level signs. The
-        real challenge emerged: how could we build a comprehensive ASL sign
-        library without manually photographing or illustrating thousands of
-        signs?
-      </p>
-      <br />
-      <p>
-        The solution came from combining a curated dictionary of "important
-        words" with AI generation for missing signs. I chose SvelteKit for its
-        elegant state management through Svelte stores and its ability to handle
-        both client-side interactivity and server-side API routes. The
-        framework's reactivity made it natural to coordinate between text input,
-        missing word detection, and the AI generation queue.
-      </p>
-    </section>
-    <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
-      <p>
-        The architecture revolves around a centralized sign library store that
-        manages all ASL sign data. Using Vite's glob imports, the system
-        preloads letter signs (a-z) and word-level signs at startup, maintaining
-        a dictionary of important words that should have dedicated signs rather
-        than falling back to fingerspelling:
-      </p>
-      <CodeBlock
-        code={`// Centralized sign library with preloaded assets
-const letterImages = import.meta.glob('/src/lib/images/letters/*.png');
-const wordImages = import.meta.glob('/src/lib/images/signs/*.png');
-
-// Convert text to ASL signs, prioritizing word-level over fingerspelling
-export function getSigns(text: string): Sign[] {
-  const words = text.toLowerCase().split(/\\s+/);
-  const signs: Sign[] = [];
-  
-  for (const word of words) {
-    if (wordSigns[word]) {
-      signs.push(wordSigns[word]); // Use word-level sign
-    } else {
-      // Fall back to fingerspelling
-      signs.push(...word.split('').map(char => letterSigns[char]));
-    }
-  }
-  return signs;
-}`}
-        language="typescript"
-      />
-      <p class="pb-3">
-        The user experience flows through several coordinated states. When a
-        user submits text, the app scans for dictionary words lacking images and
-        builds a generation queue. Several technical decisions shaped this
-        implementation:
-      </p>
-      <div class="card-container">
+      {
+        /* <div class="card-container">
         <div class="card">
           <svg
             class="mx-auto my-4"
@@ -193,49 +133,168 @@ export function getSigns(text: string): Sign[] {
           </p>
         </div>
       </div>
+      */
+      }
+      <p>
+        Since deaf students are so underrepresented in these fields, traditional
+        support structures such as office hours and professorial guidance are
+        not structured to handle sign-based learning. Plaforms like Zoom rely on
+        audio-based cues in order to determine who is speaking, which makes the
+        platform completely inaccessible for ASL learners.
+      </p>
       <br />
       <p>
-        The AI generation happens through a SvelteKit API route that interfaces
-        with OpenAI. The prompt is carefully crafted to produce consistent,
-        high-quality ASL illustrations:
+        The hypothesis of this research project is that AI-driven technology can
+        be leveraged to substantially improve collaboration and learning
+        outcomes among members of the ASL community. The project seeks to unify
+        signers in a landscape where semantics are fragmented and commonly
+        misunderstood.
+      </p>
+      <br />
+      <p>
+        The project also incorporates Augmented Reality (AR) technology to
+        support ASL learners in a tangible way that is difficult to replicate
+        with other technologies. Since signage is so spatially dependent, it is
+        critical that learners see their interlocutors clearly and can identify
+        the positioning of their hands relative to their face. AR uniquely
+        affords this kind of use, which makes it an excellent fit for this form
+        of research.
+      </p>
+      <br />
+      <p>
+        To gain a wholistic understanding of the community and their needs,
+        experts in ASL learning, such as <a
+          href="mailto:athena.s.willis@gmail.com">Dr. Athena Willis</a
+        >, have been onboarded to support the team and its goals. Professionals
+        in the fields of HCI and AI, namely <a href="mailto:biehl@pitt.edu"
+          >Dr. Jacob Biehl</a
+        > and <a href="mailto:kezarlee@gmail.com">Dr. Lee Kezar</a>
+        , have also been brought on to support this mission and ensure that interactions
+        between signers remain relatively intuitive.
+      </p>
+    </section>
+    <br />
+    <section id="development">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+      <p>
+        Placing AI-powered signage at the forefront of my application meant that
+        the entire user flow was built around the process of discovery. Entering
+        an English query in a search window, seeing it spelled out for you in
+        ASL, and generating appropriate signage along the way with OpenAI’s
+        <code>gpt-image-1</code> model. If users found a good ASL sign representation
+        of a word they are learning from an external source, they are also given the
+        means to upload their own images to be analyzed through OpenAI’s Vision API.
+      </p>
+      <br />
+      <p>
+        Whether images are manually uploaded or AI-generated, users are
+        incentivized to build up a library of images to use for their future
+        queries. As the user interacts with the application, they develop new
+        signage for new words. This signage helps them form additional phrases
+        and gradually fill gaps in the image library, and thus in their
+        knowledge.
+      </p>
+      <br />
+      <p>
+        To incentivize users to fill their library with words, there is a “word
+        map” tab that clusters words by semantic similarity and physically links
+        them if they are used in the same phrase. Additionally, a variable
+        progress bar is displayed at the top to add an element of gamification
+        to the engagement with the map. Users can use this section of the
+        interface to zoom out and obtain a tangible view of their progress and
+        understanding.
+      </p>
+      <br />
+      <p>
+        All signage is stored in a globally accessible data repository that is
+        called across the application (<code>signLibrary.ts</code>). Basic ASL
+        lettering (a-z) is pre-loaded into the application to handle
+        fingerspelling, but if word-level signs exist in the library, the
+        application will prioritize those instead. To detect which words are
+        relevant enough to be flagged for AI generation, the Natural Language
+        Processing (NLP) JavaScript library compromise tokenizes the string and
+        separates out nouns, adjectives, verbs, and adverbs.
       </p>
       <CodeBlock
-        code={`// API route: /api/generate-sign/+server.ts
-const prompt = \`American Sign Language (ASL) sign for the word "\${word}", 
-in a black and white illustrative style with a clear hand gesture on a 
-white background. Do not display any text in the final result.\`;
+        code={`// Extract content words using NLP (compromise)
+function extractContentWords(text: string): Set<string> {
+	const doc = nlp(text);
+	const contentWords = new Set<string>();
+	const wordPattern = /^[a-z]+(?:-[a-z]+)?$/;
 
-const response = await openai.images.generate({
-  model: 'dall-e-3',
-  prompt,
-  n: 1,
-  size: '1024x1024',
-  response_format: 'b64_json',
-});
+	doc.nouns().forEach((noun: CompromiseMatch) => {
+		const word = noun.text().toLowerCase().trim();
+		if (word && wordPattern?.test(word)) {
+			contentWords.add(word);
+			//console.log('Extracted noun:', word);
+		}
+	});
 
-// Convert base64 to buffer and save to filesystem
-const imageBuffer = Buffer.from(imageData, 'base64');
-const outputPath = path.join(process.cwd(), 'src/lib/images/signs', \`\${word}.png\`);
-await fs.writeFile(outputPath, imageBuffer);`}
+	doc.verbs().forEach((verb: CompromiseMatch) => {
+		const word = verb.text().toLowerCase().trim();
+		if (word && wordPattern?.test(word)) {
+			contentWords.add(word);
+			//console.log('Extracted verb:', word);
+		}
+	});
+
+	doc.adjectives().forEach((adj: CompromiseMatch) => {
+		const word = adj.text().toLowerCase().trim();
+		if (word && wordPattern?.test(word)) {
+			contentWords.add(word);
+			//console.log('Extracted adjective:', word);
+		}
+	});
+  
+    //...
+
+    return contentWords;
+}`}
         language="typescript"
       />
       <p>
-        The interface also implements responsive design with media queries to
-        ensure it works within an iframe deployment for the broader BRIDGE Unity
-        application. A blue and yellow color scheme matches FACETLab's branding,
-        while the "What would you like to translate today?" prompt creates a
-        welcoming, GPT-style interface that feels familiar to users.
+        If a given word falls into any one of these categories and doesn’t
+        already have an associated image reference in the library, it is marked
+        for generation. Additionally, there is a base dictionary Set that is
+        referenced to check for common phrases like “thank you”, “hello”, and
+        “goodbye”.
       </p>
       <br />
       <p>
-        Future enhancements include moving images to a central datastore like
-        AWS S3 for better scalability, using natural language processing through
-        the Compromise npm library to automatically detect important words by
-        identifying parts of speech, and implementing a 3D card stacking effect
-        with gesture-based interaction on a "discover" tab to showcase the
-        growing sign library. The dashboard was presented in a CS 1900 lecture
-        on December 5th, demonstrating how AI can expand accessibility tools in
-        real-time.
+        When a word is detected and a user approves an AI-generated sign, a POST
+        request is sent through a SvelteKit API route (<code
+          >/api/generate-sign</code
+        >) to be processed on the server. Using the stored OpenAI API key, the
+        service generates a 1024 x 1024 image to be sent back to the client to
+        be displayed. In the meantime, the user sees a loading indicator while
+        the isGenerating state is set to true.
+      </p>
+      <CodeBlock
+        code={`// Compose the prompt dynamically based on the word
+const prompt = \`
+American Sign Language (ASL) sign for the word "\${word}, in a black and white illustrative style
+with a clear hand gesture on a white background. Do not display any text in the final result.\`;
+
+console.log('[STEP] Prompt sent to OpenAI:', prompt);
+
+const result = await openai.images.generate({
+  model: 'gpt-image-1',
+  prompt,
+  size: '1024x1024',
+  n: 1
+});
+
+console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result.data[0]);`}
+        language="typescript"
+      />
+      <p>
+        User uploads also go through an API route (<code
+          >/api/recognize-sign</code
+        >) to be processed by OpenAI’s Vision API. Once that is complete, the
+        Sharp library is invoked to convert the uploaded image into a PNG file
+        and optimize it to save space in the library. This allows users to
+        upload a diverse range of image formats without needing to worry about
+        pre-compressing their images.
       </p>
     </section>
   </div>
