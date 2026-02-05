@@ -1,7 +1,11 @@
 ---
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
-import { pokedraft } from "../../utils/images";
+import {
+  pokedraft,
+  teambuilderOld,
+  gridBasedSelection,
+} from "../../utils/images";
 import CodeBlock from "../../components/CodeBlock.astro";
 
 const sidebarItems = [
@@ -38,27 +42,46 @@ const sidebarItems = [
       <h3 class="text-2xl font-semibold text-white">Overview</h3>
       <div>
         <p>
-          Kingdra Pokemon Teambuilder is a full-stack web application I built to
-          solve a problem I encountered while organizing a Pokemon draft league
-          for my friends. What started as a simple tool for managing draft teams
-          evolved into a comprehensive teambuilder that bridges the gap between
-          casual and competitive Pokemon team creation.
+          Kingdra is a full-stack web application that seeks to solve a problem
+          I encountered while organizing a Pokemon draft league for my friends
+          (think fantasy football, but with Pokemon). There aren't many tools
+          out there that allow you to create and manage Pokemon teams, and those
+          that do are often poorly designed and lack the ability to set moves
+          and stats unless you're using <a
+            href="https://play.pokemonshowdown.com/"
+            target="_blank"
+            rel="noreferrer">Pokemon Showdown</a
+          >.
         </p>
         <br />
         <p>
-          The project addresses a critical gap in the Pokemon teambuilder
-          market: most existing tools have poor UIs and lack the ability to set
-          moves and stats unless you're using Pokemon Showdown. Additionally,
-          there's a lack of tools that can create both casual and competitive
-          teams in the same place. This application adapts to user preferences,
-          allowing seamless switching between game modes.
+          I also wanted to include a way to group in casual and competitive play
+          in the same place. If casual players find that they are starting to
+          develop an interest in competitive play, they can easily move their
+          teams over to a competitive format just by toggling the app's mode.
         </p>
         <br />
         <p>
-          Built with Next.js, TypeScript, and a modern tech stack, the
-          application features infinite scrolling, real-time stat calculations,
+          Built with <a
+            href="https://nextjs.org/"
+            target="_blank"
+            rel="noreferrer">Next.js</a
+          >, <a
+            href="https://www.typescriptlang.org/"
+            target="_blank"
+            rel="noreferrer">TypeScript</a
+          >, and <a href="https://graphql.org/" target="_blank" rel="noreferrer"
+            >GraphQL</a
+          >, the app features infinite scrolling, real-time stat calculations,
           user authentication, team management, and full import/export
-          capabilities with Pokemon Showdown.
+          functionality with Pokemon Showdown. The app relies on multiple APIs,
+          namely <a href="https://pokeapi.co/" target="_blank" rel="noreferrer"
+            >PokeAPI</a
+          > and the <a
+            href="https://pkmn.github.io/smogon/data/"
+            target="_blank"
+            rel="noreferrer">Smogon API</a
+          >.
         </p>
       </div>
     </section>
@@ -66,61 +89,100 @@ const sidebarItems = [
     <section id="context">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
       <p>
-        The project began in June 2024 as a learning exercise. I wanted to
-        master <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          Next.js
-        </a> and build my first real full-stack application. The initial goal was
-        simple: create a tool for managing teams in a Pokemon draft league (think
-        fantasy football, but with Pokemon).
+        The goal going in was to figure out Next.js and build my first real
+        full-stack app. It addressed a need I saw in the Pokemon community,
+        sure, but it was also partially me wanting to prove to myself that I
+        could figure out how to put together a web app up and down the stack.
+        Initially, I just used it as a specialized drafting tool for my friends.
+        It was even formatted around our draft league format, making it pretty
+        hyperspecialized to begin with.
       </p>
       <br />
-      <p>
-        However, as I started building, I realized that existing Pokemon
-        teambuilders had significant limitations. Most had terrible UIs, and few
-        allowed you to actually set moves and stats unless you were using <a
-          href="https://play.pokemonshowdown.com/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Pokemon Showdown
-        </a>. More importantly, there was no tool that could seamlessly handle
-        both casual and competitive team building in the same interface.
-      </p>
+      <Image
+        src={teambuilderOld}
+        alt="Kingdra Teambuilder"
+        class="mx-auto max-h-[700px] w-auto"
+        loading="eager"
+      />
       <br />
       <p>
-        The tech stack includes Next.js with TypeScript for the frontend,
-        MongoDB with Mongoose for data storage, GraphQL with Apollo Client for
-        API management, and Clerk for authentication. Key features include
-        infinite scrolling with tabbing systems, real-time stat calculations,
-        Smogon data integration, type matchup analysis, and full Pokemon
-        Showdown import/export compatibility.
+        As the project grew, I started to get feedback from my friends that they
+        could see this app skeleton being used as a general purpose tool for
+        Pokemon players. At that point, development really took off.
       </p>
     </section>
     <br />
     <section id="development">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
       <p>
-        This realization transformed the project from a simple draft tool into a
-        comprehensive teambuilder. I spent countless hours implementing the core
-        logic, including stat calculations that <a
-          href="https://bulbapedia.bulbagarden.net/wiki/Stat#Determination_of_stats"
+        This project was my first time really diving into a meta-framework
+        (Next.js), and it shows. I had to figure out what API routes even were
+        and how they worked. There was also a lot of initial trial and error in
+        fetching data properly from all of the different APIs, since I struggled
+        with staggering fetches and posts in sequential order. Using a NoSQL
+        database (<a
+          href="https://www.mongodb.com/"
           target="_blank"
-          rel="noreferrer"
-        >
-          mimic the exact math
-        </a> used in the core Pokemon games, integrating with external APIs for Pokemon
-        data, and building a robust database schema for team management.
+          rel="noreferrer">MongoDB</a
+        >) helped a lot, but I still needed to figure out how to handle data
+        properly with React hooks, which was something I wasn't super familiar
+        with at the time.
       </p>
       <br />
       <p>
-        The stat calculation system implements the exact formulas used in the
-        Pokemon games:
+        Initially, I had an idea to implement draggable Pokemon cards. You could
+        take Pokemon from the infinite scroll and drag them into a team slot.
+        Sadly, this created a UX problem. If you're far down on the page, it's a
+        pain to drag a Pokemon all the way back to the top! That idea was
+        scrapped, but it was the basis for the grid-based selection system we
+        have now.
+      </p>
+      <br />
+      <Image
+        src={gridBasedSelection}
+        alt="Grid-Based Selection"
+        class="mx-auto max-h-[700px] w-auto"
+        loading="eager"
+      />
+      <br />
+      <p>
+        Another goal was to implement stat calculations for each Pokemon. In
+        order to make this tool useful in the competitive scene, I had to make
+        sure EVs and IVs could fluidly adjust the final stat totals. The stat
+        calculation system implements the exact formulas used in the Pokemon
+        games, factoring in the <a
+          href="https://bulbapedia.bulbagarden.net/wiki/Nature"
+          target="_blank"
+          rel="noreferrer">nature multiplier</a
+        > when it is relevant:
       </p>
       <CodeBlock
-        code={`// Add stat calculation code here`}
+        code={`const calculateStatTotal = () => {
+  if (id === 0) {
+    //Is HP, calculate differently
+    return (
+      Math.floor(
+        ((2 * baseValue + iv + Math.floor(ev / 4) + 100) * level) / level
+      ) + 10
+    ); // 110 = Level 100 + 10
+  } else {
+    return Math.floor(
+      (Math.floor(((2 * baseValue + iv + Math.floor(ev / 4)) * level) / 100) +
+        5) *
+        getNatureMultiplier()
+    );
+  }
+};`}
         language="typescript"
       />
-      <p class="pb-3">
+      <p>
+        This function would run every time that the EVs or IVs were changed to
+        recalculate the stat total. The fluidity of these state changes made me
+        grateful to be using React, as these kinds of dynamic state changes are
+        significantly harder to do in vanilla JavaScript.
+      </p>
+      {
+        /* <p class="pb-3">
         Several key challenges emerged during development that required creative
         solutions:
       </p>
@@ -194,20 +256,89 @@ const sidebarItems = [
           </p>
         </div>
       </div>
+    </p> */
+      }
       <br />
       <p>
-        The Pokemon Showdown import/export system allows seamless transfer of
-        teams:
+        There were also built in automatic speed calculations for the speed stat
+        depending on whether the Pokemon was holding a <a
+          href="https://bulbapedia.bulbagarden.net/wiki/Choice_Scarf"
+          target="_blank"
+          rel="noreferrer">Choice Scarf</a
+        > or not. This is a feature that my friends and I found to be sorely missing
+        from other teambuilder apps, so I decided to bundle it in as a little tooltip
+        under the speed stat. Here's how it's implemented under the hood:
       </p>
       <CodeBlock
-        code={`// Add import/export code here`}
+        code={`const speedCalcs = (
+		<div>
+			<ul className='gap-1 p-2'>
+				<li className='flex items-center gap-2'>
+					<p className='text-gray-600'>
+						+1 Stage / Scarfed: <strong>{calculateStatTotal() * 1.5}</strong>
+					</p>
+				</li>
+				<li className='flex items-center gap-2'>
+					<p className='text-gray-600'>
+						+2 Stages: <strong>{calculateStatTotal() * 2}</strong>
+					</p>
+				</li>
+				<li className='flex items-center gap-2'>
+					<p className='text-gray-600'>
+						+3 Stages: <strong>{calculateStatTotal() * 2.5}</strong>
+					</p>
+				</li>
+			</ul>
+		</div>
+	);`}
         language="typescript"
       />
       <p>
-        Future enhancements include replacing Flowbite components with custom,
-        device-agnostic solutions, enhanced filtering options by types, stats,
-        and moves, and moving search to the backend for more sophisticated
-        filtering as the Pokemon database grows.
+        One of the hallmark features is the import and export system. Instead of
+        trying to fight the dominance of Pokemon Showdown in the scene, I
+        decided to just leverage its format to allow users to import and export
+        from the platform at will. There was a lot of data cleanup work that
+        went into pushing this data into JSON files. Here's a snippet from some
+        of the stat parsing.
+      </p>
+      <CodeBlock
+        code={`rest.forEach((line) => {
+  if (line.startsWith('EVs:')) {
+    const evs = line.substring(4).split('/');
+    evs.forEach((stat) => {
+      const [value, name] = stat.trim().split(' ');
+      const index = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'].indexOf(name);
+      if (index !== -1) {
+        ev[index] = parseInt(value);
+      }
+    });
+  } else if (line.startsWith('IVs:')) {
+    const ivs = line.substring(4).split('/');
+    ivs.forEach((stat) => {
+      const [value, name] = stat.trim().split(' ');
+      const index = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'].indexOf(name);
+      if (index !== -1) {
+        iv[index] = parseInt(value);
+      }
+    });
+  } else if (line.startsWith('Tera Type:')) {
+    tera_type = line.split(':')[1].trim();
+  } else if (line.endsWith('Nature')) {
+    nature = line.split(' ')[0];
+  } else if (line.startsWith('-')) {
+    const moveIndex = moves.findIndex((move) => move === '');
+    if (moveIndex !== -1) {
+      moves[moveIndex] = line.substring(1).trim();
+    }
+  }
+});`}
+        language="typescript"
+      />
+      <p>
+        Though there is still work to be done, I'm proud of where this project
+        ended up, considering it was a solo project. It was a great learning
+        experience to learn how to leverage multiple APIs in a single app to
+        build out a cohesive experience. Hope you find it useful!
       </p>
     </section>
   </div>

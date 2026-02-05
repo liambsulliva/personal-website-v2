@@ -36,6 +36,8 @@ import switchReactMenuMockup from "../images/projects/switch-react-menu-mockup.p
 import bridgeapp from "../images/projects/bridgeapp.jpg";
 import herlthroughtheyears from "../images/projects/herlthroughtheyears.png";
 import mockup from "../images/projects/mockup.png";
+import teambuilderOld from "../images/projects/teambuilder-old.jpg";
+import gridBasedSelection from "../images/projects/grid-based-selection.jpg";
 
 // Editorial - Layouts images
 import portraitTutorial from "../images/editorial/layouts/portrait-tutorial.png";
@@ -100,6 +102,8 @@ export {
   bridgeapp,
   herlthroughtheyears,
   mockup,
+  teambuilderOld,
+  gridBasedSelection,
 
   // Editorial - Layouts
   portraitTutorial,
@@ -170,6 +174,8 @@ export const imagePaths = {
     bridgeapp: "/images/projects/bridgeapp.jpg",
     herlthroughtheyears: "/images/projects/herlthroughtheyears.png",
     mockup: "/images/projects/mockup.png",
+    teambuilderOld: "/images/projects/teambuilder-old.jpg",
+    gridBasedSelection: "/images/projects/grid-based-selection.jpg",
   },
   editorial: {
     layouts: {
