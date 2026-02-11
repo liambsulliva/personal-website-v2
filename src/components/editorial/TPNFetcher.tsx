@@ -14,53 +14,62 @@ const TPNFetcher = () => {
 
   const fetchTpnData = useCallback(async () => {
     setIsLoading(true);
-    
+
     try {
       const mediaUrl = `https://pittnews.com/wp-json/wp/v2/media?staff_name=24397&per_page=100`;
       const mediaResponse = await fetch(mediaUrl);
       const mediaData = await mediaResponse.json();
-      
+
       if (!mediaData || mediaData.length === 0) {
         console.log("No media found for staff_name");
         setTpnData([]);
         return;
       }
-      
+
       const mediaIds = mediaData.map((media: any) => media.id);
       //console.log("Media IDs:", mediaIds);
-      
+
       const postsUrl = `https://pittnews.com/wp-json/wp/v2/posts?per_page=100&_embed`;
       const postsResponse = await fetch(postsUrl);
       const allPosts = await postsResponse.json();
-      
-      const relevantPosts = allPosts.filter((post: any) => 
-        post.featured_media && mediaIds.includes(post.featured_media)
+
+      const relevantPosts = allPosts.filter(
+        (post: any) =>
+          post.featured_media && mediaIds.includes(post.featured_media),
       );
-      
+
       //console.log("Relevant posts:", relevantPosts);
-      
+
       const strippedData = relevantPosts.map((post: any) => {
         const regex = /(<([^>]+)>)/gi;
         const strippedTitle = post.title.rendered.replace(regex, "");
         const decodedTitle = decodeEntities(strippedTitle);
         const dateObj = new Date(post.date || post.modified || "");
         const formattedDate = new Intl.DateTimeFormat("en-US").format(dateObj);
-        
+
         let imageUrl = null;
-        if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
-          const media = post._embedded['wp:featuredmedia'][0];
-          imageUrl = media.media_details?.sizes?.large?.source_url || 
-                    media.source_url || 
-                    null;
+        if (
+          post._embedded &&
+          post._embedded["wp:featuredmedia"] &&
+          post._embedded["wp:featuredmedia"][0]
+        ) {
+          const media = post._embedded["wp:featuredmedia"][0];
+          imageUrl =
+            media.media_details?.sizes?.large?.source_url ||
+            media.source_url ||
+            null;
         } else {
-          const media = mediaData.find((m: any) => m.id === post.featured_media);
+          const media = mediaData.find(
+            (m: any) => m.id === post.featured_media,
+          );
           if (media) {
-            imageUrl = media.media_details?.sizes?.large?.source_url || 
-                      media.source_url || 
-                      null;
+            imageUrl =
+              media.media_details?.sizes?.large?.source_url ||
+              media.source_url ||
+              null;
           }
         }
-        
+
         return {
           title: decodedTitle,
           date: formattedDate,
@@ -137,7 +146,7 @@ const TPNFetcher = () => {
                     </svg>
                   </div>
                 </h2>
-                <p className="m-0 text-[#d0d0d0]">Photography • {post.date}</p>
+                <p className="m-0 text-[#d0d0d0]">Photo • {post.date}</p>
               </div>
             </div>
           </a>
