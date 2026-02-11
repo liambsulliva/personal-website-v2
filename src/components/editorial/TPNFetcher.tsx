@@ -45,7 +45,10 @@ const TPNFetcher = () => {
         const strippedTitle = post.title.rendered.replace(regex, "");
         const decodedTitle = decodeEntities(strippedTitle);
         const dateObj = new Date(post.date || post.modified || "");
-        const formattedDate = new Intl.DateTimeFormat("en-US").format(dateObj);
+        const formattedDate = dateObj.toLocaleDateString("en-US", {
+          month: "short",
+          year: "numeric",
+        });
 
         let imageUrl = null;
         if (
