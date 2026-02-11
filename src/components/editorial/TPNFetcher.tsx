@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Loader from "../gallery/Loader";
 
 interface TPNPost {
@@ -11,36 +11,73 @@ interface TPNPost {
 const TPNFetcher = () => {
   const [tpnData, setTpnData] = useState<TPNPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [allMediaData, setAllMediaData] = useState<any[]>([]);
+  const [mediaIds, setMediaIds] = useState<number[]>([]);
+  const initialLoadDone = useRef(false);
+  const observerTarget = useRef<HTMLDivElement>(null);
 
-  const fetchTpnData = useCallback(async () => {
-    setIsLoading(true);
-
+  // Fetch media IDs once on mount
+  const fetchMediaIds = useCallback(async () => {
     try {
-      const mediaUrl = `https://pittnews.com/wp-json/wp/v2/media?staff_name=24397&per_page=100`;
-      const mediaResponse = await fetch(mediaUrl);
-      const mediaData = await mediaResponse.json();
-
-      if (!mediaData || mediaData.length === 0) {
-        console.log("No media found for staff_name");
-        setTpnData([]);
-        return;
+      // 24397: Assistant Visuals Editor
+      // 23238: Senior Staff Photographer
+      // 22613: Staff Photographer
+      const staffNameIds = [24397, 23238, 22613];
+      
+      const allMedia: any[] = [];
+      for (const staffId of staffNameIds) {
+        const mediaUrl = `https://pittnews.com/wp-json/wp/v2/media?staff_name=${staffId}&per_page=100`;
+        const mediaResponse = await fetch(mediaUrl);
+        const mediaData = await mediaResponse.json();
+        if (mediaData && mediaData.length > 0) {
+          allMedia.push(...mediaData);
+        }
       }
 
-      const mediaIds = mediaData.map((media: any) => media.id);
-      //console.log("Media IDs:", mediaIds);
+      if (allMedia.length === 0) {
+        //console.log("No media found for staff_name");
+        return { ids: [], media: [] };
+      }
 
-      const postsUrl = `https://pittnews.com/wp-json/wp/v2/posts?per_page=100&_embed`;
+      const ids = allMedia.map((media: any) => media.id);
+      //console.log(`Found ${ids.length} media items across all positions`);
+      return { ids, media: allMedia };
+    } catch (error) {
+      //console.error("Error fetching media IDs:", error);
+      return { ids: [], media: [] };
+    }
+  }, []);
+
+  // Fetch one page (scroll) of posts
+  const fetchPostsPage = useCallback(async (page: number) => {
+    if (mediaIds.length === 0) return { posts: [], hasMore: false };
+
+    try {
+      const perPage = 100;
+      const postsUrl = `https://pittnews.com/wp-json/wp/v2/posts?per_page=${perPage}&page=${page}&_embed`;
       const postsResponse = await fetch(postsUrl);
-      const allPosts = await postsResponse.json();
+      
+      if (!postsResponse.ok) {
+        return { posts: [], hasMore: false };
+      }
+      
+      const posts = await postsResponse.json();
+      
+      if (!posts || posts.length === 0) {
+        return { posts: [], hasMore: false };
+      }
 
-      const relevantPosts = allPosts.filter(
+      const mediaIdsSet = new Set(mediaIds);
+
+      // Filter posts that use the right pics
+      const matchingPosts = posts.filter(
         (post: any) =>
-          post.featured_media && mediaIds.includes(post.featured_media),
+          post.featured_media && mediaIdsSet.has(post.featured_media)
       );
 
-      //console.log("Relevant posts:", relevantPosts);
-
-      const strippedData = relevantPosts.map((post: any) => {
+      const strippedData = matchingPosts.map((post: any) => {
         const regex = /(<([^>]+)>)/gi;
         const strippedTitle = post.title.rendered.replace(regex, "");
         const decodedTitle = decodeEntities(strippedTitle);
@@ -62,7 +99,7 @@ const TPNFetcher = () => {
             media.source_url ||
             null;
         } else {
-          const media = mediaData.find(
+          const media = allMediaData.find(
             (m: any) => m.id === post.featured_media,
           );
           if (media) {
@@ -81,13 +118,20 @@ const TPNFetcher = () => {
         };
       });
 
-      setTpnData(strippedData);
+      //console.log(`Page ${page}: Found ${matchingPosts.length} matching posts`);
+
+      // If we found 0 matching posts on this page, assume we've gone past all photos
+      const shouldContinue = matchingPosts.length > 0 && posts.length === perPage;
+
+      return {
+        posts: strippedData,
+        hasMore: shouldContinue,
+      };
     } catch (error) {
-      console.error("Error fetching TPN data:", error);
-    } finally {
-      setIsLoading(false);
+      //console.error(`Error fetching page ${page}:`, error);
+      return { posts: [], hasMore: false };
     }
-  }, []);
+  }, [mediaIds, allMediaData]);
 
   function decodeEntities(text: string) {
     text = text.replace(/&#(\d+);/g, (match, dec) => {
@@ -96,10 +140,80 @@ const TPNFetcher = () => {
     return text;
   }
 
+  // Initial load
   useEffect(() => {
-    fetchTpnData();
-    //console.log(tpnData);
-  }, [fetchTpnData]);
+    const loadInitialData = async () => {
+      if (initialLoadDone.current) return;
+      initialLoadDone.current = true;
+
+      setIsLoading(true);
+      const { ids, media } = await fetchMediaIds();
+      
+      if (ids.length === 0) {
+        setIsLoading(false);
+        setHasMore(false);
+        return;
+      }
+
+      setMediaIds(ids);
+      setAllMediaData(media);
+      setIsLoading(false);
+    };
+
+    loadInitialData();
+  }, [fetchMediaIds]);
+
+  useEffect(() => {
+    const loadFirstPage = async () => {
+      if (mediaIds.length === 0 || tpnData.length > 0) return;
+
+      setIsLoading(true);
+      const { posts, hasMore: moreAvailable } = await fetchPostsPage(1);
+      setTpnData(posts);
+      setHasMore(moreAvailable);
+      setCurrentPage(1);
+      setIsLoading(false);
+    };
+
+    loadFirstPage();
+  }, [mediaIds, fetchPostsPage, tpnData.length]);
+
+  const loadMore = useCallback(async () => {
+    if (isLoading || !hasMore) return;
+
+    setIsLoading(true);
+    const nextPage = currentPage + 1;
+
+    const { posts, hasMore: moreAvailable } = await fetchPostsPage(nextPage);
+    
+    setTpnData(prev => [...prev, ...posts]);
+    setHasMore(moreAvailable);
+    setCurrentPage(nextPage);
+    setIsLoading(false);
+  }, [isLoading, hasMore, currentPage, fetchPostsPage]);
+
+  // Intersection observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          loadMore();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [hasMore, isLoading, loadMore]);
 
   return (
     <div className="mx-auto w-[calc(100vw-4rem)] max-w-[1200px]">
@@ -155,6 +269,7 @@ const TPNFetcher = () => {
           </a>
         ))}
       </div>
+      <div ref={observerTarget} className="h-10" />
       {isLoading && <Loader lang="en" />}
     </div>
   );
