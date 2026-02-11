@@ -1,18 +1,18 @@
 import { useState, useEffect, useCallback } from "react";
 import Loader from "../gallery/Loader";
 
-interface WordpressPost {
+interface BerlinPost {
   title: string;
   date: string;
   link: string;
   imageUrl: string | null;
 }
 
-const WordpressFetcher = () => {
-  const [wordpressData, setWordpressData] = useState<WordpressPost[]>([]);
+const BerlinFetcher = () => {
+  const [berlinData, setBerlinData] = useState<BerlinPost[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchWordpressData = useCallback(async () => {
+  const fetchBerlinData = useCallback(async () => {
     setIsLoading(true);
     const site = `pittbusinesstotheworld.com`;
     const tag = `liam-sullivan`;
@@ -37,9 +37,9 @@ const WordpressFetcher = () => {
         };
       });
 
-      setWordpressData(strippedData);
+      setBerlinData(strippedData);
     } catch (error) {
-      console.error("Error fetching WordPress data:", error);
+      console.error("Error fetching Berlin data:", error);
     } finally {
       setIsLoading(false);
     }
@@ -53,13 +53,13 @@ const WordpressFetcher = () => {
   }
 
   useEffect(() => {
-    fetchWordpressData();
-  }, [fetchWordpressData]);
+    fetchBerlinData();
+  }, [fetchBerlinData]);
 
   return (
     <div className="mx-auto w-[calc(100vw-4rem)] max-w-[1200px]">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {wordpressData.map((post: WordpressPost, index: number) => (
+        {berlinData.map((post: BerlinPost, index: number) => (
           <a
             href={post.link}
             rel="noreferrer"
@@ -115,4 +115,4 @@ const WordpressFetcher = () => {
   );
 };
 
-export default WordpressFetcher;
+export default BerlinFetcher;
