@@ -27,7 +27,10 @@ const WordpressFetcher = () => {
         const strippedTitle = post.title.replace(regex, "");
         const decodedTitle = decodeEntities(strippedTitle);
         const dateObj = new Date(post.date || post.modified || "");
-        const formattedDate = new Intl.DateTimeFormat("en-US").format(dateObj);
+        const formattedDate = new Intl.DateTimeFormat("en-US", {
+          month: "short",
+          year: "numeric",
+        }).format(dateObj);
 
         return {
           title: decodedTitle,
