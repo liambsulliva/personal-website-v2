@@ -55,6 +55,7 @@ const LocalFetcher = ({
             type: "Cover",
             date: "Feb 2026",
             link: "https://pittnews.com/article/200930/print-archive/beer-and-wine-2/",
+            externalLink: true,
             imageUrl: imagePaths.editorial.layouts.beerAndWineEdition,
           },
           {
@@ -62,6 +63,7 @@ const LocalFetcher = ({
             type: "Cover",
             date: "Mar 2026",
             link: "https://pittnews.com/article/201419/print-archive/march-madness-2/",
+            externalLink: true,
             imageUrl: imagePaths.editorial.layouts.marchMadnessEdition,
           },
         ],
@@ -137,6 +139,7 @@ const LocalFetcher = ({
             type: "Blog",
             date: "Oct 2025",
             link: "https://liambsullivan.substack.com/p/pickled-onions",
+            externalLink: true,
             imageUrl: imagePaths.editorial.cooking.pickledOnions,
           },
           {
@@ -144,6 +147,7 @@ const LocalFetcher = ({
             type: "Blog",
             date: "Oct 2025",
             link: "https://liambsullivan.substack.com/p/hearts-of-palm",
+            externalLink: true,
             imageUrl: imagePaths.editorial.cooking.heartsOfPalm,
           },
           {
@@ -151,6 +155,7 @@ const LocalFetcher = ({
             type: "Blog",
             date: "Oct 2025",
             link: "https://liambsullivan.substack.com/p/tofu",
+            externalLink: true,
             imageUrl: imagePaths.editorial.cooking.tofu,
           },
         ],
