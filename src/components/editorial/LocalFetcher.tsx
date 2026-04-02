@@ -5,6 +5,7 @@ import { imagePaths } from "../../utils/images";
 interface LocalFetcherProps {
   lang?: string;
   category?: string;
+  maxCols?: 2 | 3;
 }
 
 interface LocalData {
@@ -16,9 +17,15 @@ interface LocalData {
   imageUrl: string | null;
 }
 
+const gridClassByMaxCols: Record<2 | 3, string> = {
+  2: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2",
+  3: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3",
+};
+
 const LocalFetcher = ({
   category = "layouts",
   lang = "en",
+  maxCols = 3,
 }: LocalFetcherProps) => {
   const [localData, setLocalData] = useState<LocalData[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -239,7 +246,7 @@ const LocalFetcher = ({
 
   return (
     <div className="mx-auto w-[calc(100vw-4rem)] max-w-[1200px]">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className={gridClassByMaxCols[maxCols]}>
         {localData.map((card: LocalData, index: number) => (
           <a
             href={card.link}
@@ -250,7 +257,7 @@ const LocalFetcher = ({
           >
             <div className="flex h-full flex-col overflow-hidden rounded-xl border border-[#333] bg-[#181818] hover:bg-[#202020]">
               {card.imageUrl && (
-                <div className="relative h-48 w-full">
+                <div className="relative aspect-[2/1] w-full">
                   <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
                   <img
                     src={card.imageUrl}
