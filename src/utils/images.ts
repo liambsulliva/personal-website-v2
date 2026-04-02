@@ -43,7 +43,8 @@ import gridBasedSelection from "../images/projects/grid-based-selection.jpg";
 import portraitTutorial from "../images/editorial/layouts/portrait-tutorial.png";
 import wiiManual from "../images/editorial/layouts/wii-manual.png";
 import mockPittPost from "../images/editorial/layouts/mock-pitt-post.png";
-
+import beerAndWineEdition from "../images/editorial/layouts/beer-and-wine-edition.png";
+import marchMadnessEdition from "../images/editorial/layouts/march-madness-edition.png";
 // Editorial - Presentations images
 import clubmeeting1 from "../images/editorial/presentations/clubmeeting1.png";
 import clubmeeting2 from "../images/editorial/presentations/clubmeeting2.png";
@@ -109,6 +110,8 @@ export {
   portraitTutorial,
   wiiManual,
   mockPittPost,
+  beerAndWineEdition,
+  marchMadnessEdition,
 
   // Editorial - Presentations
   clubmeeting1,
@@ -182,6 +185,9 @@ export const imagePaths = {
       portraitTutorial: "/images/editorial/layouts/portrait-tutorial.png",
       wiiManual: "/images/editorial/layouts/wii-manual.png",
       mockPittPost: "/images/editorial/layouts/mock-pitt-post.png",
+      beerAndWineEdition: "/images/editorial/layouts/beer-and-wine-edition.png",
+      marchMadnessEdition:
+        "/images/editorial/layouts/march-madness-edition.png",
     },
     presentations: {
       clubmeeting1: "/images/editorial/presentations/clubmeeting1.png",

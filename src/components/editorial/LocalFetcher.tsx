@@ -43,6 +43,20 @@ const LocalFetcher = ({
             link: "/layouts/wii-manual.pdf",
             imageUrl: imagePaths.editorial.layouts.wiiManual,
           },
+          {
+            title: "Beer and Wine Edition",
+            type: "Cover",
+            date: "Feb 2026",
+            link: "https://pittnews.com/article/200930/print-archive/beer-and-wine-2/",
+            imageUrl: imagePaths.editorial.layouts.beerAndWineEdition,
+          },
+          {
+            title: "March Madness Edition",
+            type: "Cover",
+            date: "Mar 2026",
+            link: "https://pittnews.com/article/201419/print-archive/march-madness-2/",
+            imageUrl: imagePaths.editorial.layouts.marchMadnessEdition,
+          },
         ],
         de: [
           {
