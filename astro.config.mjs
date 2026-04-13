@@ -9,4 +9,9 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   integrations: [tailwind(), react(), astroI18next(), svelte()],
   adapter: vercel(),
+  vite: {
+    optimizeDeps: {
+      include: ["react-photo-album", "yet-another-react-lightbox"],
+    },
+  },
 });

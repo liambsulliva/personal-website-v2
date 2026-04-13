@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import type { Photo as AlbumPhoto } from "react-photo-album";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -10,16 +11,27 @@ interface CloudinaryFetcherProps {
   lang: string;
 }
 
-interface Photo {
-  src: string;
-  width: number;
-  height: number;
-  srcSet?: { src: string; width: number; height: number }[];
+type GalleryPhoto = AlbumPhoto & { lightboxSrc: string };
+
+function cloudinaryTransform(secureUrl: string, transformation: string): string {
+  return secureUrl.replace("/upload/", `/upload/${transformation}/`);
+}
+
+function dimensionsForWidth(
+  naturalWidth: number,
+  naturalHeight: number,
+  targetWidth: number,
+): { width: number; height: number } {
+  const w = Math.min(naturalWidth, targetWidth);
+  return {
+    width: w,
+    height: Math.round((w / naturalWidth) * naturalHeight),
+  };
 }
 
 const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
   const [index, setIndex] = useState(-1);
-  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
@@ -82,46 +94,38 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
 
         //console.log(`Found ${data.resources.length} resources`);
 
-        // Map Cloudinary resources to photo objects
-        const fetchedPhotos: Photo[] = data.resources.map((resource: any) => {
-          //console.log("Processing resource:", resource.public_id);
-          const baseUrl = resource.secure_url;
+        // Album: small transforms + automatic lower quality. Lightbox: original `secure_url` (loaded when opened).
+        const fetchedPhotos: GalleryPhoto[] = data.resources.map(
+          (resource: { secure_url: string; width: number; height: number }) => {
+            const baseUrl = resource.secure_url;
+            const { width: rw, height: rh } = resource;
 
-          // Generate srcSet with different transformations
-          const srcSet = [
-            {
-              src: baseUrl.replace("/upload/", "/upload/c_limit,w_400/"),
-              width: Math.min(resource.width, 400),
-              height: Math.round(
-                (Math.min(resource.width, 400) / resource.width) *
-                  resource.height,
-              ),
-            },
-            {
-              src: baseUrl.replace("/upload/", "/upload/c_limit,w_800/"),
-              width: Math.min(resource.width, 800),
-              height: Math.round(
-                (Math.min(resource.width, 800) / resource.width) *
-                  resource.height,
-              ),
-            },
-            {
-              src: baseUrl.replace("/upload/", "/upload/c_limit,w_1600/"),
-              width: Math.min(resource.width, 1600),
-              height: Math.round(
-                (Math.min(resource.width, 1600) / resource.width) *
-                  resource.height,
-              ),
-            },
-          ];
+            const albumTransform = "c_limit,f_auto,q_auto:low";
+            const widths = [320, 640, 960] as const;
+            const srcSet = widths.map((w) => {
+              const { width, height } = dimensionsForWidth(rw, rh, w);
+              return {
+                src: cloudinaryTransform(
+                  baseUrl,
+                  `${albumTransform},w_${w}`,
+                ),
+                width,
+                height,
+              };
+            });
 
-          return {
-            src: baseUrl.replace("/upload/", "/upload/c_limit,w_1600/"),
-            width: resource.width,
-            height: resource.height,
-            srcSet,
-          };
-        });
+            return {
+              src: cloudinaryTransform(
+                baseUrl,
+                `${albumTransform},w_640`,
+              ),
+              width: rw,
+              height: rh,
+              srcSet,
+              lightboxSrc: baseUrl,
+            };
+          },
+        );
 
         //console.log(`Processed ${fetchedPhotos.length} photos`);
         //console.log("Next Cursor:", data.next_cursor || "(none)");
@@ -179,6 +183,16 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
     console.warn("Encountered errors:", errors);
   }
 
+  const lightboxSlides = useMemo(
+    () =>
+      photos.map(({ lightboxSrc, width, height }) => ({
+        src: lightboxSrc,
+        width,
+        height,
+      })),
+    [photos],
+  );
+
   return (
     <div className="m-8 pb-16 max-md:m-3">
       <CloudinaryMenu lang={lang} onTagChange={handleTagChange} />
@@ -216,7 +230,7 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
       <Lightbox
         plugins={[Zoom]}
         index={index}
-        slides={photos}
+        slides={lightboxSlides}
         open={index >= 0}
         close={() => setIndex(-1)}
       />
