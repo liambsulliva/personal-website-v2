@@ -18,3 +18,4 @@ export { default as CSS3DIcon } from "../components/icons/CSS3DIcon.astro";
 export { default as ViteIcon } from "../components/icons/ViteIcon.astro";
 export { default as NXLogo } from "../components/icons/NXLogo.astro";
 export { default as ESBuildIcon } from "../components/icons/ESBuildIcon.astro";
+export { default as DocusaurusIcon } from "../components/icons/DocusaurusIcon.astro";

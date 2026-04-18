@@ -24,6 +24,7 @@ import {
   ViteIcon,
   NXLogo,
   ESBuildIcon,
+  DocusaurusIcon,
 } from "../utils/icons";
 import Footer from "./Footer.astro";
 
@@ -81,6 +82,7 @@ function getToolIcon(toolName: string) {
     nxjs: NXLogo,
     reacttela: ReactIcon,
     esbuild: ESBuildIcon,
+    docusaurus: DocusaurusIcon,
   };
   return iconMap[normalizedName] || null;
 }
@@ -109,6 +111,7 @@ function getToolUrl(toolName: string) {
     nxjs: "https://nxjs.n8.io/",
     reacttela: "https://github.com/TooTallNate/react-tela",
     esbuild: "https://esbuild.github.io/",
+    docusaurus: "https://docusaurus.io/",
   };
   return urlMap[normalizedName] || undefined;
 }

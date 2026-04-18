@@ -35,6 +35,7 @@ import switchReactMenuScreen from "../images/projects/switch-react-menu-screen.j
 import switchReactMenuMockup from "../images/projects/switch-react-menu-mockup.png";
 import bridgeapp from "../images/projects/bridgeapp.jpg";
 import herlthroughtheyears from "../images/projects/herlthroughtheyears.png";
+import invisibleHandOfUx from "../images/projects/invisible-hand-of-ux.png";
 import mockup from "../images/projects/mockup.png";
 import teambuilderOld from "../images/projects/teambuilder-old.jpg";
 import gridBasedSelection from "../images/projects/grid-based-selection.jpg";
@@ -102,6 +103,7 @@ export {
   switchReactMenuMockup,
   bridgeapp,
   herlthroughtheyears,
+  invisibleHandOfUx,
   mockup,
   teambuilderOld,
   gridBasedSelection,
@@ -176,6 +178,7 @@ export const imagePaths = {
     switchReactMenuMockup: "/images/projects/switch-react-menu-mockup.png",
     bridgeapp: "/images/projects/bridgeapp.jpg",
     herlthroughtheyears: "/images/projects/herlthroughtheyears.png",
+    invisibleHandOfUx: "/images/projects/invisible-hand-of-ux.png",
     mockup: "/images/projects/mockup.png",
     teambuilderOld: "/images/projects/teambuilder-old.jpg",
     gridBasedSelection: "/images/projects/grid-based-selection.jpg",
