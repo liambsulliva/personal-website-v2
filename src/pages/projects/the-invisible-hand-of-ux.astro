@@ -3,6 +3,8 @@ import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
 import { invisibleHandOfUx } from "../../utils/images";
 import CodeBlock from "../../components/CodeBlock.astro";
+import PdfSlideCarousel from "../../components/PdfSlideCarousel";
+import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -32,10 +34,17 @@ const sidebarItems = [
     loading="eager"
     slot="hero"
   />
-  <div class="case-study-layout">
-    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
-      <h3 class="text-2xl font-semibold text-white">Overview</h3>
-      <div>
+  <div
+    class="case-study-layout min-w-0 max-w-full overflow-x-hidden break-words"
+  >
+    <section
+      class="flex min-w-0 max-w-full flex-col gap-6 pb-10 pt-10 md:flex-row md:gap-20"
+      id="overview"
+    >
+      <h3 class="shrink-0 text-2xl font-semibold text-white md:max-w-[12rem]">
+        Overview
+      </h3>
+      <div class="min-w-0 flex-1">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -58,28 +67,50 @@ const sidebarItems = [
       </div>
     </section>
 
-    <section id="the-pitch">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">The Pitch</h3>
-      <div>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-        <br />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+    <section
+      id="the-pitch"
+      class="flex min-w-0 max-w-full gap-8 pb-10 max-lg:flex-col lg:items-start"
+    >
+      <div class="w-full min-w-0 max-w-full flex-1 lg:w-2/3">
+        <h3 class="!mb-3 text-2xl font-semibold text-white">The Pitch</h3>
+        <div>
+          <p>
+            This project was initially pitched to act as a springboard for
+            non-designers to get a better glimpse into the world of design. I
+            believe that most people care about the way their apps are designed,
+            because the majority of people I know complain about issues they see
+            in the apps they interact with every day.
+          </p>
+          <br />
+          <p>
+            As such, the plan was to go term-by-term through each UX principle
+            and provide an explanation in detail of what it is, where you'll
+            find it, and why it's effective. But, seeing that we are living in
+            an <a href="https://claude.ai/chat" target="_blank">age of AI</a>, I
+            concluded that would be more effective to teach by <i>example</i>,
+            using interactive demos as a springboard to teach these principles.
+          </p>
+          <br />
+          <p>
+            Using demos to teach content is a great tool to package information
+            in a way that shows, rather than tells. Not only does it make the
+            glossary more engaging, but it differentiates this resource from
+            others on the market, such as <a
+              href="https://coglode.com/"
+              target="_blank">Coglode</a
+            >. The iteration speed AI affords is the only way I was able to
+            build in as much interactivity as I ended up with.
+          </p>
+        </div>
+      </div>
+      <div
+        class="m-auto w-full min-w-0 max-w-full max-lg:max-w-md lg:sticky lg:top-8 lg:w-1/2"
+      >
+        <PdfSlideCarousel
+          client:visible
+          src="/pitch-deck.pdf"
+          aspectRatio={16 / 9}
+        />
       </div>
     </section>
 
@@ -253,6 +284,8 @@ const sidebarItems = [
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
       </p>
+      <br />
+      <RedDotDemoStrip client:visible />
       <br />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod

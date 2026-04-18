@@ -1,0 +1,130 @@
+/* Ported from dnid-capstone RedDotDemo + General/Button icon variant */
+
+.appWrapper {
+  --dnid-badge-notification: #ff3040;
+  --dnid-neutral-0: #ffffff;
+  --dnid-surface-page: #1a1a1a;
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0;
+  user-select: none;
+}
+
+.appSymbol {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  display: block;
+  pointer-events: none;
+}
+
+.iconButton {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.12s ease;
+}
+
+.iconButton:hover {
+  transform: scale(1.06);
+}
+
+.iconButton:active {
+  transform: scale(0.94);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--header-color, #6b9fff);
+  outline-offset: 3px;
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  background: var(--dnid-badge-notification);
+  color: var(--dnid-neutral-0);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 22px;
+  text-align: center;
+  border-radius: 11px;
+  pointer-events: none;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+@keyframes badgeAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes badgeDismiss {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.badgeIn {
+  animation: badgeAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.badgeOut {
+  animation: badgeDismiss 0.3s ease-in forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconButton {
+    transition: none;
+  }
+
+  .badgeIn,
+  .badgeOut {
+    animation: none;
+  }
+
+  .badgeIn {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .badgeOut {
+    opacity: 0;
+    transform: scale(0);
+  }
+}

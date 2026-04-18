@@ -125,9 +125,9 @@ const displayGithubLink = isCaseStudy ? undefined : githubLink;
   <div class="m-8">
     <BackLink label={"Back"} href={localizePath("/")} />
   </div>
-  <main class="mx-auto flex w-[1150px] max-w-full flex-row">
+  <main class="mx-auto flex min-w-0 w-[1150px] max-w-full flex-row">
     <SideBar navItems={sidebarItems} className={sidebarClassName} />
-    <div class="mx-4 mb-20">
+    <div class="mx-4 mb-20 min-w-0 max-w-full flex-1">
       <h1 class="mt-4 text-center text-5xl font-bold text-white">
         {title}
       </h1>
