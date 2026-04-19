@@ -1,0 +1,42 @@
+---
+/**
+ * Figma Embed Kit: Builds an iframe from https://www.figma.com/developers/embed
+ * Implemented server side... yasss
+ */
+
+interface Props {
+  url: string;
+  title?: string;
+  embedHost?: string;
+  class?: string;
+}
+
+const {
+  url,
+  title = "Figma embed",
+  embedHost = "share",
+  class: className,
+} = Astro.props;
+
+const embedSrc = (() => {
+  const base = new URL("https://www.figma.com/embed");
+  base.searchParams.set("embed_host", embedHost);
+  base.searchParams.set("url", url);
+  return base.toString();
+})();
+---
+
+<div
+  class:list={[
+    "not-prose relative mb-8 mt-4 aspect-video w-full max-w-full overflow-hidden rounded-lg border border-white/10 bg-black/20 shadow-lg",
+    className,
+  ]}
+>
+  <iframe
+    src={embedSrc}
+    title={title}
+    loading="lazy"
+    allowfullscreen
+    allow="clipboard-read; clipboard-write; fullscreen"
+    class="absolute inset-0 h-full w-full border-0"></iframe>
+</div>

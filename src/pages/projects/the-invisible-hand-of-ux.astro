@@ -9,6 +9,10 @@ import CodeBlock from "../../components/CodeBlock.astro";
 import PdfSlideCarousel from "../../components/PdfSlideCarousel";
 import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
 import BrandingPhotoAlbum from "../../components/BrandingPhotoAlbum";
+import FigmaEmbed from "../../components/FigmaEmbed.astro";
+
+const prototypingFigmaUrl =
+  "https://www.figma.com/design/0I7rWLjZMTmmDVi3I6u6HO/The-Invisible-Hand-of-UX?node-id=0-1";
 
 const brandingPhotos = [
   {
@@ -175,8 +179,12 @@ const sidebarItems = [
       </div>
     </section>
 
-    <section id="context">
+    <section id="prototyping">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Prototyping</h3>
+      <FigmaEmbed
+        url={prototypingFigmaUrl}
+        title="The Invisible Hand of UX — Figma file"
+      />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
