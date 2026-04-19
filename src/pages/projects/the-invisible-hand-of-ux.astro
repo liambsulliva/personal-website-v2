@@ -94,10 +94,17 @@ const sidebarItems = [
 
     <section
       id="the-pitch"
-      class="flex min-w-0 max-w-full gap-8 pb-10 max-lg:flex-col lg:items-start"
+      class="min-w-0 max-w-full pb-10"
     >
-      <div class="w-full min-w-0 max-w-full flex-1 lg:w-2/3">
+      <div class="w-full min-w-0 max-w-full flex-1">
         <h3 class="!mb-3 text-2xl font-semibold text-white">The Pitch</h3>
+        <div class="mb-6">
+          <PdfSlideCarousel
+            client:visible
+            src="/pitch-deck.pdf"
+            aspectRatio={16 / 9}
+          />
+        </div>
         <div>
           <p>
             This project was initially pitched to act as a springboard for
@@ -127,15 +134,6 @@ const sidebarItems = [
             build in as much interactivity as I ended up with.
           </p>
         </div>
-      </div>
-      <div
-        class="m-auto w-full min-w-0 max-w-full max-lg:max-w-md lg:sticky lg:top-8 lg:w-1/2"
-      >
-        <PdfSlideCarousel
-          client:visible
-          src="/pitch-deck.pdf"
-          aspectRatio={16 / 9}
-        />
       </div>
     </section>
 
