@@ -2,9 +2,34 @@
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
 import { invisibleHandOfUx } from "../../utils/images";
+import bannerRasterUrl from "../../images/projects/banner-raster.png?url";
+import printLogoRasterUrl from "../../images/projects/print-logo-raster.png?url";
+import bannerColorUrl from "../../images/projects/banner-color.png?url";
 import CodeBlock from "../../components/CodeBlock.astro";
 import PdfSlideCarousel from "../../components/PdfSlideCarousel";
 import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
+import BrandingPhotoAlbum from "../../components/BrandingPhotoAlbum";
+
+const brandingPhotos = [
+  {
+    src: bannerRasterUrl,
+    width: 1050,
+    height: 591,
+    alt: "The Invisible Hand of UX — black and white wordmark banner",
+  },
+  {
+    src: printLogoRasterUrl,
+    width: 720,
+    height: 540,
+    alt: "The Invisible Hand of UX — print logo",
+  },
+  {
+    src: bannerColorUrl,
+    width: 5000,
+    height: 750,
+    alt: "The Invisible Hand of UX — color banner",
+  },
+];
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -126,6 +151,9 @@ const sidebarItems = [
           pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
           culpa qui officia deserunt mollit anim id est laborum.
         </p>
+        <br />
+        <BrandingPhotoAlbum client:visible photos={brandingPhotos} />
+
         <br />
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do

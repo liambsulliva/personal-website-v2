@@ -36,6 +36,9 @@ import switchReactMenuMockup from "../images/projects/switch-react-menu-mockup.p
 import bridgeapp from "../images/projects/bridgeapp.jpg";
 import herlthroughtheyears from "../images/projects/herlthroughtheyears.png";
 import invisibleHandOfUx from "../images/projects/invisible-hand-of-ux.png";
+import bannerColor from "../images/projects/banner-color.png";
+import bannerRaster from "../images/projects/banner-raster.png";
+import printLogoRaster from "../images/projects/print-logo-raster.png";
 import mockup from "../images/projects/mockup.png";
 import teambuilderOld from "../images/projects/teambuilder-old.jpg";
 import gridBasedSelection from "../images/projects/grid-based-selection.jpg";
@@ -104,6 +107,9 @@ export {
   bridgeapp,
   herlthroughtheyears,
   invisibleHandOfUx,
+  bannerColor,
+  bannerRaster,
+  printLogoRaster,
   mockup,
   teambuilderOld,
   gridBasedSelection,
@@ -179,6 +185,9 @@ export const imagePaths = {
     bridgeapp: "/images/projects/bridgeapp.jpg",
     herlthroughtheyears: "/images/projects/herlthroughtheyears.png",
     invisibleHandOfUx: "/images/projects/invisible-hand-of-ux.png",
+    bannerColor: "/images/projects/banner-color.png",
+    bannerRaster: "/images/projects/banner-raster.png",
+    printLogoRaster: "/images/projects/print-logo-raster.png",
     mockup: "/images/projects/mockup.png",
     teambuilderOld: "/images/projects/teambuilder-old.jpg",
     gridBasedSelection: "/images/projects/grid-based-selection.jpg",
