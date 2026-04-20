@@ -4,7 +4,8 @@ import {
   herlthroughtheyears,
   switchReactMenuScreen,
   pokedraft,
-  bridgeapp,
+  //bridgeapp,
+  invisibleHandOfUx,
 } from "../utils/images";
 import {
   NextjsIcon,
@@ -13,6 +14,7 @@ import {
   TypeScriptIcon,
   ReactIcon,
   NXLogo,
+  DocusaurusIcon,
 } from "../utils/icons";
 ---
 
@@ -32,6 +34,7 @@ import {
       externalLink={false}
       projectLink="projects/kingdra-app"
     />
+
     <Card
       title="HERL - Through The Years"
       description="A 3D interactive scrapbook documenting Human Engineering Research Labs' 30 year history with the Department of Veteran's Affairs."
@@ -46,8 +49,20 @@ import {
       externalLink={false}
     />
     <Card
+      title="The Invisible Hand of UX"
+      description="A highly interactive design glossary built so non-designers can grapple with UX design principles hands-on. Built with React and Docusaurus."
+      banner1icon={ReactIcon}
+      banner1text={"React"}
+      banner2icon={DocusaurusIcon}
+      banner2text={"Docusaurus"}
+      img={invisibleHandOfUx}
+      viewBtn="https://github.com/liambsulliva/dnid-capstone"
+      projectLink="projects/the-invisible-hand-of-ux"
+      externalLink={false}
+    />
+    <Card
       title="Switch React Menu"
-      description="A minimalist home menu for the Nintendo Switch, built with React. Uses react-tela to render React components to a canvas, allowing nx.js to natively render to the Switch screen."
+      description="A minimalist home menu for the Nintendo Switch, built with React. Uses react-tela to render React components to a canvas, allowing nx.js to natively render elements to the Switch's screen."
       img={switchReactMenuScreen}
       banner1icon={ReactIcon}
       banner1text={"nx.js"}
@@ -57,18 +72,6 @@ import {
       viewBtn="https://github.com/liambsulliva/switch-react-menu"
       demoBtn="/switch-react-menu"
       projectLink="projects/switch-react-menu"
-      externalLink={false}
-    />
-    <Card
-      title="BRIDGE Dashboard"
-      description="An interactive dashboard intended for use in BRIDGE, an AI tool that revolutionizes sign language translation by generating ASL signs for STEM concepts."
-      banner1icon={SvelteIcon}
-      banner1text={"Svelte"}
-      banner2icon={TypeScriptIcon}
-      banner2text={"TypeScript"}
-      img={bridgeapp}
-      viewBtn="https://github.com/liambsulliva/bridge-dashboard"
-      projectLink="projects/bridge-app"
       externalLink={false}
     />
   </div>
