@@ -122,13 +122,19 @@ const PdfSlideCarousel: React.FC<PdfSlideCarouselProps> = ({
       const scale = slideWidth / baseViewport.width;
       const viewport = page.getViewport({ scale });
 
-      canvas.width = Math.floor(viewport.width);
-      canvas.height = Math.floor(viewport.height);
+      // High DPI rendering
+      const devicePixelRatio = window.devicePixelRatio * 2 || 1;
+      canvas.width = Math.floor(viewport.width * devicePixelRatio);
+      canvas.height = Math.floor(viewport.height * devicePixelRatio);
 
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      await page.render({ canvasContext: ctx, viewport }).promise;
+      await page.render({
+        canvasContext: ctx,
+        viewport,
+        transform: [devicePixelRatio, 0, 0, devicePixelRatio, 0, 0],
+      }).promise;
       renderedRef.current.add(pageIndex);
     },
     [slideWidth],
