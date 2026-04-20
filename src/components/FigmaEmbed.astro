@@ -1,6 +1,6 @@
 ---
 /**
- * Figma Embed Kit: Builds an iframe from https://www.figma.com/developers/embed
+ * Upgraded to Figma Embed Kit 2.0: https://developers.figma.com/docs/embeds/embed-kit-2.0/
  * Implemented server side... yasss
  */
 
@@ -8,6 +8,11 @@ interface Props {
   url: string;
   title?: string;
   embedHost?: string;
+  theme?: "light" | "dark" | "system";
+  footer?: boolean;
+  viewportControls?: boolean;
+  pageSelector?: boolean;
+  mode?: "dev";
   class?: string;
 }
 
@@ -15,15 +20,46 @@ const {
   url,
   title = "Figma embed",
   embedHost = "share",
+  theme = "dark",
+  footer,
+  viewportControls,
+  pageSelector,
+  mode,
   class: className,
 } = Astro.props;
 
-const embedSrc = (() => {
-  const base = new URL("https://www.figma.com/embed");
-  base.searchParams.set("embed_host", embedHost);
-  base.searchParams.set("url", url);
-  return base.toString();
-})();
+function buildEmbedKit2Src(rawUrl: string): string {
+  const u = new URL(rawUrl);
+  const allowedHosts = new Set([
+    "www.figma.com",
+    "figma.com",
+    "embed.figma.com",
+  ]);
+  if (!allowedHosts.has(u.hostname)) {
+    throw new Error(
+      `FigmaEmbed: expected a figma.com URL, got hostname "${u.hostname}"`,
+    );
+  }
+  if (u.hostname !== "embed.figma.com") {
+    u.hostname = "embed.figma.com";
+  }
+
+  u.searchParams.set("embed-host", embedHost);
+
+  if (theme) u.searchParams.set("theme", theme);
+  if (footer !== undefined) u.searchParams.set("footer", String(footer));
+  if (viewportControls !== undefined) {
+    u.searchParams.set("viewport-controls", String(viewportControls));
+  }
+  if (pageSelector !== undefined) {
+    u.searchParams.set("page-selector", String(pageSelector));
+  }
+  if (mode) u.searchParams.set("mode", mode);
+
+  return u.toString();
+}
+
+const embedSrc = buildEmbedKit2Src(url);
 ---
 
 <div
