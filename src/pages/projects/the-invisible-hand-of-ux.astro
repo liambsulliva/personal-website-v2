@@ -141,11 +141,13 @@ const sidebarItems = [
           </div>
           <p>
             Students LOVE getting their hands dirty. They learn better that way,
-            too. A study conducted at Purdue in 2008 found that 8th graders who
-            built a water purification device saw much higher test scores than
-            those who followed a traditional lecture format. The proof is in the
-            pudding. Hands-on learning is a powerful lever to engage students
-            and help them internalize concepts.
+            too. A <a
+              href="https://www.purdue.edu/uns/x/2009a/090128DarkStudy.html"
+              target="_blank">study conducted at Purdue University</a
+            > found that 8th graders who built a water purification device saw much
+            higher test scores than those who followed a traditional lecture format.
+            The proof is in the pudding. Hands-on learning is a powerful lever to
+            engage students and help them internalize concepts.
           </p>
           <br />
           <p>
@@ -303,49 +305,39 @@ const sidebarItems = [
           </p>
         </div>
       </div>
+      <br />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        These 5 categories neatly mapped on to the terms I wanted to cover (more
+        or less). Given the theme of the aggressive branding, I wanted to focus
+        on principles that leaned manipulative, and these choices encapsulated
+        that sentiment.
       </p>
       <br />
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        The interface itself presents relatively minimal to make space for the
+        content to speak for itself. Despite this project being meta-textual,
+        the demos should be the focal point, not the scaffolding around it.
       </p>
     </section>
     <br />
     <section id="development">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+      <p>
+        This is where it gets fun. A LOT of the design decisions I made were
+        informed by the user feedback I recieved throughout development. The
+        landing page navigation illustrates this perfectly.
+      </p>
+      <br />
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+      <br />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -359,27 +351,6 @@ const sidebarItems = [
       <CaptionedFigure caption="The Red Dot Effect in action.">
         <RedDotDemoStrip client:visible />
       </CaptionedFigure>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -533,13 +504,15 @@ console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result
   }
 
   :global(.case-study-layout) .card-container.wiki-category-cards {
+    max-width: 750px;
+    margin: 0 auto;
     display: grid;
     gap: 1rem;
     margin-bottom: 0.75rem;
     grid-template-columns: 1fr;
   }
 
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @media (min-width: 500px) and (max-width: 768px) {
     :global(.case-study-layout) .card-container.wiki-category-cards {
       grid-template-columns: repeat(2, 1fr);
     }
@@ -549,7 +522,7 @@ console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 769px) {
     :global(.case-study-layout) .card-container.wiki-category-cards {
       grid-template-columns: repeat(6, 1fr);
     }
