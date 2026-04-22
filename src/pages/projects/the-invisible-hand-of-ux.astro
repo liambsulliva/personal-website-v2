@@ -108,31 +108,53 @@ const sidebarItems = [
         </CaptionedFigure>
         <div>
           <p>
-            This project was initially pitched to act as a springboard for
-            non-designers to get a better glimpse into the world of design. I
-            believe that most people care about the way their apps are designed,
-            because the majority of people I know complain about issues they see
-            in the apps they interact with every day.
+            In my work for the <a
+              href="https://www.instagram.com/designclubpitt/"
+              target="_blank">Design Club @ Pitt</a
+            >, I noticed that while members were able to see the value in the
+            concepts I taught on principle, they struggled with properly
+            internalizing those terms and applying them to their own work.
           </p>
           <br />
           <p>
-            As such, the plan was to go term-by-term through each UX principle
-            and provide an explanation in detail of what it is, where you'll
-            find it, and why it's effective. But, seeing that we are living in
-            an <a href="https://claude.ai/chat" target="_blank">age of AI</a>, I
-            concluded that would be more effective to teach by <i>example</i>,
-            using interactive demos as a springboard to teach these principles.
+            This isn't their fault. For a field that predicates itself on
+            inclusion, the UX world contains an awful lot of jargon. New
+            designers that would otherwise be interested in the field are left
+            turned away by the needless complexity of the terminology that UX
+            professionals use to describe their work. This makes it difficult
+            for newbies to "see" the patterns they learn in the tools they use
+            every day.
           </p>
           <br />
           <p>
-            Using demos to teach content is a great tool to package information
-            in a way that shows, rather than tells. Not only does it make the
-            glossary more engaging, but it differentiates this resource from
-            others on the market, such as <a
-              href="https://coglode.com/"
-              target="_blank">Coglode</a
-            >. The iteration speed AI affords is the only way I was able to
-            build in as much interactivity as I ended up with.
+            New designers see a complicated term, their eyes glaze over, and
+            they forget about it before they can notice it incorporated into
+            corporate work.
+          </p>
+          <div class="relative mt-4 py-8 text-center">
+            <div class="mx-auto mb-6 h-[1px] w-1/3 bg-[#333]"></div>
+            <p class="!text-center">THE SOLUTION?</p>
+            <h2 class="my-0 font-medium text-white">
+              Gamify the learning process.
+            </h2>
+            <div class="mx-auto mt-6 h-[1px] w-1/3 bg-[#333]"></div>
+          </div>
+          <p>
+            Students LOVE getting their hands dirty. They learn better that way,
+            too. A study conducted at Purdue in 2008 found that 8th graders who
+            built a water purification device saw much higher test scores than
+            those who followed a traditional lecture format. The proof is in the
+            pudding. Hands-on learning is a powerful lever to engage students
+            and help them internalize concepts.
+          </p>
+          <br />
+          <p>
+            As such, this project goes through each UX principle and gives
+            students a demo to play with. By playing with the demos, students
+            are able to see the patterns in action and connect the term
+            <i>directly</i> to the feeling of using it, rather than just reading about
+            it in an abstract context. They can use this resource to notice patterns
+            in the apps they use every day.
           </p>
         </div>
       </div>
@@ -187,86 +209,100 @@ const sidebarItems = [
         />
       </CaptionedFigure>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        Once the branding was finished, I began brainstorming the layout of the
+        site. Docusaurus did a ton of this work for me. Since it's built for
+        documentation, it has a ton of features to sort and organize the content
+        you're looking to present. Eventually, I settled on 5 distinct
+        categories to organize the terms I was presenting.
       </p>
+
       <br />
-      {
-        /* <div class="card-container">
+      <div class="card-container wiki-category-cards">
         <div class="card">
           <svg
-            class="mx-auto my-4"
+            class="wiki-category-card-icon"
             xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
             viewBox="0 0 24 24"
+            aria-hidden="true"
             ><path
               fill="white"
-              d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m0 16H3V5h18zM11 15h2v-2h2v-2h-2V9h-2v2H9v2h2z"
+              d="M9.01 14H2v2h7.01v3L13 15l-3.99-4v3zm5.98-1v-3H22V8h-7.01V5L11 9l3.99 4z"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">
-            Sequential Generation Queue
-          </h4>
-          <p>
-            Missing words are processed one at a time through a modal queue
-            system. This prevents overwhelming the OpenAI API with simultaneous
-            requests and gives users control over which signs to generate versus
-            which to skip and fingerspell instead.
+          <h4 class="wiki-category-card-title">Anchoring</h4>
+          <p class="wiki-category-card-desc">
+            Elements that present an option as a pivot point for comparison,
+            rather than as a standalone decision.
           </p>
         </div>
         <div class="card">
           <svg
-            class="mx-auto my-2"
+            class="wiki-category-card-icon"
             xmlns="http://www.w3.org/2000/svg"
-            width="8rem"
-            height="8rem"
             viewBox="0 0 24 24"
+            aria-hidden="true"
             ><path
               fill="white"
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
+              d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">
-            Dynamic Library Updates
-          </h4>
-          <p>
-            After generating a new sign, the system writes the base64-encoded
-            image to the local filesystem and dynamically reloads it into the
-            sign library store. This ensures newly generated signs are
-            immediately available without requiring an app restart or manual
-            refresh.
+          <h4 class="wiki-category-card-title">Attention</h4>
+          <p class="wiki-category-card-desc">
+            Elements that are engineered to efficiently capture and hold user
+            attention.
           </p>
         </div>
         <div class="card">
           <svg
-            class="mx-auto my-2"
+            class="wiki-category-card-icon"
             xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="8rem"
             viewBox="0 0 24 24"
+            aria-hidden="true"
             ><path
               fill="white"
-              d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67l-.5-.68C10.96 2.54 10.05 2 9 2C7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2m-5-2c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1M9 4c.55 0 1 .45 1 1s-.45 1-1 1s-1-.45-1-1s.45-1 1-1m11 15H4v-2h16zm0-5H4V8h5.08L7 10.83L8.62 12L12 7.4l3.38 4.6L17 10.83L14.92 8H20z"
+              d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
             ></path></svg
           >
-          <h4 class="text-xl font-medium text-white">Visual Hierarchy</h4>
-          <p>
-            The SignDisplay component distinguishes between word-level signs
-            (larger with yellow ring styling) and letter-level fingerspelling
-            (smaller). Visual separators between words improve readability,
-            making it clear where one word ends and another begins in the ASL
-            translation.
+          <h4 class="wiki-category-card-title">Behavior</h4>
+          <p class="wiki-category-card-desc">
+            Elements that subtly play on human impulse to influence user
+            behavior.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="wiki-category-card-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            ><path
+              fill="white"
+              d="M1 21h22L12 2 1 21m12-3h-2v-2h2v2m0-4h-2v-4h2v4"></path></svg
+          >
+          <h4 class="wiki-category-card-title">Coercion</h4>
+          <p class="wiki-category-card-desc">
+            Elements that are built to force users into decisions they may not
+            otherwise make.
+          </p>
+        </div>
+        <div class="card">
+          <svg
+            class="wiki-category-card-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            ><path
+              fill="white"
+              d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7m2.85 11.1-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1"
+            ></path></svg
+          >
+          <h4 class="wiki-category-card-title">Priming</h4>
+          <p class="wiki-category-card-desc">
+            Elements that leverage context clues to prepare users to make a
+            decision.
           </p>
         </div>
       </div>
-      */
-      }
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -494,6 +530,77 @@ console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: space-between;
+  }
+
+  :global(.case-study-layout) .card-container.wiki-category-cards {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    :global(.case-study-layout) .card-container.wiki-category-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :global(.case-study-layout) .card-container.wiki-category-cards {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(1) {
+      grid-column: 1 / 3;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(2) {
+      grid-column: 3 / 5;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(3) {
+      grid-column: 5 / 7;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(4) {
+      grid-column: 1 / 4;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
+      grid-column: 4 / 7;
+    }
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .card {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    flex-shrink: 0;
+    margin: 0 auto 1rem;
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-desc {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: #a1a1aa;
   }
 
   :global(.case-study-layout) .card {
