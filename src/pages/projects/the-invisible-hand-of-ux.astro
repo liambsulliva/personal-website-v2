@@ -10,6 +10,7 @@ import PdfSlideCarousel from "../../components/PdfSlideCarousel";
 import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
 import BrandingPhotoAlbum from "../../components/BrandingPhotoAlbum";
 import FigmaEmbed from "../../components/FigmaEmbed.astro";
+import CaptionedFigure from "../../components/CaptionedFigure.astro";
 
 const prototypingFigmaUrl =
   "https://www.figma.com/design/0I7rWLjZMTmmDVi3I6u6HO/The-Invisible-Hand-of-UX?node-id=0-1";
@@ -98,13 +99,13 @@ const sidebarItems = [
     <section id="the-pitch" class="min-w-0 max-w-full pb-10">
       <div class="w-full min-w-0 max-w-full flex-1">
         <h3 class="!mb-3 text-2xl font-semibold text-white">The Pitch</h3>
-        <div class="mb-6">
+        <CaptionedFigure caption="The Original Pitch Deck.">
           <PdfSlideCarousel
             client:visible
             src="/pitch-deck.pdf"
             aspectRatio={16 / 9}
           />
-        </div>
+        </CaptionedFigure>
         <div>
           <p>
             This project was initially pitched to act as a springboard for
@@ -157,7 +158,9 @@ const sidebarItems = [
           This is where the "shooting through the text" concept came from.
         </p>
         <br />
-        <BrandingPhotoAlbum client:visible photos={brandingPhotos} />
+        <CaptionedFigure caption="Branding Photos">
+          <BrandingPhotoAlbum client:visible photos={brandingPhotos} />
+        </CaptionedFigure>
         <br />
         <p>
           I implemented the blue color palette after looking over the aesthetic
@@ -177,10 +180,12 @@ const sidebarItems = [
     <br />
     <section id="prototyping">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Prototyping</h3>
-      <FigmaEmbed
-        url={prototypingFigmaUrl}
-        title="The Invisible Hand of UX — Figma file"
-      />
+      <CaptionedFigure caption="Prototyping Figma File">
+        <FigmaEmbed
+          url={prototypingFigmaUrl}
+          title="The Invisible Hand of UX — Figma file"
+        />
+      </CaptionedFigure>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -315,7 +320,9 @@ const sidebarItems = [
         mollit anim id est laborum.
       </p>
       <br />
-      <RedDotDemoStrip client:visible />
+      <CaptionedFigure caption="Interactive demo: targeting and Fitts's law">
+        <RedDotDemoStrip client:visible />
+      </CaptionedFigure>
       <br />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod

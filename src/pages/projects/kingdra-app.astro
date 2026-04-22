@@ -7,6 +7,7 @@ import {
   gridBasedSelection,
 } from "../../utils/images";
 import CodeBlock from "../../components/CodeBlock.astro";
+import CaptionedFigure from "../../components/CaptionedFigure.astro";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -90,12 +91,14 @@ const sidebarItems = [
         hyperspecialized to begin with.
       </p>
       <br />
-      <Image
-        src={teambuilderOld}
-        alt="Kingdra Teambuilder"
-        class="mx-auto max-h-[700px] w-auto"
-        loading="eager"
-      />
+      <CaptionedFigure caption="Early draft-focused teambuilder layout">
+        <Image
+          src={teambuilderOld}
+          alt="Kingdra Teambuilder"
+          class="mx-auto max-h-[700px] w-auto"
+          loading="eager"
+        />
+      </CaptionedFigure>
       <br />
       <p>
         As the project grew, I started to get feedback from my friends that they
@@ -130,12 +133,14 @@ const sidebarItems = [
         have now.
       </p>
       <br />
-      <Image
-        src={gridBasedSelection}
-        alt="Grid-Based Selection"
-        class="mx-auto max-h-[700px] w-auto"
-        loading="eager"
-      />
+      <CaptionedFigure caption="Grid-based Pokémon selection">
+        <Image
+          src={gridBasedSelection}
+          alt="Grid-Based Selection"
+          class="mx-auto max-h-[700px] w-auto"
+          loading="eager"
+        />
+      </CaptionedFigure>
       <br />
       <p>
         Another goal was to implement stat calculations for each Pokemon. In

@@ -1,0 +1,17 @@
+---
+/**
+ * ONLY meant for standalone figures (embeds, carousels, full-width screenshots).
+ */
+interface Props {
+  caption: string;
+  class?: string;
+  spaced?: boolean;
+}
+
+const { caption, class: className, spaced = true } = Astro.props;
+---
+
+<div class:list={[{ "mb-6": spaced }, className]}>
+  <slot />
+  <p class="mt-4 text-end text-sm italic text-zinc-400">{caption}</p>
+</div>
