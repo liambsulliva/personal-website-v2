@@ -13,7 +13,7 @@ import landingSeparate1 from "../../images/projects/landing-separate-1.jpg";
 import landingSeparate2 from "../../images/projects/landing-separate-2.jpg";
 import CodeBlock from "../../components/CodeBlock.astro";
 import PdfSlideCarousel from "../../components/PdfSlideCarousel";
-import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
+import BezierPlayground from "../../components/BezierPlayground/BezierPlayground";
 import BrandingPhotoAlbum from "../../components/BrandingPhotoAlbum";
 import FigmaEmbed from "../../components/FigmaEmbed.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
@@ -216,10 +216,10 @@ const sidebarItems = [
       </CaptionedFigure>
       <p>
         Once the branding was finished, I began brainstorming the layout of the
-        site. Docusaurus did a ton of this work for me. Since it's built for
-        documentation, it has a ton of features to sort and organize the content
-        you're looking to present. Eventually, I settled on 5 distinct
-        categories to organize the terms I was presenting.
+        site. <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> did
+        a ton of this work for me. Since it's built for documentation, it has a ton
+        of features to sort and organize the content you're looking to present. Eventually,
+        I settled on 5 distinct categories to organize the terms I was presenting.
       </p>
       <br />
       <br />
@@ -328,402 +328,315 @@ const sidebarItems = [
     <section id="development">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
       <p>
-        Development was characterized by a TON of time spent on refining the
-        animations and demos. The animations were scaffolded with AI, but needed
-        a ton of tuning to make the keyframes feel natural.
-        <CodeBlock
-          code={`// Extract content words using NLP (compromise)
-function extractContentWords(text: string): Set<string> {
-	const doc = nlp(text);
-	const contentWords = new Set<string>();
-	const wordPattern = /^[a-z]+(?:-[a-z]+)?$/;
-
-	doc.nouns().forEach((noun: CompromiseMatch) => {
-		const word = noun.text().toLowerCase().trim();
-		if (word && wordPattern?.test(word)) {
-			contentWords.add(word);
-			//console.log('Extracted noun:', word);
-		}
-	});
-
-	doc.verbs().forEach((verb: CompromiseMatch) => {
-		const word = verb.text().toLowerCase().trim();
-		if (word && wordPattern?.test(word)) {
-			contentWords.add(word);
-			//console.log('Extracted verb:', word);
-		}
-	});
-
-	doc.adjectives().forEach((adj: CompromiseMatch) => {
-		const word = adj.text().toLowerCase().trim();
-		if (word && wordPattern?.test(word)) {
-			contentWords.add(word);
-			//console.log('Extracted adjective:', word);
-		}
-	});
-  
-    //...
-
-    return contentWords;
-}`}
-          language="typescript"
-        />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-        <br />
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-        <CodeBlock
-          code={`// Compose the prompt dynamically based on the word
-const prompt = \`
-American Sign Language (ASL) sign for the word "\${word}, in a black and white illustrative style
-with a clear hand gesture on a white background. Do not display any text in the final result.\`;
-
-console.log('[STEP] Prompt sent to OpenAI:', prompt);
-
-const result = await openai.images.generate({
-  model: 'gpt-image-1',
-  prompt,
-  size: '1024x1024',
-  n: 1
-});
-
-console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result.data[0]);`}
-          language="typescript"
-        />
-        <p>
-          The tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        I spent a TON of development time refining the animations and demos.
+        Even though AI was scaffolding a lot of the component architecture,
+        there was still a ton of manual tweaking that needed to be done to make
+        it feel right. And as good as these models are, it surprised me how
+        often its visuals felt <i>stiff</i>.
       </p>
       <br />
+      <h4 class="!mb-3 text-xl font-semibold text-white">Animations</h4>
+      <p>
+        First off, the animations. In order to make the animations feel
+        <i>springy</i>, I needed to use math to give the animations a bit of
+        inertia. This is where the concept of a <a
+          href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve"
+          target="_blank">Bezier curve</a
+        > came in. To demonstrate this, here is the CSS for the finger gun animation
+        that plays when the user hovers over the menu icon.
+      </p>
+      <CodeBlock
+        code={`@keyframes logo-recoil {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(-20deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.navbar__logo img {
+  transform-origin: bottom left;
+}
+
+.navbar__brand:hover .navbar__logo img {
+  animation: logo-recoil 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}`}
+        language="css"
+      />
+      <br />
+      <p>
+        There are a couple pieces to this. To start, the <code>@keyframes</code> bit
+        defines the initial animation. It consists of a rotation that starts at 0
+        degrees, pops up right at the beginning of the animation to simulate a recoiling
+        gun, and then slowly returns back to 0 degrees. The <code
+          >transform-origin: bottom left;</code
+        > bit is important to ensure that the rotation pivot is set at the bottom
+        left corner of the icon.
+      </p>
+      <br />
+      <p>
+        The part that makes it actually <i>springy</i> is in the <code
+          >cubic-bezier(x1, y1, x2, y2)</code
+        > bit. This function defines the way time progresses through the animation.
+        The <code>x1</code> determines when the motion starts accelerating, the <code
+          >y1</code
+        > determines how aggressively it launches, the <code>x2</code> determines
+        when the animation starts settling down, and the <code>y2</code> determines
+        where it ends up. Try it for yourself here!
+      </p>
+      <br />
+      <BezierPlayground client:visible />
+      <br />
+      <h4 class="!mb-3 text-xl font-semibold text-white">Demos</h4>
+      <p>
+        The demos ranged a lot in complexity, but the biggest principle I needed
+        to adhere to was re-using components as much as possible. This A: saved
+        me AI tokens (which is ultimately better for the environment) and B:
+        made the development process a little speedier.
+      </p>
+      <br />
+      <p>
+        The most obvious re-used component was the MacOS style window chrome
+        that wraps around a ton of the demo content. If there is a need to
+        separate something from the page or give it its own "container", I would
+        just throw it in this generic window. It saved me a ton of time that
+        would have otherwise been spent on creating new window frames for each
+        demo.
+      </p>
+      <br />
+      <p>
+        I also noticed that a lot of the terms I described could be pretty
+        eloquently explained through the use of a pricing ladder, especially in <a
+          href="https://uxwiki.liambsullivan.com/docs/anchoring/highballing"
+          >Anchoring</a
+        >. Being able to re-use this same pricing ladder cross-terms saved me a
+        ton of time and effort that could be spent making the other demos as
+        good as they possibly could.
+      </p>
     </section>
     <br />
-    <section id="testing">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Testing</h3>
-      <p>
-        This is where it gets fun. A LOT of the design decisions I made were
-        informed by the user feedback I recieved throughout development. The
-        landing page navigation illustrates this perfectly.
-      </p>
-      <br />
-      <CaptionedFigure
-        caption="The initial landing page design was split into two screens."
-      >
-        <div class="grid w-full min-w-0 grid-cols-2 gap-2 sm:gap-4">
-          <Image
-            src={landingSeparate1}
-            alt="The initial landing page design — first screen"
-            class="h-auto w-full min-w-0 max-w-full rounded-xl"
-            loading="eager"
-          />
-          <Image
-            src={landingSeparate2}
-            alt="The initial landing page design — second screen"
-            class="h-auto w-full min-w-0 max-w-full rounded-xl"
-            loading="eager"
-          />
-        </div>
-      </CaptionedFigure>
-      <br />
-      <p>
-        Initially, the landing page was completely separated from the home
-        page. This was done to keep the home page clean and minimal. When
-      </p>
-      <br />
-      <CaptionedFigure
-        caption="The landing page merged with the home page and expanded to fill the screen."
-      >
-        <Image
-          src={landingGrid}
-          alt="The initial landing page design — first screen"
-          class="h-auto w-full min-w-0 max-w-full rounded-xl"
-          loading="eager"
-        />
-      </CaptionedFigure>
-      <br />
-      <p>
-        After some user testing, it was clear that the extra click was
-        completely unnecessary.
-      </p>
-      <br />
-      <CaptionedFigure
-        caption="Eventually, the grid morphed into a more traditional layout with sections."
-      >
-        <Image
-          src={landingSections}
-          alt="The initial landing page design — first screen"
-          class="h-auto w-full min-w-0 max-w-full rounded-xl"
-          loading="eager"
-        />
-      </CaptionedFigure>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-        eiusmod
-      </p>
-      <CaptionedFigure caption="The Red Dot Effect in action.">
-        <RedDotDemoStrip client:visible />
-      </CaptionedFigure>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <CodeBlock
-        code={`// Extract content words using NLP (compromise)
-function extractContentWords(text: string): Set<string> {
-const doc = nlp(text);
-const contentWords = new Set<string>();
-const wordPattern = /^[a-z]+(?:-[a-z]+)?$/;
-
-doc.nouns().forEach((noun: CompromiseMatch) => {
-  const word = noun.text().toLowerCase().trim();
-  if (word && wordPattern?.test(word)) {
-    contentWords.add(word);
-    //console.log('Extracted noun:', word);
-  }
-});
-
-doc.verbs().forEach((verb: CompromiseMatch) => {
-  const word = verb.text().toLowerCase().trim();
-  if (word && wordPattern?.test(word)) {
-    contentWords.add(word);
-    //console.log('Extracted verb:', word);
-  }
-});
-
-doc.adjectives().forEach((adj: CompromiseMatch) => {
-  const word = adj.text().toLowerCase().trim();
-  if (word && wordPattern?.test(word)) {
-    contentWords.add(word);
-    //console.log('Extracted adjective:', word);
-  }
-});
-
-  //...
-
-  return contentWords;
-}`}
-        language="typescript"
-      />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-      <CodeBlock
-        code={`// Compose the prompt dynamically based on the word
-const prompt = \`
-American Sign Language (ASL) sign for the word "\${word}, in a black and white illustrative style
-with a clear hand gesture on a white background. Do not display any text in the final result.\`;
-
-console.log('[STEP] Prompt sent to OpenAI:', prompt);
-
-const result = await openai.images.generate({
-model: 'gpt-image-1',
-prompt,
-size: '1024x1024',
-n: 1
-});
-
-console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result.data[0]);`}
-        language="typescript"
-      />
-      <p>
-        The tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </p>
-    </section>
   </div>
-
-  <style>
-    a {
-      color: var(--header-color);
-      text-decoration: underline;
-      text-decoration-color: var(--header-color);
-      text-underline-offset: 2px;
-      font-weight: 600;
-      display: inline-block;
-      position: relative;
-    }
-
-    @media (hover: hover) {
-      a {
-        text-decoration: none;
-      }
-      a:after {
-        bottom: 0;
-        content: "";
-        height: 2px;
-        left: 50%;
-        position: absolute;
-        background: var(--header-color);
-        transition:
-          width 0.2s ease 0s,
-          left 0.2s ease 0s;
-        width: 0;
-      }
-      a:hover:after {
-        width: 100%;
-        left: 0;
-      }
-    }
-
-    code {
-      background-color: #1e1e1e;
-      color: #d4d4d4;
-      font-family: "Martian Mono", "Courier New", Courier, monospace;
-      font-size: 0.875rem;
-      padding: 0.125rem 0.375rem;
-      border-radius: 4px;
-      border: 1px solid #333;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 768px) {
-      code {
-        font-size: 0.75rem;
-      }
-    }
-
-    :global(.case-study-layout) .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: space-between;
-    }
-
-    :global(.case-study-layout) .card-container.wiki-category-cards {
-      max-width: 750px;
-      margin: 0 auto;
-      display: grid;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
-      grid-template-columns: 1fr;
-    }
-
-    @media (min-width: 500px) and (max-width: 768px) {
-      :global(.case-study-layout) .card-container.wiki-category-cards {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
-        grid-column: 1 / -1;
-      }
-    }
-
-    @media (min-width: 769px) {
-      :global(.case-study-layout) .card-container.wiki-category-cards {
-        grid-template-columns: repeat(6, 1fr);
-      }
-
-      :global(.case-study-layout) .wiki-category-cards .card:nth-child(1) {
-        grid-column: 1 / 3;
-      }
-
-      :global(.case-study-layout) .wiki-category-cards .card:nth-child(2) {
-        grid-column: 3 / 5;
-      }
-
-      :global(.case-study-layout) .wiki-category-cards .card:nth-child(3) {
-        grid-column: 5 / 7;
-      }
-
-      :global(.case-study-layout) .wiki-category-cards .card:nth-child(4) {
-        grid-column: 1 / 4;
-      }
-
-      :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
-        grid-column: 4 / 7;
-      }
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card {
-      width: 100%;
-      margin-bottom: 0;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
-      display: block;
-      height: 4rem;
-      width: 4rem;
-      flex-shrink: 0;
-      margin: 0 auto 1rem;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
-      margin: 0 0 0.5rem;
-      font-size: 1.25rem;
-      line-height: 1.35;
-      font-weight: 500;
-      color: #fff;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .wiki-category-card-desc {
-      margin: 0;
-      font-size: 0.875rem;
-      line-height: 1.625;
-      color: #a1a1aa;
-    }
-
-    :global(.case-study-layout) .card {
-      background-color: var(--card-color);
-      border: 1px solid #333;
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      width: calc(33.33% - 0.67rem);
-      margin-bottom: 1rem;
-    }
-
-    :global(.case-study-layout) .card h4 {
-      margin-bottom: 0.5rem;
-    }
-
-    @media (max-width: 768px) {
-      :global(.case-study-layout) .card {
-        width: 100%;
-      }
-    }
-  </style>
+  <br />
+  <section id="testing">
+    <h3 class="!mb-3 text-2xl font-semibold text-white">Testing</h3>
+    <p>
+      This is where it gets fun. A LOT of the design decisions I made were
+      informed by the user feedback I recieved throughout development. The
+      landing page navigation illustrates this perfectly.
+    </p>
+    <br />
+    <CaptionedFigure
+      caption="The initial landing page design was split into two screens."
+    >
+      <div class="grid w-full min-w-0 gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+        <Image
+          src={landingSeparate1}
+          alt="The initial landing page design — first screen"
+          class="h-auto w-full min-w-0 max-w-full rounded-xl"
+          loading="eager"
+        />
+        <Image
+          src={landingSeparate2}
+          alt="The initial landing page design — second screen"
+          class="h-auto w-full min-w-0 max-w-full rounded-xl"
+          loading="eager"
+        />
+      </div>
+    </CaptionedFigure>
+    <br />
+    <p>
+      Initially, the landing page was completely separated from the home page.
+      This was done to keep the home page clean and minimal. When
+    </p>
+    <br />
+    <CaptionedFigure
+      caption="The landing page merged with the home page and expanded to fill the screen."
+    >
+      <Image
+        src={landingGrid}
+        alt="The initial landing page design — first screen"
+        class="h-auto w-full min-w-0 max-w-full rounded-xl"
+        loading="eager"
+      />
+    </CaptionedFigure>
+    <br />
+    <p>
+      After some user testing, it was clear that the extra click was completely
+      unnecessary.
+    </p>
+    <br />
+    <CaptionedFigure
+      caption="Eventually, the grid morphed into a more traditional layout with sections."
+    >
+      <Image
+        src={landingSections}
+        alt="The initial landing page design — first screen"
+        class="h-auto w-full min-w-0 max-w-full rounded-xl"
+        loading="eager"
+      />
+    </CaptionedFigure>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+  </section>
 </CaseStudyLayout>
+
+<style>
+  a {
+    color: var(--header-color);
+    text-decoration: underline;
+    text-decoration-color: var(--header-color);
+    text-underline-offset: 2px;
+    font-weight: 600;
+    display: inline-block;
+    position: relative;
+  }
+
+  @media (hover: hover) {
+    a {
+      text-decoration: none;
+    }
+    a:after {
+      bottom: 0;
+      content: "";
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: var(--header-color);
+      transition:
+        width 0.2s ease 0s,
+        left 0.2s ease 0s;
+      width: 0;
+    }
+    a:hover:after {
+      width: 100%;
+      left: 0;
+    }
+  }
+
+  code {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    font-family: "Martian Mono", "Courier New", Courier, monospace;
+    font-size: 0.875rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    border: 1px solid #333;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    code {
+      font-size: 0.75rem;
+    }
+  }
+
+  :global(.case-study-layout) .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+
+  :global(.case-study-layout) .card-container.wiki-category-cards {
+    max-width: 750px;
+    margin: 0 auto;
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 500px) and (max-width: 768px) {
+    :global(.case-study-layout) .card-container.wiki-category-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 769px) {
+    :global(.case-study-layout) .card-container.wiki-category-cards {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(1) {
+      grid-column: 1 / 3;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(2) {
+      grid-column: 3 / 5;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(3) {
+      grid-column: 5 / 7;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(4) {
+      grid-column: 1 / 4;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
+      grid-column: 4 / 7;
+    }
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .card {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    flex-shrink: 0;
+    margin: 0 auto 1rem;
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 500;
+    color: #fff;
+  }
+
+  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-desc {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.625;
+    color: #a1a1aa;
+  }
+
+  :global(.case-study-layout) .card {
+    background-color: var(--card-color);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+
+  :global(.case-study-layout) .card h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 768px) {
+    :global(.case-study-layout) .card {
+      width: 100%;
+    }
+  }
+</style>
