@@ -2,6 +2,7 @@
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import PhoneMockup from "../../components/PhoneMockup.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
+import BlockQuote from "../../components/BlockQuote.astro";
 import Callout from "../../components/Callout.astro";
 import { Image } from "astro:assets";
 import {
@@ -114,13 +115,11 @@ const sidebarItems = [
         </p>
         <br />
 
-        <div
-          class="mb-6 border-l-2 border-[#454545] bg-[var(--card-color)] !p-4"
-        >
+        <BlockQuote>
           <h2 class="!m-0 text-white">
             The mobile experience was absolutely horrendous.
           </h2>
-        </div>
+        </BlockQuote>
 
         <p>
           They initially tested the app on their phones, because why wouldn't
