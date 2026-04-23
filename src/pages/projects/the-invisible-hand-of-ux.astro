@@ -1,10 +1,16 @@
 ---
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
-import { invisibleHandOfUx } from "../../utils/images";
+import {
+  invisibleHandOfUx,
+  landingGrid,
+  landingSections,
+} from "../../utils/images";
 import bannerRasterUrl from "../../images/projects/banner-raster.png?url";
 import printLogoRasterUrl from "../../images/projects/print-logo-raster.png?url";
 import bannerColorUrl from "../../images/projects/banner-color.png?url";
+import landingSeparate1 from "../../images/projects/landing-separate-1.jpg";
+import landingSeparate2 from "../../images/projects/landing-separate-2.jpg";
 import CodeBlock from "../../components/CodeBlock.astro";
 import PdfSlideCarousel from "../../components/PdfSlideCarousel";
 import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
@@ -43,6 +49,7 @@ const sidebarItems = [
   { text: "Branding", href: "#branding" },
   { text: "Prototyping", href: "#prototyping" },
   { text: "Development", href: "#development" },
+  { text: "Testing", href: "#testing" },
 ];
 ---
 
@@ -162,13 +169,14 @@ const sidebarItems = [
       <h3 class="!mb-3 text-2xl font-semibold text-white">Branding</h3>
       <div>
         <p>
-          The name "Invisible Hand of UX" stems from the concept of an invisible
-          hand that guides a given country's economy. In this case, I wanted to
-          apply that metaphor into the design world. I knew that I needed to
-          include a literal hand in the branding to solidify the metaphor. This
-          is how I ended up with the finger gun symbolism. Initially, the logos
-          were relatively static and monochrome. But the mickey mouse style hand
-          infused it with a bit of charm.
+          The name "Invisible Hand of UX" stems from the concept of an <a
+            href="https://en.wikipedia.org/wiki/Invisible_hand_of_the_market"
+            target="_blank">invisible hand</a
+          > guiding a country's economy. In this case, I wanted to apply that metaphor
+          into the design world. I knew that I needed to include a literal hand in
+          the branding to solidify the metaphor. This is how I ended up with the finger
+          gun symbolism. Initially, the logos were relatively static and monochrome.
+          But the mickey mouse style hand infused it with a bit of charm.
         </p>
         <br />
         <p>
@@ -213,7 +221,7 @@ const sidebarItems = [
         you're looking to present. Eventually, I settled on 5 distinct
         categories to organize the terms I was presenting.
       </p>
-
+      <br />
       <br />
       <div class="card-container wiki-category-cards">
         <div class="card">
@@ -302,6 +310,7 @@ const sidebarItems = [
         </div>
       </div>
       <br />
+      <br />
       <p>
         These 5 categories neatly mapped on to the terms I wanted to cover (more
         or less). Given the theme of the aggressive branding, I wanted to focus
@@ -319,45 +328,11 @@ const sidebarItems = [
     <section id="development">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
       <p>
-        This is where it gets fun. A LOT of the design decisions I made were
-        informed by the user feedback I recieved throughout development. The
-        landing page navigation illustrates this perfectly.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
-      <CaptionedFigure caption="The Red Dot Effect in action.">
-        <RedDotDemoStrip client:visible />
-      </CaptionedFigure>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <CodeBlock
-        code={`// Extract content words using NLP (compromise)
+        Development was characterized by a TON of time spent on refining the
+        animations and demos. The animations were scaffolded with AI, but needed
+        a ton of tuning to make the keyframes feel natural.
+        <CodeBlock
+          code={`// Extract content words using NLP (compromise)
 function extractContentWords(text: string): Set<string> {
 	const doc = nlp(text);
 	const contentWords = new Set<string>();
@@ -391,29 +366,29 @@ function extractContentWords(text: string): Set<string> {
 
     return contentWords;
 }`}
-        language="typescript"
-      />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <br />
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-      <CodeBlock
-        code={`// Compose the prompt dynamically based on the word
+          language="typescript"
+        />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <br />
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+        <CodeBlock
+          code={`// Compose the prompt dynamically based on the word
 const prompt = \`
 American Sign Language (ASL) sign for the word "\${word}, in a black and white illustrative style
 with a clear hand gesture on a white background. Do not display any text in the final result.\`;
@@ -428,166 +403,327 @@ const result = await openai.images.generate({
 });
 
 console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result.data[0]);`}
+          language="typescript"
+        />
+        <p>
+          The tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </p>
+      <br />
+    </section>
+    <br />
+    <section id="testing">
+      <h3 class="!mb-3 text-2xl font-semibold text-white">Testing</h3>
+      <p>
+        This is where it gets fun. A LOT of the design decisions I made were
+        informed by the user feedback I recieved throughout development. The
+        landing page navigation illustrates this perfectly.
+      </p>
+      <br />
+      <CaptionedFigure
+        caption="The initial landing page design was split into two screens."
+      >
+        <div class="grid w-full min-w-0 grid-cols-2 gap-2 sm:gap-4">
+          <Image
+            src={landingSeparate1}
+            alt="The initial landing page design — first screen"
+            class="h-auto w-full min-w-0 max-w-full rounded-xl"
+            loading="eager"
+          />
+          <Image
+            src={landingSeparate2}
+            alt="The initial landing page design — second screen"
+            class="h-auto w-full min-w-0 max-w-full rounded-xl"
+            loading="eager"
+          />
+        </div>
+      </CaptionedFigure>
+      <br />
+      <p>
+        Initially, the landing page was completely separated from the home
+        page. This was done to keep the home page clean and minimal. When
+      </p>
+      <br />
+      <CaptionedFigure
+        caption="The landing page merged with the home page and expanded to fill the screen."
+      >
+        <Image
+          src={landingGrid}
+          alt="The initial landing page design — first screen"
+          class="h-auto w-full min-w-0 max-w-full rounded-xl"
+          loading="eager"
+        />
+      </CaptionedFigure>
+      <br />
+      <p>
+        After some user testing, it was clear that the extra click was
+        completely unnecessary.
+      </p>
+      <br />
+      <CaptionedFigure
+        caption="Eventually, the grid morphed into a more traditional layout with sections."
+      >
+        <Image
+          src={landingSections}
+          alt="The initial landing page design — first screen"
+          class="h-auto w-full min-w-0 max-w-full rounded-xl"
+          loading="eager"
+        />
+      </CaptionedFigure>
+      <br />
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+        eiusmod
+      </p>
+      <CaptionedFigure caption="The Red Dot Effect in action.">
+        <RedDotDemoStrip client:visible />
+      </CaptionedFigure>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <CodeBlock
+        code={`// Extract content words using NLP (compromise)
+function extractContentWords(text: string): Set<string> {
+const doc = nlp(text);
+const contentWords = new Set<string>();
+const wordPattern = /^[a-z]+(?:-[a-z]+)?$/;
+
+doc.nouns().forEach((noun: CompromiseMatch) => {
+  const word = noun.text().toLowerCase().trim();
+  if (word && wordPattern?.test(word)) {
+    contentWords.add(word);
+    //console.log('Extracted noun:', word);
+  }
+});
+
+doc.verbs().forEach((verb: CompromiseMatch) => {
+  const word = verb.text().toLowerCase().trim();
+  if (word && wordPattern?.test(word)) {
+    contentWords.add(word);
+    //console.log('Extracted verb:', word);
+  }
+});
+
+doc.adjectives().forEach((adj: CompromiseMatch) => {
+  const word = adj.text().toLowerCase().trim();
+  if (word && wordPattern?.test(word)) {
+    contentWords.add(word);
+    //console.log('Extracted adjective:', word);
+  }
+});
+
+  //...
+
+  return contentWords;
+}`}
         language="typescript"
       />
       <p>
-        The tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <br />
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <CodeBlock
+        code={`// Compose the prompt dynamically based on the word
+const prompt = \`
+American Sign Language (ASL) sign for the word "\${word}, in a black and white illustrative style
+with a clear hand gesture on a white background. Do not display any text in the final result.\`;
+
+console.log('[STEP] Prompt sent to OpenAI:', prompt);
+
+const result = await openai.images.generate({
+model: 'gpt-image-1',
+prompt,
+size: '1024x1024',
+n: 1
+});
+
+console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result.data[0]);`}
+        language="typescript"
+      />
+      <p>
+        The tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+        aliquip ex ea commodo consequat. Duis aute irure dolor in
+        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+        culpa qui officia deserunt mollit anim id est laborum.
       </p>
     </section>
   </div>
-</CaseStudyLayout>
 
-<style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
-    position: relative;
-  }
-
-  @media (hover: hover) {
+  <style>
     a {
-      text-decoration: none;
+      color: var(--header-color);
+      text-decoration: underline;
+      text-decoration-color: var(--header-color);
+      text-underline-offset: 2px;
+      font-weight: 600;
+      display: inline-block;
+      position: relative;
     }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
-    }
-    a:hover:after {
-      width: 100%;
-      left: 0;
-    }
-  }
 
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
-  }
+    @media (hover: hover) {
+      a {
+        text-decoration: none;
+      }
+      a:after {
+        bottom: 0;
+        content: "";
+        height: 2px;
+        left: 50%;
+        position: absolute;
+        background: var(--header-color);
+        transition:
+          width 0.2s ease 0s,
+          left 0.2s ease 0s;
+        width: 0;
+      }
+      a:hover:after {
+        width: 100%;
+        left: 0;
+      }
+    }
 
-  @media (max-width: 768px) {
     code {
-      font-size: 0.75rem;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: "Martian Mono", "Courier New", Courier, monospace;
+      font-size: 0.875rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      border: 1px solid #333;
+      white-space: nowrap;
     }
-  }
 
-  :global(.case-study-layout) .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
+    @media (max-width: 768px) {
+      code {
+        font-size: 0.75rem;
+      }
+    }
 
-  :global(.case-study-layout) .card-container.wiki-category-cards {
-    max-width: 750px;
-    margin: 0 auto;
-    display: grid;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-    grid-template-columns: 1fr;
-  }
+    :global(.case-study-layout) .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+    }
 
-  @media (min-width: 500px) and (max-width: 768px) {
     :global(.case-study-layout) .card-container.wiki-category-cards {
-      grid-template-columns: repeat(2, 1fr);
+      max-width: 750px;
+      margin: 0 auto;
+      display: grid;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      grid-template-columns: 1fr;
     }
 
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
-      grid-column: 1 / -1;
-    }
-  }
+    @media (min-width: 500px) and (max-width: 768px) {
+      :global(.case-study-layout) .card-container.wiki-category-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-  @media (min-width: 769px) {
-    :global(.case-study-layout) .card-container.wiki-category-cards {
-      grid-template-columns: repeat(6, 1fr);
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(1) {
-      grid-column: 1 / 3;
+      :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
+        grid-column: 1 / -1;
+      }
     }
 
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(2) {
-      grid-column: 3 / 5;
+    @media (min-width: 769px) {
+      :global(.case-study-layout) .card-container.wiki-category-cards {
+        grid-template-columns: repeat(6, 1fr);
+      }
+
+      :global(.case-study-layout) .wiki-category-cards .card:nth-child(1) {
+        grid-column: 1 / 3;
+      }
+
+      :global(.case-study-layout) .wiki-category-cards .card:nth-child(2) {
+        grid-column: 3 / 5;
+      }
+
+      :global(.case-study-layout) .wiki-category-cards .card:nth-child(3) {
+        grid-column: 5 / 7;
+      }
+
+      :global(.case-study-layout) .wiki-category-cards .card:nth-child(4) {
+        grid-column: 1 / 4;
+      }
+
+      :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
+        grid-column: 4 / 7;
+      }
     }
 
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(3) {
-      grid-column: 5 / 7;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(4) {
-      grid-column: 1 / 4;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
-      grid-column: 4 / 7;
-    }
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .card {
-    width: 100%;
-    margin-bottom: 0;
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
-    display: block;
-    height: 4rem;
-    width: 4rem;
-    flex-shrink: 0;
-    margin: 0 auto 1rem;
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
-    margin: 0 0 0.5rem;
-    font-size: 1.25rem;
-    line-height: 1.35;
-    font-weight: 500;
-    color: #fff;
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-desc {
-    margin: 0;
-    font-size: 0.875rem;
-    line-height: 1.625;
-    color: #a1a1aa;
-  }
-
-  :global(.case-study-layout) .card {
-    background-color: var(--card-color);
-    border: 1px solid #333;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    width: calc(33.33% - 0.67rem);
-    margin-bottom: 1rem;
-  }
-
-  :global(.case-study-layout) .card h4 {
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
-    :global(.case-study-layout) .card {
+    :global(.case-study-layout) .wiki-category-cards .card {
       width: 100%;
+      margin-bottom: 0;
     }
-  }
-</style>
+
+    :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
+      display: block;
+      height: 4rem;
+      width: 4rem;
+      flex-shrink: 0;
+      margin: 0 auto 1rem;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+      line-height: 1.35;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    :global(.case-study-layout) .wiki-category-cards .wiki-category-card-desc {
+      margin: 0;
+      font-size: 0.875rem;
+      line-height: 1.625;
+      color: #a1a1aa;
+    }
+
+    :global(.case-study-layout) .card {
+      background-color: var(--card-color);
+      border: 1px solid #333;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+      width: calc(33.33% - 0.67rem);
+      margin-bottom: 1rem;
+    }
+
+    :global(.case-study-layout) .card h4 {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      :global(.case-study-layout) .card {
+        width: 100%;
+      }
+    }
+  </style>
+</CaseStudyLayout>

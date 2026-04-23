@@ -42,6 +42,8 @@ import printLogoRaster from "../images/projects/print-logo-raster.png";
 import mockup from "../images/projects/mockup.png";
 import teambuilderOld from "../images/projects/teambuilder-old.jpg";
 import gridBasedSelection from "../images/projects/grid-based-selection.jpg";
+import landingGrid from "../images/projects/landing-grid.jpg";
+import landingSections from "../images/projects/landing-sections.jpg";
 
 // Editorial - Layouts images
 import portraitTutorial from "../images/editorial/layouts/portrait-tutorial.png";
@@ -113,6 +115,8 @@ export {
   mockup,
   teambuilderOld,
   gridBasedSelection,
+  landingGrid,
+  landingSections,
 
   // Editorial - Layouts
   portraitTutorial,
@@ -191,6 +195,8 @@ export const imagePaths = {
     mockup: "/images/projects/mockup.png",
     teambuilderOld: "/images/projects/teambuilder-old.jpg",
     gridBasedSelection: "/images/projects/grid-based-selection.jpg",
+    landingGrid: "/images/projects/landing-grid.jpg",
+    landingSections: "/images/projects/landing-sections.jpg",
   },
   editorial: {
     layouts: {
