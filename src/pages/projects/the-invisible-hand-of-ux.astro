@@ -11,6 +11,7 @@ import RedDotDemoStrip from "../../components/RedDotDemo/RedDotDemoStrip";
 import BrandingPhotoAlbum from "../../components/BrandingPhotoAlbum";
 import FigmaEmbed from "../../components/FigmaEmbed.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
+import Callout from "../../components/Callout.astro";
 
 const prototypingFigmaUrl =
   "https://www.figma.com/design/0I7rWLjZMTmmDVi3I6u6HO/The-Invisible-Hand-of-UX?node-id=0-1";
@@ -131,14 +132,9 @@ const sidebarItems = [
             they forget about it before they can notice it incorporated into
             corporate work.
           </p>
-          <div class="relative mt-4 py-8 text-center">
-            <div class="mx-auto mb-6 h-[1px] w-1/3 bg-[#333]"></div>
-            <p class="!text-center">THE SOLUTION?</p>
-            <h2 class="my-0 font-medium text-white">
-              Gamify the learning process.
-            </h2>
-            <div class="mx-auto mt-6 h-[1px] w-1/3 bg-[#333]"></div>
-          </div>
+          <Callout label="THE SOLUTION?">
+            Gamify the learning process.
+          </Callout>
           <p>
             Students LOVE getting their hands dirty. They learn better that way,
             too. A <a
