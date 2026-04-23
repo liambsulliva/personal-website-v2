@@ -50,6 +50,7 @@ const sidebarItems = [
   { text: "Prototyping", href: "#prototyping" },
   { text: "Development", href: "#development" },
   { text: "Testing", href: "#testing" },
+  { text: "Summary", href: "#summary" },
 ];
 ---
 
@@ -315,14 +316,13 @@ const sidebarItems = [
         These 5 categories neatly mapped on to the terms I wanted to cover (more
         or less). Given the theme of the aggressive branding, I wanted to focus
         on principles that leaned manipulative, and these choices encapsulated
-        that sentiment.
+        that sentiment. The interface itself presents relatively minimal to make
+        space for the content to speak for itself. Despite this project being
+        meta-textual, the demos should be the focal point, not the scaffolding
+        around it.
       </p>
       <br />
-      <p>
-        The interface itself presents relatively minimal to make space for the
-        content to speak for itself. Despite this project being meta-textual,
-        the demos should be the focal point, not the scaffolding around it.
-      </p>
+      <p></p>
     </section>
     <br />
     <section id="development">
@@ -341,7 +341,7 @@ const sidebarItems = [
         <i>springy</i>, I needed to use math to give the animations a bit of
         inertia. This is where the concept of a <a
           href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve"
-          target="_blank">Bezier curve</a
+          target="_blank">bezier curve</a
         > came in. To demonstrate this, here is the CSS for the finger gun animation
         that plays when the user hovers over the menu icon.
       </p>
@@ -432,7 +432,9 @@ const sidebarItems = [
     <CaptionedFigure
       caption="The initial landing page design was split into two screens."
     >
-      <div class="grid w-full min-w-0 gap-2 sm:gap-4 grid-cols-1 sm:grid-cols-2">
+      <div
+        class="grid w-full min-w-0 grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4"
+      >
         <Image
           src={landingSeparate1}
           alt="The initial landing page design — first screen"
@@ -450,7 +452,81 @@ const sidebarItems = [
     <br />
     <p>
       Initially, the landing page was completely separated from the home page.
-      This was done to keep the home page clean and minimal. When
+      In truth, this was done to re-use the button that Docusaurus had provided
+      me out of the box. I wanted it to be used for something. But this simple
+      interaction proved that I had a few blind spots. Classmates of mine that
+      used the button noticed a few key issues:
+    </p>
+    <br />
+    <div class="card-container">
+      <div class="card">
+        <svg
+          class="mx-auto mb-8 mt-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="7rem"
+          height="7rem"
+          viewBox="0 0 24 24"
+          ><rect width="24" height="24" fill="none"></rect><path
+            fill="none"
+            stroke="#fff"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 4l6 6m0-6l-6 6"
+          ></path></svg
+        >
+        <h4 class="text-xl font-medium text-white">Barrier to Content</h4>
+        <p>
+          The visual grid was one of the coolest parts of the wiki, and hiding
+          it behind a button made it so users could very easily miss it. If
+          users went to the menu bar first, they would have completely avoided
+          the grid.
+        </p>
+      </div>
+      <div class="card">
+        <svg
+          class="mx-auto mb-8 mt-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="7rem"
+          height="7rem"
+          viewBox="0 0 32 32"
+          ><rect width="32" height="32" fill="none"></rect><path
+            fill="#fff"
+            d="M2 3h8v2H2zm4 6h24v2H6zm0 6h24v2H6zM2 27h8v2H2zm4-6h16v2H6z"
+          ></path></svg
+        >
+        <h4 class="text-xl font-medium text-white">Confusing Naming</h4>
+        <p>
+          What is "Get Started"? What does it mean to get started? It's not
+          clear. A phrase like "Explore!" would be more indicative of the type
+          of page it would take you to. Even something like "Learn More" would
+          be better.
+        </p>
+      </div>
+      <div class="card">
+        <svg
+          class="mx-auto mb-8 mt-4"
+          xmlns="http://www.w3.org/2000/svg"
+          width="7rem"
+          height="7rem"
+          viewBox="0 0 24 24"
+          data-astro-cid-e2nwlwve=""
+          ><path
+            fill="white"
+            d="M11 1.07C7.05 1.56 4 4.92 4 9h7V7.73c-.6-.34-1-.99-1-1.73V4c0-.74.4-1.39 1-1.73zM13 9V7.73c.6-.34 1-.99 1-1.73V4c0-.74-.4-1.39-1-1.73v-1.2c3.94.49 7 3.85 7 7.93zm-9 6c0 2.12.84 4.16 2.34 5.66S9.88 23 12 23s4.16-.84 5.66-2.34S20 17.12 20 15v-4H4zm9-9V4c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1"
+            data-astro-cid-e2nwlwve=""></path></svg
+        >
+        <h4 class="text-xl font-medium text-white">Extra Navigation</h4>
+        <p>
+          The button acted as an extra click that was <i>wholly unnecessary</i>.
+          Since the menu button on the top right returns the user back to the
+          home page, every time they wanted to get back to that pictoral
+          content, they had to click two buttons instead of one.
+        </p>
+      </div>
+    </div>
+    <p>
+      Clearly that button wasn't going to fly. I needed to try something else.
     </p>
     <br />
     <CaptionedFigure
@@ -465,8 +541,13 @@ const sidebarItems = [
     </CaptionedFigure>
     <br />
     <p>
-      After some user testing, it was clear that the extra click was completely
-      unnecessary.
+      I decided to merge the landing page with the home page and place it on its
+      own separate page, rather than existing as a "document" in the home page.
+      I also expanded it to fill up more of the screen. After testing with
+      classmates, it was clear the extra click was completely unnecessary.
+      Placing the grid right above the fold made it so users could see it
+      immediately, and it didn't detract from the logo design as much as I would
+      have guessed.
     </p>
     <br />
     <CaptionedFigure
@@ -480,13 +561,30 @@ const sidebarItems = [
       />
     </CaptionedFigure>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
+      After more time consulting with classmates, it became clear that the
+      categories weren't well explained. What actually <i>is</i> anchoring? What does
+      priming entail? It's mostly left up to the reader to infer based on the examples.
+      I reworked the existing landing grid to split up the cards by category. Each
+      category now has a full header and description to reinforce the categorical
+      structure of the page.
+    </p>
+  </section>
+  <br />
+  <section id="summary">
+    <h3 class="!mb-3 text-2xl font-semibold text-white">Summary</h3>
+    <p>
+      In the end, I was able to create a wiki that functioned both as a learning
+      tool and as an extensive technical showcase. I'm proud of the cohesion
+      offered by this experience, and I'm excited to see how it continues to
+      grow and evolve. Every article has a clearly marked "Edit this page"
+      button that gives users the ability to contribute to the site through a
+      GitHub pull request.
+    </p>
+    <br />
+    <p>
+      The hope is that this project will be picked up by the community and be
+      iterated upon as a community-driven resource. UX thrives when it's applied
+      in the real world, and this project has illuminated that fact.
     </p>
   </section>
 </CaseStudyLayout>
@@ -541,6 +639,34 @@ const sidebarItems = [
     }
   }
 
+  :global(.card-container) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  :global(.card) {
+    background-color: var(--card-color, #23272f);
+    border: 1px solid #333;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: calc(33.33% - 0.67rem);
+    margin-bottom: 1rem;
+  }
+  :global(.card h4) {
+    margin-bottom: 0.5rem;
+  }
+  @media (max-width: 768px) {
+    :global(.card-container) {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    :global(.card) {
+      width: 100%;
+    }
+  }
+
   :global(.case-study-layout) .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -549,7 +675,6 @@ const sidebarItems = [
   }
 
   :global(.case-study-layout) .card-container.wiki-category-cards {
-    max-width: 750px;
     margin: 0 auto;
     display: grid;
     gap: 1rem;
@@ -600,10 +725,10 @@ const sidebarItems = [
 
   :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
     display: block;
-    height: 4rem;
-    width: 4rem;
+    height: 7rem;
+    width: 7rem;
     flex-shrink: 0;
-    margin: 0 auto 1rem;
+    margin: 1rem auto 2rem;
   }
 
   :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
