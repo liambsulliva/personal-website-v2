@@ -18,6 +18,18 @@ import BrandingPhotoAlbum from "../../components/BrandingPhotoAlbum";
 import FigmaEmbed from "../../components/FigmaEmbed.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
 import Callout from "../../components/Callout.astro";
+import CaseStudyCardGrid from "../../components/CaseStudyCardGrid.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import {
+  ArrowConvergeIcon,
+  EyeIcon,
+  TrendingUpIcon,
+  WarningIcon,
+  LightbulbIcon,
+  BlockedIcon,
+  LinesIcon,
+  MouseIcon,
+} from "../../utils/icons";
 
 const prototypingFigmaUrl =
   "https://www.figma.com/design/0I7rWLjZMTmmDVi3I6u6HO/The-Invisible-Hand-of-UX?node-id=0-1";
@@ -224,92 +236,41 @@ const sidebarItems = [
       </p>
       <br />
       <br />
-      <div class="card-container wiki-category-cards">
-        <div class="card">
-          <svg
-            class="wiki-category-card-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            ><path
-              fill="white"
-              d="M9.01 14H2v2h7.01v3L13 15l-3.99-4v3zm5.98-1v-3H22V8h-7.01V5L11 9l3.99 4z"
-            ></path></svg
-          >
-          <h4 class="wiki-category-card-title">Anchoring</h4>
-          <p class="wiki-category-card-desc">
+      <CaseStudyCardGrid variant="wiki" class="wiki-category-cards">
+        <CaseStudyCard title="Anchoring" icon={ArrowConvergeIcon}>
+          <p>
             Elements that present an option as a pivot point for comparison,
             rather than as a standalone decision.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="wiki-category-card-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            ><path
-              fill="white"
-              d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5M12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5m0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3"
-            ></path></svg
-          >
-          <h4 class="wiki-category-card-title">Attention</h4>
-          <p class="wiki-category-card-desc">
+        </CaseStudyCard>
+        <CaseStudyCard title="Attention" icon={EyeIcon}>
+          <p>
             Elements that are engineered to efficiently capture and hold user
             attention.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="wiki-category-card-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            ><path
-              fill="white"
-              d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"
-            ></path></svg
-          >
-          <h4 class="wiki-category-card-title">Behavior</h4>
-          <p class="wiki-category-card-desc">
+        </CaseStudyCard>
+        <CaseStudyCard title="Behavior" icon={TrendingUpIcon}>
+          <p>
             Elements that subtly play on human impulse to influence user
             behavior.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="wiki-category-card-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            ><path
-              fill="white"
-              d="M1 21h22L12 2 1 21m12-3h-2v-2h2v2m0-4h-2v-4h2v4"></path></svg
-          >
-          <h4 class="wiki-category-card-title">Coercion</h4>
-          <p class="wiki-category-card-desc">
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Coercion"
+          icon={WarningIcon}
+        >
+          <p>
             Elements that are built to force users into decisions they may not
             otherwise make.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="wiki-category-card-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-            ><path
-              fill="white"
-              d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7m2.85 11.1-.85.6V16h-4v-2.3l-.85-.6A4.997 4.997 0 0 1 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1"
-            ></path></svg
-          >
-          <h4 class="wiki-category-card-title">Priming</h4>
-          <p class="wiki-category-card-desc">
+        </CaseStudyCard>
+        <CaseStudyCard title="Priming" icon={LightbulbIcon}>
+          <p>
             Elements that leverage context clues to prepare users to make a
             decision.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
       <br />
       <br />
       <p>
@@ -458,73 +419,47 @@ const sidebarItems = [
       used the button noticed a few key issues:
     </p>
     <br />
-    <div class="card-container">
-      <div class="card">
-        <svg
-          class="mx-auto mb-8 mt-4"
-          xmlns="http://www.w3.org/2000/svg"
-          width="7rem"
-          height="7rem"
-          viewBox="0 0 24 24"
-          ><rect width="24" height="24" fill="none"></rect><path
-            fill="none"
-            stroke="#fff"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm6 4l6 6m0-6l-6 6"
-          ></path></svg
-        >
-        <h4 class="text-xl font-medium text-white">Barrier to Content</h4>
+    <CaseStudyCardGrid>
+      <CaseStudyCard
+        title="Barrier to Content"
+        icon={BlockedIcon}
+        titleClass="text-xl font-medium text-white"
+        iconLayout="prominent"
+      >
         <p>
           The visual grid was one of the coolest parts of the wiki, and hiding
           it behind a button made it so users could very easily miss it. If
           users went to the menu bar first, they would have completely avoided
           the grid.
         </p>
-      </div>
-      <div class="card">
-        <svg
-          class="mx-auto mb-8 mt-4"
-          xmlns="http://www.w3.org/2000/svg"
-          width="7rem"
-          height="7rem"
-          viewBox="0 0 32 32"
-          ><rect width="32" height="32" fill="none"></rect><path
-            fill="#fff"
-            d="M2 3h8v2H2zm4 6h24v2H6zm0 6h24v2H6zM2 27h8v2H2zm4-6h16v2H6z"
-          ></path></svg
-        >
-        <h4 class="text-xl font-medium text-white">Confusing Naming</h4>
+      </CaseStudyCard>
+      <CaseStudyCard
+        title="Confusing Naming"
+        icon={LinesIcon}
+        titleClass="text-xl font-medium text-white"
+        iconLayout="prominent"
+      >
         <p>
           What is "Get Started"? What does it mean to get started? It's not
           clear. A phrase like "Explore!" would be more indicative of the type
           of page it would take you to. Even something like "Learn More" would
           be better.
         </p>
-      </div>
-      <div class="card">
-        <svg
-          class="mx-auto mb-8 mt-4"
-          xmlns="http://www.w3.org/2000/svg"
-          width="7rem"
-          height="7rem"
-          viewBox="0 0 24 24"
-          data-astro-cid-e2nwlwve=""
-          ><path
-            fill="white"
-            d="M11 1.07C7.05 1.56 4 4.92 4 9h7V7.73c-.6-.34-1-.99-1-1.73V4c0-.74.4-1.39 1-1.73zM13 9V7.73c.6-.34 1-.99 1-1.73V4c0-.74-.4-1.39-1-1.73v-1.2c3.94.49 7 3.85 7 7.93zm-9 6c0 2.12.84 4.16 2.34 5.66S9.88 23 12 23s4.16-.84 5.66-2.34S20 17.12 20 15v-4H4zm9-9V4c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1"
-            data-astro-cid-e2nwlwve=""></path></svg
-        >
-        <h4 class="text-xl font-medium text-white">Extra Navigation</h4>
+      </CaseStudyCard>
+      <CaseStudyCard
+        title="Extra Navigation"
+        icon={MouseIcon}
+        titleClass="text-xl font-medium text-white"
+        iconLayout="prominent"
+      >
         <p>
           The button acted as an extra click that was <i>wholly unnecessary</i>.
           Since the menu button on the top right returns the user back to the
           home page, every time they wanted to get back to that pictoral
           content, they had to click two buttons instead of one.
         </p>
-      </div>
-    </div>
+      </CaseStudyCard>
+    </CaseStudyCardGrid>
     <p>
       Clearly that button wasn't going to fly. I needed to try something else.
     </p>
@@ -636,132 +571,6 @@ const sidebarItems = [
   @media (max-width: 768px) {
     code {
       font-size: 0.75rem;
-    }
-  }
-
-  :global(.card-container) {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-  }
-  :global(.card) {
-    background-color: var(--card-color, #23272f);
-    border: 1px solid #333;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    width: calc(33.33% - 0.67rem);
-    margin-bottom: 1rem;
-  }
-  :global(.card h4) {
-    margin-bottom: 0.5rem;
-  }
-  @media (max-width: 768px) {
-    :global(.card-container) {
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    :global(.card) {
-      width: 100%;
-    }
-  }
-
-  :global(.case-study-layout) .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-
-  :global(.case-study-layout) .card-container.wiki-category-cards {
-    margin: 0 auto;
-    display: grid;
-    gap: 1rem;
-    margin-bottom: 0.75rem;
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 500px) and (max-width: 768px) {
-    :global(.case-study-layout) .card-container.wiki-category-cards {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
-      grid-column: 1 / -1;
-    }
-  }
-
-  @media (min-width: 769px) {
-    :global(.case-study-layout) .card-container.wiki-category-cards {
-      grid-template-columns: repeat(6, 1fr);
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(1) {
-      grid-column: 1 / 3;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(2) {
-      grid-column: 3 / 5;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(3) {
-      grid-column: 5 / 7;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(4) {
-      grid-column: 1 / 4;
-    }
-
-    :global(.case-study-layout) .wiki-category-cards .card:nth-child(5) {
-      grid-column: 4 / 7;
-    }
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .card {
-    width: 100%;
-    margin-bottom: 0;
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-icon {
-    display: block;
-    height: 7rem;
-    width: 7rem;
-    flex-shrink: 0;
-    margin: 1rem auto 2rem;
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-title {
-    margin: 0 0 0.5rem;
-    font-size: 1.25rem;
-    line-height: 1.35;
-    font-weight: 500;
-    color: #fff;
-  }
-
-  :global(.case-study-layout) .wiki-category-cards .wiki-category-card-desc {
-    margin: 0;
-    font-size: 0.875rem;
-    line-height: 1.625;
-    color: #a1a1aa;
-  }
-
-  :global(.case-study-layout) .card {
-    background-color: var(--card-color);
-    border: 1px solid #333;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    width: calc(33.33% - 0.67rem);
-    margin-bottom: 1rem;
-  }
-
-  :global(.case-study-layout) .card h4 {
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
-    :global(.case-study-layout) .card {
-      width: 100%;
     }
   }
 </style>

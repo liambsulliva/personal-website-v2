@@ -2,6 +2,24 @@
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import Book from "../../components/Book.svelte";
 import CodeBlock from "../../components/CodeBlock.astro";
+import CaseStudyCardGrid from "../../components/CaseStudyCardGrid.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import {
+  VerifiedIcon,
+  ResizeIcon,
+  CropFrameIcon,
+  MouseIcon,
+  SpeedometerIcon,
+  PhoneIcon,
+  LayoutIcon,
+  FedoraIcon,
+  PivotIcon,
+  OpacityIcon,
+  PhotoIcon,
+  BookmarkIcon,
+  HeartHandIcon,
+  BookFlipIcon,
+} from "../../utils/icons";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -96,64 +114,36 @@ const sidebarItems = [
         everything into an iframe introduced several constraints:
       </p>
       <br />
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M10.25 3h-4A3.25 3.25 0 0 0 3 6.25v2a.75.75 0 0 0 1.5 0v-2c0-.966.784-1.75 1.75-1.75h4a.75.75 0 0 0 0-1.5m.5 18A3.25 3.25 0 0 0 14 17.75v-4.5A3.25 3.25 0 0 0 10.75 10h-4.5A3.25 3.25 0 0 0 3 13.25v4.5A3.25 3.25 0 0 0 6.25 21zm5 0a.75.75 0 0 1 0-1.5h2a1.75 1.75 0 0 0 1.75-1.75v-4a.75.75 0 0 1 1.5 0v4A3.25 3.25 0 0 1 17.75 21zM21 10.25v-4A3.25 3.25 0 0 0 17.75 3h-4a.75.75 0 0 0 0 1.5h4c.966 0 1.75.784 1.75 1.75v4a.75.75 0 0 0 1.5 0"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">
-            Readability in Smaller Windows
-          </h4>
+      <CaseStudyCardGrid>
+        <CaseStudyCard
+          title="Readability in Smaller Windows"
+          icon={CropFrameIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Content needed to be readable in a small window without overwhelming
             users. This meant careful consideration of font sizes, spacing, and
             layout density to ensure the interface remained usable even at
             constrained viewport dimensions.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M11 1.07C7.05 1.56 4 4.92 4 9h7V7.73c-.6-.34-1-.99-1-1.73V4c0-.74.4-1.39 1-1.73zM13 9V7.73c.6-.34 1-.99 1-1.73V4c0-.74-.4-1.39-1-1.73v-1.2c3.94.49 7 3.85 7 7.93zm-9 6c0 2.12.84 4.16 2.34 5.66S9.88 23 12 23s4.16-.84 5.66-2.34S20 17.12 20 15v-4H4zm9-9V4c0-.55-.45-1-1-1s-1 .45-1 1v2c0 .55.45 1 1 1s1-.45 1-1"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Avoiding Scrolling</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Avoiding Scrolling"
+          icon={MouseIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Scrolling had to be avoided to maintain the visual metaphor of a
             physical book and provide a better user experience. In the context
             of an iframe, scrolling feels unintuitive and disorienting, so all
             content needed to fit within the visible area of the screen.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M20.38 8.57l-1.23 1.85a8 8 0 0 1-.22 7.58H5.07A8 8 0 0 1 15.58 6.85l1.85-1.23A10 10 0 0 0 3.35 19a2 2 0 0 0 1.72 1h13.85a2 2 0 0 0 1.74-1a10 10 0 0 0-.27-10.44zm-9.79 6.84a2 2 0 0 0 2.83 0l5.66-8.49l-8.49 5.66a2 2 0 0 0 0 2.83"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">
-            Performance Criticality
-          </h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Performance Criticality"
+          icon={SpeedometerIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Despite being embedded in an iframe, the app needed to run on a
             separate page on a fairly antiquated server, so it needed to run as
@@ -161,8 +151,8 @@ const sidebarItems = [
             of assets and code execution to keep it from slowing down the
             server.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
       <br />
       <p>
         To address the performance concerns, I chose Svelte over React. While
@@ -174,8 +164,8 @@ const sidebarItems = [
           href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Frameworks_libraries/Svelte_getting_started"
           target="_blank"
           rel="noreferrer">native JavaScript</a
-        > at build time, without any additional layers of abstraction, making it
-        ideal for an embed.
+        > at build time, without any additional layers of abstraction, making it ideal
+        for an embed.
       </p>
       <br />
       <p>
@@ -239,68 +229,44 @@ const sidebarItems = [
         The main challenges during this phase involved balancing content density
         with readability:
       </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Responsive Design</h4>
+      <CaseStudyCardGrid>
+        <CaseStudyCard
+          title="Responsive Design"
+          icon={PhoneIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             The book and content were made responsive by adjusting font size
             based on screen width and height. The content window doesn't
             overflow when the screen is small, maintaining legibility across
             different screen sizes.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 56 56"
-            ><path
-              fill="white"
-              d="M28 51.906c13.055 0 23.906-10.828 23.906-23.906c0-13.055-10.875-23.906-23.93-23.906C14.899 4.094 4.095 14.945 4.095 28c0 13.078 10.828 23.906 23.906 23.906m-9.844-12.562c0-.914.61-1.57 1.57-1.57c.75 0 1.149.187 2.579.187c1.828 0 2.742-1.008 3.093-3.445l.82-5.86h-4.85c-1.009 0-1.735-.726-1.735-1.664c0-.96.726-1.664 1.71-1.664h5.344l.586-4.406c.563-4.008 2.883-6.235 6.61-6.235c2.554 0 3.96.657 3.96 1.946c0 .937-.632 1.57-1.57 1.57c-.68 0-1.148-.164-2.578-.164c-1.828 0-2.742 1.008-3.094 3.469l-.515 3.82h5.719c.984 0 1.757.703 1.757 1.664s-.726 1.664-1.734 1.664h-6.234l-.867 6.422c-.587 4.055-2.883 6.211-6.61 6.211c-2.602 0-3.96-.656-3.96-1.945"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Content Implementation</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Content Implementation"
+          icon={FedoraIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Milestones were fully imported with associated images. The layout
             required scrolling initially due to the amount of content. A cursive
             text texture from Adobe Stock was added to lean into the skeumorphic
             design, though it introduced some performance issues.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 28 28"
-            ><path
-              fill="white"
-              d="M6.75 3A3.75 3.75 0 0 0 3 6.75v14.5A3.75 3.75 0 0 0 6.75 25h14.5A3.75 3.75 0 0 0 25 21.25V6.75A3.75 3.75 0 0 0 21.25 3zM6 9a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2zm2-.5a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h12a.5.5 0 0 0 .5-.5V9a.5.5 0 0 0-.5-.5zM6.75 15h5.5a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1 0-1.5M6 19.5a.75.75 0 0 1 .75-.75h5.5a.75.75 0 0 1 0 1.5h-5.5A.75.75 0 0 1 6 19.5m11.25-5h3c.966 0 1.75.784 1.75 1.75v3A1.75 1.75 0 0 1 20.25 21h-3a1.75 1.75 0 0 1-1.75-1.75v-3c0-.966.784-1.75 1.75-1.75M17 16.25a.25.25 0 0 1 .25-.25h3a.25.25 0 0 1 .25.25v3a.25.25 0 0 1-.25.25h-3a.25.25 0 0 1-.25-.25z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">UX Issues</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="UX Issues"
+          icon={LayoutIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Displaying so much content without the book getting in the way
             became a significant UX challenge throughout the course of the
             project. The scrollable layout was a temporary solution, with plans
             to address this through creative resizing or expandable milestones.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
     </section>
     <br />
     <section id="week5-6">
@@ -338,89 +304,48 @@ const truncate = (description: string, maxLength: number) => {
         language="svelte"
       />
       <p class="pb-3">
-        The lightbox required me to use <code>npm i --legacy-peer-deps</code> to
-        work around compatibility issues. This allowed package conflicts to run completely
+        The lightbox required me to use <code>npm i --legacy-peer-deps</code> to work
+        around compatibility issues. This allowed package conflicts to run completely
         unchecked, meaning that I had to keep an eye on the console for potential
-        errors going forward. I couldn't guarantee that all of my packages would
-        work together moving forward. Here are some of the big improvements that
-        were made:
+        errors going forward. I couldn't guarantee that all of my packages would work
+        together moving forward. Here are some of the big improvements that were made:
       </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 36 36"
-            ><path
-              fill="white"
-              d="M30.14 3a1 1 0 0 0-1-1h-22a1 1 0 0 0-1 1v1h24Z"
-              class="clr-i-solid clr-i-solid-path-1"></path><path
-              fill="white"
-              d="M32.12 7a1 1 0 0 0-1-1h-26a1 1 0 0 0-1 1v1h28Z"
-              class="clr-i-solid clr-i-solid-path-2"></path><path
-              fill="white"
-              d="M32.12 10H3.88A1.88 1.88 0 0 0 2 11.88v18.24A1.88 1.88 0 0 0 3.88 32h28.24A1.88 1.88 0 0 0 34 30.12V11.88A1.88 1.88 0 0 0 32.12 10M8.56 13.45a3 3 0 1 1-3 3a3 3 0 0 1 3-3M30 28H6l7.46-7.47a.71.71 0 0 1 1 0l3.68 3.68L23.21 19a.71.71 0 0 1 1 0L30 24.79Z"
-              class="clr-i-solid clr-i-solid-path-3"></path><path
-              fill="none"
-              d="M0 0h36v36H0z"></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">The New Lightbox View</h4>
+      <CaseStudyCardGrid>
+        <CaseStudyCard
+          title="The New Lightbox View"
+          icon={PhotoIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Images could now be enlarged on smaller screens, improving UX for
             users on smaller screens, and allowing the pictures to be displayed
             smaller to leave room for the description text.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 14 14"
-            ><g
-              fill="none"
-              stroke="white"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1"
-              ><path
-                d="M6.953 1v12m2.5-8c1.032.172 3.5.744 3.5 2c0 1.5-3.5 2.237-6 2.237M1.522 6.04c-.343.262-.57.58-.57.96c0 .37.213.693.57.97M4.453 5c-.285.047-.678.125-1.098.24m-.001 3.54a12 12 0 0 0 1.555.31"
-              ></path><path
-                d="M10.405 6.822c-.452-.508-.814-1.198-.945-1.826c.425-.483 1.08-.904 1.724-1.122"
-              ></path></g
-            ></svg
-          >
-          <h4 class="text-xl font-medium text-white">Content Positioning</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Content Positioning"
+          icon={PivotIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             The app content was centered on the Y-axis, eliminating the need for
             scrolling in (most) cases. This was crucial for the iframe embedding
             to work as expected.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="m23 12l-2.44-2.79l.34-3.69l-3.61-.82L15.4 1.5L12 2.96L8.6 1.5L6.71 4.69L3.1 5.5l.34 3.7L1 12l2.44 2.79l-.34 3.7l3.61.82L8.6 22.5l3.4-1.47l3.4 1.46l1.89-3.19l3.61-.82l-.34-3.69zm-12.91 4.72l-3.8-3.81l1.48-1.48l2.32 2.33l5.85-5.87l1.48 1.48z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Performance Fixes</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Performance Fixes"
+          icon={VerifiedIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Fixed some random bugs with images not rendering after going through
             the deployment pipeline, and addressed some issues related to page
             turning. I also optimized the "fake text" texture to make the book
             flip smoothly regardless of content density.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
     </section>
     <br />
     <section id="week8-9">
@@ -443,67 +368,35 @@ const truncate = (description: string, maxLength: number) => {
         creating a more seamless presentation that fits better with the book
         metaphor. Several major changes accompanied this shift:
       </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 512 512"
-            ><path
-              fill="white"
-              d="M448 149.333V448H149.333V149.333zM405.333 192H192v213.333h213.333zm-320-21.333H64v-21.334h64v21.334h-21.333v256H128V448H64v-21.333h21.333zM170.667 128h-21.334V64h21.334v21.333h256v21.334h-256zm256-64H448v64h-21.333z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Fixed Dimensions</h4>
+      <CaseStudyCardGrid>
+        <CaseStudyCard
+          title="Fixed Dimensions"
+          icon={ResizeIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Abandoning multi-size responsiveness for a fixed 1000 x 750px
             dimension was a worthwhile concession. This allowed focus on content
             quality over how responsive the app could be.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm6-10v2h2v-2zm-4 0v2h2v-2zm2 2v2h2v-2zm4 0v2h2v-2zm-8 0v2h2v-2zm10-2v2h2v2h2v-2h-2v-2zm-8 4v2H5v2h2v-2h2v2h2v-2h2v2h2v-2h2v2h2v-2h-2v-2h-2v2h-2v-2h-2v2H9v-2zm12-4v2zm0 4v2z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Content Transitions</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Content Transitions"
+          icon={OpacityIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Week 9 revamped content loading with delays to prevent browser
             overwhelm. Content, modals, and icons fade smoothly on hide,
             creating a more polished experience. Years were now styled with
             colors matching the initial booklet design.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 36 36"
-            ><path
-              fill="white"
-              d="M30.14 3a1 1 0 0 0-1-1h-22a1 1 0 0 0-1 1v1h24Z"
-              class="clr-i-solid clr-i-solid-path-1"></path><path
-              fill="white"
-              d="M32.12 7a1 1 0 0 0-1-1h-26a1 1 0 0 0-1 1v1h28Z"
-              class="clr-i-solid clr-i-solid-path-2"></path><path
-              fill="white"
-              d="M32.12 10H3.88A1.88 1.88 0 0 0 2 11.88v18.24A1.88 1.88 0 0 0 3.88 32h28.24A1.88 1.88 0 0 0 34 30.12V11.88A1.88 1.88 0 0 0 32.12 10M8.56 13.45a3 3 0 1 1-3 3a3 3 0 0 1 3-3M30 28H6l7.46-7.47a.71.71 0 0 1 1 0l3.68 3.68L23.21 19a.71.71 0 0 1 1 0L30 24.79Z"
-              class="clr-i-solid clr-i-solid-path-3"></path><path
-              fill="none"
-              d="M0 0h36v36H0z"></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Image Preloading</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Image Preloading"
+          icon={PhotoIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Images now preloaded 5 pages in advance using <a
               href="https://svelte.dev/docs/svelte/stores"
@@ -512,8 +405,8 @@ const truncate = (description: string, maxLength: number) => {
             pages. Grey placeholders flash if the server responds slowly,
             providing better UX than vanilla alt tags.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
       <br />
       <p>
         Here's an example of how the image preloading was done in code (at a
@@ -551,60 +444,36 @@ async function preloadPageImages(pageNum: number) {
         using major milestones as landmarks in HERL's timeline. The final week
         added polish that elevated the entire experience:
       </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M5 21V5q0-.825.588-1.412T7 3h10q.825 0 1.413.588T19 5v16l-7-3z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Bookmark Navigation</h4>
+      <CaseStudyCardGrid>
+        <CaseStudyCard
+          title="Bookmark Navigation"
+          icon={BookmarkIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Bookmarks are positioned vertically along the right edge, featuring
             dark tab-like styling with vertical text orientation. They grow
             larger when the book opens (width: 2.5rem to 3.5rem) with smooth
             state transitions and active styling to indicate current section.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M9 21H5q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h4v2H5v14h4zm2 2V1h2v22zm4-2v-2h2v2zm0-16V3h2v2zm4 16v-2h2q0 .825-.587 1.413T19 21m0-4v-2h2v2zm0-4v-2h2v2zm0-4V7h2v2zm0-4V3q.825 0 1.413.588T21 5z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Book Flip Animation</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Book Flip Animation"
+          icon={BookFlipIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             The book now flips to its backside when clicking past the last page.
             Handling multiple variables to track the state of everything was
             challenging, but the "backward closing" animation still adequately
             conveyed the idea, even if the animation itself was a bit janky.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 576 512"
-            ><path
-              fill="white"
-              d="M275.3 250.5c7 7.4 18.4 7.4 25.5 0l108.9-114.2c31.6-33.2 29.8-88.2-5.6-118.8c-30.8-26.7-76.7-21.9-104.9 7.7L288 36.9l-11.1-11.6C248.7-4.4 202.8-9.2 172 17.5c-35.3 30.6-37.2 85.6-5.6 118.8zm290 77.6c-11.8-10.7-30.2-10-42.6 0L430.3 402c-11.3 9.1-25.4 14-40 14H272c-8.8 0-16-7.2-16-16s7.2-16 16-16h78.3c15.9 0 30.7-10.9 33.3-26.6c3.3-20-12.1-37.4-31.6-37.4H192c-27 0-53.1 9.3-74.1 26.3L71.4 384H16c-8.8 0-16 7.2-16 16v96c0 8.8 7.2 16 16 16h356.8c14.5 0 28.6-4.9 40-14L564 377c15.2-12.1 16.4-35.3 1.3-48.9"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Quality of Life</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="Quality of Life"
+          icon={HeartHandIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Page numbers on the bottom right help track position. The "Skip
             Ahead!" prompt with a curved arrow svg guides users to bookmarks,
@@ -612,8 +481,8 @@ async function preloadPageImages(pageNum: number) {
             Device width prompts appear below 800px, guiding users to switch
             devices rather than try to rotate the screen.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
       <br />
       <p>
         The tutorial prompt positioning uses some clever TypeScript to get the
@@ -693,32 +562,6 @@ function updatePosition() {
     @media (max-width: 768px) {
       code {
         font-size: 0.75rem;
-      }
-    }
-
-    :global(.case-study-layout) .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: space-between;
-    }
-
-    :global(.case-study-layout) .card {
-      background-color: var(--card-color);
-      border: 1px solid #333;
-      border-radius: 0.75rem;
-      padding: 1.5rem;
-      width: calc(33.33% - 0.67rem);
-      margin-bottom: 1rem;
-    }
-
-    :global(.case-study-layout) .card h4 {
-      margin-bottom: 0.5rem;
-    }
-
-    @media (max-width: 768px) {
-      :global(.case-study-layout) .card {
-        width: 100%;
       }
     }
   </style>

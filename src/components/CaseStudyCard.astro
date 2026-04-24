@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  icon?: any;
+  titleClass?: string;
+  descriptionClass?: string;
+  iconLayout?: "default" | "prominent";
+  variant?: "default" | "row";
+}
+
+const {
+  title,
+  icon: Icon,
+  titleClass = "",
+  descriptionClass = "",
+  iconLayout = "default",
+  variant = "default",
+} = Astro.props;
+
+const showIcon = Boolean(Icon);
+const isRow = variant === "row";
+---
+
+{
+  isRow ? (
+    <div class="case-study-card case-study-card--row">
+      <div class="case-study-card__row">
+        {showIcon && (
+          <div class="case-study-card__icon-wrap case-study-card__icon-wrap--row">
+            <Icon class="case-study-card__icon-svg" />
+          </div>
+        )}
+        <div class="case-study-card__row-main">
+          <slot name="lead" />
+          <h4 class:list={["case-study-card__title", titleClass]}>{title}</h4>
+          <div class:list={["case-study-card__body", descriptionClass]}>
+            <slot />
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="case-study-card">
+      {showIcon && (
+        <div
+          class:list={[
+            "case-study-card__icon-wrap",
+            iconLayout === "prominent" &&
+              "case-study-card__icon-wrap--prominent",
+          ]}
+        >
+          <Icon class="case-study-card__icon-svg" />
+        </div>
+      )}
+      <slot name="lead" />
+      <h4 class:list={["case-study-card__title", titleClass]}>{title}</h4>
+      <div class:list={["case-study-card__body", descriptionClass]}>
+        <slot />
+      </div>
+    </div>
+  )
+}

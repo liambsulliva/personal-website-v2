@@ -1,8 +1,11 @@
 ---
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+import CaseStudyCardGrid from "../../components/CaseStudyCardGrid.astro";
+import CaseStudyCard from "../../components/CaseStudyCard.astro";
 import { Image } from "astro:assets";
 import { switchReactMenuMockup } from "../../utils/images";
 import CodeBlock from "../../components/CodeBlock.astro";
+import { WrenchIcon, TypescriptWhiteIcon, ReactWhiteIcon } from "../../utils/icons";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -71,13 +74,17 @@ const sidebarItems = [
         I had already been pretty invested in the world of Nintendo <a
           href="https://en.wikipedia.org/wiki/Homebrew_(video_games)"
           target="_blank">homebrew</a
-        > by this point. I had custom <a href="https://en.wikipedia.org/wiki/Firmware" target="_blank" rel="noreferrer">firmware</a> running on not just my switch, but
-        pretty much every Nintendo console I owned (Wii, DSI, 3DS, and Wii U). So
-        I really liked the idea of taking a stab at building an app for a Nintendo
-        console. However, I found the typical options to be a little lacking. Working
-        with C/C++ seemed like it would be too much of a pain to get started, and
-        I didn't want to spend too much time tinkering with the low-level details
-        of the console's APIs in order to build a simple app.
+        > by this point. I had custom <a
+          href="https://en.wikipedia.org/wiki/Firmware"
+          target="_blank"
+          rel="noreferrer">firmware</a
+        > running on not just my switch, but pretty much every Nintendo console I
+        owned (Wii, DSI, 3DS, and Wii U). So I really liked the idea of taking a stab
+        at building an app for a Nintendo console. However, I found the typical options
+        to be a little lacking. Working with C/C++ seemed like it would be too much
+        of a pain to get started, and I didn't want to spend too much time tinkering
+        with the low-level details of the console's APIs in order to build a simple
+        app.
       </p>
       <br />
       <p>
@@ -89,20 +96,12 @@ const sidebarItems = [
       <p class="pb-3">
         Ultimately, nx.js ended up being <i>amazing</i> for a couple of reasons:
       </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="6rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><rect width="7rem" height="7rem" fill="none"></rect><path
-              fill="white"
-              d="m22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9c-2-2-5-2.4-7.4-1.3L9 6L6 9L1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4"
-            ></path>
-          </svg>
-          <h4 class="text-xl font-medium text-white">Low-Level Control</h4>
+      <CaseStudyCardGrid>
+        <CaseStudyCard
+          title="Low-Level Control"
+          icon={WrenchIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             The framework gave me shockingly low-level access to the hardware.
             Through the <a
@@ -114,21 +113,12 @@ const sidebarItems = [
               target="_blank">Document Object Model (DOM)</a
             >, like in traditional JavaScript.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="white"
-              d="M19.131 3H4.869c-.955 0-1.73.787-1.73 1.758v14.484c0 .97.775 1.758 1.73 1.758h14.262c.956 0 1.73-.787 1.73-1.758V4.758c0-.97-.774-1.758-1.73-1.758m-5.712 9.984h-2.215v6.434H9.439v-6.434H7.223v-1.441h6.196zm5.712 5.277c-.139.317-.377.552-.658.739a3 3 0 0 1-.969.386a5.6 5.6 0 0 1-1.177.12a6.5 6.5 0 0 1-1.211-.11a3.7 3.7 0 0 1-1.004-.33v-1.689l-.066-.053l.066-.015v.068q.441.357.972.545c.347.133.727.2 1.108.2c.242 0 .426-.021.589-.06a1.4 1.4 0 0 0 .415-.168a.7.7 0 0 0 .246-.253a.7.7 0 0 0-.052-.738a1.3 1.3 0 0 0-.346-.335a3 3 0 0 0-.52-.295c-.207-.095-.418-.194-.657-.292c-.589-.281-1.053-.562-1.35-.95c-.301-.35-.45-.808-.45-1.335c0-.422.08-.76.242-1.055c.173-.316.377-.548.658-.738c.277-.193.588-.334.969-.422c.38-.088.762-.133 1.177-.133s.762.024 1.073.073c.311.05.602.127.865.229v1.652a2.3 2.3 0 0 0-.415-.242a3.8 3.8 0 0 0-.97-.275a3 3 0 0 0-.45-.033a2.4 2.4 0 0 0-.553.057a1.3 1.3 0 0 0-.416.161a.8.8 0 0 0-.26.25a.6.6 0 0 0-.093.327q0 .194.104.351q.103.152.295.296c.114.091.27.183.45.274c.207.091.394.183.623.278c.311.133.588.281.83.422c.243.14.447.305.623.492c.187.175.322.387.416.633s.142.523.142.843c0 .457-.108.809-.246 1.125"
-            ></path>
-          </svg>
-          <h4 class="text-xl font-medium text-white">TypeScript Support</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="TypeScript Support"
+          icon={TypescriptWhiteIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             Coming from a Java background, I'm a big fan of what TypeScript
             brings to JavaScript. Adding <a
@@ -137,22 +127,12 @@ const sidebarItems = [
             > to code is a common sense addition to any language, and it's become
             so ingrained in my workflow that I can't really live without it.
           </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="white"
-              d="M12 10.11c1.03 0 1.87.84 1.87 1.89c0 1-.84 1.85-1.87 1.85S10.13 13 10.13 12c0-1.05.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7c-.52-.59-1.03-1.23-1.51-1.9a23 23 0 0 1-2.4-.36c-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86c.27.06.57.11.88.16zm6.54-.76l.81-1.5l-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9s-1.17 0-1.71.03c-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47c.54.03 1.11.03 1.71.03s1.17 0 1.71-.03c.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7c.52.59 1.03 1.23 1.51 1.9c.82.08 1.63.2 2.4.36c.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86c-.27-.06-.57-.11-.88-.16zm1.45-7.05c1.47.84 1.63 3.05 1.01 5.63c2.54.75 4.37 1.99 4.37 3.68s-1.83 2.93-4.37 3.68c.62 2.58.46 4.79-1.01 5.63c-1.46.84-3.45-.12-5.37-1.95c-1.92 1.83-3.91 2.79-5.38 1.95c-1.46-.84-1.62-3.05-1-5.63c-2.54-.75-4.37-1.99-4.37-3.68s1.83-2.93 4.37-3.68c-.62-2.58-.46-4.79 1-5.63c1.47-.84 3.46.12 5.38 1.95c1.92-1.83 3.91-2.79 5.37-1.95M17.08 12c.34.75.64 1.5.89 2.26c2.1-.63 3.28-1.53 3.28-2.26s-1.18-1.63-3.28-2.26c-.25.76-.55 1.51-.89 2.26M6.92 12c-.34-.75-.64-1.5-.89-2.26c-2.1.63-3.28 1.53-3.28 2.26s1.18 1.63 3.28 2.26c.25-.76.55-1.51.89-2.26m9 2.26l-.3.51c.31-.05.61-.1.88-.16c-.07-.28-.18-.57-.29-.86zm-2.89 4.04c1.59 1.5 2.97 2.08 3.59 1.7c.64-.35.83-1.82.32-3.96c-.77.16-1.58.28-2.4.36c-.48.67-.99 1.31-1.51 1.9M8.08 9.74l.3-.51c-.31.05-.61.1-.88.16c.07.28.18.57.29.86zm2.89-4.04C9.38 4.2 8 3.62 7.37 4c-.63.35-.82 1.82-.31 3.96a23 23 0 0 1 2.4-.36c.48-.67.99-1.31 1.51-1.9"
-            ></path>
-          </svg>
-
-          <h4 class="text-xl font-medium text-white">React Tooling</h4>
+        </CaseStudyCard>
+        <CaseStudyCard
+          title="React Tooling"
+          icon={ReactWhiteIcon}
+          titleClass="text-xl font-medium text-white"
+        >
           <p>
             React's <a
               href="https://ui.dev/imperative-vs-declarative-programming"
@@ -162,8 +142,8 @@ const sidebarItems = [
             to state changes felt far more natural to work with than manually updating
             the UI, especially when it came to handling controller input.
           </p>
-        </div>
-      </div>
+        </CaseStudyCard>
+      </CaseStudyCardGrid>
     </section>
     <br />
     <section id="development">
@@ -193,8 +173,8 @@ const sidebarItems = [
         When fetched, images are stored as <a
           href="https://en.wikipedia.org/wiki/Bitmap"
           target="_blank">bitmap files</a
-        > in order to render them to the canvas. If images can't be fetched, the
-        loop continues to the next app.
+        > in order to render them to the canvas. If images can't be fetched, the loop
+        continues to the next app.
       </p>
       <CodeBlock
         code={`for (const app of switchApps) {
@@ -224,8 +204,8 @@ const sidebarItems = [
           target="_blank">hook</a
         > that listens for button presses and updates the UI accordingly. It listens
         for both left and right directional inputs on the stick and D-pad, as well
-        as detecting shoulder buttons to quickly swap pages. It also listens for
-        the A button to launch whatever app is selected.
+        as detecting shoulder buttons to quickly swap pages. It also listens for the
+        A button to launch whatever app is selected.
       </p>
       <br />
       <p>
@@ -313,32 +293,6 @@ const sidebarItems = [
   @media (max-width: 768px) {
     code {
       font-size: 0.75rem;
-    }
-  }
-
-  :global(.case-study-layout) .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: space-between;
-  }
-
-  :global(.case-study-layout) .card {
-    background-color: var(--card-color);
-    border: 1px solid #333;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    width: calc(33.33% - 0.67rem);
-    margin-bottom: 1rem;
-  }
-
-  :global(.case-study-layout) .card h4 {
-    margin-bottom: 0.5rem;
-  }
-
-  @media (max-width: 768px) {
-    :global(.case-study-layout) .card {
-      width: 100%;
     }
   }
 </style>
