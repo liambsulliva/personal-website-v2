@@ -1,0 +1,75 @@
+/* Self-contained tokens — matches UX Wiki dark demo chrome (dnid-capstone). */
+.window {
+  --dnid-surface-card: #2e2f40;
+  --dnid-surface-subtle: #32334a;
+  --dnid-border-strong: #4b4d66;
+  --dnid-text-card: #f3f4f6;
+  --dnid-text-card-muted: #9ca3af;
+  --dnid-traffic-close: #ff5f57;
+  --dnid-traffic-minimize: #febc2e;
+  --dnid-traffic-maximize: #28c840;
+  --dnid-shadow-1:
+    0 4px 6px -1px rgb(0 0 0 / 0.22),
+    0 14px 36px -6px rgb(0 0 0 / 0.38);
+
+  border-radius: 12px;
+  background: var(--dnid-surface-card);
+  box-shadow: var(--dnid-shadow-1);
+  overflow: hidden;
+}
+
+.chrome {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 12px 16px;
+  background: var(--dnid-surface-subtle);
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--dnid-border-strong);
+}
+
+.dot[data-color="close"] {
+  background: var(--dnid-traffic-close);
+}
+
+.dot[data-color="minimize"] {
+  background: var(--dnid-traffic-minimize);
+}
+
+.dot[data-color="maximize"] {
+  background: var(--dnid-traffic-maximize);
+}
+
+.title {
+  flex: 1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--dnid-text-card);
+  letter-spacing: 0.01em;
+}
+
+.body {
+  padding: 1.25rem 1.35rem 1.5rem;
+  color: var(--dnid-text-card-muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.body :global(p) {
+  margin: 0 0 0.65rem;
+}
+
+.body :global(p:last-child) {
+  margin-bottom: 0;
+}

@@ -44,6 +44,9 @@ import teambuilderOld from "../images/projects/teambuilder-old.jpg";
 import gridBasedSelection from "../images/projects/grid-based-selection.jpg";
 import landingGrid from "../images/projects/landing-grid.jpg";
 import landingSections from "../images/projects/landing-sections.jpg";
+import landingGif from "../images/projects/landing-gif.gif";
+import crossLinkedTerms from "../images/projects/cross-linked-terms.gif";
+import modeTooltip from "../images/projects/mode-tooltip.gif";
 
 // Editorial - Layouts images
 import portraitTutorial from "../images/editorial/layouts/portrait-tutorial.png";
@@ -117,6 +120,9 @@ export {
   gridBasedSelection,
   landingGrid,
   landingSections,
+  landingGif,
+  crossLinkedTerms,
+  modeTooltip,
 
   // Editorial - Layouts
   portraitTutorial,
@@ -197,6 +203,9 @@ export const imagePaths = {
     gridBasedSelection: "/images/projects/grid-based-selection.jpg",
     landingGrid: "/images/projects/landing-grid.jpg",
     landingSections: "/images/projects/landing-sections.jpg",
+    landingGif: "/images/projects/landing-gif.gif",
+    crossLinkedTerms: "/images/projects/cross-linked-terms.png",
+    modeTooltip: "/images/projects/mode-tooltip.png",
   },
   editorial: {
     layouts: {

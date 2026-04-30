@@ -5,6 +5,9 @@ import {
   invisibleHandOfUx,
   landingGrid,
   landingSections,
+  landingGif,
+  crossLinkedTerms,
+  modeTooltip,
 } from "../../utils/images";
 import bannerRasterUrl from "../../images/projects/banner-raster.png?url";
 import printLogoRasterUrl from "../../images/projects/print-logo-raster.png?url";
@@ -20,6 +23,7 @@ import CaptionedFigure from "../../components/CaptionedFigure.astro";
 import Callout from "../../components/Callout.astro";
 import CaseStudyCardGrid from "../../components/CaseStudyCardGrid.astro";
 import CaseStudyCard from "../../components/CaseStudyCard.astro";
+import WindowChrome from "../../components/WindowChrome/WindowChrome";
 import {
   ArrowConvergeIcon,
   EyeIcon,
@@ -57,7 +61,7 @@ const brandingPhotos = [
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
-  { text: "The Pitch", href: "#the-pitch" },
+  { text: "Concept", href: "#concept" },
   { text: "Branding", href: "#branding" },
   { text: "Prototyping", href: "#prototyping" },
   { text: "Development", href: "#development" },
@@ -115,9 +119,9 @@ const sidebarItems = [
       </div>
     </section>
 
-    <section id="the-pitch" class="min-w-0 max-w-full pb-10">
+    <section id="concept" class="min-w-0 max-w-full pb-10">
       <div class="w-full min-w-0 max-w-full flex-1">
-        <h3 class="!mb-3 text-2xl font-semibold text-white">The Pitch</h3>
+        <h3 class="!mb-3 text-2xl font-semibold text-white">Concept</h3>
         <CaptionedFigure caption="The Original Pitch Deck.">
           <PdfSlideCarousel
             client:visible
@@ -151,7 +155,7 @@ const sidebarItems = [
             corporate work.
           </p>
           <Callout label="THE SOLUTION?">
-            Gamify the learning process.
+            Build interactivity into the learning process.
           </Callout>
           <p>
             Students LOVE getting their hands dirty. They learn better that way,
@@ -165,144 +169,186 @@ const sidebarItems = [
           </p>
           <br />
           <p>
-            As such, this project goes through each UX principle and gives
-            students a demo to play with. By playing with the demos, students
-            are able to see the patterns in action and connect the term
+            Now, not every term is a good fit for a demo. Even if it were, it
+            would be far too time-consuming to create a demo for every single
+            one. But, by curating a wide swarth of demos that are both relevant
+            and engaging, I was able to set this project apart from a
+            traditional UX wiki and keep readers engaged.
+          </p>
+          <br />
+          <p>
+            By playing with the demos, readers are able to see the patterns in
+            action and connect the term
             <i>directly</i> to the feeling of using it, rather than just reading about
             it in an abstract context. They can use this resource to notice patterns
             in the apps they use every day.
           </p>
         </div>
+        <br />
+        <p>
+          I planned to cover <i>50 unique terms</i>. If that sounds ambitious,
+          it's because it is. I wanted to make sure I was comprehensively
+          covering the field and not just cherry-picking a few terms to make the
+          project feel more manageable. Keep this in mind as we move forward
+          because it will come up later.
+        </p>
       </div>
     </section>
-    <br />
-    <section id="branding">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Branding</h3>
-      <div>
-        <p>
-          The name "Invisible Hand of UX" stems from the concept of an <a
-            href="https://en.wikipedia.org/wiki/Invisible_hand_of_the_market"
-            target="_blank">invisible hand</a
-          > guiding a country's economy. In this case, I wanted to apply that metaphor
-          into the design world. I knew that I needed to include a literal hand in
-          the branding to solidify the metaphor. This is how I ended up with the finger
-          gun symbolism. Initially, the logos were relatively static and monochrome.
-          But the mickey mouse style hand infused it with a bit of charm.
-        </p>
-        <br />
-        <p>
-          I wanted to imply that the interface is the one "in charge" of the
-          user's experience. That this "hand" of intentional design is not to be
-          underestimated, even if users believe they can sidestep design nudges.
-          This is where the "shooting through the text" concept came from.
-        </p>
-        <br />
-        <CaptionedFigure caption="The branding evolution.">
-          <BrandingPhotoAlbum client:visible photos={brandingPhotos} />
-        </CaptionedFigure>
-        <br />
-        <p>
-          I implemented the blue color palette after looking over the aesthetic
-          of denim brands. <a href="https://www.oldnavy.com/" target="_blank"
-            >Old Navy</a
-          > and the <a href="https://www.gap.com/" target="_blank">Gap</a> were major
-          influences on the visual style of the project. Using solid opaque blues,
-          especially in the dark mode, project a sense of depth and sophistication,
-          without being monochrome and boring to look at. The contrast between those
-          colors and the inclusion of the mickey hand gives the project a balance
-          of depth and playfulness.
-        </p>
-        <br />
-        <p></p>
-      </div>
-    </section>
-    <br />
-    <section id="prototyping">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Prototyping</h3>
-      <CaptionedFigure caption="Initial layout prototyping, courtesy of Figma.">
-        <FigmaEmbed
-          url={prototypingFigmaUrl}
-          title="The Invisible Hand of UX — Figma file"
-        />
-      </CaptionedFigure>
+  </div>
+  <section id="branding">
+    <h3 class="!mb-3 text-2xl font-semibold text-white">Branding</h3>
+    <div>
       <p>
-        Once the branding was finished, I began brainstorming the layout of the
-        site. <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> did
-        a ton of this work for me. Since it's built for documentation, it has a ton
-        of features to sort and organize the content you're looking to present. Eventually,
-        I settled on 5 distinct categories to organize the terms I was presenting.
+        The name "Invisible Hand of UX" stems from the concept of an <a
+          href="https://en.wikipedia.org/wiki/Invisible_hand_of_the_market"
+          target="_blank">invisible hand</a
+        > guiding a country's economy. In this case, I wanted to apply that metaphor
+        into the design world. I knew that I needed to include a literal hand in the
+        branding to solidify the metaphor. This is how I ended up with the finger
+        gun symbolism. Initially, the logos were relatively static and monochrome.
+        But the mickey mouse style hand infused it with a bit of charm.
       </p>
       <br />
-      <br />
-      <CaseStudyCardGrid variant="wiki" class="wiki-category-cards">
-        <CaseStudyCard title="Anchoring" icon={ArrowConvergeIcon}>
-          <p>
-            Elements that present an option as a pivot point for comparison,
-            rather than as a standalone decision.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard title="Attention" icon={EyeIcon}>
-          <p>
-            Elements that are engineered to efficiently capture and hold user
-            attention.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard title="Behavior" icon={TrendingUpIcon}>
-          <p>
-            Elements that subtly play on human impulse to influence user
-            behavior.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard title="Coercion" icon={WarningIcon}>
-          <p>
-            Elements that are built to force users into decisions they may not
-            otherwise make.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard title="Priming" icon={LightbulbIcon}>
-          <p>
-            Elements that leverage context clues to prepare users to make a
-            decision.
-          </p>
-        </CaseStudyCard>
-      </CaseStudyCardGrid>
-      <br />
+      <p>
+        This had the pleasant side effect of shifting the project's focus from
+        that of a pure UX learning tool to one that explores the intersection of
+        design and behavioral economics. Many of the examples on the site are
+        inspired by pricing ladders and checkout displays.
+      </p>
       <br />
       <p>
-        These 5 categories neatly mapped on to the terms I wanted to cover (more
-        or less). Given the theme of the aggressive branding, I wanted to focus
-        on principles that leaned manipulative, and these choices encapsulated
-        that sentiment. The interface itself presents relatively minimal to make
-        space for the content to speak for itself. Despite this project being
-        meta-textual, the demos should be the focal point, not the scaffolding
-        around it.
+        I wanted to imply that the interface is the one "in charge" of the
+        user's experience. That the website itself will poke and prod at you
+        until it gets its way. This "hand" of design is not to be
+        underestimated, even if it's technically possible to sidestep the
+        heuristic traps it throws at you. This is where the "shooting through
+        the text" concept came from.
+      </p>
+      <br />
+      <CaptionedFigure caption="The branding evolution.">
+        <BrandingPhotoAlbum client:visible photos={brandingPhotos} />
+      </CaptionedFigure>
+      <br />
+      <p>
+        I implemented the blue color palette after looking over the aesthetic of
+        denim brands. <a href="https://www.oldnavy.com/" target="_blank"
+          >Old Navy</a
+        > and the <a href="https://www.gap.com/" target="_blank">Gap</a> were major
+        influences on the visual style of the project. Using solid opaque blues, especially
+        in the dark mode, project a sense of depth and sophistication, without being
+        monochrome and boring to look at. The contrast between those colors and the
+        inclusion of the mickey hand gives the project a balance of depth and playfulness.
       </p>
       <br />
       <p></p>
-    </section>
+    </div>
+  </section>
+  <br />
+  <section id="prototyping">
+    <h3 class="!mb-3 text-2xl font-semibold text-white">Prototyping</h3>
+    <CaptionedFigure caption="Initial layout prototyping, courtesy of Figma.">
+      <FigmaEmbed
+        url={prototypingFigmaUrl}
+        title="The Invisible Hand of UX — Figma file"
+      />
+    </CaptionedFigure>
+    <p>
+      Because of the sheer amount of content I was presenting, the prototyping
+      remained relatively minimal. I focused on presenting an interface that had
+      a distinct "face" to it, while presenting as an empty canvas to overlay
+      demos on top of.
+    </p>
     <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
-      <p>
-        I spent a TON of development time refining the animations and demos.
-        Even though AI was scaffolding a lot of the component architecture,
-        there was still a ton of manual tweaking that needed to be done to make
-        it feel right. And as good as these models are, it surprised me how
-        often its visuals felt <i>stiff</i>.
-      </p>
-      <br />
-      <h4 class="!mb-3 text-xl font-semibold text-white">Animations</h4>
-      <p>
-        First off, the animations. In order to make the animations feel
-        <i>springy</i>, I needed to use math to give the animations a bit of
-        inertia. This is where the concept of a <a
-          href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve"
-          target="_blank">bezier curve</a
-        > came in. To demonstrate this, here is the CSS for the finger gun animation
-        that plays when the user hovers over the menu icon.
-      </p>
-      <CodeBlock
-        code={`@keyframes logo-recoil {
+    <p>
+      <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> did a ton of
+      this work for me. Since it's built for documentation (it was used for <a
+        href="https://react.dev/"
+        target="_blank">React!</a
+      >), it has a ton of features to sort and organize the content you're
+      looking to present into neat categories. It took a lot of the layout work
+      off my plate so I could jump into development as soon as possible.
+    </p>
+    <br />
+    <p>
+      Eventually, I settled on 5 distinct categories to organize the terms I was
+      presenting.
+    </p>
+    <br />
+    <CaseStudyCardGrid variant="wiki" class="wiki-category-cards">
+      <CaseStudyCard title="Anchoring" icon={ArrowConvergeIcon}>
+        <p>
+          Elements that present an option as a pivot point for comparison,
+          rather than as a standalone decision.
+        </p>
+      </CaseStudyCard>
+      <CaseStudyCard title="Attention" icon={EyeIcon}>
+        <p>
+          Elements that are engineered to efficiently capture and hold user
+          attention.
+        </p>
+      </CaseStudyCard>
+      <CaseStudyCard title="Behavior" icon={TrendingUpIcon}>
+        <p>
+          Elements that subtly play on human impulse to influence user behavior.
+        </p>
+      </CaseStudyCard>
+      <CaseStudyCard title="Coercion" icon={WarningIcon}>
+        <p>
+          Elements that are built to force users into decisions they may not
+          otherwise make.
+        </p>
+      </CaseStudyCard>
+      <CaseStudyCard title="Priming" icon={LightbulbIcon}>
+        <p>
+          Elements that leverage context clues to prepare users to make a
+          decision.
+        </p>
+      </CaseStudyCard>
+    </CaseStudyCardGrid>
+    <br />
+    <p>
+      These 5 categories neatly mapped on to the terms I wanted to cover (more
+      or less). Given the theme of the aggressive branding, I wanted to focus on
+      principles that leaned manipulative, and these choices leaned in that
+      direction. The interface itself presents relatively minimal to make space
+      for the content to speak for itself. Despite this project being
+      meta-textual, the demos should be the focal point, not the scaffolding
+      around it.
+    </p>
+    <br />
+    <p></p>
+  </section>
+  <br />
+  <section id="development">
+    <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+    <p>
+      The bulk of my time was spent refining the animations and demos. That
+      wasn't necessarily purposeful. This being for an English capstone, I
+      initially believed that I would spend the most of my time writing out my
+      posts. It turns out, even though AI was scaffolding a lot of the component
+      architecture, there was still a ton of manual tweaking that needed to be
+      done to make it feel right. And as good as these models are, it surprised
+      me how often its visuals felt <i>stiff</i>.
+    </p>
+    <br />
+    <p>
+      There are far too many demos to go through each of them one-by-one, so
+      I'll just highlight some of the high-level decisons I made regarding their
+      implementation because there is plenty of ground to cover there.
+    </p>
+    <br />
+    <h4 class="!mb-3 text-xl font-semibold text-white">Animations</h4>
+    <p>
+      First off, the animations. In order to make the animations feel
+      <i>springy</i>, I needed to use math to give the animations a bit of
+      inertia. This is where the concept of a <a
+        href="https://en.wikipedia.org/wiki/B%C3%A9zier_curve"
+        target="_blank">bezier curve</a
+      > came in. To demonstrate this, here is the CSS for the finger gun animation
+      that plays when the user hovers over the menu icon.
+    </p>
+    <CodeBlock
+      code={`@keyframes logo-recoil {
   0% {
     transform: rotate(0deg);
   }
@@ -321,61 +367,193 @@ const sidebarItems = [
 .navbar__brand:hover .navbar__logo img {
   animation: logo-recoil 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }`}
-        language="css"
-      />
-      <br />
-      <p>
-        There are a couple pieces to this. To start, the <code>@keyframes</code> bit
-        defines the initial animation. It consists of a rotation that starts at 0
-        degrees, pops up right at the beginning of the animation to simulate a recoiling
-        gun, and then slowly returns back to 0 degrees. The <code
-          >transform-origin: bottom left;</code
-        > bit is important to ensure that the rotation pivot is set at the bottom
-        left corner of the icon.
-      </p>
-      <br />
-      <p>
-        The part that makes it actually <i>springy</i> is in the <code
-          >cubic-bezier(x1, y1, x2, y2)</code
-        > bit. This function defines the way time progresses through the animation.
-        The <code>x1</code> determines when the motion starts accelerating, the <code
-          >y1</code
-        > determines how aggressively it launches, the <code>x2</code> determines
-        when the animation starts settling down, and the <code>y2</code> determines
-        where it ends up. Try it for yourself here!
-      </p>
-      <br />
-      <BezierPlayground client:visible />
-      <br />
-      <h4 class="!mb-3 text-xl font-semibold text-white">Demos</h4>
-      <p>
-        The demos ranged a lot in complexity, but the biggest principle I needed
-        to adhere to was re-using components as much as possible. This A: saved
-        me AI tokens (which is ultimately better for the environment) and B:
-        made the development process a little speedier.
-      </p>
-      <br />
-      <p>
-        The most obvious re-used component was the MacOS style window chrome
-        that wraps around a ton of the demo content. If there is a need to
-        separate something from the page or give it its own "container", I would
-        just throw it in this generic window. It saved me a ton of time that
-        would have otherwise been spent on creating new window frames for each
-        demo.
-      </p>
-      <br />
-      <p>
-        I also noticed that a lot of the terms I described could be pretty
-        eloquently explained through the use of a pricing ladder, especially in <a
-          href="https://uxwiki.liambsullivan.com/docs/anchoring/highballing"
-          >Anchoring</a
-        >. Being able to re-use this same pricing ladder cross-terms saved me a
-        ton of time and effort that could be spent making the other demos as
-        good as they possibly could.
-      </p>
-    </section>
+      language="css"
+    />
     <br />
-  </div>
+    <p>
+      There are a couple pieces to this. To start, the <code>@keyframes</code> bit
+      defines the initial animation. It consists of a rotation that starts at 0 degrees,
+      pops up right at the beginning of the animation to simulate a recoiling gun,
+      and then slowly returns back to 0 degrees. The <code
+        >transform-origin: bottom left;</code
+      > bit is important to ensure that the rotation pivot is set at the bottom left
+      corner of the icon.
+    </p>
+    <br />
+    <p>
+      The part that makes it actually <i>springy</i> is in the <code
+        >cubic-bezier(x1, y1, x2, y2)</code
+      > bit. This function defines the way time progresses through the animation.
+      The <code>x1</code> determines when the motion starts accelerating, the <code
+        >y1</code
+      > determines how aggressively it launches, the <code>x2</code> determines when
+      the animation starts settling down, and the <code>y2</code> determines where
+      it ends up. Try it for yourself here!
+    </p>
+    <br />
+    <BezierPlayground client:visible />
+    <br />
+    <h4 class="!mb-3 text-xl font-semibold text-white">Colors</h4>
+    <p>
+      Managing colors on a large scale like this was more of a technical
+      challenge than I had anticipated. Since this application has a light and a
+      dark mode, colors needed to be conditionally defined, such that they would
+      render correctly in both modes with the correct contrasts.
+    </p>
+    <br />
+    <p>
+      Working in two distinct formats (Markdown and React Components) presented
+      more of a challenge than I had originally expected. I had to find a way to
+      make my colors cascade down to work in both formats. Here's how I did it:
+    </p>
+    <br />
+    <CodeBlock
+      code={`/* custom.css */
+:root {
+  --dnid-brand-50: #b8e0f0;
+  --dnid-brand-100: #5bb5db;
+  --dnid-brand-200: #42a8d4;
+  --dnid-brand-300: #2e9cca;
+  --dnid-brand-400: #1a8ccc;
+  --dnid-brand-500: #177db8;
+  --dnid-brand-600: #1576ad;
+  --dnid-brand-700: #12618f;
+  --dnid-brand-800: #29648a;
+
+  --dnid-neutral-0: #ffffff;
+  --dnid-neutral-50: #f9fafb;
+  --dnid-neutral-100: #f3f4f6;
+  --dnid-neutral-200: #e5e7eb;
+  --dnid-neutral-300: #d1d5db;
+  /* ... */
+
+  [data-theme="dark"] {
+  /* ... */
+  --dnid-neutral-50: #2a2b3e;
+  --dnid-neutral-100: #32334a;
+  --dnid-neutral-200: #3d3f55;
+  --dnid-neutral-300: #4b4d66;
+};`}
+      language="css"
+    />
+    <br />
+    <p>
+      Global CSS variables! Defining my colors in a central location allowed me
+      to quickly throw in my branded colors based on a luminosity scale. All I
+      had to do was throw in a <code>var(--dnid-brand-###)</code> into my code in
+      place of the color and it worked out of the box. The best part? The <code
+        >[data-theme="dark"]</code
+      > block allowed me to overwrite these existing variables automatically when
+      the user's theme was set to dark, whether by the system default or manually.
+    </p>
+    <br />
+    <p>
+      Introducing the colors in this way pushed them out of my way and made it a
+      non-issue to quickly insert blues and grays into my landing page, term
+      pages, and demos as I needed them. Building this system from the top down
+      was a huge boon for my productivity.
+    </p>
+    <br />
+    <h4 class="!mb-3 text-xl font-semibold text-white">Demos</h4>
+    <p>
+      The demos ranged a lot in complexity, but the biggest principle I needed
+      to adhere to was re-using generic components (buttons, windows, etc.) as
+      much as possible. This A: saved me AI tokens and B: made the development
+      process a little speedier.
+    </p>
+    <br />
+    <CaptionedFigure
+      caption="The same macOS-style chrome wrapped almost every demo."
+      class="mx-auto max-w-2xl"
+    >
+      <WindowChrome title="window-chrome.tsx">
+        <h3 class="text-lg font-semibold text-white">Hello World!</h3>
+      </WindowChrome>
+    </CaptionedFigure>
+    <br />
+    <p>
+      The most obvious re-used component was the MacOS style window chrome that
+      wraps around a ton of the demo content. If there is a need to separate
+      something from the page or give it its own "container", I would just throw
+      it in this generic window. It saved me a ton of time that would have
+      otherwise been spent on creating new window frames for each demo.
+    </p>
+    <br />
+    <p>
+      I also noticed that a lot of the terms I described could be pretty
+      eloquently explained through the use of a pricing ladder, especially in <a
+        href="https://uxwiki.liambsullivan.com/docs/anchoring/highballing"
+        >Anchoring</a
+      >. Being able to re-use this same pricing ladder cross-terms saved me a
+      ton of time and effort that could be spent making the other demos as good
+      as they possibly could.
+    </p>
+    <br />
+    <p>
+      But before I knew it, I was midway through the semester, and leveraging
+      code re-use and agentic programming simply wasn't cutting it. I needed to
+      adapt my approach.
+    </p>
+    <br />
+    <Callout label="THE PIVOT">
+      Cut down the terms to a more manageable number.
+    </Callout>
+    <br />
+    <p>
+      I cut the number of terms covered from 50 to a range between 25 and 30.
+      This was a tough decision. I really wanted to make this project
+      comprehensive, but I was beginning to realize that by focusing on the size
+      of the number, I was sacrificing the quality of the content I <i>was</i> covering.
+    </p>
+    <br />
+    <p>
+      This ended up having a number of positive side effects. By focusing on a
+      smaller number of terms, I was able to give more terms interactive demos,
+      rather than falling back to static images. This bolstered the project's
+      core purpose of <i>showing</i>, rather than <i>telling</i>.
+    </p>
+    <br />
+    <CaptionedFigure
+      caption="Animated previews nested in each landing page card."
+    >
+      <Image
+        src={landingGif}
+        alt="Animated previews, nested in each landing page card."
+        class="w-full rounded-xl"
+      />
+    </CaptionedFigure>
+    <br />
+    <p>
+      Reducing the number of terms I covered also allowed me to incorporate
+      animated <a
+        href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element/svg"
+        target="_blank">SVG</a
+      > previews into all 20 card previews on the landing page, rather than falling
+      back to static images. This let me loose to get creative with the design of
+      the landing page, rather than displaying static images on a grid. It breathed
+      new life into a page that initially felt stale and lackluster.
+    </p>
+    <br />
+    <CaptionedFigure caption="A cross-linked term.">
+      <Image
+        src={crossLinkedTerms}
+        alt="Cross-linked terms were sprinkled throughout the site."
+        class="w-full rounded-xl"
+      />
+    </CaptionedFigure>
+    <br />
+    <p>
+      Most importantly, focusing on quality over quantity in my term coverage
+      allowed me to go into much greater depth on each one. I was able to
+      cross-reference terms with one another and provide much more context
+      around where each term fits into the greater UX design sphere.
+    </p>
+    <br />
+    <p>
+      I'm glad I made this pivot. It saved me a ton of headaches, and led to
+      this project feeling much more cohesive and polished in its conclusion.
+    </p>
+  </section>
   <br />
   <section id="testing">
     <h3 class="!mb-3 text-2xl font-semibold text-white">Testing</h3>
@@ -459,9 +637,7 @@ const sidebarItems = [
       Clearly that button wasn't going to fly. I needed to try something else.
     </p>
     <br />
-    <CaptionedFigure
-      caption="The landing page merged with the home page and expanded to fill the screen."
-    >
+    <CaptionedFigure caption="The landing page merged with the home page.">
       <Image
         src={landingGrid}
         alt="The initial landing page design — first screen"
@@ -473,11 +649,10 @@ const sidebarItems = [
     <p>
       I decided to merge the landing page with the home page and place it on its
       own separate page, rather than existing as a "document" in the home page.
-      I also expanded it to fill up more of the screen. After testing with
-      classmates, it was clear the extra click was completely unnecessary.
-      Placing the grid right above the fold made it so users could see it
-      immediately, and it didn't detract from the logo design as much as I would
-      have guessed.
+      After testing with classmates, it was clear the extra click was completely
+      unnecessary. Placing the grid right above the fold made it so users could
+      see it immediately, and it didn't detract from the logo design as much as
+      I would have guessed.
     </p>
     <br />
     <CaptionedFigure
@@ -498,8 +673,31 @@ const sidebarItems = [
       category now has a full header and description to reinforce the categorical
       structure of the page.
     </p>
+    <br />
+    <br />
+    <div class="mb-6 flex flex-col gap-8 md:flex-row">
+      <CaptionedFigure
+        caption="A tooltip to the light/dark mode toggle."
+        class="flex-shrink-0"
+      >
+        <Image
+          src={modeTooltip}
+          alt="A tooltip to the light/dark mode toggle."
+          class="mx-auto h-auto w-48 rounded-xl"
+        />
+      </CaptionedFigure>
+      <div class="min-w-0 flex-1">
+        <p>
+          In the same vein, I added a tooltip to the light/dark mode toggle to
+          help users understand the difference. Although many users can infer
+          that a sun means "light" and a moon means "dark", the system default
+          setting isn't nearly as intuitive. These small details helped smooth
+          over hitches for users who hadn't built up that mental heuristic just
+          yet.
+        </p>
+      </div>
+    </div>
   </section>
-  <br />
   <section id="summary">
     <h3 class="!mb-3 text-2xl font-semibold text-white">Summary</h3>
     <p>
@@ -517,55 +715,55 @@ const sidebarItems = [
       in the real world, and this project has illuminated that fact.
     </p>
   </section>
-</CaseStudyLayout>
 
-<style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
-    position: relative;
-  }
-
-  @media (hover: hover) {
+  <style>
     a {
-      text-decoration: none;
+      color: var(--header-color);
+      text-decoration: underline;
+      text-decoration-color: var(--header-color);
+      text-underline-offset: 2px;
+      font-weight: 600;
+      display: inline-block;
+      position: relative;
     }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
-    }
-    a:hover:after {
-      width: 100%;
-      left: 0;
-    }
-  }
 
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
-  }
+    @media (hover: hover) {
+      a {
+        text-decoration: none;
+      }
+      a:after {
+        bottom: 0;
+        content: "";
+        height: 2px;
+        left: 50%;
+        position: absolute;
+        background: var(--header-color);
+        transition:
+          width 0.2s ease 0s,
+          left 0.2s ease 0s;
+        width: 0;
+      }
+      a:hover:after {
+        width: 100%;
+        left: 0;
+      }
+    }
 
-  @media (max-width: 768px) {
     code {
-      font-size: 0.75rem;
+      background-color: #1e1e1e;
+      color: #d4d4d4;
+      font-family: "Martian Mono", "Courier New", Courier, monospace;
+      font-size: 0.875rem;
+      padding: 0.125rem 0.375rem;
+      border-radius: 4px;
+      border: 1px solid #333;
+      white-space: nowrap;
     }
-  }
-</style>
+
+    @media (max-width: 768px) {
+      code {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</CaseStudyLayout>

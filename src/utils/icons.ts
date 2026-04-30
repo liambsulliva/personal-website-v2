@@ -50,3 +50,4 @@ export { default as WarningIcon } from "../components/icons/WarningIcon.astro";
 export { default as WrenchIcon } from "../components/icons/WrenchIcon.astro";
 export { default as XYZIcon } from "../components/icons/XYZIcon.astro";
 export { default as FedoraIcon } from "../components/icons/FedoraIcon.astro";
+export { default as AnimationIcon } from "../components/icons/AnimationIcon.astro";
