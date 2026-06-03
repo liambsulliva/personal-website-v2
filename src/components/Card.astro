@@ -33,14 +33,16 @@ const target = projectLink ? undefined : "_blank";
     class="relative flex h-full w-full flex-col rounded-xl border border-[#333333] bg-[#151515] group-hover:bg-[#181818]"
   >
     <div class="relative p-2 pb-0 sm:p-3">
-      <div class="relative w-full">
+      <div
+        class="relative aspect-video w-full overflow-hidden rounded-t-xl bg-[#151515]"
+      >
         <div
-          class="absolute inset-0 animate-pulse rounded-t-xl bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]"
+          class="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]"
         >
         </div>
         <Image
           id="astro-image"
-          class="relative h-[256px] w-full rounded-t-xl object-cover opacity-0 transition-opacity duration-300"
+          class="relative h-full w-full object-contain opacity-0 transition-opacity duration-300"
           src={img}
           alt={title}
           loading="eager"
