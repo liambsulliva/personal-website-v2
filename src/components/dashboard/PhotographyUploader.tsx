@@ -901,58 +901,6 @@ const PhotographyUploader: React.FC = () => {
           {errors}
         </div>
       )}
-
-      {/* Uploaded Files */}
-      {uploaded.length > 0 && (
-        <section className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">
-            Uploaded Images ({uploaded.length})
-          </h3>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {uploaded.map((file, index) => (
-              <article
-                key={`${file.publicId}-${index}`}
-                className="group overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950/70"
-              >
-                <a
-                  href={file.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="block"
-                >
-                  <img
-                    src={file.url}
-                    alt={file.name}
-                    loading="lazy"
-                    className="aspect-[4/3] w-full bg-zinc-900 object-cover transition-transform duration-200 group-hover:scale-[1.02]"
-                  />
-                </a>
-
-                <div className="space-y-3 border-t border-zinc-800 p-4">
-                  <div>
-                    <h4 className="truncate text-sm font-medium text-white">
-                      {file.name}
-                    </h4>
-                  </div>
-
-                  {file.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {file.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   );
 };
