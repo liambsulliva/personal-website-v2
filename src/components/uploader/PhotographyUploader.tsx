@@ -848,7 +848,7 @@ const PhotographyUploader: React.FC = () => {
                   ))}
                 </div>
               </div>
-              <div className="flex shrink-0 flex-col items-end gap-2">
+              <div className="flex shrink-0 flex-col items-end gap-1">
                 {queue.length > 1 && (
                   <div className="text-sm text-zinc-400">
                     {carouselIndex + 1} / {queue.length}
