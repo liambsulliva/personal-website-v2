@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import SharedCarousel from "../GenericCarousel";
 
 interface UploadedFile {
   url: string;
@@ -215,6 +214,30 @@ const createQueueId = () =>
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
+const formatBytes = (bytes: number) => {
+  if (!Number.isFinite(bytes) || bytes <= 0) {
+    return "Unknown size";
+  }
+
+  if (bytes >= 1024 * 1024) {
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  return `${Math.round(bytes / 1024)} KB`;
+};
+
+const formatFileType = (file: File) => {
+  const fromMime = file.type.split("/")[1];
+
+  if (fromMime) {
+    return fromMime.toUpperCase();
+  }
+
+  const extension = file.name.split(".").pop();
+
+  return extension ? extension.toUpperCase() : "Unknown";
+};
+
 const PhotographyUploader: React.FC = () => {
   const [uploaded, setUploaded] = useState<UploadedFile[]>([]);
   const [queue, setQueue] = useState<QueuedFile[]>([]);
@@ -225,7 +248,6 @@ const PhotographyUploader: React.FC = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null);
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const animationFrameRef = useRef<number | null>(null);
   const uploadTelemetryRef = useRef<UploadTelemetry | null>(null);
@@ -240,12 +262,6 @@ const PhotographyUploader: React.FC = () => {
       queueRef.current.forEach((item) => URL.revokeObjectURL(item.previewUrl));
     };
   }, []);
-
-  useEffect(() => {
-    if (carouselIndex >= queue.length) {
-      setCarouselIndex(Math.max(0, queue.length - 1));
-    }
-  }, [carouselIndex, queue.length]);
 
   const stopProgressAnimation = () => {
     if (animationFrameRef.current !== null) {
@@ -495,11 +511,7 @@ const PhotographyUploader: React.FC = () => {
       previewUrl: URL.createObjectURL(file),
     }));
 
-    setQueue((prev) => {
-      const nextQueue = [...prev, ...queuedFiles];
-      setCarouselIndex(nextQueue.length - 1);
-      return nextQueue;
-    });
+    setQueue((prev) => [...prev, ...queuedFiles]);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -508,22 +520,13 @@ const PhotographyUploader: React.FC = () => {
 
   const removeFromQueue = (id: string) => {
     setQueue((prev) => {
-      const removeIndex = prev.findIndex((queuedFile) => queuedFile.id === id);
-      const item = prev[removeIndex];
+      const item = prev.find((queuedFile) => queuedFile.id === id);
 
       if (item) {
         URL.revokeObjectURL(item.previewUrl);
       }
 
-      const nextQueue = prev.filter((queuedFile) => queuedFile.id !== id);
-
-      if (removeIndex !== -1) {
-        setCarouselIndex((currentIndex) =>
-          Math.min(currentIndex, Math.max(0, nextQueue.length - 1)),
-        );
-      }
-
-      return nextQueue;
+      return prev.filter((queuedFile) => queuedFile.id !== id);
     });
   };
 
@@ -640,7 +643,6 @@ const PhotographyUploader: React.FC = () => {
   };
 
   const showQueue = queue.length > 0;
-  const currentQueueItem = queue[carouselIndex];
   const displayTags = getUploadTags();
 
   return (
@@ -693,6 +695,21 @@ const PhotographyUploader: React.FC = () => {
             Add
           </button>
         </div>
+        {displayTags.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1">
+            {displayTags.map((tag) => (
+              <button
+                key={tag}
+                type="button"
+                onClick={() => handleRemoveTag(tag)}
+                disabled={uploading}
+                className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200 transition-colors hover:bg-blue-600/30 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {tag} ×
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {!showQueue ? (
@@ -731,158 +748,131 @@ const PhotographyUploader: React.FC = () => {
           </div>
         </div>
       ) : (
-        currentQueueItem && (
-          <div
-            onClick={handleClick}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragLeave={handleDragLeave}
-            className={`rounded-lg border p-4 transition-colors ${
-              isDragging
-                ? "border-blue-500 bg-blue-500/10"
-                : "border-zinc-700 bg-zinc-800/50"
-            } ${uploading ? "pointer-events-none opacity-50" : ""}`}
-          >
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold text-white">
-                Upload Queue ({queue.length})
-              </h3>
-              <p className="mt-1 text-sm text-zinc-400">
-                Tags and featured status apply when you upload. Click, drag, or
-                drop to add more images before submitting.
-              </p>
-            </div>
-
-            {uploading && uploadStatus && (
-              <div className="mb-4 space-y-3 rounded-lg border border-zinc-700 bg-zinc-900/60 p-4">
-                <div className="flex items-center justify-between gap-4 text-sm text-zinc-200">
-                  <div className="min-w-0 truncate">
-                    Uploading {uploadStatus.currentIndex + 1} of{" "}
-                    {uploadStatus.totalFiles}:{" "}
-                    <span className="font-medium text-white">
-                      {uploadStatus.currentFileName}
-                    </span>
-                  </div>
-                  <div className="shrink-0 font-medium text-white">
-                    {Math.round(uploadStatus.progress)}%
-                  </div>
+        <section
+          className={`space-y-6 ${uploading ? "pointer-events-none opacity-50" : ""}`}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+        >
+          {uploading && uploadStatus && (
+            <div className="space-y-3 rounded-lg border border-zinc-700 bg-zinc-900/60 p-4">
+              <div className="flex items-center justify-between gap-4 text-sm text-zinc-200">
+                <div className="min-w-0 truncate">
+                  Uploading {uploadStatus.currentIndex + 1} of{" "}
+                  {uploadStatus.totalFiles}:{" "}
+                  <span className="font-medium text-white">
+                    {uploadStatus.currentFileName}
+                  </span>
                 </div>
-
-                <div className="relative h-2 overflow-hidden rounded-full bg-zinc-700">
-                  <div
-                    className="h-full bg-blue-500 transition-[width] duration-150 ease-out"
-                    style={{ width: `${uploadStatus.progress}%` }}
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 gap-2 text-xs text-zinc-400 sm:grid-cols-2">
-                  <div>
-                    Speed:{" "}
-                    <span className="font-medium text-zinc-200">
-                      {formatUploadSpeed(uploadStatus.speedBytesPerSecond)}
-                    </span>
-                  </div>
-                  <div className="sm:text-right">
-                    {formatPhase(uploadStatus.phase)}
-                  </div>
+                <div className="shrink-0 font-medium text-white">
+                  {Math.round(uploadStatus.progress)}%
                 </div>
               </div>
-            )}
 
-            <SharedCarousel
-              items={queue}
-              getKey={(item) => item.id}
-              currentIndex={carouselIndex}
-              onCurrentIndexChange={setCarouselIndex}
-              disabled={uploading}
-              showDots={false}
-              previousLabel="Previous image"
-              nextLabel="Next image"
-              aspectRatio={16 / 9}
-              viewportClassName="min-h-[12rem] max-h-[350px] rounded-lg bg-zinc-900"
-              renderSlide={({ item }) => (
+              <div className="relative h-2 overflow-hidden rounded-full bg-zinc-700">
+                <div
+                  className="h-full bg-blue-500 transition-[width] duration-150 ease-out"
+                  style={{ width: `${uploadStatus.progress}%` }}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-2 text-xs text-zinc-400 sm:grid-cols-2">
+                <div>
+                  Speed:{" "}
+                  <span className="font-medium text-zinc-200">
+                    {formatUploadSpeed(uploadStatus.speedBytesPerSecond)}
+                  </span>
+                </div>
+                <div className="sm:text-right">
+                  {formatPhase(uploadStatus.phase)}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div
+            className={`grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 ${
+              isDragging ? "rounded-lg ring-2 ring-blue-500/50" : ""
+            }`}
+          >
+            {queue.map((item) => (
+              <article
+                key={item.id}
+                className="group overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950/70"
+              >
                 <img
                   src={item.previewUrl}
                   alt={item.file.name}
-                  className="absolute inset-0 h-full w-full object-contain"
+                  className="aspect-[4/3] w-full bg-zinc-900 object-cover transition-transform duration-200 group-hover:scale-[1.02]"
                 />
-              )}
-            />
 
-            <div className="mt-3 flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <div className="truncate text-sm font-medium text-white">
-                  {currentQueueItem.file.name}
-                </div>
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs">
-                  <span className="shrink-0 text-zinc-400">
-                    {(currentQueueItem.file.size / (1024 * 1024)).toFixed(1)} MB
-                  </span>
-                  {displayTags.map((tag) => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        handleRemoveTag(tag);
-                      }}
-                      disabled={uploading}
-                      className="group flex items-center gap-1 rounded-full border border-zinc-600 bg-zinc-800 px-2 py-0.5 text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      <span>{tag}</span>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-3 w-3 text-zinc-400 group-hover:text-zinc-200"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div className="flex shrink-0 flex-col items-end gap-1">
-                {queue.length > 1 && (
-                  <div className="text-xs text-zinc-400">
-                    {carouselIndex + 1} / {queue.length}
+                <div className="space-y-3 border-t border-zinc-800 p-4">
+                  <div>
+                    <h4 className="truncate text-sm font-medium text-white">
+                      {item.file.name}
+                    </h4>
+                    <span className="mt-1 block text-xs text-zinc-500">
+                      {formatBytes(item.file.size)} - {formatFileType(item.file)}
+                    </span>
                   </div>
-                )}
-                <button
-                  type="button"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    removeFromQueue(currentQueueItem.id);
-                  }}
-                  disabled={uploading}
-                  aria-label={`Remove ${currentQueueItem.file.name} from queue`}
-                  className="flex items-center gap-1 rounded-full border border-zinc-600 bg-zinc-800 px-2 py-0.5 text-zinc-200 transition-colors hover:border-red-500 hover:bg-red-950/60 hover:text-red-200 disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-3.5 w-3.5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+
+                  {displayTags.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {displayTags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => removeFromQueue(item.id)}
+                    disabled={uploading}
+                    className="w-full rounded-lg border border-red-500/60 bg-red-950/30 px-3 py-2 text-sm font-medium text-red-200 transition-colors hover:bg-red-900/50 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
+                    Remove from Queue
+                  </button>
+                </div>
+              </article>
+            ))}
+
+            <button
+              type="button"
+              onClick={handleClick}
+              className={`flex min-h-[16rem] flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors ${
+                isDragging
+                  ? "border-blue-500 bg-blue-500/10"
+                  : "border-zinc-700 bg-zinc-950/60 hover:border-zinc-500 hover:bg-zinc-900/60"
+              }`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="mb-3 h-10 w-10 text-zinc-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+              <span className="text-sm font-medium text-zinc-300">
+                Add more images
+              </span>
+              <span className="mt-1 text-xs text-zinc-500">
+                Click or drop here
+              </span>
+            </button>
           </div>
-        )
+        </section>
       )}
 
       {showQueue && (
@@ -907,15 +897,15 @@ const PhotographyUploader: React.FC = () => {
 
       {/* Uploaded Files */}
       {uploaded.length > 0 && (
-        <div>
-          <h3 className="mb-3 text-lg font-semibold text-white">
+        <section className="space-y-4">
+          <h3 className="text-lg font-semibold text-white">
             Uploaded Images ({uploaded.length})
           </h3>
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {uploaded.map((file, index) => (
-              <div
+              <article
                 key={`${file.publicId}-${index}`}
-                className="group relative overflow-hidden rounded-lg border border-zinc-700 bg-zinc-900"
+                className="group overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950/70"
               >
                 <a
                   href={file.url}
@@ -926,30 +916,35 @@ const PhotographyUploader: React.FC = () => {
                   <img
                     src={file.url}
                     alt={file.name}
-                    className="block h-auto w-full object-contain transition-opacity group-hover:opacity-95"
+                    loading="lazy"
+                    className="aspect-[4/3] w-full bg-zinc-900 object-cover transition-transform duration-200 group-hover:scale-[1.02]"
                   />
-                  <div className="border-t border-zinc-700 p-3">
-                    <div className="mb-2 text-sm font-medium text-white">
-                      {file.name}
-                    </div>
-                    {file.tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1">
-                        {file.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded bg-blue-600 px-2 py-1 text-xs text-white"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
                 </a>
-              </div>
+
+                <div className="space-y-3 border-t border-zinc-800 p-4">
+                  <div>
+                    <h4 className="truncate text-sm font-medium text-white">
+                      {file.name}
+                    </h4>
+                  </div>
+
+                  {file.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-1">
+                      {file.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
             ))}
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

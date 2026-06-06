@@ -1,7 +1,11 @@
 import type { MiddlewareHandler } from "astro";
 import bcrypt from "bcryptjs";
 
-const PROTECTED_PREFIXES = ["/dashboard"];
+const PROTECTED_PREFIXES = [
+  "/dashboard",
+  "/api/cloudinary/delete",
+  "/api/cloudinary/upload",
+];
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);

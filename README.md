@@ -44,6 +44,7 @@ The application includes several server-side API routes to be used for Cloudinar
 
 - **`POST /api/cloudinary/search`** - Filter images by tag, fetch all with included caching
 - **`POST /api/cloudinary/upload`** - Upload images with signed authentication and tag management
+- **`DELETE /api/cloudinary/delete`** - Delete dashboard-managed images from Cloudinary by public ID
 - **`GET /api/cloudinary/tags`** - Retrieve all available image tags from Cloudinary
 
 All API routes require Cloudinary credentials to be configured through environment variables, as mentioned below.
