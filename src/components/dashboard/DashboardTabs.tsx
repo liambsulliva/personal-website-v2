@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PhotographyUploader from "./PhotographyUploader";
 import CloudinaryManagementGrid from "./CloudinaryManagementGrid";
-import ToggleTrack, { type ToggleTrackOption } from "./ToggleTrack";
+import ToggleTrack, { type ToggleTrackOption } from "../ToggleTrack";
 
 type DashboardTab = "upload" | "management";
 
