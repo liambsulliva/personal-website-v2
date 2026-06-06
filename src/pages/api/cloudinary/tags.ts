@@ -3,21 +3,11 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 
 export const GET: APIRoute = async () => {
-  console.log("=== API Route: /api/cloudinary/tags ===");
-
   const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = import.meta.env.CLOUDINARY_API_KEY;
   const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
 
-  console.log("Cloud Name:", cloudName);
-  console.log("API Key:", apiKey ? `${apiKey.substring(0, 4)}...` : "MISSING");
-  console.log(
-    "API Secret:",
-    apiSecret ? `${apiSecret.substring(0, 4)}...` : "MISSING",
-  );
-
   if (!cloudName || !apiKey || !apiSecret) {
-    console.error("Missing Cloudinary credentials");
     return new Response(
       JSON.stringify({ error: "Missing Cloudinary credentials" }),
       { status: 500, headers: { "Content-Type": "application/json" } },
@@ -28,8 +18,6 @@ export const GET: APIRoute = async () => {
     const auth = btoa(`${apiKey}:${apiSecret}`);
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/tags/image`;
 
-    console.log("Fetching from:", url);
-
     const response = await fetch(url, {
       method: "GET",
       headers: {
@@ -37,11 +25,7 @@ export const GET: APIRoute = async () => {
       },
     });
 
-    console.log("Cloudinary response status:", response.status);
-    console.log("Cloudinary response ok:", response.ok);
-
     const responseText = await response.text();
-    console.log("Cloudinary raw response:", responseText);
 
     let data;
     try {
@@ -57,8 +41,6 @@ export const GET: APIRoute = async () => {
         { status: 500, headers: { "Content-Type": "application/json" } },
       );
     }
-
-    console.log("Cloudinary tags response:", data);
 
     return new Response(JSON.stringify(data), {
       status: response.status,

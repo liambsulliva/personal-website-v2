@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 interface CloudinaryResource {
   bytes?: number;
@@ -141,8 +141,10 @@ const CloudinaryManagementGrid: React.FC = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "X-Dashboard-Request": "true",
           },
           body: JSON.stringify({
+            dashboard: true,
             expression: "resource_type:image",
             max_results: PAGE_SIZE,
             with_field: ["tags", "context"],
@@ -196,11 +198,6 @@ const CloudinaryManagementGrid: React.FC = () => {
     fetchImages(null, true);
   }, [fetchImages]);
 
-  const handleRefresh = () => {
-    setNextCursor(null);
-    fetchImages(null, true);
-  };
-
   const handleDelete = async (resource: CloudinaryResource) => {
     const shouldDelete = window.confirm(
       `Delete "${resource.public_id}" from Cloudinary? This cannot be undone.`,
@@ -218,6 +215,7 @@ const CloudinaryManagementGrid: React.FC = () => {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
+          "X-Dashboard-Request": "true",
         },
         body: JSON.stringify({ publicId: resource.public_id }),
       });

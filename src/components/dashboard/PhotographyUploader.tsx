@@ -357,6 +357,9 @@ const PhotographyUploader: React.FC = () => {
 
     const response = await fetch("/api/cloudinary/upload", {
       method: "POST",
+      headers: {
+        "X-Dashboard-Request": "true",
+      },
       body: formData,
     });
     const responseText = await response.text();

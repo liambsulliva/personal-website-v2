@@ -32,11 +32,12 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 
 ## 🔐 Authentication
 
-The dashboard is protected with HTTP Basic Authentication using bcrypt-hashed credentials. Access is required to:
+The dashboard is protected server-side with HTTP Basic Authentication using bcrypt-hashed credentials. Access is required to:
 
 - Upload photography images
 - Manage image tags and metadata
 - Mark photos as "featured" for the homepage carousel
+- Delete Cloudinary assets from the management dashboard
 
 ## 🌐 API Routes
 
@@ -63,7 +64,7 @@ All API routes require Cloudinary credentials to be configured through environme
 
 ## 🔧 Environment Variables
 
-Create a `.env` file in the root directory with the following variables:
+Create a `.env` file in the root directory with the following variables.
 
 ```bash
 # Cloudinary Configuration

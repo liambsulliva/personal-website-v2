@@ -2,6 +2,8 @@
 export const prerender = false;
 
 import type { APIRoute } from "astro";
+import { requireDashboardApiRequest } from "../../../lib/dashboardAuth";
+import { sanitizePublicCloudinarySearch } from "../../../lib/cloudinarySearchPolicy";
 
 // Cache for randomization requests
 interface CacheEntry {
@@ -119,13 +121,44 @@ export const POST: APIRoute = async ({ request }) => {
     body = text ? JSON.parse(text) : {};
     //console.log("Parsed request body:", body);
 
-    const { randomize, excludeIds, ...cloudinaryBody } = body;
+    const isDashboardSearch =
+      body && typeof body === "object"
+        ? (body as { dashboard?: unknown }).dashboard === true
+        : false;
+    const publicSearchBody = sanitizePublicCloudinarySearch(body);
+
+    if (!publicSearchBody && !isDashboardSearch) {
+      return new Response(
+        JSON.stringify({ error: "Unsupported Cloudinary search request" }),
+        { status: 403, headers: { "Content-Type": "application/json" } },
+      );
+    }
+
+    if (isDashboardSearch) {
+      const authFailure = await requireDashboardApiRequest(request);
+
+      if (authFailure) {
+        return authFailure;
+      }
+    }
+
+    const {
+      dashboard: _dashboard,
+      randomize,
+      excludeIds,
+      ...cloudinaryBody
+    } = isDashboardSearch
+      ? (body as Record<string, unknown>)
+      : (publicSearchBody as Record<string, unknown>);
 
     // Handle randomization via cached data if available
     if (randomize) {
       //console.log("Randomization requested, using cache strategy");
 
-      const expression = cloudinaryBody.expression || "resource_type:image";
+      const expression =
+        typeof cloudinaryBody.expression === "string"
+          ? cloudinaryBody.expression
+          : "resource_type:image";
       let resources = await getCachedPhotos(
         cloudName,
         apiKey,
@@ -139,7 +172,7 @@ export const POST: APIRoute = async ({ request }) => {
       );
 
       // Exclude the initial 5 "featured" images
-      if (excludeIds && excludeIds.length > 0) {
+      if (Array.isArray(excludeIds) && excludeIds.length > 0) {
         resources = resources.filter(
           (resource: any) => !excludeIds.includes(resource.public_id),
         );
