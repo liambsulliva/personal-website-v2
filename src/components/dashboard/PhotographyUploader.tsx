@@ -647,6 +647,10 @@ const PhotographyUploader: React.FC = () => {
 
   const showQueue = queue.length > 0;
   const displayTags = getUploadTags();
+  const addMoreDropzoneSpanClass = [
+    queue.length % 2 === 0 ? "sm:col-span-2" : "sm:col-span-1",
+    queue.length % 3 === 0 ? "lg:col-span-3" : "lg:col-span-1",
+  ].join(" ");
 
   return (
     <div className="space-y-4">
@@ -847,7 +851,7 @@ const PhotographyUploader: React.FC = () => {
             <button
               type="button"
               onClick={handleClick}
-              className={`flex min-h-[16rem] flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors ${
+              className={`flex min-h-[16rem] flex-col items-center justify-center rounded-lg border-2 border-dashed transition-colors ${addMoreDropzoneSpanClass} ${
                 isDragging
                   ? "border-blue-500 bg-blue-500/10"
                   : "border-zinc-700 bg-zinc-950/60 hover:border-zinc-500 hover:bg-zinc-900/60"
