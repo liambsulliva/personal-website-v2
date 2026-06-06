@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import SharedCarousel from "../GenericCarousel";
 
 interface UploadedFile {
   url: string;
@@ -526,18 +527,6 @@ const PhotographyUploader: React.FC = () => {
     });
   };
 
-  const showPreviousImage = () => {
-    setCarouselIndex((currentIndex) =>
-      currentIndex === 0 ? queue.length - 1 : currentIndex - 1,
-    );
-  };
-
-  const showNextImage = () => {
-    setCarouselIndex((currentIndex) =>
-      currentIndex === queue.length - 1 ? 0 : currentIndex + 1,
-    );
-  };
-
   const getUploadTags = () => {
     const uploadTags = [...tags];
 
@@ -712,7 +701,7 @@ const PhotographyUploader: React.FC = () => {
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
-          className={`ut-container relative mx-auto flex w-full min-h-[28rem] cursor-pointer flex-col justify-center rounded-lg border-2 border-dashed px-6 py-12 text-center transition-colors ${
+          className={`ut-container relative mx-auto flex min-h-[28rem] w-full cursor-pointer flex-col justify-center rounded-lg border-2 border-dashed px-6 py-12 text-center transition-colors ${
             isDragging
               ? "border-blue-500 bg-blue-500/10"
               : "border-zinc-600 bg-zinc-800/50 hover:border-zinc-500"
@@ -800,96 +789,25 @@ const PhotographyUploader: React.FC = () => {
               </div>
             )}
 
-            <div className="relative">
-              <button
-                type="button"
-                onClick={(event) => {
-                  event.stopPropagation();
-                  removeFromQueue(currentQueueItem.id);
-                }}
-                disabled={uploading}
-                aria-label={`Remove ${currentQueueItem.file.name} from queue`}
-                className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-red-600 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-
-              {queue.length > 1 && (
-                <>
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      showPreviousImage();
-                    }}
-                    disabled={uploading}
-                    aria-label="Previous image"
-                    className="absolute left-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      showNextImage();
-                    }}
-                    disabled={uploading}
-                    aria-label="Next image"
-                    className="absolute right-3 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-white backdrop-blur-sm transition-colors hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-50"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </>
-              )}
-
-              <div className="flex max-h-[350px] min-h-[12rem] items-center justify-center overflow-hidden rounded-lg bg-zinc-900">
+            <SharedCarousel
+              items={queue}
+              getKey={(item) => item.id}
+              currentIndex={carouselIndex}
+              onCurrentIndexChange={setCarouselIndex}
+              disabled={uploading}
+              showDots={false}
+              previousLabel="Previous image"
+              nextLabel="Next image"
+              aspectRatio={16 / 9}
+              viewportClassName="min-h-[12rem] max-h-[350px] rounded-lg bg-zinc-900"
+              renderSlide={({ item }) => (
                 <img
-                  src={currentQueueItem.previewUrl}
-                  alt={currentQueueItem.file.name}
-                  className="max-h-[350px] w-full object-contain"
+                  src={item.previewUrl}
+                  alt={item.file.name}
+                  className="absolute inset-0 h-full w-full object-contain"
                 />
-              </div>
-            </div>
+              )}
+            />
 
             <div className="mt-3 flex items-start justify-between gap-3">
               <div className="min-w-0">
@@ -930,11 +848,38 @@ const PhotographyUploader: React.FC = () => {
                   ))}
                 </div>
               </div>
-              {queue.length > 1 && (
-                <div className="shrink-0 text-sm text-zinc-400">
-                  {carouselIndex + 1} / {queue.length}
-                </div>
-              )}
+              <div className="flex shrink-0 flex-col items-end gap-2">
+                {queue.length > 1 && (
+                  <div className="text-sm text-zinc-400">
+                    {carouselIndex + 1} / {queue.length}
+                  </div>
+                )}
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    removeFromQueue(currentQueueItem.id);
+                  }}
+                  disabled={uploading}
+                  aria-label={`Remove ${currentQueueItem.file.name} from queue`}
+                  className="flex items-center gap-1 rounded-full border border-zinc-600 bg-zinc-800 px-2 py-0.5 text-zinc-200 transition-colors hover:border-red-500 hover:bg-red-950/60 hover:text-red-200 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3.5 w-3.5"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         )

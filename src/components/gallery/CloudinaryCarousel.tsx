@@ -1,65 +1,44 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState } from "react";
+import SharedCarousel from "../GenericCarousel";
 
-interface NavigationButtonProps {
-  label: string;
-  isSelected?: boolean;
-  onSelect: () => void;
-  direction: "prev" | "next";
+interface CloudinaryResource {
+  public_id: string;
+  secure_url: string;
 }
 
-const NavigationButton: React.FC<NavigationButtonProps> = ({
-  onSelect,
-  direction,
-}) => {
-  return (
-    <button
-      onClick={onSelect}
-      className={`relative flex w-fit flex-row items-center justify-center gap-2 rounded-full bg-[#f0f0f0]/50 px-2 py-0.5 backdrop-blur-sm transition-all duration-100 hover:bg-[#e0e0e0]/70 active:scale-95`}
-      aria-label={direction === "next" ? "Next image" : "Previous image"}
-    >
-      <p
-        className={`text-nowrap text-black transition-all duration-100 group-hover:translate-x-[-15px]`}
-      >
-        {direction === "next" ? "→" : "←"}
-      </p>
-    </button>
-  );
-};
-
-interface CloudinaryCarouselProps {
-  refreshTrigger?: number;
-  onImagesLoaded?: (imageIds: string[]) => void;
-  onLoadingChange?: (isLoading: boolean) => void;
-}
-
-const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
-  refreshTrigger = 0,
-  onImagesLoaded,
-  onLoadingChange,
-}) => {
+const CloudinaryCarousel: React.FC = () => {
   const [photos, setPhotos] = useState<string[]>([]);
   const [photoIds, setPhotoIds] = useState<string[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [loadedImages, setLoadedImages] = useState<boolean[]>([]);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const handleLoadingChange = (loading: boolean) => {
+    setIsLoading(loading);
+    window.dispatchEvent(
+      new CustomEvent("carousel-loading", { detail: { isLoading: loading } }),
+    );
+  };
+
+  useEffect(() => {
+    const handleDiceClick = () => {
+      if (!isLoading) {
+        setRefreshTrigger((prev) => prev + 1);
+      }
+    };
+
+    window.addEventListener("dice-click", handleDiceClick);
+    return () => window.removeEventListener("dice-click", handleDiceClick);
+  }, [isLoading]);
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      // console.log("=== CloudinaryCarousel: Starting fetch ===");
-      // Signal loading start in "random" mode
-      if (refreshTrigger > 0 && onLoadingChange) {
-        onLoadingChange(true);
+      if (refreshTrigger > 0) {
+        handleLoadingChange(true);
       }
 
       try {
-        // Initial load fetches featured images and random mode is refreshTrigger > 0
         const isInitialLoad = refreshTrigger === 0;
 
         const requestBody = isInitialLoad
@@ -76,12 +55,7 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
               excludeIds: photoIds,
             };
 
-        const url = "/api/cloudinary/search";
-
-        //console.log("Request URL:", url);
-        //console.log("Request Body:", JSON.stringify(requestBody, null, 2));
-
-        const response = await fetch(url, {
+        const response = await fetch("/api/cloudinary/search", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -89,22 +63,13 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
           body: JSON.stringify(requestBody),
         });
 
-        //console.log("Response Status:", response.status);
-        //console.log("Response OK:", response.ok);
-
         const data = await response.json();
-        //console.log("Response Data:", data);
 
         if (data.resources && data.resources.length > 0) {
-          //console.log(`Found ${data.resources.length} images`);
-
           const selectedResources = data.resources;
 
-          // Map to URLs with optimized transformations
           const albumPhotos: string[] = selectedResources.map(
-            (resource: any) => {
-              //console.log("Processing resource:", resource.public_id);
-              // Use cld transforms to make carousel load quicker
+            (resource: CloudinaryResource) => {
               return resource.secure_url.replace(
                 "/upload/",
                 "/upload/c_fill,w_1920,h_1080,q_auto,f_auto/",
@@ -113,21 +78,14 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
           );
 
           const albumPhotoIds: string[] = selectedResources.map(
-            (resource: any) => resource.public_id,
+            (resource: CloudinaryResource) => resource.public_id,
           );
 
-          //console.log("Carousel photos:", albumPhotos);
           setPhotos(albumPhotos);
           setPhotoIds(albumPhotoIds);
-          setLoadedImages([false, false, false, false, false]);
-          if (onImagesLoaded) {
-            onImagesLoaded(albumPhotoIds);
-          }
-
-          //console.log("=== CloudinaryCarousel: Fetch complete ===");
+          setLoadedImages(Array(albumPhotos.length).fill(false));
         } else {
           console.warn("No images found in response");
-          //console.log("Data structure:", Object.keys(data));
         }
       } catch (error) {
         console.error("!!! CloudinaryCarousel ERROR !!!", error);
@@ -136,9 +94,8 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
           console.error("Error stack:", error.stack);
         }
       } finally {
-        // Signal loading completion (done fetching from Cloudinary)
-        if (refreshTrigger > 0 && onLoadingChange) {
-          onLoadingChange(false);
+        if (refreshTrigger > 0) {
+          handleLoadingChange(false);
         }
       }
     };
@@ -146,7 +103,6 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
     fetchPhotos();
   }, [refreshTrigger]);
 
-  // React by resetting to first slide on random btn click
   useEffect(() => {
     if (refreshTrigger > 0) {
       setCurrentSlide(0);
@@ -161,84 +117,31 @@ const CloudinaryCarousel: React.FC<CloudinaryCarouselProps> = ({
     });
   };
 
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % photos.length);
-  }, [photos.length]);
-
-  const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + photos.length) % photos.length);
-  }, [photos.length]);
-
-  // Keyboard Nav
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight") nextSlide();
-      if (e.key === "ArrowLeft") prevSlide();
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [nextSlide, prevSlide]);
-
-  if (photos.length === 0) {
-    return (
-      <div className="relative aspect-video w-full">
-        <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
-      </div>
-    );
-  }
-
   return (
-    <div ref={carouselRef} className="relative aspect-video w-full">
-      {/* Image Container */}
-      {photos.map((photo, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-500 ease-in-out ${index === currentSlide ? "z-10 opacity-100" : "z-0 opacity-0"} `}
-        >
-          {/* Placeholder Gradient */}
+    <SharedCarousel
+      items={photos}
+      getKey={(photo, index) => photoIds[index] ?? photo}
+      currentIndex={currentSlide}
+      onCurrentIndexChange={setCurrentSlide}
+      previousLabel="Previous image"
+      nextLabel="Next image"
+      dotLabel={(index) => `Select image ${index + 1}`}
+      renderSlide={({ item: photo, index }) => (
+        <>
           {!loadedImages[index] && (
             <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
           )}
 
-          {photo && (
-            <img
-              src={photo}
-              aria-label={`Image ${index + 1}`}
-              loading={index === 0 ? "eager" : "lazy"}
-              className="absolute inset-0 h-full w-full object-cover"
-              onLoad={() => handleImageLoad(index)}
-            />
-          )}
-        </div>
-      ))}
-
-      {/* Nav Buttons */}
-      <div className="absolute left-6 top-1/2 z-20 -translate-y-1/2">
-        <NavigationButton
-          label="Previous"
-          onSelect={prevSlide}
-          direction="prev"
-        />
-      </div>
-      <div className="absolute right-6 top-1/2 z-20 -translate-y-1/2">
-        <NavigationButton label="Next" onSelect={nextSlide} direction="next" />
-      </div>
-      <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 space-x-2">
-        {photos.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            aria-label={`Select image ${index + 1}`}
-            className={`h-3 w-3 rounded-full ${
-              index === currentSlide
-                ? "bg-white"
-                : "bg-white/50 hover:bg-white/75"
-            } `}
+          <img
+            src={photo}
+            aria-label={`Image ${index + 1}`}
+            loading={index === 0 ? "eager" : "lazy"}
+            className="absolute inset-0 h-full w-full object-cover"
+            onLoad={() => handleImageLoad(index)}
           />
-        ))}
-      </div>
-    </div>
+        </>
+      )}
+    />
   );
 };
 
