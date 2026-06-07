@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import TagRow from "../TagRow";
 
 interface UploadedFile {
   url: string;
@@ -11,6 +12,7 @@ interface QueuedFile {
   file: File;
   id: string;
   previewUrl: string;
+  tags: string[];
 }
 
 type UploadPhase = "preparing" | "uploading" | "processing";
@@ -243,8 +245,8 @@ const PhotographyUploader: React.FC = () => {
   const [queue, setQueue] = useState<QueuedFile[]>([]);
   const [errors, setErrors] = useState<string | null>(null);
   const [isFeatured, setIsFeatured] = useState(false);
+  const [globalTags, setGlobalTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadStatus, setUploadStatus] = useState<UploadStatus | null>(null);
@@ -322,32 +324,56 @@ const PhotographyUploader: React.FC = () => {
 
   useEffect(() => stopProgressAnimation, []);
 
-  const handleAddTag = () => {
+  const handleAddGlobalTag = () => {
     const newTags = tagInput
       .split(",")
       .map((tag) => tag.trim().toLowerCase())
-      .filter((tag) => tag && !tags.includes(tag));
+      .filter(Boolean);
 
-    if (newTags.length > 0) {
-      setTags([...tags, ...newTags]);
-      setTagInput("");
-    }
-  };
-
-  const handleRemoveTag = (tagToRemove: string) => {
-    if (tagToRemove === "featured") {
-      setIsFeatured(false);
+    if (newTags.length === 0) {
       return;
     }
 
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+    setTagInput("");
+    setGlobalTags((currentTags) => [
+      ...new Set([...currentTags, ...newTags]),
+    ]);
+    setQueue((currentQueue) =>
+      currentQueue.map((item) => ({
+        ...item,
+        tags: [
+          ...item.tags,
+          ...newTags.filter((tag) => !item.tags.includes(tag)),
+        ],
+      })),
+    );
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      handleAddTag();
+      handleAddGlobalTag();
     }
+  };
+
+  const handleAddQueueTag = (queueId: string, tag: string) => {
+    setQueue((currentQueue) =>
+      currentQueue.map((item) =>
+        item.id === queueId && !item.tags.includes(tag)
+          ? { ...item, tags: [...item.tags, tag] }
+          : item,
+      ),
+    );
+  };
+
+  const handleRemoveQueueTag = (queueId: string, tag: string) => {
+    setQueue((currentQueue) =>
+      currentQueue.map((item) =>
+        item.id === queueId
+          ? { ...item, tags: item.tags.filter((currentTag) => currentTag !== tag) }
+          : item,
+      ),
+    );
   };
 
   const requestUploadSignature = async (uploadTags: string[]) => {
@@ -512,6 +538,7 @@ const PhotographyUploader: React.FC = () => {
       file,
       id: createQueueId(),
       previewUrl: URL.createObjectURL(file),
+      tags: [...globalTags],
     }));
 
     setQueue((prev) => [...prev, ...queuedFiles]);
@@ -533,14 +560,14 @@ const PhotographyUploader: React.FC = () => {
     });
   };
 
-  const getUploadTags = () => {
-    const uploadTags = [...tags];
+  const getUploadTagsForItem = (item: QueuedFile) => {
+    const uploadTags = [...item.tags];
 
     if (isFeatured && !uploadTags.includes("featured")) {
       uploadTags.push("featured");
     }
 
-    return uploadTags;
+    return [...new Set(uploadTags)];
   };
 
   const submitQueue = async () => {
@@ -551,7 +578,6 @@ const PhotographyUploader: React.FC = () => {
     setErrors(null);
     setUploading(true);
 
-    const uploadTags = getUploadTags();
     const itemsToUpload = [...queue];
     const batchTotalBytes = itemsToUpload.reduce(
       (total, item) => total + item.file.size,
@@ -588,7 +614,7 @@ const PhotographyUploader: React.FC = () => {
           telemetry.speedBytesPerSecond = 0;
         }
 
-        const result = await uploadFile(item.file, uploadTags);
+        const result = await uploadFile(item.file, getUploadTagsForItem(item));
 
         if (telemetry) {
           telemetry.batchLoadedBytes += item.file.size;
@@ -646,7 +672,6 @@ const PhotographyUploader: React.FC = () => {
   };
 
   const showQueue = queue.length > 0;
-  const displayTags = getUploadTags();
   const addMoreDropzoneSpanClass = [
     queue.length % 2 === 0 ? "sm:col-span-2" : "sm:col-span-1",
     queue.length % 3 === 0 ? "lg:col-span-3" : "lg:col-span-1",
@@ -676,47 +701,32 @@ const PhotographyUploader: React.FC = () => {
         </label>
       </div>
 
-      {/* Tag Input */}
       <div className="mb-4">
         <label
-          htmlFor="tags"
+          htmlFor="global-tags"
           className="mb-2 block text-sm font-medium text-zinc-200"
         >
-          Tags (comma-separated, applied on upload)
+          Global Tags
         </label>
         <div className="flex gap-2">
           <input
             type="text"
-            id="tags"
+            id="global-tags"
             value={tagInput}
             onChange={(e) => setTagInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            onBlur={handleAddTag}
+            onBlur={handleAddGlobalTag}
             placeholder="e.g., portrait, nature, landscape"
             className="flex-1 rounded-lg border border-zinc-600 bg-zinc-800 px-3 py-2 text-white placeholder-zinc-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
           />
           <button
-            onClick={handleAddTag}
+            type="button"
+            onClick={handleAddGlobalTag}
             className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Add
           </button>
         </div>
-        {displayTags.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1">
-            {displayTags.map((tag) => (
-              <button
-                key={tag}
-                type="button"
-                onClick={() => handleRemoveTag(tag)}
-                disabled={uploading}
-                className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200 transition-colors hover:bg-blue-600/30 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {tag} ×
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
       {!showQueue ? (
@@ -823,18 +833,12 @@ const PhotographyUploader: React.FC = () => {
                     </span>
                   </div>
 
-                  {displayTags.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {displayTags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <TagRow
+                    tags={item.tags}
+                    onAdd={(tag) => handleAddQueueTag(item.id, tag)}
+                    onRemove={(tag) => handleRemoveQueueTag(item.id, tag)}
+                    disabled={uploading}
+                  />
 
                   <button
                     type="button"

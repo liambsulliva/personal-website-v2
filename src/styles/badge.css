@@ -1,0 +1,177 @@
+.badge {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1f2029;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  position: relative;
+  font: inherit;
+}
+
+.badge--inline {
+  margin-top: 0;
+}
+
+.badge--compact {
+  padding: 0.2rem 0.45rem;
+}
+
+.badge--removable {
+  padding-right: 1.5rem;
+}
+
+.badge--removable.badge--compact {
+  padding-right: 1.35rem;
+}
+
+.badge--compact .badge-icon {
+  height: 14px;
+}
+
+.badge--compact .badge-icon svg {
+  max-width: 14px;
+}
+
+.badge--compact .badge-text {
+  line-height: 1;
+}
+
+.badge-add-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1f2029;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  font: inherit;
+  padding: 0.2rem;
+  width: calc(0.4rem + 0.75rem);
+  height: calc(0.4rem + 0.75rem);
+  line-height: 1;
+}
+
+.badge-add-button:hover:not(:disabled) {
+  background-color: #252530;
+  color: #e0e0e0;
+}
+
+.badge-add-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.badge-add-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.badge-add-button svg {
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.badge-add-input {
+  box-sizing: border-box;
+  min-width: 7rem;
+  height: calc(0.4rem + 0.75rem);
+  border-radius: 0.5rem;
+  border: 1px solid #52525b;
+  background-color: #27272a;
+  padding: 0 0.45rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: #fff;
+}
+
+.badge-add-input::placeholder {
+  color: #71717a;
+}
+
+.badge-add-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b82f6;
+}
+
+.badge-add-input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (max-width: 850px) {
+  .badge:not(.badge--inline) {
+    margin-top: 1rem;
+  }
+}
+
+a.badge:hover,
+button.badge:hover:not(:disabled) {
+  background-color: #252530;
+}
+
+a.badge:active,
+button.badge:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+button.badge:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.badge-icon {
+  margin-right: 0.5rem;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  transition: all 0.1s ease;
+}
+
+.badge-icon svg {
+  width: auto;
+  height: 100%;
+  max-width: 32px;
+}
+
+.badge-text {
+  font-size: 0.75rem;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge--removable .badge-remove-overlay {
+  position: absolute;
+  inset: 0 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.badge--removable.badge--compact .badge-remove-overlay {
+  width: 1.35rem;
+}
+
+.badge--removable .badge-remove-overlay svg {
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  filter: grayscale(1);
+}

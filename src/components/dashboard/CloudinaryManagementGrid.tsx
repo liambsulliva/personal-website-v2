@@ -1,4 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
+import CloudinaryMenu from "../gallery/CloudinaryMenu";
+import TagRow from "../TagRow";
 
 interface CloudinaryResource {
   bytes?: number;
@@ -121,7 +123,11 @@ const CloudinaryManagementGrid: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [deletingIds, setDeletingIds] = useState<Set<string>>(() => new Set());
+  const [tagMutationKeys, setTagMutationKeys] = useState<Set<string>>(
+    () => new Set(),
+  );
   const [error, setError] = useState<string | null>(null);
+  const [selectedTag, setSelectedTag] = useState("");
 
   const hasImages = resources.length > 0;
   const deletingCount = deletingIds.size;
@@ -137,6 +143,12 @@ const CloudinaryManagementGrid: React.FC = () => {
       }
 
       try {
+        let expression = "resource_type:image";
+
+        if (selectedTag) {
+          expression += ` AND tags=${selectedTag}`;
+        }
+
         const response = await fetch("/api/cloudinary/search", {
           method: "POST",
           headers: {
@@ -145,7 +157,7 @@ const CloudinaryManagementGrid: React.FC = () => {
           },
           body: JSON.stringify({
             dashboard: true,
-            expression: "resource_type:image",
+            expression,
             max_results: PAGE_SIZE,
             with_field: ["tags", "context"],
             ...(cursor ? { next_cursor: cursor } : {}),
@@ -191,12 +203,112 @@ const CloudinaryManagementGrid: React.FC = () => {
         setIsLoadingMore(false);
       }
     },
-    [],
+    [selectedTag],
   );
 
   useEffect(() => {
     fetchImages(null, true);
   }, [fetchImages]);
+
+  const handleTagChange = (tag: string) => {
+    setSelectedTag(tag);
+    setResources([]);
+    setNextCursor(null);
+  };
+
+  const getTagKey = (publicId: string, tag: string) => `${publicId}::${tag}`;
+
+  const withTagMutation = async (
+    resource: CloudinaryResource,
+    tag: string,
+    action: "add" | "remove",
+    mutate: () => void,
+  ) => {
+    const tagKey = `${action}::${getTagKey(resource.public_id, tag)}`;
+
+    setError(null);
+    setTagMutationKeys((currentKeys) => new Set(currentKeys).add(tagKey));
+
+    try {
+      const response = await fetch(
+        action === "add"
+          ? "/api/cloudinary/add-tag"
+          : "/api/cloudinary/remove-tag",
+        {
+          method: action === "add" ? "POST" : "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Dashboard-Request": "true",
+          },
+          body: JSON.stringify({ publicId: resource.public_id, tag }),
+        },
+      );
+      const payload = await parseJsonResponse(response);
+
+      if (!response.ok) {
+        throw new Error(
+          getApiErrorMessage(
+            payload,
+            action === "add"
+              ? "Failed to add tag to image"
+              : "Failed to remove tag from image",
+          ),
+        );
+      }
+
+      mutate();
+    } catch (tagMutationError) {
+      setError(
+        tagMutationError instanceof Error
+          ? tagMutationError.message
+          : action === "add"
+            ? "Failed to add tag to image"
+            : "Failed to remove tag from image",
+      );
+    } finally {
+      setTagMutationKeys((currentKeys) => {
+        const nextKeys = new Set(currentKeys);
+        nextKeys.delete(tagKey);
+        return nextKeys;
+      });
+    }
+  };
+
+  const handleAddTag = async (resource: CloudinaryResource, tag: string) => {
+    if (resource.tags?.includes(tag)) {
+      return;
+    }
+
+    await withTagMutation(resource, tag, "add", () => {
+      setResources((currentResources) =>
+        currentResources.map((currentResource) =>
+          currentResource.public_id === resource.public_id
+            ? {
+                ...currentResource,
+                tags: [...(currentResource.tags ?? []), tag],
+              }
+            : currentResource,
+        ),
+      );
+    });
+  };
+
+  const handleRemoveTag = async (resource: CloudinaryResource, tag: string) => {
+    await withTagMutation(resource, tag, "remove", () => {
+      setResources((currentResources) =>
+        currentResources.map((currentResource) =>
+          currentResource.public_id === resource.public_id
+            ? {
+                ...currentResource,
+                tags: currentResource.tags?.filter(
+                  (currentTag) => currentTag !== tag,
+                ),
+              }
+            : currentResource,
+        ),
+      );
+    });
+  };
 
   const handleDelete = async (resource: CloudinaryResource) => {
     const shouldDelete = window.confirm(
@@ -248,7 +360,9 @@ const CloudinaryManagementGrid: React.FC = () => {
   };
 
   return (
-    <section className="space-y-6">
+    <section>
+      <CloudinaryMenu lang="en" onTagChange={handleTagChange} />
+
       <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-400">
         {deletingCount > 0 && (
           <span>
@@ -312,18 +426,21 @@ const CloudinaryManagementGrid: React.FC = () => {
                     </p>
                   </div>
 
-                  {resource.tags && resource.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1">
-                      {resource.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full bg-blue-600/20 px-2 py-0.5 text-xs text-blue-200"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <TagRow
+                    tags={resource.tags ?? []}
+                    onAdd={(tag) => {
+                      void handleAddTag(resource, tag);
+                    }}
+                    onRemove={(tag) => {
+                      void handleRemoveTag(resource, tag);
+                    }}
+                    disabled={
+                      isDeleting ||
+                      [...tagMutationKeys].some((key) =>
+                        key.endsWith(`::${resource.public_id}::`),
+                      )
+                    }
+                  />
 
                   <button
                     type="button"
@@ -345,7 +462,7 @@ const CloudinaryManagementGrid: React.FC = () => {
       )}
 
       {nextCursor && (
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-6">
           <button
             type="button"
             onClick={() => fetchImages(nextCursor)}

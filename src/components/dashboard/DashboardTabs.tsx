@@ -15,7 +15,7 @@ const DashboardTabs: React.FC = () => {
   const isUpload = activeTab === "upload";
 
   return (
-    <div className="relative rounded-xl border border-white/10 bg-[rgba(24,24,24,0.5)] p-8 pb-24">
+    <div className="relative rounded-xl border border-white/10 bg-[rgba(24,24,24,0.5)] p-8">
       <div className="mb-8 flex flex-col items-start gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <h2 className="m-0 text-2xl font-semibold text-white text-left">

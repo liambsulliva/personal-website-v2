@@ -1,4 +1,6 @@
 ---
+import "../styles/badge.css";
+
 interface Props {
   text: string;
   href?: string;
@@ -22,59 +24,3 @@ const Component = href ? "a" : "div";
     {text}
   </div>
 </Component>
-
-<style>
-  .badge {
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    padding: 0.25rem 0.5rem;
-    margin-top: 0.75rem;
-    margin-bottom: 0;
-    border-radius: 0.5rem;
-    background-color: #1f2029;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.1s ease;
-    position: relative;
-  }
-
-  @media (max-width: 850px) {
-    .badge {
-      margin-top: 1rem;
-    }
-  }
-
-  /* Smooth fade on hover */
-  a.badge:hover {
-    background-color: #252530;
-  }
-
-  /* Squash animation on click */
-  a.badge:active {
-    transform: scale(0.95);
-  }
-
-  .badge-icon {
-    margin-right: 0.5rem;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    transition: all 0.1s ease;
-  }
-
-  .badge-icon :global(svg) {
-    width: auto;
-    height: 100%;
-    max-width: 32px;
-  }
-
-  .badge-text {
-    font-size: 0.75rem;
-    color: #e0e0e0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-</style>

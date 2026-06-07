@@ -11,12 +11,16 @@ import {
 
 const PROTECTED_PREFIXES = [
   "/dashboard",
+  "/api/cloudinary/add-tag",
   "/api/cloudinary/delete",
+  "/api/cloudinary/remove-tag",
   "/api/cloudinary/upload",
 ];
 
 const PROTECTED_API_PREFIXES = [
+  "/api/cloudinary/add-tag",
   "/api/cloudinary/delete",
+  "/api/cloudinary/remove-tag",
   "/api/cloudinary/upload",
 ];
 
