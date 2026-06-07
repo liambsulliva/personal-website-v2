@@ -5,92 +5,45 @@ import type { APIRoute } from "astro";
 import { requireDashboardApiRequest } from "../../../lib/dashboardAuth";
 import { sanitizePublicCloudinarySearch } from "../../../lib/cloudinarySearchPolicy";
 
-// Cache for randomization requests
-interface CacheEntry {
-  resources: any[];
-  timestamp: number;
-}
+const RANDOM_SORT_FIELDS = [
+  "created_at",
+  "uploaded_at",
+  "public_id",
+  "bytes",
+  "width",
+  "height",
+  "aspect_ratio",
+  "pixels",
+] as const;
 
-const photoCache = new Map<string, CacheEntry>();
-const CACHE_DURATION = 24 * 60 * 60 * 1000;
+const LANDSCAPE_EXPRESSION = "aspect_ratio > 1";
 
-// Fetches all photos from Cloudinary when randomizing after 24hrs or cold start
-async function fetchAllPhotos(
-  cloudName: string,
-  apiKey: string,
-  apiSecret: string,
-  expression: string,
-): Promise<any[]> {
-  const auth = btoa(`${apiKey}:${apiSecret}`);
-  const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
+const getRandomItem = <T>(items: readonly T[]) =>
+  items[Math.floor(Math.random() * items.length)];
 
-  let allResources: any[] = [];
-  let nextCursor: string | null = null;
+const escapeCloudinarySearchValue = (value: string) =>
+  value.replace(/(["*\\])/g, "\\$1");
 
-  do {
-    const requestBody: any = {
-      expression,
-      max_results: 500,
-      with_field: ["tags", "context"],
-    };
-
-    if (nextCursor) {
-      requestBody.next_cursor = nextCursor;
-    }
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${auth}`,
-      },
-      body: JSON.stringify(requestBody),
-    });
-
-    const data = await response.json();
-
-    if (data.resources) {
-      allResources = allResources.concat(data.resources);
-    }
-
-    nextCursor = data.next_cursor || null;
-  } while (nextCursor);
-
-  //console.log(`Fetched ${allResources.length} total photos for cache`);
-  return allResources;
-}
-
-// Grab cached photos or fetch new ones if cache is invalid
-async function getCachedPhotos(
-  cloudName: string,
-  apiKey: string,
-  apiSecret: string,
-  expression: string,
-): Promise<any[]> {
-  const cacheKey = expression;
-  const cached = photoCache.get(cacheKey);
-  const now = Date.now();
-
-  if (cached && now - cached.timestamp < CACHE_DURATION) {
-    // Cache hit! Return pics
-    return cached.resources;
+const buildExcludedPublicIdsExpression = (excludeIds: unknown) => {
+  if (!Array.isArray(excludeIds) || excludeIds.length === 0) {
+    return undefined;
   }
 
-  // Cache miss! Fetch all photos
-  const resources = await fetchAllPhotos(
-    cloudName,
-    apiKey,
-    apiSecret,
-    expression,
-  );
+  const publicIdExpressions = excludeIds
+    .filter((id): id is string => typeof id === "string")
+    .map((id) => `public_id="${escapeCloudinarySearchValue(id)}"`);
 
-  photoCache.set(cacheKey, {
-    resources,
-    timestamp: now,
-  });
+  if (publicIdExpressions.length === 0) {
+    return undefined;
+  }
 
-  return resources;
-}
+  return `NOT (${publicIdExpressions.join(" OR ")})`;
+};
+
+const combineCloudinaryExpressions = (
+  expression: string,
+  ...filters: Array<string | undefined>
+) => [expression, ...filters].filter(Boolean).join(" AND ");
 
 export const POST: APIRoute = async ({ request }) => {
   //console.log("=== API Route: /api/cloudinary/search ===");
@@ -151,55 +104,58 @@ export const POST: APIRoute = async ({ request }) => {
       ? (body as Record<string, unknown>)
       : (publicSearchBody as Record<string, unknown>);
 
-    // Handle randomization via cached data if available
-    if (randomize) {
-      //console.log("Randomization requested, using cache strategy");
+    const auth = btoa(`${apiKey}:${apiSecret}`);
+    const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
 
+    // Handle randomization with a bounded Cloudinary search instead of fetching every asset.
+    if (randomize) {
       const expression =
         typeof cloudinaryBody.expression === "string"
           ? cloudinaryBody.expression
           : "resource_type:image";
-      let resources = await getCachedPhotos(
-        cloudName,
-        apiKey,
-        apiSecret,
-        expression,
-      );
 
-      // Filter for landscape shots (width > height)
-      resources = resources.filter(
-        (resource: any) => resource.width > resource.height,
-      );
+      const randomSortField = getRandomItem(RANDOM_SORT_FIELDS);
+      const randomSortDirection = Math.random() > 0.5 ? "desc" : "asc";
+      const randomizedSearchBody = {
+        ...cloudinaryBody,
+        expression: combineCloudinaryExpressions(
+          expression,
+          LANDSCAPE_EXPRESSION,
+          buildExcludedPublicIdsExpression(excludeIds),
+        ),
+        sort_by: [{ [randomSortField]: randomSortDirection }],
+      };
 
-      // Exclude the initial 5 "featured" images
-      if (Array.isArray(excludeIds) && excludeIds.length > 0) {
-        resources = resources.filter(
-          (resource: any) => !excludeIds.includes(resource.public_id),
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Basic ${auth}`,
+        },
+        body: JSON.stringify(randomizedSearchBody),
+      });
+
+      const responseText = await response.text();
+      let data;
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (parseError) {
+        return new Response(
+          JSON.stringify({
+            error: "Invalid response from Cloudinary",
+            details: responseText,
+          }),
+          { status: 500, headers: { "Content-Type": "application/json" } },
         );
       }
 
-      // Randomize (via Fisher-Yates algorithm) and select first 5
-      // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-      const shuffled = [...resources]; // Create a copy to avoid mutating cache
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-
-      const data = {
-        resources: shuffled.slice(0, 5),
-        total_count: shuffled.length,
-      };
-
       return new Response(JSON.stringify(data), {
-        status: 200,
+        status: response.status,
         headers: { "Content-Type": "application/json" },
       });
     }
 
     // Regular (non-randomized) requests - always fetch fresh data for fetcher/featured carousel
-    const auth = btoa(`${apiKey}:${apiSecret}`);
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
 
     //console.log("Fetching fresh data from:", url);
 
