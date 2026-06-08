@@ -2,6 +2,13 @@ import type { APIRoute } from "astro";
 
 export const prerender = false;
 
+const CLOUDINARY_TAGS_PAGE_SIZE = 500;
+
+type CloudinaryTagsResponse = {
+  tags?: string[];
+  next_cursor?: string | null;
+};
+
 export const GET: APIRoute = async () => {
   const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = import.meta.env.CLOUDINARY_API_KEY;
@@ -16,34 +23,62 @@ export const GET: APIRoute = async () => {
 
   try {
     const auth = btoa(`${apiKey}:${apiSecret}`);
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/tags/image`;
+    const baseUrl = `https://api.cloudinary.com/v1_1/${cloudName}/tags/image`;
+    const allTags: string[] = [];
+    let nextCursor: string | undefined;
 
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        Authorization: `Basic ${auth}`,
-      },
-    });
+    do {
+      const params = new URLSearchParams({
+        max_results: String(CLOUDINARY_TAGS_PAGE_SIZE),
+      });
 
-    const responseText = await response.text();
+      if (nextCursor) {
+        params.set("next_cursor", nextCursor);
+      }
 
-    let data;
-    try {
-      data = responseText ? JSON.parse(responseText) : { tags: [] };
-    } catch (parseError) {
-      console.error("Failed to parse Cloudinary response:", parseError);
-      console.error("Response text was:", responseText);
-      return new Response(
-        JSON.stringify({
-          error: "Invalid response from Cloudinary",
-          details: responseText,
-        }),
-        { status: 500, headers: { "Content-Type": "application/json" } },
-      );
-    }
+      const response = await fetch(`${baseUrl}?${params}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Basic ${auth}`,
+        },
+      });
 
-    return new Response(JSON.stringify(data), {
-      status: response.status,
+      const responseText = await response.text();
+
+      let data: CloudinaryTagsResponse;
+      try {
+        data = responseText ? JSON.parse(responseText) : { tags: [] };
+      } catch (parseError) {
+        console.error("Failed to parse Cloudinary response:", parseError);
+        console.error("Response text was:", responseText);
+        return new Response(
+          JSON.stringify({
+            error: "Invalid response from Cloudinary",
+            details: responseText,
+          }),
+          { status: 500, headers: { "Content-Type": "application/json" } },
+        );
+      }
+
+      if (!response.ok) {
+        return new Response(JSON.stringify(data), {
+          status: response.status,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+
+      if (Array.isArray(data.tags)) {
+        allTags.push(...data.tags);
+      }
+
+      nextCursor =
+        typeof data.next_cursor === "string" && data.next_cursor.length > 0
+          ? data.next_cursor
+          : undefined;
+    } while (nextCursor);
+
+    return new Response(JSON.stringify({ tags: allTags }), {
+      status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
