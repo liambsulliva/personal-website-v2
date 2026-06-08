@@ -1,4 +1,8 @@
 import type { APIRoute } from "astro";
+import {
+  getCloudinaryCredentials,
+  mutateCloudinaryTags,
+} from "../../../lib/cloudinaryServer";
 
 export const prerender = false;
 
@@ -7,18 +11,6 @@ const jsonResponse = (payload: unknown, status = 200) =>
     status,
     headers: { "Content-Type": "application/json" },
   });
-
-const getCloudinaryCredentials = () => {
-  const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
-  const apiKey = import.meta.env.CLOUDINARY_API_KEY;
-  const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
-
-  if (!cloudName || !apiKey || !apiSecret) {
-    return null;
-  }
-
-  return { apiKey, apiSecret, cloudName };
-};
 
 export const DELETE: APIRoute = async ({ request }) => {
   const credentials = getCloudinaryCredentials();
@@ -51,20 +43,11 @@ export const DELETE: APIRoute = async ({ request }) => {
   }
 
   try {
-    const auth = btoa(`${credentials.apiKey}:${credentials.apiSecret}`);
-    const removeTagUrl = `https://api.cloudinary.com/v1_1/${credentials.cloudName}/resources/image/tags`;
-    const params = new URLSearchParams();
-    params.append("public_ids[]", publicId);
-    params.append("tag", tag.trim());
-    params.append("command", "remove");
-
-    const response = await fetch(removeTagUrl, {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${auth}`,
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: params,
+    const response = await mutateCloudinaryTags({
+      ...credentials,
+      command: "remove",
+      publicId,
+      tag: tag.trim(),
     });
     const responseText = await response.text();
     let data: unknown = {};

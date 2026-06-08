@@ -16,7 +16,7 @@ const DashboardTabs: React.FC = () => {
 
   return (
     <div className="relative rounded-xl border border-white/10 bg-[rgba(24,24,24,0.5)] p-8">
-      <div className="mb-8 flex flex-col items-start gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <div className="mb-8 flex flex-col-reverse items-start gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <h2 className="m-0 text-2xl font-semibold text-white text-left">
             {isUpload ? "Uploads" : "Management"}

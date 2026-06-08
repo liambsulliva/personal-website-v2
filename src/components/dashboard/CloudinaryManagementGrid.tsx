@@ -363,31 +363,32 @@ const CloudinaryManagementGrid: React.FC = () => {
     <section>
       <CloudinaryMenu lang="en" onTagChange={handleTagChange} />
 
-      <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-400">
+      <div className="mt-4 space-y-4">
         {deletingCount > 0 && (
-          <span>
-            Deleting {deletingCount} image{deletingCount === 1 ? "" : "s"}...
-          </span>
+          <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-400">
+            <span>
+              Deleting {deletingCount} image{deletingCount === 1 ? "" : "s"}...
+            </span>
+          </div>
         )}
-      </div>
 
-      {error && (
-        <div className="rounded-lg border border-red-500 bg-red-500/10 p-3 text-sm text-red-300">
-          {error}
-        </div>
-      )}
+        {error && (
+          <div className="rounded-lg border border-red-500 bg-red-500/10 p-3 text-sm text-red-300">
+            {error}
+          </div>
+        )}
 
-      {isLoading && !hasImages ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, index) => (
-            <div
-              key={index}
-              className="h-64 animate-pulse rounded-lg border border-zinc-800 bg-zinc-900/70"
-            />
-          ))}
-        </div>
-      ) : hasImages ? (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {isLoading && !hasImages ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <div
+                key={index}
+                className="h-64 animate-pulse rounded-lg border border-zinc-800 bg-zinc-900/70"
+              />
+            ))}
+          </div>
+        ) : hasImages ? (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {resources.map((resource) => {
             const isDeleting = deletingIds.has(resource.public_id);
 
@@ -453,26 +454,27 @@ const CloudinaryManagementGrid: React.FC = () => {
                 </div>
               </article>
             );
-          })}
-        </div>
-      ) : (
-        <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-8 text-center text-zinc-400">
-          No Cloudinary images found.
-        </div>
-      )}
+            })}
+          </div>
+        ) : (
+          <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-8 text-center text-zinc-400">
+            No Cloudinary images found.
+          </div>
+        )}
 
-      {nextCursor && (
-        <div className="flex justify-center mt-6">
-          <button
-            type="button"
-            onClick={() => fetchImages(nextCursor)}
-            disabled={isLoadingMore}
-            className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            {isLoadingMore ? "Loading..." : "Load More"}
-          </button>
-        </div>
-      )}
+        {nextCursor && (
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={() => fetchImages(nextCursor)}
+              disabled={isLoadingMore}
+              className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isLoadingMore ? "Loading..." : "Load More"}
+            </button>
+          </div>
+        )}
+      </div>
     </section>
   );
 };

@@ -883,20 +883,20 @@ const PhotographyUploader: React.FC = () => {
               </span>
             </button>
           </div>
-        </section>
-      )}
 
-      {showQueue && (
-        <button
-          type="button"
-          onClick={submitQueue}
-          disabled={uploading}
-          className="absolute bottom-8 right-8 z-10 rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-blue-900/30 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {uploading
-            ? "Uploading..."
-            : `Upload ${queue.length} image${queue.length === 1 ? "" : "s"}`}
-        </button>
+          <div className="mt-6 flex justify-end">
+            <button
+              type="button"
+              onClick={submitQueue}
+              disabled={uploading}
+              className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white shadow-lg shadow-blue-900/30 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {uploading
+                ? "Uploading..."
+                : `Upload ${queue.length} image${queue.length === 1 ? "" : "s"}`}
+            </button>
+          </div>
+        </section>
       )}
 
       {/* Errors */}
