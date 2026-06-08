@@ -3,7 +3,6 @@ import Loader from "../gallery/Loader";
 import { imagePaths } from "../../utils/images";
 
 interface LocalFetcherProps {
-  lang?: string;
   category?: string;
   maxCols?: 2 | 3;
 }
@@ -24,7 +23,6 @@ const gridClassByMaxCols: Record<2 | 3, string> = {
 
 const LocalFetcher = ({
   category = "layouts",
-  lang = "en",
   maxCols = 3,
 }: LocalFetcherProps) => {
   const [localData, setLocalData] = useState<LocalData[]>([]);
@@ -34,59 +32,40 @@ const LocalFetcher = ({
     setIsLoading(true);
 
     try {
-      const localLayouts = {
-        en: [
-          {
-            title: "Shooting The Perfect Portrait",
-            type: "Article",
-            date: "Mar 2025",
-            link: "/layouts/portrait-tutorial.pdf",
-            imageUrl: imagePaths.editorial.layouts.portraitTutorial,
-          },
-          {
-            title: "The Forgotten Charm of Gaming Manuals",
-            type: "Manual",
-            date: "Apr 2025",
-            link: "/layouts/wii-manual.pdf",
-            imageUrl: imagePaths.editorial.layouts.wiiManual,
-          },
-          {
-            title: "Beer and Wine Edition",
-            type: "Cover",
-            date: "Feb 2026",
-            link: "https://pittnews.com/article/200930/print-archive/beer-and-wine-2/",
-            externalLink: true,
-            imageUrl: imagePaths.editorial.layouts.beerAndWineEdition,
-          },
-          {
-            title: "March Madness Edition",
-            type: "Cover",
-            date: "Mar 2026",
-            link: "https://pittnews.com/article/201419/print-archive/march-madness-2/",
-            externalLink: true,
-            imageUrl: imagePaths.editorial.layouts.marchMadnessEdition,
-          },
-        ],
-        de: [
-          {
-            title: "Das perfekte Porträt fotografieren",
-            type: "Artikel",
-            date: "März 2025",
-            link: "/layouts/portrait-tutorial.pdf",
-            imageUrl: imagePaths.editorial.layouts.portraitTutorial,
-          },
-          {
-            title: "Der vergessene Charme von Spielehandbüchern",
-            type: "Handbuch",
-            date: "Apr 2025",
-            link: "/layouts/wii-manual.pdf",
-            imageUrl: imagePaths.editorial.layouts.wiiManual,
-          },
-        ],
-      };
+      const localLayouts: LocalData[] = [
+        {
+          title: "Shooting The Perfect Portrait",
+          type: "Article",
+          date: "Mar 2025",
+          link: "/layouts/portrait-tutorial.pdf",
+          imageUrl: imagePaths.editorial.layouts.portraitTutorial,
+        },
+        {
+          title: "The Forgotten Charm of Gaming Manuals",
+          type: "Manual",
+          date: "Apr 2025",
+          link: "/layouts/wii-manual.pdf",
+          imageUrl: imagePaths.editorial.layouts.wiiManual,
+        },
+        {
+          title: "Beer and Wine Edition",
+          type: "Cover",
+          date: "Feb 2026",
+          link: "https://pittnews.com/article/200930/print-archive/beer-and-wine-2/",
+          externalLink: true,
+          imageUrl: imagePaths.editorial.layouts.beerAndWineEdition,
+        },
+        {
+          title: "March Madness Edition",
+          type: "Cover",
+          date: "Mar 2026",
+          link: "https://pittnews.com/article/201419/print-archive/march-madness-2/",
+          externalLink: true,
+          imageUrl: imagePaths.editorial.layouts.marchMadnessEdition,
+        },
+      ];
 
-      const localPresentations = {
-        en: [
+      const localPresentations: LocalData[] = [
           {
             title: "Club Meeting 8-25",
             type: "Presentation",
@@ -129,11 +108,9 @@ const LocalFetcher = ({
             link: "/presentation/clubmeeting6.pdf",
             imageUrl: imagePaths.editorial.presentations.clubmeeting6,
           },
-        ],
-      };
+      ];
 
-      const localCooking = {
-        en: [
+      const localCooking: LocalData[] = [
           {
             title: "Pickled Onions",
             type: "Blog",
@@ -158,11 +135,9 @@ const LocalFetcher = ({
             externalLink: true,
             imageUrl: imagePaths.editorial.cooking.tofu,
           },
-        ],
-      };
+      ];
 
-      const localImages = {
-        en: [
+      const localImages: LocalData[] = [
           {
             title: "From Pop to Personal",
             type: "Logo",
@@ -186,56 +161,20 @@ const LocalFetcher = ({
             link: "/layouts/mock-pitt-post.pdf",
             imageUrl: imagePaths.editorial.layouts.mockPittPost,
           },
-        ],
-        de: [
-          {
-            title: "Von Pop zu Persönlich",
-            type: "Logo",
-            date: "Okt 2024",
-            link: "https://pittnews.com/article/190870/blogs/from-pop-to-personal-youre-gonna-go-far/",
-            externalLink: true,
-            imageUrl: imagePaths.editorial.graphicDesign.fromPopToPersonal,
-          },
-          {
-            title: "Verstehst du das Konzept nicht?",
-            type: "Logo",
-            date: "Dez 2024",
-            link: "https://pittnews.com/article/192778/blogs/do-you-not-get-the-concept-with-great-power-theres-a-great-responsibility/",
-            externalLink: true,
-            imageUrl: imagePaths.editorial.graphicDesign.musicBlog,
-          },
-          {
-            title: "Pitt-Branded Instagram-Beitrag (Mockup)",
-            type: "Instagram-Beitrag",
-            date: "März 2025",
-            link: "/layouts/mock-pitt-post.pdf",
-            imageUrl: imagePaths.editorial.layouts.mockPittPost,
-          },
-        ],
-      };
+      ];
 
       switch (category) {
         case "layouts":
-          setLocalData(
-            localLayouts[lang as keyof typeof localLayouts] || localLayouts.en,
-          );
+          setLocalData(localLayouts);
           break;
         case "graphic-design":
-          setLocalData(
-            localImages[lang as keyof typeof localImages] || localImages.en,
-          );
+          setLocalData(localImages);
           break;
         case "presentations":
-          setLocalData(
-            localPresentations[lang as keyof typeof localPresentations] ||
-              localPresentations.en,
-          );
+          setLocalData(localPresentations);
           break;
         case "cooking":
-          setLocalData(
-            localPresentations[lang as keyof typeof localCooking] ||
-              localCooking.en,
-          );
+          setLocalData(localCooking);
           break;
       }
     } catch (error) {
@@ -243,7 +182,7 @@ const LocalFetcher = ({
     } finally {
       setIsLoading(false);
     }
-  }, [category, lang]);
+  }, [category]);
 
   useEffect(() => {
     fetchLocalData();
@@ -307,7 +246,7 @@ const LocalFetcher = ({
           </a>
         ))}
       </div>
-      {isLoading && <Loader lang={lang} />}
+      {isLoading && <Loader />}
     </div>
   );
 };

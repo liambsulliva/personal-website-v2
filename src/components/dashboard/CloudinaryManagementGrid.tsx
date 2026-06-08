@@ -361,7 +361,7 @@ const CloudinaryManagementGrid: React.FC = () => {
 
   return (
     <section>
-      <CloudinaryMenu lang="en" onTagChange={handleTagChange} />
+      <CloudinaryMenu onTagChange={handleTagChange} />
 
       <div className="mt-4 space-y-4">
         {deletingCount > 0 && (

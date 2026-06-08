@@ -1,6 +1,4 @@
 ---
-import { Trans } from "astro-i18next/components";
-
 interface NavItem {
   text: string;
   href: string;
@@ -17,7 +15,7 @@ const { navItems, id = "fade-nav", className = "" }: Props = Astro.props;
 
 <div id={id} class={`sidebar ${className}`}>
   <ul>
-    <Trans i18nKey={"misc.contents"}><p>CONTENTS</p></Trans>
+    <p>CONTENTS</p>
     {
       navItems.map((item) => (
         <li>

@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import type { SVGProps } from "react";
 
 interface LoaderProps {
-  lang?: string;
   size?: string;
   showOfflineMessage?: boolean;
 }
 
 export default function EosIconsThreeDotsLoading({
-  lang = "en",
   size = "4rem",
   showOfflineMessage = true,
   ...props
@@ -34,7 +32,7 @@ export default function EosIconsThreeDotsLoading({
 
   return (
     <div className="flex justify-center">
-      {showOfflineMessage && isOffline && lang === "en" && (
+      {showOfflineMessage && isOffline && (
         <p className="m-4">You seem to have lost connection. Try refreshing?</p>
       )}
 

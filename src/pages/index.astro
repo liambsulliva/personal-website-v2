@@ -8,9 +8,6 @@ import Extracurriculars from "../ui/Extracurriculars.astro";
 import Footer from "../layouts/Footer.astro";
 import SideBar from "../components/SideBar.astro";
 import DescriptionTyper from "../components/DescriptionTyper.astro";
-import { Trans } from "astro-i18next/components";
-// @ts-ignore
-import { localizePath } from "astro-i18next";
 import ArrowLink from "../components/ArrowLink.astro";
 
 // Define the navigation items to pass as props
@@ -25,21 +22,16 @@ const sidebarItems = [
 
 <Layout title="Liam Sullivan">
   <main>
-    {/*<LanguagePicker />*/}
     <SideBar navItems={sidebarItems} className="right-18 fixed top-72" />
     <div class="header-desktop flex w-full justify-center">
-      <Trans i18nKey="header">
-        <h1 class="condensed">
-          Hi! My name is <span class="text-gradient">Liam</span>
-        </h1>
-      </Trans>
+      <h1 class="condensed">
+        Hi! My name is <span class="text-gradient">Liam</span>
+      </h1>
     </div>
     <div class="header-mobile flex w-full justify-center">
-      <Trans i18nKey="headerMobile">
-        <h1 class="condensed">
-          I'm <span class="text-gradient">Liam</span>
-        </h1>
-      </Trans>
+      <h1 class="condensed">
+        I'm <span class="text-gradient">Liam</span>
+      </h1>
     </div>
     <DescriptionTyper
       untyped="I want to make the web "
@@ -85,7 +77,7 @@ const sidebarItems = [
         <div id="photography" class="card mb-6">
           <Photography />
         </div>
-        <ArrowLink href={localizePath("/photography/")} label={"Portfolio"} />
+        <ArrowLink href="/photography/" label={"Portfolio"} />
       </div>
       <div>
         <p class="section-labels" style="text-transform: uppercase;">

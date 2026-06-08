@@ -1,18 +1,15 @@
 ---
-// @ts-ignore
-import { localizePath } from "astro-i18next";
 import Layout from "../layouts/Layout.astro";
 import BackLink from "../components/BackLink.astro";
 import CloudinaryFetcher from "../components/gallery/CloudinaryFetcher.tsx";
-import { t } from "i18next";
 ---
 
 <Layout title="Photography - Liam Sullivan">
   <div class="content">
     <div class="btn-container">
-      <BackLink label={"Back"} href={localizePath("/")} />
+      <BackLink label={"Back"} href="/" />
     </div>
-    <CloudinaryFetcher lang={t("misc.lang")} client:load />
+    <CloudinaryFetcher client:load />
   </div>
 </Layout>
 

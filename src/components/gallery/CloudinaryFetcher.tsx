@@ -7,10 +7,6 @@ import Loader from "./Loader";
 import "yet-another-react-lightbox/styles.css";
 import CloudinaryMenu from "./CloudinaryMenu";
 
-interface CloudinaryFetcherProps {
-  lang: string;
-}
-
 type GalleryPhoto = AlbumPhoto & { lightboxSrc: string };
 
 function cloudinaryTransform(secureUrl: string, transformation: string): string {
@@ -29,7 +25,7 @@ function dimensionsForWidth(
   };
 }
 
-const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
+const CloudinaryFetcher: React.FC = () => {
   const [index, setIndex] = useState(-1);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -195,7 +191,7 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
 
   return (
     <div className="m-8 pb-16 max-md:m-3">
-      <CloudinaryMenu lang={lang} onTagChange={handleTagChange} />
+      <CloudinaryMenu onTagChange={handleTagChange} />
       {photos.length > 0 ? (
         <PhotoAlbum
           photos={photos}
@@ -224,7 +220,7 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
         />
       ) : !isLoading ? (
         <div className="flex h-32 w-full items-center justify-center text-white">
-          <p>{lang === "de" ? "Keine Fotos gefunden" : "No photos found"}</p>
+          <p>No photos found</p>
         </div>
       ) : null}
       <Lightbox
@@ -234,7 +230,7 @@ const CloudinaryFetcher: React.FC<CloudinaryFetcherProps> = ({ lang }) => {
         open={index >= 0}
         close={() => setIndex(-1)}
       />
-      {isLoading && <Loader lang={lang} />}
+      {isLoading && <Loader />}
     </div>
   );
 };

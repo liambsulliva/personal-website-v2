@@ -2,66 +2,35 @@ import CloudinaryTag from "./CloudinaryTag";
 import { useState, useEffect, useRef } from "react";
 
 interface CloudinaryMenuProps {
-  lang: string;
   onTagChange: (tag: string) => void;
 }
 
-interface TagOption {
-  en: string;
-  de: string;
-}
-
-export default function CloudinaryMenu({
-  onTagChange,
-  lang,
-}: CloudinaryMenuProps) {
+export default function CloudinaryMenu({ onTagChange }: CloudinaryMenuProps) {
   const [showLeftButton, setShowLeftButton] = useState(false);
   const [showRightButton, setShowRightButton] = useState(false);
   const [selectedTag, setSelectedTag] = useState<string>("all");
-  const [tags, setTags] = useState<TagOption[]>([{ en: "all", de: "alle" }]);
+  const [tags, setTags] = useState<string[]>(["all"]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchTags = async () => {
-      //console.log("=== CloudinaryMenu: Starting tag fetch ===");
-
       try {
         const url = "/api/cloudinary/tags";
-
-        //console.log("Request URL:", url);
 
         const response = await fetch(url, {
           method: "GET",
         });
 
-        //console.log("Response Status:", response.status);
-        //console.log("Response OK:", response.ok);
-
         const data = await response.json();
-        //console.log("Tags Response Data:", data);
 
         if (data.tags && Array.isArray(data.tags)) {
-          //console.log(`Found ${data.tags.length} total tags:`, data.tags);
-
-          // Filter out system tags and the "featured" tag (used only for carousel)
           const filteredTags = data.tags
             .filter((tag: string) => !tag.startsWith("_") && tag !== "featured")
             .sort();
 
-          const tagOptions: TagOption[] = [
-            { en: "all", de: "alle" },
-            ...filteredTags.map((tag: string) => ({
-              en: tag,
-              de: tag.charAt(0).toUpperCase() + tag.slice(1),
-            })),
-          ];
-
-          //console.log("Final tag options:", tagOptions);
-          setTags(tagOptions);
-          //console.log("=== CloudinaryMenu: Tag fetch complete ===");
+          setTags(["all", ...filteredTags]);
         } else {
           console.warn("No tags array in response");
-          //console.log("Data structure:", Object.keys(data));
         }
       } catch (error) {
         console.error("!!! CloudinaryMenu ERROR !!!", error);
@@ -69,16 +38,16 @@ export default function CloudinaryMenu({
           console.error("Error message:", error.message);
           console.error("Error stack:", error.stack);
         }
-        setTags([{ en: "all", de: "alle" }]);
+        setTags(["all"]);
       }
     };
 
     fetchTags();
   }, []);
 
-  const handleTagSelect = (tag: TagOption) => {
-    setSelectedTag(tag.en);
-    onTagChange(tag.en === "all" ? "" : tag.en);
+  const handleTagSelect = (tag: string) => {
+    setSelectedTag(tag);
+    onTagChange(tag === "all" ? "" : tag);
   };
 
   useEffect(() => {
@@ -105,17 +74,17 @@ export default function CloudinaryMenu({
   }, [tags]);
 
   return (
-    <div className="relative mb-4">
+    <div className="relative mb-8">
       {showLeftButton && (
         <div className="absolute left-0 top-0 z-10 flex h-full items-center">
-          <div className="absolute h-full w-24 bg-gradient-to-r from-[#0F0F0F] to-transparent" />
+          <div className="absolute left-0 h-full w-24 bg-gradient-to-r from-[#0F0F0F] to-transparent" />
           <button
             onClick={() => {
               if (containerRef.current) {
                 containerRef.current.scrollLeft -= 200;
               }
             }}
-            className="relative pl-1"
+            className="relative z-10 pl-1"
             aria-label="Scroll tags left"
           >
             <svg
@@ -147,9 +116,9 @@ export default function CloudinaryMenu({
       >
         {tags.map((tag) => (
           <CloudinaryTag
-            key={tag.en}
-            label={lang === "de" ? tag.de : tag.en}
-            isSelected={selectedTag === tag.en}
+            key={tag}
+            label={tag === "all" ? "all" : tag.charAt(0).toUpperCase() + tag.slice(1)}
+            isSelected={selectedTag === tag}
             onSelect={() => handleTagSelect(tag)}
           />
         ))}

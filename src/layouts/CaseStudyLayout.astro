@@ -1,6 +1,4 @@
 ---
-// @ts-ignore
-import { localizePath } from "astro-i18next";
 import Layout from "./Layout.astro";
 import BackLink from "../components/BackLink.astro";
 import SideBar from "../components/SideBar.astro";
@@ -123,7 +121,7 @@ const displayGithubLink = isCaseStudy ? undefined : githubLink;
 
 <Layout title={pageTitle}>
   <div class="m-8">
-    <BackLink label={"Back"} href={localizePath("/")} />
+    <BackLink label={"Back"} href="/" />
   </div>
   <main class="mx-auto flex w-[1150px] min-w-0 max-w-full flex-row">
     <SideBar navItems={sidebarItems} className={sidebarClassName} />

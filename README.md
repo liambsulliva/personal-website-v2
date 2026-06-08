@@ -15,7 +15,6 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 - Button Animations
 - Opacity Animation on Scroll
 - Consistent Design Language
-- English and German Localization
 - Typed Hero Description Animation
 - Sidebar Anchor Navigation
 - Cloudinary Photo Backend & Image Management

@@ -113,7 +113,7 @@ const WordpressFetcher = () => {
           </a>
         ))}
       </div>
-      {isLoading && <Loader lang="en" />}
+      {isLoading && <Loader />}
     </div>
   );
 };

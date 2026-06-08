@@ -1,15 +1,11 @@
 ---
-// @ts-ignore
-import { Trans } from "astro-i18next/components";
-// @ts-ignore
-import { localizePath } from "astro-i18next";
 import { Image } from "astro:assets";
 import { mockup as Mockup } from "../utils/images";
 ---
 
 <ul class="main-list">
   <a
-    href={localizePath("ux/kingdra-case-study")}
+    href="/ux/kingdra-case-study"
     aria-label="Kingdra Case Study"
     class="group flex cursor-pointer items-stretch gap-6"
   >
@@ -31,16 +27,12 @@ import { mockup as Mockup } from "../utils/images";
       </div>
       <div class="main-list-header p-8">
         <div class="icon-set">
-          <Trans i18nKey="ux.content1.title">
-            <h3 class="text-2xl font-bold tracking-tight text-white">
-              The Journey to Mobile
-            </h3>
-          </Trans>
+          <h3 class="text-2xl font-bold tracking-tight text-white">
+            The Journey to Mobile
+          </h3>
         </div>
 
-        <Trans i18nKey="ux.content1.description">
-          <p class="text-[#d0d0d0]">A Case Study</p>
-        </Trans>
+        <p class="text-[#d0d0d0]">A Case Study</p>
       </div>
     </div>
   </a>

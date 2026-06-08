@@ -3,8 +3,6 @@ import Card from "../components/Card.astro";
 import { clubmeeting3, clubmeeting6 } from "../utils/images";
 import ArrowLink from "../components/ArrowLink.astro";
 import { PittIcon } from "../utils/icons";
-// @ts-ignore
-import { localizePath } from "astro-i18next";
 ---
 
 <div class="content">
@@ -29,7 +27,7 @@ import { localizePath } from "astro-i18next";
     />
   </div>
 </div>
-<ArrowLink href={localizePath("/other-work/")} label="Other Work" />
+<ArrowLink href="/other-work/" label="Other Work" />
 <style>
   .content {
     display: flex;

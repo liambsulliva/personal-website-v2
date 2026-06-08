@@ -1,6 +1,4 @@
 ---
-// @ts-ignore
-import { localizePath } from "astro-i18next";
 import { Image } from "astro:assets";
 import Badge from "./Badge.astro";
 
@@ -19,7 +17,7 @@ const {
   projectLink,
 } = Astro.props;
 
-const href = projectLink ? localizePath(projectLink) : demoBtn;
+const href = projectLink ?? demoBtn;
 const target = projectLink ? undefined : "_blank";
 ---
 
