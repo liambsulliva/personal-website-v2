@@ -19,7 +19,7 @@
 <style>
   .preview {
     position: relative;
-    margin: 5vmin auto 4rem;
+    margin: 5vmin auto 0;
     max-width: 75vw;
     width: min(75vw, 960px);
     aspect-ratio: 16 / 9;
