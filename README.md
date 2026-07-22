@@ -31,7 +31,6 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 - Interactive Project Demos and UX Case Studies
 - Server-Side API Routes for Cloudinary Integration
 
-
 ## 🗂️ Content Sections
 
 The site is organized around several content-focused sections:
@@ -94,9 +93,13 @@ CLOUDINARY_API_SECRET=your_api_secret
 AUTH_USER_HASH=your_bcrypt_hashed_username
 AUTH_PASSWORD_HASH=your_bcrypt_hashed_password
 
-# Switch React Menu embed (server-side RAWG proxy)
+# Switch React Menu server-side proxy
 RAWG_API_KEY=your_rawg_api_key
 ```
+
+Configure `RAWG_API_KEY` as a server-only environment variable on the Vercel
+project. Do not prefix it with `PUBLIC_` or `VITE_`; the browser preview calls
+the Astro `/api/rawg/*` proxy and never receives the key.
 
 ## 🧞 Commands
 

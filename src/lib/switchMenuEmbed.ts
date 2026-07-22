@@ -1,44 +1,57 @@
 const SWITCH_MENU_PREFIX = "/switch-menu";
+const SWITCH_MENU_PROJECT_PATH = "/projects/switch-react-menu";
 
 export function isSwitchMenuEmbedRequest(request: Request): boolean {
-  const dest = request.headers.get("sec-fetch-dest");
-  if (dest === "iframe") return true;
+  if (request.headers.get("sec-fetch-dest") === "iframe") return true;
 
   const referer = request.headers.get("referer");
   if (!referer) return false;
 
   try {
-    const refUrl = new URL(referer);
-    const reqUrl = new URL(request.url);
-    if (refUrl.origin !== reqUrl.origin) return false;
-    return !refUrl.pathname.startsWith(SWITCH_MENU_PREFIX);
+    const requestUrl = new URL(request.url);
+    const refererUrl = new URL(referer);
+    return (
+      requestUrl.origin === refererUrl.origin &&
+      (refererUrl.pathname === SWITCH_MENU_PROJECT_PATH ||
+        refererUrl.pathname === `${SWITCH_MENU_PROJECT_PATH}/`)
+    );
   } catch {
     return false;
   }
 }
 
 export function isRawgProxyRequestAllowed(request: Request): boolean {
-  const site = request.headers.get("sec-fetch-site");
-  if (site !== "same-origin" && site !== "same-site") return false;
+  if (request.method !== "GET") return false;
 
-  const referer = request.headers.get("referer");
-  if (referer) {
-    try {
-      const ref = new URL(referer);
-      if (ref.pathname.startsWith(SWITCH_MENU_PREFIX)) return true;
-    } catch {
-      return false;
-    }
+  const fetchSite = request.headers.get("sec-fetch-site");
+  if (fetchSite && fetchSite !== "same-origin" && fetchSite !== "same-site") {
+    return false;
   }
 
-  const dest = request.headers.get("sec-fetch-dest");
-  return dest === "empty";
+  const fetchDest = request.headers.get("sec-fetch-dest");
+  if (fetchDest && fetchDest !== "empty") return false;
+
+  const referer = request.headers.get("referer");
+  if (!referer) return false;
+
+  try {
+    const requestUrl = new URL(request.url);
+    const refererUrl = new URL(referer);
+    return (
+      requestUrl.origin === refererUrl.origin &&
+      (refererUrl.pathname === SWITCH_MENU_PREFIX ||
+        refererUrl.pathname.startsWith(`${SWITCH_MENU_PREFIX}/`))
+    );
+  } catch {
+    return false;
+  }
 }
 
 export function switchMenuSecurityHeaders(): HeadersInit {
   return {
     "X-Frame-Options": "SAMEORIGIN",
     "Content-Security-Policy": "frame-ancestors 'self'",
+    "Referrer-Policy": "same-origin",
     "Cache-Control": "no-store",
   };
 }

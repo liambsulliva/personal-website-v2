@@ -29,32 +29,26 @@ const PROTECTED_API_PREFIXES = [
   "/api/cloudinary/upload",
 ];
 
-const SWITCH_MENU_PREFIX = "/switch-menu";
+function guardSwitchMenuDocument(
+  request: Request,
+  pathname: string,
+): Response | null {
+  if (!isSwitchMenuDocumentPath(pathname)) return null;
+  if (isSwitchMenuEmbedRequest(request)) return null;
 
-function guardSwitchMenuDocument(request: Request, pathname: string): Response | null {
-  if (!pathname.startsWith(SWITCH_MENU_PREFIX)) {
-    return null;
-  }
-
-  // Static assets (JS/fonts) remain reachable for iframe loads.
-  if (
-    pathname.startsWith(`${SWITCH_MENU_PREFIX}/assets/`) ||
-    pathname.startsWith(`${SWITCH_MENU_PREFIX}/fonts/`)
-  ) {
-    return null;
-  }
-
-  if (isSwitchMenuDocumentPath(pathname) && !isSwitchMenuEmbedRequest(request)) {
-    return Response.redirect(new URL("/", request.url), 302);
-  }
-
-  return null;
+  return Response.redirect(
+    new URL("/projects/switch-react-menu/", request.url),
+    302,
+  );
 }
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
 
-  const switchMenuGuard = guardSwitchMenuDocument(context.request, url.pathname);
+  const switchMenuGuard = guardSwitchMenuDocument(
+    context.request,
+    url.pathname,
+  );
   if (switchMenuGuard) return switchMenuGuard;
 
   const isProtected = PROTECTED_PREFIXES.some(
