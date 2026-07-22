@@ -8,6 +8,11 @@ import {
   requireDashboardApiRequest,
   verifyDashboardAuth,
 } from "./lib/dashboardAuth";
+import {
+  isSwitchMenuDocumentPath,
+  isSwitchMenuEmbedRequest,
+  switchMenuSecurityHeaders,
+} from "./lib/switchMenuEmbed";
 
 const PROTECTED_PREFIXES = [
   "/dashboard",
@@ -24,12 +29,46 @@ const PROTECTED_API_PREFIXES = [
   "/api/cloudinary/upload",
 ];
 
+const SWITCH_MENU_PREFIX = "/switch-menu";
+
+function guardSwitchMenuDocument(request: Request, pathname: string): Response | null {
+  if (!pathname.startsWith(SWITCH_MENU_PREFIX)) {
+    return null;
+  }
+
+  // Static assets (JS/fonts) remain reachable for iframe loads.
+  if (
+    pathname.startsWith(`${SWITCH_MENU_PREFIX}/assets/`) ||
+    pathname.startsWith(`${SWITCH_MENU_PREFIX}/fonts/`)
+  ) {
+    return null;
+  }
+
+  if (isSwitchMenuDocumentPath(pathname) && !isSwitchMenuEmbedRequest(request)) {
+    return Response.redirect(new URL("/", request.url), 302);
+  }
+
+  return null;
+}
+
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
+
+  const switchMenuGuard = guardSwitchMenuDocument(context.request, url.pathname);
+  if (switchMenuGuard) return switchMenuGuard;
+
   const isProtected = PROTECTED_PREFIXES.some(
     (p) => url.pathname === p || url.pathname.startsWith(p + "/"),
   );
-  if (!isProtected) return next();
+  if (!isProtected) {
+    const response = await next();
+    if (isSwitchMenuDocumentPath(url.pathname)) {
+      Object.entries(switchMenuSecurityHeaders()).forEach(([header, value]) => {
+        response.headers.set(header, value);
+      });
+    }
+    return response;
+  }
 
   const isProtectedApi = PROTECTED_API_PREFIXES.some(
     (p) => url.pathname === p || url.pathname.startsWith(p + "/"),

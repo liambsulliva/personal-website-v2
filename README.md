@@ -93,6 +93,9 @@ CLOUDINARY_API_SECRET=your_api_secret
 # Dashboard Authentication (hashed with a 12-round bcrypt hash)
 AUTH_USER_HASH=your_bcrypt_hashed_username
 AUTH_PASSWORD_HASH=your_bcrypt_hashed_password
+
+# Switch React Menu embed (server-side RAWG proxy)
+RAWG_API_KEY=your_rawg_api_key
 ```
 
 ## 🧞 Commands

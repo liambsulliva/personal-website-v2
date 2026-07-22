@@ -155,6 +155,22 @@ const sidebarItems = [
         components to a canvas, which was a lot easier to work with.
       </p>
       <br />
+      <h4 class="!mb-3 text-xl font-semibold text-white">Live browser preview</h4>
+      <p class="!mb-4">
+        The same React tree that runs on Switch is available as an embeddable
+        browser preview. Game metadata is fetched through a server-side RAWG
+        proxy so the API key never ships to the client.
+      </p>
+      <div class="overflow-hidden rounded-xl border border-white/10 bg-black">
+        <iframe
+          src="/switch-menu/"
+          title="Switch React Menu browser preview"
+          class="block aspect-video w-full border-0"
+          loading="lazy"
+          allow="fullscreen"
+        ></iframe>
+      </div>
+      <br />
       <p>
         I also had to become familiar with the <a
           href="https://nxjs.n8.io/runtime/concepts/applications"
