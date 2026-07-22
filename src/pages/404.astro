@@ -1,13 +1,394 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import focusIcon from "../images/ui/footer.svg";
 ---
 
 <Layout title="Page Not Found - Liam Sullivan">
-  <div
-    class="flex min-h-[80vh] flex-col items-center justify-center px-4 text-center"
-  >
-    <h1 class="mb-2 text-4xl md:text-6xl">Uh oh...</h1>
-    <p class="max-w-md">That page doesn't exist. Let's get you back home.</p>
-    <a href="/" class="text-link mt-8">Click Here</a>
-  </div>
+  <main class="error-page">
+    <div class="blur-scene" aria-hidden="true">
+      <span class="viewfinder-corner corner-one"></span>
+      <span class="viewfinder-corner corner-two"></span>
+      <span class="viewfinder-corner corner-three"></span>
+      <span class="viewfinder-corner corner-four"></span>
+    </div>
+
+    <section class="error-content" aria-labelledby="error-title">
+      <div class="dial-area">
+        <button
+          class="focus-dial"
+          id="focusDial"
+          type="button"
+          role="slider"
+          aria-label="Page focus"
+          aria-valuemin="-150"
+          aria-valuemax="150"
+          aria-valuenow="0"
+          aria-valuetext="In focus"
+        >
+          <span class="dial-ticks" aria-hidden="true"></span>
+          <span class="dial-face" aria-hidden="true">
+            <Image
+              class="aperture"
+              src={focusIcon}
+              alt=""
+              width={72}
+              height={72}
+              draggable={false}
+            />
+            <span class="dial-dot"></span>
+          </span>
+        </button>
+        <p class="dial-flavor">Twist me!</p>
+      </div>
+
+      <div class="error-copy" id="errorCopy">
+        <h1 id="error-title">Uh oh...</h1>
+        <p>That page doesn't exist. Let's get you back home.</p>
+        <a href="/" class="text-link mt-8">Click Here</a>
+      </div>
+    </section>
+  </main>
 </Layout>
+
+<script>
+  const dial = document.querySelector<HTMLButtonElement>("#focusDial");
+  const page = document.querySelector<HTMLElement>(".error-page");
+
+  if (dial && page) {
+    const maxRotation = 150;
+    const maxBlur = 13;
+    let rotation = 0;
+    let previousPointerAngle = 0;
+    let dragging = false;
+
+    const pointerAngle = (event: PointerEvent) => {
+      const bounds = dial.getBoundingClientRect();
+      const x = event.clientX - (bounds.left + bounds.width / 2);
+      const y = event.clientY - (bounds.top + bounds.height / 2);
+      return (Math.atan2(y, x) * 180) / Math.PI;
+    };
+
+    const normalizeAngle = (angle: number) =>
+      ((((angle + 180) % 360) + 360) % 360) - 180;
+
+    const updateFocus = (nextRotation: number) => {
+      rotation = Math.max(-maxRotation, Math.min(maxRotation, nextRotation));
+
+      if (Math.abs(rotation) < 3) {
+        rotation = 0;
+      }
+
+      const blur = (Math.abs(rotation) / maxRotation) * maxBlur;
+      const roundedRotation = Math.round(rotation);
+      const focusText = blur < 0.3 ? "In focus" : "Out of focus";
+
+      page.style.setProperty("--dial-rotation", `${rotation}deg`);
+      page.style.setProperty("--focus-blur", `${blur.toFixed(2)}px`);
+      dial.setAttribute("aria-valuenow", String(roundedRotation));
+      dial.setAttribute("aria-valuetext", focusText);
+      page.classList.toggle("is-blurred", blur > 0.3);
+    };
+
+    dial.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+
+      dragging = true;
+      previousPointerAngle = pointerAngle(event);
+      dial.setPointerCapture(event.pointerId);
+      dial.classList.add("is-turning");
+    });
+
+    dial.addEventListener("pointermove", (event) => {
+      if (!dragging) return;
+
+      const currentPointerAngle = pointerAngle(event);
+      const delta = normalizeAngle(currentPointerAngle - previousPointerAngle);
+      previousPointerAngle = currentPointerAngle;
+      updateFocus(rotation + delta);
+    });
+
+    const finishTurning = (event: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      dial.classList.remove("is-turning");
+
+      if (dial.hasPointerCapture(event.pointerId)) {
+        dial.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    dial.addEventListener("pointerup", finishTurning);
+    dial.addEventListener("pointercancel", finishTurning);
+
+    dial.addEventListener("keydown", (event) => {
+      const keySteps: Record<string, number> = {
+        ArrowLeft: -5,
+        ArrowDown: -5,
+        ArrowRight: 5,
+        ArrowUp: 5,
+        PageDown: -15,
+        PageUp: 15,
+      };
+
+      if (event.key === "Home") {
+        event.preventDefault();
+        updateFocus(0);
+        return;
+      }
+
+      const step = keySteps[event.key];
+      if (step !== undefined) {
+        event.preventDefault();
+        updateFocus(rotation + step);
+      }
+    });
+
+    dial.addEventListener("dblclick", () => updateFocus(0));
+  }
+</script>
+
+<style>
+  .error-page {
+    --dial-rotation: 0deg;
+    --focus-blur: 0px;
+    position: relative;
+    display: grid;
+    min-height: 100svh;
+    place-items: center;
+    overflow: hidden;
+    padding: 3rem 1.25rem;
+    isolation: isolate;
+    background: var(--background-color);
+  }
+
+  .blur-scene {
+    position: absolute;
+    z-index: -1;
+    inset: -2rem;
+    overflow: hidden;
+    transform: scale(1.04);
+    filter: blur(var(--focus-blur));
+    opacity: 0.65;
+    background: var(--background-color);
+    transition: filter 80ms linear;
+  }
+
+  .blur-scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size:
+      42px 42px,
+      42px 42px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 72% 62% at 50% 48%,
+      #000 28%,
+      transparent 72%
+    );
+    mask-image: radial-gradient(
+      ellipse 72% 62% at 50% 48%,
+      #000 28%,
+      transparent 72%
+    );
+  }
+
+  .viewfinder-corner {
+    position: absolute;
+    width: clamp(2.5rem, 7vw, 5rem);
+    height: clamp(2.5rem, 7vw, 5rem);
+    border-color: rgba(255, 255, 255, 0.13);
+  }
+
+  .corner-one {
+    top: 8%;
+    left: 6%;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+
+  .corner-two {
+    top: 8%;
+    right: 6%;
+    border-top: 1px solid;
+    border-right: 1px solid;
+  }
+
+  .corner-three {
+    bottom: 8%;
+    left: 6%;
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+  }
+
+  .corner-four {
+    right: 6%;
+    bottom: 8%;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+  }
+
+  .error-copy h1#error-title {
+    margin: 1.15rem 0 0.75rem;
+    font-size: clamp(3.5rem, 11vw, 7rem);
+    letter-spacing: 0.005em;
+    line-height: 0.9;
+  }
+
+  .error-content {
+    display: flex;
+    width: min(100%, 42rem);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .dial-area {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1.75rem;
+  }
+
+  .dial-flavor {
+    margin: 0.75rem 0 0;
+    color: var(--sidebar-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .focus-dial {
+    position: relative;
+    display: grid;
+    width: 9rem;
+    height: 9rem;
+    cursor: grab;
+    touch-action: none;
+    place-items: center;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    color: inherit;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .focus-dial:active,
+  .focus-dial.is-turning {
+    cursor: grabbing;
+  }
+
+  .dial-ticks {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: repeating-conic-gradient(
+      from -1deg,
+      #737378 0deg 1deg,
+      transparent 1deg 9deg
+    );
+    mask: radial-gradient(
+      circle,
+      transparent 0 63%,
+      #000 64% 72%,
+      transparent 73%
+    );
+    opacity: 0.6;
+  }
+
+  .dial-face {
+    position: relative;
+    display: grid;
+    width: 6.75rem;
+    height: 6.75rem;
+    place-items: center;
+    border: 1px solid #3c3c3f;
+    border-radius: 50%;
+    background: var(--background-color);
+    box-shadow: 0 1.1rem 2.5rem rgba(0, 0, 0, 0.5);
+    transform: rotate(var(--dial-rotation));
+    transition: transform 70ms linear;
+    will-change: transform;
+  }
+
+  .focus-dial.is-turning .dial-face {
+    transition: none;
+  }
+
+  .aperture {
+    width: 4rem;
+    height: 4rem;
+    user-select: none;
+    pointer-events: none;
+    filter: drop-shadow(0 0.15rem 0.15rem rgba(0, 0, 0, 0.45));
+  }
+
+  .dial-dot {
+    position: absolute;
+    top: 0.55rem;
+    left: 50%;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: #f5f5f7;
+    box-shadow: 0 0 0.7rem rgba(255, 255, 255, 0.55);
+    transform: translateX(-50%);
+  }
+
+  .error-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: blur(var(--focus-blur));
+    transition:
+      filter 80ms linear,
+      opacity 180ms ease;
+    will-change: filter;
+  }
+
+  .is-blurred .error-copy {
+    opacity: 0.88;
+  }
+
+  .error-copy p {
+    max-width: 27rem;
+    margin: 0;
+    color: #a9a9ae;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 640px) {
+    .error-page {
+      padding-block: 2rem;
+    }
+
+    .focus-dial {
+      width: 8rem;
+      height: 8rem;
+    }
+
+    .dial-face {
+      width: 6rem;
+      height: 6rem;
+    }
+
+    .aperture {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .dial-face,
+    .blur-scene,
+    .error-copy {
+      transition: none;
+    }
+  }
+</style>
