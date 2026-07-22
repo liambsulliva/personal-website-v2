@@ -1,20 +1,27 @@
 const SWITCH_MENU_PREFIX = "/switch-menu";
 const SWITCH_MENU_PROJECT_PATH = "/projects/switch-react-menu";
 
+function isSwitchMenuProjectReferer(refererUrl: URL, requestOrigin: string): boolean {
+  return (
+    refererUrl.origin === requestOrigin &&
+    (refererUrl.pathname === SWITCH_MENU_PROJECT_PATH ||
+      refererUrl.pathname === `${SWITCH_MENU_PROJECT_PATH}/` ||
+      refererUrl.pathname.startsWith(`${SWITCH_MENU_PROJECT_PATH}/`))
+  );
+}
+
 export function isSwitchMenuEmbedRequest(request: Request): boolean {
+  const requestUrl = new URL(request.url);
+  if (requestUrl.searchParams.get("embed") === "1") return true;
+
   if (request.headers.get("sec-fetch-dest") === "iframe") return true;
 
   const referer = request.headers.get("referer");
   if (!referer) return false;
 
   try {
-    const requestUrl = new URL(request.url);
     const refererUrl = new URL(referer);
-    return (
-      requestUrl.origin === refererUrl.origin &&
-      (refererUrl.pathname === SWITCH_MENU_PROJECT_PATH ||
-        refererUrl.pathname === `${SWITCH_MENU_PROJECT_PATH}/`)
-    );
+    return isSwitchMenuProjectReferer(refererUrl, requestUrl.origin);
   } catch {
     return false;
   }

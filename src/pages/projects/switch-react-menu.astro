@@ -2,10 +2,13 @@
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import CaseStudyCardGrid from "../../components/ux/CaseStudyCardGrid.astro";
 import CaseStudyCard from "../../components/ux/CaseStudyCard.astro";
-import { Image } from "astro:assets";
-import { switchReactMenuMockup } from "../../utils/images";
+import SwitchMenuPreview from "../../components/projects/SwitchMenuPreview.svelte";
 import CodeBlock from "../../components/CodeBlock.astro";
-import { WrenchIcon, TypescriptWhiteIcon, ReactWhiteIcon } from "../../utils/icons";
+import {
+  WrenchIcon,
+  TypescriptWhiteIcon,
+  ReactWhiteIcon,
+} from "../../utils/icons";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -25,13 +28,7 @@ const sidebarItems = [
   timeline={["2 Months"]}
   githubLink="https://github.com/liambsulliva/switch-react-menu"
 >
-  <Image
-    src={switchReactMenuMockup}
-    alt="Switch React Menu"
-    class="mx-auto max-h-[700px] w-auto rounded-xl"
-    loading="eager"
-    slot="hero"
-  />
+  <SwitchMenuPreview client:load slot="hero" />
 
   <div class="case-study-layout">
     <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
@@ -155,23 +152,11 @@ const sidebarItems = [
         components to a canvas, which was a lot easier to work with.
       </p>
       <br />
-      <h4 class="!mb-3 text-xl font-semibold text-white">
-        Live browser preview
-      </h4>
-      <p class="!mb-4">
-        The same React tree that runs on Switch is available here as an
-        interactive browser preview. Game metadata is fetched through a
-        server-side RAWG proxy, so the API key never ships to the browser.
+      <p>
+        The same React tree that runs on Switch is available in the interactive
+        browser preview at the top of this page. Game metadata is fetched through
+        a server-side RAWG proxy, so the API key never ships to the browser.
       </p>
-      <div class="overflow-hidden rounded-xl border border-white/10 bg-black">
-        <iframe
-          src="/switch-menu/"
-          title="Switch React Menu browser preview"
-          class="block aspect-video w-full border-0"
-          loading="lazy"
-          allow="fullscreen"
-        ></iframe>
-      </div>
       <br />
       <p>
         I also had to become familiar with the <a
