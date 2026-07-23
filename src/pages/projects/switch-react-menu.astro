@@ -1,52 +1,160 @@
 ---
+import { Image } from "astro:assets";
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
-import CaseStudyCardGrid from "../../components/ux/CaseStudyCardGrid.astro";
-import CaseStudyCard from "../../components/ux/CaseStudyCard.astro";
-import SwitchMenuPreview from "../../components/projects/SwitchMenuPreview.svelte";
+import CaptionedFigure from "../../components/CaptionedFigure.astro";
 import CodeBlock from "../../components/CodeBlock.astro";
+import SwitchMenuPreview from "../../components/projects/SwitchMenuPreview.svelte";
 import {
-  WrenchIcon,
-  TypescriptWhiteIcon,
-  ReactWhiteIcon,
-} from "../../utils/icons";
+  switchReactMenuMockup,
+  switchReactMenuScreen,
+} from "../../utils/images";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
+  { text: "Timeline", href: "#timeline" },
   { text: "Development", href: "#development" },
+  { text: "Shipped features", href: "#shipped-features" },
 ];
+
+const phases = [
+  {
+    date: "Dec 28–31, 2024",
+    label: "First build",
+    title: "A launcher over the holiday break",
+    commitCount: "26 commits",
+    consequence: "Responsive controller-first browsing",
+    subjects: [
+      "skeleton nxjs base",
+      "app launching functionality",
+      "shoulder buttons pagination",
+      "selections via dpad",
+      "automate font bundling",
+    ],
+  },
+  {
+    date: "May 6–7, 2026",
+    label: "Off-console iteration",
+    title: "Move iteration off the console",
+    commitCount: "21 commits",
+    consequence: "Testability without Switch hardware",
+    subjects: [
+      "implement vite pipeline with browser preview",
+      "implement pagination dots",
+      "implement last played tracking",
+      "implement compact view",
+      "implement custom sort mode",
+      "first release",
+    ],
+  },
+  {
+    date: "May 9–14, 2026",
+    label: "Growing the surface",
+    title: "Turn a launcher into a navigable home surface",
+    commitCount: "40 commits",
+    consequence: "Discoverability and reliable offline metadata",
+    subjects: [
+      "implement showing page #s feature",
+      "add album page",
+      "implement web applet",
+      "implement cached loads with manual invalidation",
+      "implement game tagging with badge display",
+      "add search bar functionality",
+      "implement tag autocomplete in search",
+    ],
+  },
+  {
+    date: "June 8–9, 2026",
+    label: "Cleanup",
+    title: "Stabilize on console hardware",
+    commitCount: "4 commits",
+    consequence: "15.2 MB catalog removed; measured romfs ≈91% smaller",
+    subjects: [
+      "Expand README.md",
+      "replace mockup img referenced in README",
+      "prune legacy igdb database (commit reports 64% smaller bundle)",
+      "fix virtual-keyboard lifecycle crash after RAWG loading",
+    ],
+  },
+] as const;
+
+const completedFeatures = [
+  {
+    title: "Grid + compact list",
+    subject: "Controller, touch, and shoulder-button navigation",
+  },
+  {
+    title: "Search + tags",
+    subject: "Full-text filtering, tag chips, and autocomplete",
+  },
+  {
+    title: "Metadata cache + editing",
+    subject: "Offline resume, refresh, and per-title overrides",
+  },
+  {
+    title: "Settings + sorting",
+    subject: "Recent, alphabetical, release, launch count, and custom order",
+  },
+  {
+    title: "Photo album",
+    subject: "Grid browsing, lightbox navigation, and delete confirmation",
+  },
+  {
+    title: "Web shortcut",
+    subject: "System browser handoff through Switch.WebApplet",
+  },
+  {
+    title: "Browser preview",
+    subject: "Vite, nx.js polyfills, keyboard gamepad, and mouse touch",
+  },
+] as const;
+
+const interactionIdeas = [
+  {
+    number: "01",
+    title: "Keyboard as gamepad",
+    keys: ["←", "→", "Q", "E", "Enter"],
+    subject: "Rehearse console navigation in the browser preview.",
+  },
+  {
+    number: "02",
+    title: "Search as a spatial mode",
+    keys: ["↑", "↓", "#tag", "X"],
+    subject: "Keep focus, keyboard occupancy, and results in one canvas scene.",
+  },
+  {
+    number: "03",
+    title: "Progressive game detail",
+    keys: ["↓", "A", "Edit"],
+    subject: "Reveal metadata without replacing the launch-first home surface.",
+  },
+] as const;
 ---
 
 <CaseStudyLayout
   title="Switch React Menu"
-  subtitle="A Minimalist Home Menu for Nintendo Switch - December 2024"
+  subtitle="Started over winter break 2024 · Picked back up in May 2026 · Tidied up in June 2026"
   pageTitle="Switch React Menu - Liam Sullivan"
   sidebarItems={sidebarItems}
   projectRole={["Mobile Development", "UI + UX Design"]}
   team={["Solo"]}
-  tools={["React", "TypeScript", "nx.js", "react-tela", "esbuild"]}
-  timeline={["2 Months"]}
+  tools={["React", "TypeScript", "nx.js", "react-tela", "Vite", "esbuild"]}
+  timeline={["Started: Dec 2024", "Expanded: May–Jun 2026"]}
   githubLink="https://github.com/liambsulliva/switch-react-menu"
 >
   <SwitchMenuPreview client:load slot="hero" />
 
   <div class="case-study-layout">
-    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
-      <h3 class="text-2xl font-semibold text-white">Overview</h3>
-      <div>
+    <section class="overview-section" id="overview">
+      <div class="section-heading">
+        <p class="eyebrow">Overview</p>
+        <h3>A minimalist home menu for Nintendo Switch</h3>
         <p>
           This Nintendo Switch App Launcher is a minimalist implementation of a
-          traditional home menu. It relies on the JavaScript library <a
-            href="https://github.com/TooTallNate/nx.js"
-            target="_blank">nx.js</a
-          >, built by <a href="https://github.com/TooTallNate" target="_blank"
-            >TooTallNate</a
-          >, to render React components to a generic canvas element through the <a
-            href="https://github.com/TooTallNate/react-tela"
-            target="_blank">react-tela</a
-          > library.
+          traditional home menu. It relies on the JavaScript library nx.js,
+          built by TooTallNate, to render React components to a generic canvas
+          element through the react-tela library.
         </p>
-        <br />
         <p>
           While the react-tela framework itself is runtime-agnostic, it was the
           only way I could find to run the JSX runtime on the Nintendo Switch.
@@ -55,132 +163,155 @@ const sidebarItems = [
           be worth exploring.
         </p>
       </div>
+
+      <div class="overview-copy">
+        <p>
+          <strong>Low-Level Control</strong>
+          The framework gave me shockingly low-level access to the hardware. Through
+          the Canvas API, I was able to draw pixels and shapes directly to the screen
+          instead of interacting with a Document Object Model (DOM), like in traditional
+          JavaScript.
+        </p>
+        <p>
+          <strong>TypeScript Support</strong>
+          Coming from a Java background, I'm a big fan of what TypeScript brings to
+          JavaScript. Adding type safety to code is a common sense addition to any
+          language, and it's become so ingrained in my workflow that I can't really
+          live without it.
+        </p>
+        <p>
+          <strong>React Tooling</strong>
+          React's declarative UI feels like a natural fit for a quick and dirty app
+          like this. Reacting to state changes felt far more natural to work with
+          than manually updating the UI, especially when it came to handling controller
+          input.
+        </p>
+      </div>
+
+      <div class="overview-stats-block">
+        <div class="overview-stats" aria-label="Project summary">
+          <article>
+            <strong>92</strong>
+            <span>total commits</span>
+          </article>
+          <article>
+            <strong>4</strong>
+            <span>total bursts of freeform work</span>
+          </article>
+          <article>
+            <strong>1</strong>
+            <span>UI shared between the Nintendo Switch and browser</span>
+          </article>
+        </div>
+        <p class="overview-stats-note">(as of June 2026)</p>
+      </div>
     </section>
 
     <section id="context">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
-      <p>
-        In the Winter of 2024, I found myself with a full break from school for
-        the holidays and a lot of time to kill. It made sense to start working
-        on something new that I could show off, while also keeping the scope
-        small enough that I could realistically finish the thing by the end of
-        the break.
-      </p>
-      <br />
-      <p>
-        I had already been pretty invested in the world of Nintendo <a
-          href="https://en.wikipedia.org/wiki/Homebrew_(video_games)"
-          target="_blank">homebrew</a
-        > by this point. I had custom <a
-          href="https://en.wikipedia.org/wiki/Firmware"
-          target="_blank"
-          rel="noreferrer">firmware</a
-        > running on not just my switch, but pretty much every Nintendo console I
-        owned (Wii, DSI, 3DS, and Wii U). So I really liked the idea of taking a stab
-        at building an app for a Nintendo console. However, I found the typical options
-        to be a little lacking. Working with C/C++ seemed like it would be too much
-        of a pain to get started, and I didn't want to spend too much time tinkering
-        with the low-level details of the console's APIs in order to build a simple
-        app.
-      </p>
-      <br />
-      <p>
-        While JavaScript may not be an obvious choice, it's actually relatively
-        fast compared to other high level options like Python, and its frontend
-        ecosystem plays well with UI development.
-      </p>
-      <br />
-      <p class="pb-3">
-        Ultimately, nx.js ended up being <i>amazing</i> for a couple of reasons:
-      </p>
-      <CaseStudyCardGrid>
-        <CaseStudyCard
-          title="Low-Level Control"
-          icon={WrenchIcon}
-          titleClass="text-xl font-medium text-white"
-        >
-          <p>
-            The framework gave me shockingly low-level access to the hardware.
-            Through the <a
-              href="https://nxjs.n8.io/runtime/rendering/canvas"
-              target="_blank">Canvas API</a
-            >, I was able to draw pixels and shapes directly to the screen
-            instead of interacting with a <a
-              href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model"
-              target="_blank">Document Object Model (DOM)</a
-            >, like in traditional JavaScript.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard
-          title="TypeScript Support"
-          icon={TypescriptWhiteIcon}
-          titleClass="text-xl font-medium text-white"
-        >
-          <p>
-            Coming from a Java background, I'm a big fan of what TypeScript
-            brings to JavaScript. Adding <a
-              href="https://en.wikipedia.org/wiki/Type_safety"
-              target="_blank">type safety</a
-            > to code is a common sense addition to any language, and it's become
-            so ingrained in my workflow that I can't really live without it.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard
-          title="React Tooling"
-          icon={ReactWhiteIcon}
-          titleClass="text-xl font-medium text-white"
-        >
-          <p>
-            React's <a
-              href="https://ui.dev/imperative-vs-declarative-programming"
-              target="_blank"
-              rel="noreferrer">declarative UI</a
-            > feels like a natural fit for a quick and dirty app like this. Reacting
-            to state changes felt far more natural to work with than manually updating
-            the UI, especially when it came to handling controller input.
-          </p>
-        </CaseStudyCard>
-      </CaseStudyCardGrid>
-    </section>
-    <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
-      <p>
-        The development process was a bit of a rollercoaster. I started out by
-        trying to use the Canvas API directly, but it was a bit of a pain to
-        work with. I ended up using the react-tela library to render the React
-        components to a canvas, which was a lot easier to work with.
-      </p>
-      <br />
-      <p>
-        The same React tree that runs on Switch is available in the interactive
-        browser preview at the top of this page. Game metadata is fetched through
-        a server-side RAWG proxy, so the API key never ships to the browser.
-      </p>
-      <br />
-      <p>
-        I also had to become familiar with the <a
-          href="https://nxjs.n8.io/runtime/concepts/applications"
-          target="_blank">Switch.Application API</a
-        >. It reads the switch's app titles, authors, and box art from the
-        Switch's app catalog. It can be used to iterate over the app catalog and
-        sort for box art like this:
-      </p>
-      <CodeBlock
-        code={`const switchApps = Array.from(Switch.Application).filter(
+      <div class="section-heading">
+        <p class="eyebrow">Context</p>
+        <h3>A React interface, but no browser DOM</h3>
+        <p>
+          In the Winter of 2024, I found myself with a full break from school
+          for the holidays and a lot of time to kill. It made sense to start
+          working on something new that I could show off, while also keeping the
+          scope small enough that I could realistically finish the thing by the
+          end of the break.
+        </p>
+        <p>
+          I had already been pretty invested in the world of Nintendo homebrew
+          by this point. I had custom firmware running on not just my switch,
+          but pretty much every Nintendo console I owned (Wii, DSI, 3DS, and Wii
+          U). So I really liked the idea of taking a stab at building an app for
+          a Nintendo console. However, I found the typical options to be a
+          little lacking. Working with C/C++ seemed like it would be too much of
+          a pain to get started, and I didn't want to spend too much time
+          tinkering with the low-level details of the console's APIs in order to
+          build a simple app.
+        </p>
+        <p>
+          While JavaScript may not be an obvious choice, it's actually
+          relatively fast compared to other high level options like Python, and
+          its frontend ecosystem plays well with UI development. Ultimately,
+          nx.js ended up being amazing for those reasons.
+        </p>
+      </div>
+
+      <div
+        class="constraint-graphic"
+        role="img"
+        aria-label="React tree rendered by react-tela directly to a Canvas2D screen surface, with no browser DOM"
+      >
+        <div class="constraint-pipeline">
+          <div class="constraint-node">
+            <span>01 - Source</span>
+            <strong>React Components</strong>
+            <p>
+              Components like <code>Rect</code>, <code>Text</code>, and <code
+                >Image</code
+              > act as the building blocks of the UI.
+              <a
+                href="https://github.com/TooTallNate/react-tela"
+                target="_blank"
+                rel="noopener noreferrer">react-tela</a
+              >
+            </p>
+          </div>
+          <svg class="constraint-arrow" viewBox="0 0 48 24" aria-hidden="true">
+            <path d="M2 12h36M30 4l10 8-10 8"></path>
+          </svg>
+          <div class="constraint-node">
+            <span>02 - Reconciler</span>
+            <strong>react-tela</strong>
+            <p>
+              The Custom React renderer walks through the elements and queues
+              them to be painted to the screen with the Canvas2D API.
+            </p>
+          </div>
+          <svg class="constraint-arrow" viewBox="0 0 48 24" aria-hidden="true">
+            <path d="M2 12h36M30 4l10 8-10 8"></path>
+          </svg>
+          <div class="constraint-node accent-node">
+            <span>03 - Screen</span>
+            <strong>Canvas2D</strong>
+            <p>
+              <code
+                >The <code>render</code> function paints straight onto the Switch's
+                screen.
+              </code>
+            </p>
+          </div>
+        </div>
+
+        <div class="code-example-grid">
+          <article>
+            <div class="example-heading">
+              <span>Data model</span>
+              <h4>Iterate the Switch app catalog</h4>
+            </div>
+            <p class="example-lede">
+              The launcher reads the Switch's app catalog and filters out any
+              apps that don't have an icon pre-defined, as those applications
+              are likely corrupt or missing.
+            </p>
+            <CodeBlock
+              code={`const switchApps = Array.from(Switch.Application).filter(
   (app) => app.icon
 );`}
-        language="javascript"
-      />
-      <p>
-        When fetched, images are stored as <a
-          href="https://en.wikipedia.org/wiki/Bitmap"
-          target="_blank">bitmap files</a
-        > in order to render them to the canvas. If images can't be fetched, the loop
-        continues to the next app.
-      </p>
-      <CodeBlock
-        code={`for (const app of switchApps) {
+              language="javascript"
+            />
+          </article>
+          <article>
+            <div class="example-heading">
+              <span>Bitmap icons</span>
+              <h4>Decode box art for the canvas</h4>
+            </div>
+            <p class="example-lede">
+              The launcher then decodes the box art for each app and stores it
+              in a bitmap for the Canvas API to render onto the screen.
+            </p>
+            <CodeBlock
+              code={`for (const app of switchApps) {
   let img;
   if (app.icon) {
     img = await createImageBitmap(new Blob([app.icon]));
@@ -188,38 +319,167 @@ const sidebarItems = [
   if (!img) continue;
   //...
 }`}
-        language="javascript"
-      />
-      <p>
-        Each image renders exactly 40 pixels away from each other so that the
-        grid can fit exactly 4 apps across the Switch's 1280 pixel width screen.
-        It offers future proofing in case Nintendo decides to release a new
-        model with a different screen size at some point in the future (though I
-        highly doubt it, given the existence of the <a
-          href="https://en.wikipedia.org/wiki/Nintendo_Switch_2"
-          target="_blank">Switch 2</a
-        >)
-      </p>
-      <br />
-      <p>
-        Controller inputs are handled by a custom <a
-          href="https://www.w3schools.com/react/react_hooks.asp"
-          target="_blank">hook</a
-        > that listens for button presses and updates the UI accordingly. It listens
-        for both left and right directional inputs on the stick and D-pad, as well
-        as detecting shoulder buttons to quickly swap pages. It also listens for the
-        A button to launch whatever app is selected.
-      </p>
-      <br />
-      <p>
-        Since drawing borders around images isn't directly supported by the
-        Canvas API, I had to use a bit of a tricky workaround. I drew a slightly
-        larger Rectangle object directly behind the image to create the border.
-        It uses a 5-pixel white stroke to create the border effect whenever
-        React detects that the image is selected.
-      </p>
-      <CodeBlock
-        code={`{displayedApp.app.icon && (
+              language="javascript"
+            />
+          </article>
+        </div>
+      </div>
+
+      <section id="timeline">
+        <div class="section-heading">
+          <p class="eyebrow">Project timeline</p>
+          <h3>Four bursts across 92 commits</h3>
+          <p>
+            <strong>Reading the record.</strong> Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Morbi volutpat, nibh et tincidunt tristique, sem mi sollicitudin
+            velit, sed consequat risus eros vitae augue.
+          </p>
+        </div>
+
+        <ol class="timeline">
+          {
+            phases.map((phase, index) => (
+              <li class="timeline-phase">
+                <div class="timeline-marker" aria-hidden="true">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                </div>
+                <article>
+                  <div class="phase-meta">
+                    <span>{phase.date}</span>
+                    <span>{phase.commitCount}</span>
+                  </div>
+                  <p class="phase-label">{phase.label}</p>
+                  <h4>{phase.title}</h4>
+                  <p>
+                    <strong>What I built.</strong> Lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit. Sed feugiat, massa quis posuere
+                    faucibus, libero justo varius nibh, id fermentum magna
+                    sapien sed arcu.
+                  </p>
+                  <div
+                    class="commit-subjects"
+                    aria-label={`${phase.label} commit subjects`}
+                  >
+                    {phase.subjects.map((subject) => (
+                      <code>{subject}</code>
+                    ))}
+                  </div>
+                  <div class="interface-consequence">
+                    <span>Why it mattered</span>
+                    <strong>{phase.consequence}</strong>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Vivamus placerat magna vitae arcu dictum, non tempor
+                      tellus interdum.
+                    </p>
+                  </div>
+                </article>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section id="development">
+        <div class="section-heading">
+          <p class="eyebrow">Development</p>
+          <h3>One interface pipeline, two execution environments</h3>
+          <p>
+            The development process was a bit of a rollercoaster. I started out
+            by trying to use the Canvas API directly, but it was a bit of a pain
+            to work with. I ended up using the react-tela library to render the
+            React components to a canvas, which was a lot easier to work with.
+          </p>
+          <p>
+            The same React tree that runs on Switch is available in the
+            interactive browser preview at the top of this page. Game metadata
+            is fetched through a server-side RAWG proxy, so the API key never
+            ships to the browser.
+          </p>
+        </div>
+
+        <figure
+          class="architecture-figure"
+          aria-label="Shared React and react-tela layer branching into Switch and browser runtimes"
+        >
+          <div class="runtime-stack">
+            <div class="constraint-node accent-node stack-host">
+              <span>00 - React DOM layer</span>
+              <strong>Shared React + react-tela substrate</strong>
+              <p>
+                The shared source both runtimes branch from: one <code>App</code
+                >
+                tree and Canvas2D paint calls (<code>Rect</code>,
+                <code>Text</code>, <code>Image</code>). On Switch that substrate
+                targets nx.js <code>screen</code>; in preview, a DOM
+                <code>&lt;canvas&gt;</code> is polyfilled into the same contract.
+              </p>
+            </div>
+
+            <div class="stack-connector" aria-hidden="true">
+              <span class="stack-drop"></span>
+              <span class="stack-rail"></span>
+              <span class="stack-leg left"></span>
+              <span class="stack-leg right"></span>
+            </div>
+
+            <div class="runtime-guests">
+              <div class="constraint-node switch-guest">
+                <span>01 - Switch guest</span>
+                <strong><code>src/main.tsx</code></strong>
+                <p>
+                  Load fonts via <code>Switch.readFile</code>, then
+                  <code>render(&lt;App /&gt;, screen)</code> onto the nx.js Canvas2D
+                  framebuffer with a real
+                  <code>Switch.Application</code> catalog.
+                </p>
+              </div>
+              <div class="constraint-node browser-guest">
+                <span>02 - Browser guest</span>
+                <strong><code>src/browser/main.tsx</code></strong>
+                <p>
+                  Install nx.js polyfills on
+                  <code>&lt;canvas id="screen"&gt;</code>, mock
+                  <code>Switch.*</code>, map keyboard→gamepad and mouse→touch,
+                  then render the same App onto a 1280×720 Canvas2D buffer.
+                </p>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        <div class="architecture-copy">
+          <p>
+            <strong>Catalog and layout</strong>
+            I also had to become familiar with the Switch.Application API. It reads
+            the switch's app titles, authors, and box art from the Switch's app catalog.
+            Each image renders exactly 40 pixels away from each other so that the
+            grid can fit exactly 4 apps across the Switch's 1280 pixel width screen.
+          </p>
+          <p>
+            <strong>Input and selection chrome</strong>
+            Controller inputs are handled by a custom hook that listens for button
+            presses and updates the UI accordingly. It listens for both left and right
+            directional inputs on the stick and D-pad, as well as detecting shoulder
+            buttons to quickly swap pages. It also listens for the A button to launch
+            whatever app is selected.
+          </p>
+        </div>
+
+        {
+          /*<div class="browser-code-example">
+          <div class="example-heading">
+            <span>Tip</span>
+            <h4>Faking a border by putting a rectangle behind the image</h4>
+            <p class="example-lede">
+              Since drawing borders around images isn't directly supported by
+              the Canvas API, I drew a slightly larger Rectangle object directly
+              behind the image. It uses a 5-pixel white stroke whenever React
+              detects that the image is selected.
+            </p>
+          </div>
+          <CodeBlock
+            code={`{displayedApp.app.icon && (
   <>
     {isSelected && (
       <Rect
@@ -228,74 +488,775 @@ const sidebarItems = [
         width={displayedApp.width + 10}
         height={displayedApp.height + 10}
         fill="none"
-        stroke="white" // Draws the border
-        lineWidth={5} // 5-pixel width
+        stroke="white"
+        lineWidth={5}
       />
-      //...
-)}
-`}
-        language="javascript"
-      />
-      <p>
-        While the current implementation provides a solid foundation for
-        browsing and launching apps, there's still plenty of room for growth.
-        Features like filtering apps by name or developer, photo album support,
-        and other improvements would make the experience feel more complete.
-        These aren't too complicated to implement, and the React-forward
-        architecture will make it pretty straightforward to add these things in
-        the future if time permits.
-      </p>
+    )}
+  </>
+)}`}
+            language="javascript"
+          />
+        </div>
+      */
+        }
+      </section>
+
+      <section id="shipped-features">
+        <div class="section-heading">
+          <p class="eyebrow">Shipped features</p>
+          <h3>What the project supports today</h3>
+          <p>
+            <strong>Shipped, not future work.</strong> Lorem ipsum dolor sit amet,
+            consectetur adipiscing elit. Aliquam erat volutpat. Vestibulum ante ipsum
+            primis in faucibus orci luctus et ultrices posuere cubilia curae.
+          </p>
+        </div>
+
+        <div class="feature-inventory">
+          {
+            completedFeatures.map((feature) => (
+              <article>
+                <span aria-hidden="true">✓</span>
+                <div>
+                  <h4>{feature.title}</h4>
+                  <p>{feature.subject}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+        <br />
+        <CaptionedFigure
+          caption="The completed rich-details view keeps launching and metadata editing inside the controller-first navigation model."
+          class="product-figure"
+        >
+          <Image
+            src={switchReactMenuMockup}
+            alt="Nintendo Switch mockup showing the completed rich-details interface"
+            class="w-full max-w-[1024px]"
+            loading="lazy"
+          />
+        </CaptionedFigure>
+
+        <div class="interaction-grid">
+          {
+            interactionIdeas.map((idea) => (
+              <article>
+                <span class="idea-number">{idea.number}</span>
+                <h4>{idea.title}</h4>
+                <div class="key-sequence" aria-label={`${idea.title} controls`}>
+                  {idea.keys.map((key) => (
+                    <kbd>{key}</kbd>
+                  ))}
+                </div>
+                <p>
+                  <strong>{idea.subject}</strong> Lorem ipsum dolor sit amet,
+                  consectetur adipiscing elit. Nunc ullamcorper augue a justo
+                  commodo, vitae posuere nibh fermentum.
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
     </section>
   </div>
-</CaseStudyLayout>
 
-<style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
-    position: relative;
-  }
-
-  @media (hover: hover) {
-    a {
-      text-decoration: none;
+  <style>
+    :global(html) {
+      scroll-behavior: smooth;
     }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
+
+    section {
+      scroll-margin-top: 2rem;
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    section + section {
+      margin-top: 1.5rem;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 2rem;
+    }
+
+    .section-heading h3 {
+      max-width: 680px;
+      color: white;
+      font-size: clamp(1.75rem, 4vw, 2.6rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .section-heading p:not(.eyebrow) {
+      margin-top: 1rem;
+    }
+
+    .example-lede {
+      margin-top: 0.75rem;
+      color: #a1a1aa;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .eyebrow,
+    .phase-label {
+      color: #76c7ff !important;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .overview-section {
+      padding-top: 4rem !important;
+    }
+
+    .overview-copy,
+    .architecture-copy {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .overview-copy p,
+    .architecture-copy p {
+      padding-top: 1rem;
+      border-top: 1px solid rgb(255 255 255 / 12%);
+    }
+
+    .overview-copy strong,
+    .architecture-copy strong {
+      display: block;
+      margin-bottom: 0.4rem;
+      color: white;
+    }
+
+    .overview-stats-block {
+      margin-top: 2.5rem;
+    }
+
+    .overview-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 0.9rem;
+      background: rgb(255 255 255 / 12%);
+    }
+
+    .overview-stats article {
+      display: flex;
+      min-height: 130px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.25rem;
+      background: #111;
+    }
+
+    .overview-stats strong {
+      color: white;
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .overview-stats span {
+      color: #a1a1aa;
+      font-size: 0.82rem;
+    }
+
+    .overview-stats-note {
+      margin-top: 0.45rem;
+      color: #71717a;
+      font-size: 0.7rem;
+      text-align: right;
+    }
+
+    .constraint-graphic {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.85rem;
+      padding: 1.5rem 0;
+      overflow: hidden;
+      border-radius: 1rem;
+      background: transparent;
+      text-align: left;
+    }
+
+    .constraint-pipeline {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(
+          0,
+          1fr
+        );
+      align-items: stretch;
+      justify-content: start;
+      gap: 0.45rem;
+    }
+
+    .constraint-arrow {
+      align-self: center;
+      width: 28px;
+      height: 16px;
+      stroke: #76c7ff;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .constraint-node {
+      display: flex;
+      min-height: 150px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.55rem;
+      padding: 1rem;
+      border: 1px solid rgb(255 255 255 / 15%);
+      border-radius: 0.75rem;
+      background: rgb(255 255 255 / 4%);
+      text-align: left;
+    }
+
+    .constraint-node span,
+    .example-heading span {
+      color: #a1a1aa;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .constraint-node strong {
+      color: white;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .constraint-node p {
+      margin-top: auto !important;
+      color: #a1a1aa;
+      font-size: 0.72rem;
+      line-height: 1.45;
+    }
+
+    .constraint-node a {
+      color: #76c7ff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .constraint-node code {
+      padding: 0.05rem 0.25rem;
+      font-size: 0.68rem;
+    }
+
+    .accent-node {
+      border-color: rgb(118 199 255 / 48%);
+    }
+
+    .dom-detour {
+      align-self: flex-start;
+      width: fit-content;
+      max-width: 100%;
+      padding: 0.55rem 0.75rem;
+      border-radius: 0.45rem;
+      background: #242424;
+      color: #71717a;
+      font-size: 0.68rem;
+      text-decoration: line-through;
+      text-align: left;
+    }
+
+    .dom-detour strong {
+      margin-left: 0.35rem;
+    }
+
+    .constraint-caption {
+      color: #71717a;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .constraint-caption code {
+      padding: 0.05rem 0.25rem;
+      font-size: 0.68rem;
+    }
+
+    .code-example-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .code-example-grid article,
+    .browser-code-example {
+      min-width: 0;
+      padding: 1.25rem;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 0.9rem;
+      background: #101010;
+    }
+
+    .example-heading {
+      margin-bottom: 1rem;
+    }
+
+    .example-heading h4 {
+      margin-top: 0.25rem;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .lifecycle-bridge {
+      display: grid;
+      grid-template-columns: minmax(160px, 0.7fr) minmax(240px, 1.3fr);
+      gap: 0.4rem 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      border: 1px dashed rgb(255 255 255 / 18%);
+      border-radius: 0.75rem;
+      background: rgb(255 255 255 / 3%);
+    }
+
+    .lifecycle-bridge span {
+      color: #76c7ff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .lifecycle-bridge strong {
+      color: white;
+    }
+
+    .lifecycle-bridge p {
+      grid-column: 2;
+      color: #a1a1aa;
+      font-size: 0.8rem;
+    }
+
+    .timeline::before {
       position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
+      top: 1.25rem;
+      bottom: 1.25rem;
+      left: 1.25rem;
+      width: 1px;
+      background: rgb(118 199 255 / 35%);
+      content: "";
     }
-    a:hover:after {
-      width: 100%;
-      left: 0;
+
+    .timeline-phase {
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: 1.5rem;
+      margin: 0 0 1.5rem !important;
+      padding: 0 !important;
+      list-style: none !important;
     }
-  }
 
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
-  }
+    .timeline-marker {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      width: 2.5rem;
+      height: 2.5rem;
+      place-items: center;
+      border: 1px solid rgb(118 199 255 / 60%);
+      border-radius: 999px;
+      background: #0b0b0b;
+      color: #76c7ff;
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
 
-  @media (max-width: 768px) {
-    code {
+    .timeline-phase > article {
+      padding: 1.5rem;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 0.9rem;
+      background: #121212;
+    }
+
+    .phase-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      color: #a1a1aa;
       font-size: 0.75rem;
     }
-  }
-</style>
+
+    .phase-label {
+      margin-top: 1.5rem !important;
+    }
+
+    .timeline-phase h4 {
+      margin: 0.25rem 0 0.8rem;
+      color: white;
+      font-size: clamp(1.25rem, 3vw, 1.7rem);
+    }
+
+    .commit-subjects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 1rem;
+    }
+
+    .commit-subjects code {
+      display: inline-block;
+      padding: 0.35rem 0.5rem;
+      border: 1px solid rgb(255 255 255 / 10%);
+      border-radius: 0.35rem;
+      color: #d4d4d8;
+      font-size: 0.68rem;
+      white-space: normal;
+    }
+
+    .interface-consequence {
+      display: grid;
+      grid-template-columns: minmax(150px, 0.8fr) minmax(220px, 1.2fr);
+      gap: 0.4rem 1rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgb(255 255 255 / 10%);
+    }
+
+    .interface-consequence span {
+      color: #71717a;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .interface-consequence strong {
+      color: white;
+    }
+
+    .interface-consequence p {
+      grid-column: 2;
+      font-size: 0.85rem;
+    }
+
+    .product-figure {
+      margin-top: 2.5rem;
+      text-align: left;
+    }
+
+    .product-figure :global(p) {
+      text-align: left;
+    }
+
+    .architecture-figure {
+      margin: 0;
+      padding: 1.5rem 0;
+      border-radius: 1rem;
+      background: transparent;
+      text-align: left;
+    }
+
+    .runtime-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+
+    .runtime-guests {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .runtime-stack .constraint-node {
+      min-height: 0;
+    }
+
+    .switch-guest {
+      border-color: rgb(118 199 255 / 35%);
+    }
+
+    .browser-guest {
+      border-style: dashed;
+      border-color: rgb(118 199 255 / 50%);
+      background: rgb(0 169 255 / 6%);
+    }
+
+    .stack-connector {
+      position: relative;
+      display: grid;
+      width: 100%;
+      height: 1.75rem;
+      grid-template-columns: 1fr 1fr;
+      margin: 0.1rem 0;
+    }
+
+    .stack-drop {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      display: block;
+      width: 1px;
+      height: 0.85rem;
+      background: #76c7ff;
+      transform: translateX(-50%);
+    }
+
+    .stack-rail {
+      position: absolute;
+      top: 0.85rem;
+      left: 25%;
+      right: 25%;
+      display: block;
+      height: 1px;
+      background: #76c7ff;
+    }
+
+    .stack-leg {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 1px;
+      height: 0.9rem;
+      margin-top: 0.85rem;
+      justify-self: center;
+      background: #76c7ff;
+    }
+
+    .stack-host {
+      width: 100%;
+    }
+
+    .architecture-figure .constraint-node code,
+    .architecture-figure figcaption code {
+      padding: 0.05rem 0.25rem;
+      font-size: 0.68rem;
+    }
+
+    .architecture-figure figcaption {
+      margin-top: 1rem;
+      color: #71717a;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .architecture-copy {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 1.5rem;
+    }
+
+    .browser-code-example {
+      margin-top: 1.5rem;
+    }
+
+    .feature-inventory {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .feature-inventory article {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 0.8rem;
+      padding: 1rem;
+      border: 1px solid rgb(255 255 255 / 10%);
+      border-radius: 0.7rem;
+      background: #101010;
+    }
+
+    .feature-inventory article > span {
+      display: grid;
+      width: 1.5rem;
+      height: 1.5rem;
+      place-items: center;
+      border-radius: 999px;
+      background: rgb(118 199 255 / 14%);
+      color: #76c7ff;
+      font-size: 0.75rem;
+    }
+
+    .feature-inventory h4 {
+      color: white;
+      font-size: 0.95rem;
+    }
+
+    .feature-inventory p {
+      margin-top: 0.25rem !important;
+      color: #a1a1aa;
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .interaction-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .interaction-grid article {
+      min-width: 0;
+      padding: 1.25rem;
+      border: 1px solid rgb(255 255 255 / 12%);
+      border-radius: 0.8rem;
+      background: #131313;
+    }
+
+    .idea-number {
+      color: #76c7ff;
+      font-family: "Martian Mono", monospace;
+      font-size: 0.7rem;
+    }
+
+    .interaction-grid h4 {
+      margin: 1.5rem 0 1rem;
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .key-sequence {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    kbd {
+      min-width: 1.65rem;
+      padding: 0.25rem 0.4rem;
+      border: 1px solid rgb(255 255 255 / 18%);
+      border-radius: 0.3rem;
+      background: rgb(255 255 255 / 6%);
+      box-shadow: inset 0 1px rgb(255 255 255 / 8%);
+      color: #f4f4f5;
+      font-family: "Martian Mono", monospace;
+      font-size: 0.68rem;
+      text-align: center;
+    }
+
+    .interaction-grid p {
+      color: #a1a1aa;
+      font-size: 0.83rem;
+    }
+
+    .interaction-grid p strong {
+      color: #d4d4d8;
+    }
+
+    @media (max-width: 900px) {
+      .overview-copy,
+      .interaction-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .constraint-pipeline {
+        grid-template-columns: 1fr;
+      }
+
+      .constraint-arrow {
+        justify-self: start;
+        transform: rotate(90deg);
+      }
+
+      .runtime-guests {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-connector {
+        grid-template-columns: 1fr;
+        height: 1.25rem;
+      }
+
+      .stack-leg.right,
+      .stack-rail {
+        display: none;
+      }
+
+      .stack-drop {
+        height: 1.25rem;
+      }
+
+      .stack-leg.left {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .overview-stats,
+      .code-example-grid,
+      .architecture-copy,
+      .feature-inventory {
+        grid-template-columns: 1fr;
+      }
+
+      .constraint-graphic {
+        padding: 1.25rem 0;
+      }
+
+      .dom-detour {
+        align-self: flex-start;
+        text-align: left;
+      }
+
+      .timeline-phase {
+        gap: 0.85rem;
+      }
+
+      .timeline-phase > article {
+        padding: 1rem;
+      }
+
+      .interface-consequence {
+        grid-template-columns: 1fr;
+      }
+
+      .lifecycle-bridge {
+        grid-template-columns: 1fr;
+      }
+
+      .lifecycle-bridge p {
+        grid-column: 1;
+      }
+
+      .interface-consequence p {
+        grid-column: 1;
+      }
+
+      .phase-meta {
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .timeline::before {
+        left: 0.9rem;
+      }
+
+      .timeline-phase {
+        grid-template-columns: 1.8rem minmax(0, 1fr);
+      }
+
+      .timeline-marker {
+        width: 1.8rem;
+        height: 1.8rem;
+        font-size: 0.58rem;
+      }
+    }
+  </style>
+</CaseStudyLayout>
