@@ -1,301 +1,1093 @@
 ---
+import { Image } from "astro:assets";
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
-import CaseStudyCardGrid from "../../components/ux/CaseStudyCardGrid.astro";
-import CaseStudyCard from "../../components/ux/CaseStudyCard.astro";
-import SwitchMenuPreview from "../../components/projects/SwitchMenuPreview.svelte";
+import CaptionedFigure from "../../components/CaptionedFigure.astro";
 import CodeBlock from "../../components/CodeBlock.astro";
+import SwitchMenuPreview from "../../components/projects/SwitchMenuPreview.svelte";
 import {
-  WrenchIcon,
-  TypescriptWhiteIcon,
-  ReactWhiteIcon,
-} from "../../utils/icons";
+  switchReactMenuMockup,
+  switchReactMenuScreen,
+} from "../../utils/images";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
-  { text: "Context", href: "#context" },
-  { text: "Development", href: "#development" },
+  { text: "Constraints", href: "#constraints" },
+  { text: "Lifecycle", href: "#lifecycle" },
+  { text: "Architecture", href: "#architecture" },
+  { text: "Interaction ideas", href: "#interaction-ideas" },
 ];
+
+const phases = [
+  {
+    date: "Dec 28–31, 2024",
+    label: "MVP",
+    title: "A launcher over the holiday break",
+    commitCount: "26 commits",
+    consequence: "Responsive controller-first browsing",
+    subjects: [
+      "skeleton nxjs base",
+      "app launching functionality",
+      "shoulder buttons pagination",
+      "selections via dpad",
+      "automate font bundling",
+    ],
+  },
+  {
+    date: "May 6–7, 2026",
+    label: "Iteration platform + first release",
+    title: "Move iteration off the console",
+    commitCount: "21 commits",
+    consequence: "Testability without Switch hardware",
+    subjects: [
+      "implement vite pipeline with browser preview",
+      "implement pagination dots",
+      "implement last played tracking",
+      "implement compact view",
+      "implement custom sort mode",
+      "first release",
+    ],
+  },
+  {
+    date: "May 9–14, 2026",
+    label: "Feature expansion",
+    title: "Turn a launcher into a navigable home surface",
+    commitCount: "40 commits",
+    consequence: "Discoverability and reliable offline metadata",
+    subjects: [
+      "implement showing page #s feature",
+      "add album page",
+      "implement web applet",
+      "implement cached loads with manual invalidation",
+      "implement game tagging with badge display",
+      "add search bar functionality",
+      "implement tag autocomplete in search",
+    ],
+  },
+  {
+    date: "June 8–9, 2026",
+    label: "Maintenance",
+    title: "Stabilize the release on console hardware",
+    commitCount: "4 commits",
+    consequence: "15.2 MB catalog removed; measured romfs ≈91% smaller",
+    subjects: [
+      "Expand README.md",
+      "replace mockup img referenced in README",
+      "prune legacy igdb database (commit reports 64% smaller bundle)",
+      "fix virtual-keyboard lifecycle crash after RAWG loading",
+    ],
+  },
+] as const;
+
+const architecture = [
+  {
+    step: "01",
+    title: "Switch.Application",
+    detail: "Installed titles, IDs, icons, launch methods",
+  },
+  {
+    step: "02",
+    title: "React state + hooks",
+    detail: "Selection, settings, search, cache, navigation",
+  },
+  {
+    step: "03",
+    title: "react-tela + WebGL2",
+    detail: "Canvas-shaped scene API over the current GPU renderer",
+  },
+  {
+    step: "04",
+    title: "Switch input",
+    detail: "Gamepad, touch, virtual keyboard, system applets",
+  },
+] as const;
+
+const completedFeatures = [
+  {
+    title: "Grid + compact list",
+    subject: "Controller, touch, and shoulder-button navigation",
+  },
+  {
+    title: "Search + tags",
+    subject: "Full-text filtering, tag chips, and autocomplete",
+  },
+  {
+    title: "Metadata cache + editing",
+    subject: "Offline resume, refresh, and per-title overrides",
+  },
+  {
+    title: "Settings + sorting",
+    subject: "Recent, alphabetical, release, launch count, and custom order",
+  },
+  {
+    title: "Photo album",
+    subject: "Grid browsing, lightbox navigation, and delete confirmation",
+  },
+  {
+    title: "Web shortcut",
+    subject: "System browser handoff through Switch.WebApplet",
+  },
+  {
+    title: "Browser preview",
+    subject: "Vite, nx.js polyfills, keyboard gamepad, and mouse touch",
+  },
+] as const;
+
+const interactionIdeas = [
+  {
+    number: "01",
+    title: "Keyboard as gamepad",
+    keys: ["←", "→", "Q", "E", "Enter"],
+    subject: "Rehearse console navigation in the browser preview.",
+  },
+  {
+    number: "02",
+    title: "Search as a spatial mode",
+    keys: ["↑", "↓", "#tag", "X"],
+    subject: "Keep focus, keyboard occupancy, and results in one canvas scene.",
+  },
+  {
+    number: "03",
+    title: "Progressive game detail",
+    keys: ["↓", "A", "Edit"],
+    subject: "Reveal metadata without replacing the launch-first home surface.",
+  },
+] as const;
 ---
 
 <CaseStudyLayout
   title="Switch React Menu"
-  subtitle="A Minimalist Home Menu for Nintendo Switch - December 2024"
-  pageTitle="Switch React Menu - Liam Sullivan"
+  subtitle="MVP in late December 2024 · Major release sprint in May 2026 · Stabilized in June 2026"
+  pageTitle="Switch React Menu Lifecycle - Liam Sullivan"
   sidebarItems={sidebarItems}
-  projectRole={["Mobile Development", "UI + UX Design"]}
+  projectRole={["Console Application Development", "UI + UX Design"]}
   team={["Solo"]}
-  tools={["React", "TypeScript", "nx.js", "react-tela", "esbuild"]}
-  timeline={["2 Months"]}
+  tools={["React", "TypeScript", "nx.js", "react-tela", "Vite", "esbuild"]}
+  timeline={["MVP: Dec 2024", "Release + stabilization: May–Jun 2026"]}
   githubLink="https://github.com/liambsulliva/switch-react-menu"
 >
   <SwitchMenuPreview client:load slot="hero" />
 
   <div class="case-study-layout">
-    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
-      <h3 class="text-2xl font-semibold text-white">Overview</h3>
-      <div>
+    <section class="overview-section" id="overview">
+      <div class="section-heading">
+        <p class="eyebrow">Overview</p>
+        <h3>From break-sized experiment to complete home menu</h3>
+      </div>
+
+      <div class="overview-copy">
         <p>
-          This Nintendo Switch App Launcher is a minimalist implementation of a
-          traditional home menu. It relies on the JavaScript library <a
-            href="https://github.com/TooTallNate/nx.js"
-            target="_blank">nx.js</a
-          >, built by <a href="https://github.com/TooTallNate" target="_blank"
-            >TooTallNate</a
-          >, to render React components to a generic canvas element through the <a
-            href="https://github.com/TooTallNate/react-tela"
-            target="_blank">react-tela</a
-          > library.
+          <strong>Personal context and scope.</strong> Lorem ipsum dolor sit amet,
+          consectetur adipiscing elit. Integer vitae justo sed sem luctus fermentum.
+          Donec posuere, sapien non feugiat tincidunt, arcu lorem porttitor nibh,
+          vitae facilisis nibh lectus sed erat.
         </p>
-        <br />
         <p>
-          While the react-tela framework itself is runtime-agnostic, it was the
-          only way I could find to run the JSX runtime on the Nintendo Switch.
-          Even though this interface relies on minimal reactivity, I thought the
-          concept of running a React app on a console was interesting enough to
-          be worth exploring.
+          <strong>Why React and TypeScript.</strong> Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Suspendisse potenti. Aenean euismod, lectus sed tincidunt
+          posuere, justo erat tincidunt mi, sed tristique sem lorem vitae nibh.
         </p>
+        <p>
+          <strong>Why nx.js and react-tela.</strong> Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Praesent commodo, neque vitae vulputate posuere, lacus
+          sapien faucibus justo, vitae aliquet erat nibh sed mauris.
+        </p>
+      </div>
+
+      <div class="overview-stats" aria-label="Project lifecycle summary">
+        <article>
+          <strong>92</strong>
+          <span>commits through June stabilization</span>
+        </article>
+        <article>
+          <strong>4</strong>
+          <span>evidence-led lifecycle phases</span>
+        </article>
+        <article>
+          <strong>1</strong>
+          <span>React tree across Switch and browser</span>
+        </article>
       </div>
     </section>
 
-    <section id="context">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
-      <p>
-        In the Winter of 2024, I found myself with a full break from school for
-        the holidays and a lot of time to kill. It made sense to start working
-        on something new that I could show off, while also keeping the scope
-        small enough that I could realistically finish the thing by the end of
-        the break.
-      </p>
-      <br />
-      <p>
-        I had already been pretty invested in the world of Nintendo <a
-          href="https://en.wikipedia.org/wiki/Homebrew_(video_games)"
-          target="_blank">homebrew</a
-        > by this point. I had custom <a
-          href="https://en.wikipedia.org/wiki/Firmware"
-          target="_blank"
-          rel="noreferrer">firmware</a
-        > running on not just my switch, but pretty much every Nintendo console I
-        owned (Wii, DSI, 3DS, and Wii U). So I really liked the idea of taking a stab
-        at building an app for a Nintendo console. However, I found the typical options
-        to be a little lacking. Working with C/C++ seemed like it would be too much
-        of a pain to get started, and I didn't want to spend too much time tinkering
-        with the low-level details of the console's APIs in order to build a simple
-        app.
-      </p>
-      <br />
-      <p>
-        While JavaScript may not be an obvious choice, it's actually relatively
-        fast compared to other high level options like Python, and its frontend
-        ecosystem plays well with UI development.
-      </p>
-      <br />
-      <p class="pb-3">
-        Ultimately, nx.js ended up being <i>amazing</i> for a couple of reasons:
-      </p>
-      <CaseStudyCardGrid>
-        <CaseStudyCard
-          title="Low-Level Control"
-          icon={WrenchIcon}
-          titleClass="text-xl font-medium text-white"
+    <section id="constraints">
+      <div class="section-heading">
+        <p class="eyebrow">Core constraint</p>
+        <h3>A React interface, but no browser DOM</h3>
+        <p>
+          <strong>Rendering model.</strong> Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Curabitur interdum magna sed sem consequat, quis tincidunt
+          tortor porta. Nunc vitae lacus at arcu feugiat volutpat vel vitae erat.
+        </p>
+      </div>
+
+      <div
+        class="constraint-graphic"
+        role="img"
+        aria-label="React tree rendered into a Nintendo Switch canvas rather than a browser DOM"
+      >
+        <div class="constraint-node">
+          <span>Declarative source</span>
+          <strong>React component tree</strong>
+        </div>
+        <svg viewBox="0 0 120 32" aria-hidden="true">
+          <path d="M2 16h108M98 5l12 11-12 11"></path>
+        </svg>
+        <div class="constraint-node accent-node">
+          <span>Console output</span>
+          <strong>react-tela → canvas-compatible surface</strong>
+        </div>
+        <div
+          class="dom-detour"
+          aria-label="Browser DOM is not part of the console rendering path"
         >
-          <p>
-            The framework gave me shockingly low-level access to the hardware.
-            Through the <a
-              href="https://nxjs.n8.io/runtime/rendering/canvas"
-              target="_blank">Canvas API</a
-            >, I was able to draw pixels and shapes directly to the screen
-            instead of interacting with a <a
-              href="https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model"
-              target="_blank">Document Object Model (DOM)</a
-            >, like in traditional JavaScript.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard
-          title="TypeScript Support"
-          icon={TypescriptWhiteIcon}
-          titleClass="text-xl font-medium text-white"
-        >
-          <p>
-            Coming from a Java background, I'm a big fan of what TypeScript
-            brings to JavaScript. Adding <a
-              href="https://en.wikipedia.org/wiki/Type_safety"
-              target="_blank">type safety</a
-            > to code is a common sense addition to any language, and it's become
-            so ingrained in my workflow that I can't really live without it.
-          </p>
-        </CaseStudyCard>
-        <CaseStudyCard
-          title="React Tooling"
-          icon={ReactWhiteIcon}
-          titleClass="text-xl font-medium text-white"
-        >
-          <p>
-            React's <a
-              href="https://ui.dev/imperative-vs-declarative-programming"
-              target="_blank"
-              rel="noreferrer">declarative UI</a
-            > feels like a natural fit for a quick and dirty app like this. Reacting
-            to state changes felt far more natural to work with than manually updating
-            the UI, especially when it came to handling controller input.
-          </p>
-        </CaseStudyCard>
-      </CaseStudyCardGrid>
-    </section>
-    <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
-      <p>
-        The development process was a bit of a rollercoaster. I started out by
-        trying to use the Canvas API directly, but it was a bit of a pain to
-        work with. I ended up using the react-tela library to render the React
-        components to a canvas, which was a lot easier to work with.
-      </p>
-      <br />
-      <p>
-        The same React tree that runs on Switch is available in the interactive
-        browser preview at the top of this page. Game metadata is fetched through
-        a server-side RAWG proxy, so the API key never ships to the browser.
-      </p>
-      <br />
-      <p>
-        I also had to become familiar with the <a
-          href="https://nxjs.n8.io/runtime/concepts/applications"
-          target="_blank">Switch.Application API</a
-        >. It reads the switch's app titles, authors, and box art from the
-        Switch's app catalog. It can be used to iterate over the app catalog and
-        sort for box art like this:
-      </p>
-      <CodeBlock
-        code={`const switchApps = Array.from(Switch.Application).filter(
-  (app) => app.icon
-);`}
-        language="javascript"
-      />
-      <p>
-        When fetched, images are stored as <a
-          href="https://en.wikipedia.org/wiki/Bitmap"
-          target="_blank">bitmap files</a
-        > in order to render them to the canvas. If images can't be fetched, the loop
-        continues to the next app.
-      </p>
-      <CodeBlock
-        code={`for (const app of switchApps) {
-  let img;
-  if (app.icon) {
-    img = await createImageBitmap(new Blob([app.icon]));
-  }
-  if (!img) continue;
-  //...
+          <span>Browser DOM</span>
+          <strong>Not in the Switch render path</strong>
+        </div>
+      </div>
+
+      <div class="code-example-grid">
+        <article>
+          <div class="example-heading">
+            <span>Data model</span>
+            <h4>Load the installed catalog</h4>
+          </div>
+          <CodeBlock
+            code={`const installedApps = Array.from(Switch.Application).filter(
+  (app) => app.icon,
+);
+
+setRawApps(installedApps);`}
+            language="typescript"
+          />
+        </article>
+        <article>
+          <div class="example-heading">
+            <span>Input model</span>
+            <h4>Translate gamepad state into actions</h4>
+          </div>
+          <CodeBlock
+            code={`const gamepad = navigator.getGamepads()[0];
+
+if (gamepad.buttons[Button.A].pressed) {
+  registerAppLaunch(app);
+  app.launch();
 }`}
-        language="javascript"
-      />
-      <p>
-        Each image renders exactly 40 pixels away from each other so that the
-        grid can fit exactly 4 apps across the Switch's 1280 pixel width screen.
-        It offers future proofing in case Nintendo decides to release a new
-        model with a different screen size at some point in the future (though I
-        highly doubt it, given the existence of the <a
-          href="https://en.wikipedia.org/wiki/Nintendo_Switch_2"
-          target="_blank">Switch 2</a
-        >)
-      </p>
-      <br />
-      <p>
-        Controller inputs are handled by a custom <a
-          href="https://www.w3schools.com/react/react_hooks.asp"
-          target="_blank">hook</a
-        > that listens for button presses and updates the UI accordingly. It listens
-        for both left and right directional inputs on the stick and D-pad, as well
-        as detecting shoulder buttons to quickly swap pages. It also listens for the
-        A button to launch whatever app is selected.
-      </p>
-      <br />
-      <p>
-        Since drawing borders around images isn't directly supported by the
-        Canvas API, I had to use a bit of a tricky workaround. I drew a slightly
-        larger Rectangle object directly behind the image to create the border.
-        It uses a 5-pixel white stroke to create the border effect whenever
-        React detects that the image is selected.
-      </p>
-      <CodeBlock
-        code={`{displayedApp.app.icon && (
-  <>
-    {isSelected && (
-      <Rect
-        x={displayedApp.x - 5}
-        y={displayedApp.y - 5}
-        width={displayedApp.width + 10}
-        height={displayedApp.height + 10}
-        fill="none"
-        stroke="white" // Draws the border
-        lineWidth={5} // 5-pixel width
-      />
-      //...
-)}
-`}
-        language="javascript"
-      />
-      <p>
-        While the current implementation provides a solid foundation for
-        browsing and launching apps, there's still plenty of room for growth.
-        Features like filtering apps by name or developer, photo album support,
-        and other improvements would make the experience feel more complete.
-        These aren't too complicated to implement, and the React-forward
-        architecture will make it pretty straightforward to add these things in
-        the future if time permits.
-      </p>
+            language="typescript"
+          />
+        </article>
+      </div>
+    </section>
+
+    <section id="lifecycle">
+      <div class="section-heading">
+        <p class="eyebrow">Product lifecycle</p>
+        <h3>Four phases across the first 92 commits</h3>
+        <p>
+          <strong>Reading the record.</strong> Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Morbi volutpat, nibh et tincidunt tristique, sem mi sollicitudin
+          velit, sed consequat risus eros vitae augue.
+        </p>
+      </div>
+
+      <aside class="lifecycle-bridge">
+        <span>Commit 27 · Apr 29, 2026</span>
+        <strong>
+          1 bridge commit + 26 + 21 + 40 + 4 phase commits = 92 through June 9
+        </strong>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+          posuere sem vitae mauris dictum, vel aliquet lacus consequat.
+        </p>
+      </aside>
+
+      <ol class="timeline">
+        {
+          phases.map((phase, index) => (
+            <li class="timeline-phase">
+              <div class="timeline-marker" aria-hidden="true">
+                <span>{String(index + 1).padStart(2, "0")}</span>
+              </div>
+              <article>
+                <div class="phase-meta">
+                  <span>{phase.date}</span>
+                  <span>{phase.commitCount}</span>
+                </div>
+                <p class="phase-label">{phase.label}</p>
+                <h4>{phase.title}</h4>
+                <p>
+                  <strong>Implementation story.</strong> Lorem ipsum dolor sit
+                  amet, consectetur adipiscing elit. Sed feugiat, massa quis
+                  posuere faucibus, libero justo varius nibh, id fermentum magna
+                  sapien sed arcu.
+                </p>
+                <div
+                  class="commit-subjects"
+                  aria-label={`${phase.label} commit subjects`}
+                >
+                  {phase.subjects.map((subject) => (
+                    <code>{subject}</code>
+                  ))}
+                </div>
+                <div class="interface-consequence">
+                  <span>Interface consequence</span>
+                  <strong>{phase.consequence}</strong>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Vivamus placerat magna vitae arcu dictum, non tempor tellus
+                    interdum.
+                  </p>
+                </div>
+              </article>
+            </li>
+          ))
+        }
+      </ol>
+
+      <CaptionedFigure
+        caption="The May feature sprint added search, shortcuts, a clock, metadata, and an expandable hero-detail presentation."
+        class="product-figure"
+      >
+        <Image
+          src={switchReactMenuScreen}
+          alt="Switch React Menu grid with search, browser, album, settings, clock, and rich-details affordance"
+          class="w-full rounded-xl"
+          loading="lazy"
+        />
+      </CaptionedFigure>
+    </section>
+
+    <section id="architecture">
+      <div class="section-heading">
+        <p class="eyebrow">Architecture</p>
+        <h3>One interface pipeline, two execution environments</h3>
+        <p>
+          <strong>System shape.</strong> Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Maecenas feugiat, nunc ut feugiat pellentesque, leo magna efficitur
+          enim, at malesuada nibh neque vitae lacus.
+        </p>
+      </div>
+
+      <figure class="architecture-figure">
+        <div class="architecture-flow">
+          {
+            architecture.map((node, index) => (
+              <>
+                <article>
+                  <span>{node.step}</span>
+                  <h4>{node.title}</h4>
+                  <p>{node.detail}</p>
+                </article>
+                {index < architecture.length - 1 && (
+                  <span class="flow-arrow" aria-hidden="true">
+                    →
+                  </span>
+                )}
+              </>
+            ))
+          }
+        </div>
+        <div class="browser-layer">
+          <span>Optional development layer</span>
+          <strong>Vite browser preview + nx.js polyfills</strong>
+          <p>
+            Keyboard → gamepad · Mouse → touch · DOM input → virtual keyboard ·
+            Mock catalog → Switch.Application
+          </p>
+        </div>
+        <figcaption>
+          Production uses Switch APIs directly; the preview installs compatible
+          browser globals before importing the same App tree.
+        </figcaption>
+      </figure>
+
+      <div class="architecture-copy">
+        <p>
+          <strong>State and rendering.</strong> Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Pellentesque habitant morbi tristique senectus et netus
+          et malesuada fames ac turpis egestas.
+        </p>
+        <p>
+          <strong>Offline metadata and performance.</strong> Lorem ipsum dolor sit
+          amet, consectetur adipiscing elit. Duis non risus vel augue volutpat feugiat.
+          Integer sit amet velit in justo tempor luctus.
+        </p>
+      </div>
+
+      <div class="browser-code-example">
+        <div class="example-heading">
+          <span>Current console renderer</span>
+          <h4>Mount react-tela to a canvas-compatible WebGL2 surface</h4>
+        </div>
+        <CodeBlock
+          code={`const surface = createWebGLTelaSurface(screen);
+const root = render(<App />, surface.canvas, {
+  Path2D: TelaPath2D,
+});
+
+surface.attach(root);`}
+          language="typescript"
+        />
+      </div>
+    </section>
+
+    <section id="interaction-ideas">
+      <div class="section-heading">
+        <p class="eyebrow">Interaction ideas</p>
+        <h3>What the completed product supports</h3>
+        <p>
+          <strong>Shipped, not future work.</strong> Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit. Aliquam erat volutpat. Vestibulum ante ipsum primis in
+          faucibus orci luctus et ultrices posuere cubilia curae.
+        </p>
+      </div>
+
+      <div class="feature-inventory">
+        {
+          completedFeatures.map((feature) => (
+            <article>
+              <span aria-hidden="true">✓</span>
+              <div>
+                <h4>{feature.title}</h4>
+                <p>{feature.subject}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <CaptionedFigure
+        caption="The completed rich-details view keeps launching and metadata editing inside the controller-first navigation model."
+        class="product-figure"
+      >
+        <Image
+          src={switchReactMenuMockup}
+          alt="Nintendo Switch mockup showing the completed rich-details interface"
+          class="mx-auto w-full max-w-[1024px]"
+          loading="lazy"
+        />
+      </CaptionedFigure>
+
+      <div class="interaction-grid">
+        {
+          interactionIdeas.map((idea) => (
+            <article>
+              <span class="idea-number">{idea.number}</span>
+              <h4>{idea.title}</h4>
+              <div class="key-sequence" aria-label={`${idea.title} controls`}>
+                {idea.keys.map((key) => (
+                  <kbd>{key}</kbd>
+                ))}
+              </div>
+              <p>
+                <strong>{idea.subject}</strong> Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit. Nunc ullamcorper augue a justo
+                commodo, vitae posuere nibh fermentum.
+              </p>
+            </article>
+          ))
+        }
+      </div>
     </section>
   </div>
 </CaseStudyLayout>
 
 <style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  section {
+    scroll-margin-top: 2rem;
+  }
+
+  .section-heading {
+    max-width: 760px;
+    margin-bottom: 2rem;
+  }
+
+  .section-heading h3 {
+    max-width: 680px;
+    color: white;
+    font-size: clamp(1.75rem, 4vw, 2.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+  }
+
+  .section-heading p:last-child {
+    margin-top: 1rem;
+  }
+
+  .eyebrow,
+  .phase-label {
+    color: #76c7ff !important;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .overview-section {
+    padding-top: 4rem !important;
+  }
+
+  .overview-copy,
+  .architecture-copy {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .overview-copy p,
+  .architecture-copy p {
+    padding-top: 1rem;
+    border-top: 1px solid rgb(255 255 255 / 12%);
+  }
+
+  .overview-copy strong,
+  .architecture-copy strong {
+    display: block;
+    margin-bottom: 0.4rem;
+    color: white;
+  }
+
+  .overview-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1px;
+    margin-top: 2.5rem;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.9rem;
+    background: rgb(255 255 255 / 12%);
+  }
+
+  .overview-stats article {
+    display: flex;
+    min-height: 130px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+    background: #111;
+  }
+
+  .overview-stats strong {
+    color: white;
+    font-size: 2.4rem;
+    line-height: 1;
+  }
+
+  .overview-stats span {
+    color: #a1a1aa;
+    font-size: 0.82rem;
+  }
+
+  .constraint-graphic {
     position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 1rem;
+    background:
+      radial-gradient(circle at 80% 20%, rgb(0 169 255 / 18%), transparent 30%),
+      #101010;
   }
 
-  @media (hover: hover) {
-    a {
-      text-decoration: none;
+  .constraint-graphic svg {
+    width: 100%;
+    stroke: #76c7ff;
+    stroke-width: 2;
+    fill: none;
+  }
+
+  .constraint-node {
+    display: flex;
+    min-height: 130px;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+    border: 1px solid rgb(255 255 255 / 15%);
+    border-radius: 0.75rem;
+    background: rgb(255 255 255 / 4%);
+  }
+
+  .constraint-node span,
+  .browser-layer span,
+  .example-heading span {
+    color: #a1a1aa;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .constraint-node strong {
+    color: white;
+    font-size: 1.15rem;
+  }
+
+  .accent-node {
+    border-color: rgb(118 199 255 / 48%);
+  }
+
+  .dom-detour {
+    position: absolute;
+    right: 2rem;
+    bottom: 1rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 0.45rem;
+    background: #242424;
+    color: #71717a;
+    font-size: 0.68rem;
+    text-decoration: line-through;
+  }
+
+  .dom-detour strong {
+    margin-left: 0.35rem;
+  }
+
+  .code-example-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .code-example-grid article,
+  .browser-code-example {
+    min-width: 0;
+    padding: 1.25rem;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.9rem;
+    background: #101010;
+  }
+
+  .example-heading {
+    margin-bottom: 1rem;
+  }
+
+  .example-heading h4 {
+    margin-top: 0.25rem;
+    color: white;
+    font-size: 1rem;
+  }
+
+  .timeline {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .lifecycle-bridge {
+    display: grid;
+    grid-template-columns: minmax(160px, 0.7fr) minmax(240px, 1.3fr);
+    gap: 0.4rem 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.25rem;
+    border: 1px dashed rgb(255 255 255 / 18%);
+    border-radius: 0.75rem;
+    background: rgb(255 255 255 / 3%);
+  }
+
+  .lifecycle-bridge span {
+    color: #76c7ff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lifecycle-bridge strong {
+    color: white;
+  }
+
+  .lifecycle-bridge p {
+    grid-column: 2;
+    color: #a1a1aa;
+    font-size: 0.8rem;
+  }
+
+  .timeline::before {
+    position: absolute;
+    top: 1.25rem;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    width: 1px;
+    background: linear-gradient(#76c7ff, rgb(118 199 255 / 12%));
+    content: "";
+  }
+
+  .timeline-phase {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 1.5rem;
+    margin: 0 0 1.5rem !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .timeline-marker {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid rgb(118 199 255 / 60%);
+    border-radius: 999px;
+    background: #0b0b0b;
+    color: #76c7ff;
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .timeline-phase > article {
+    padding: 1.5rem;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.9rem;
+    background: linear-gradient(145deg, #121212, #0d0d0d);
+  }
+
+  .phase-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: #a1a1aa;
+    font-size: 0.75rem;
+  }
+
+  .phase-label {
+    margin-top: 1.5rem !important;
+  }
+
+  .timeline-phase h4 {
+    margin: 0.25rem 0 0.8rem;
+    color: white;
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+  }
+
+  .commit-subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .commit-subjects code {
+    display: inline-block;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 0.35rem;
+    color: #d4d4d8;
+    font-size: 0.68rem;
+    white-space: normal;
+  }
+
+  .interface-consequence {
+    display: grid;
+    grid-template-columns: minmax(150px, 0.8fr) minmax(220px, 1.2fr);
+    gap: 0.4rem 1rem;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgb(255 255 255 / 10%);
+  }
+
+  .interface-consequence span {
+    color: #71717a;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .interface-consequence strong {
+    color: white;
+  }
+
+  .interface-consequence p {
+    grid-column: 2;
+    font-size: 0.85rem;
+  }
+
+  .product-figure {
+    margin-top: 2.5rem;
+  }
+
+  .architecture-figure {
+    margin: 0;
+    padding: 1.5rem;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 1rem;
+    background:
+      linear-gradient(rgb(255 255 255 / 3%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 3%) 1px, transparent 1px),
+      #0f0f0f;
+    background-size: 24px 24px;
+  }
+
+  .architecture-flow {
+    display: grid;
+    grid-template-columns:
+      minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto
+      minmax(0, 1fr);
+    align-items: stretch;
+    gap: 0.55rem;
+  }
+
+  .architecture-flow article {
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 0.65rem;
+    background: rgb(10 10 10 / 88%);
+  }
+
+  .architecture-flow article > span {
+    color: #76c7ff;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.68rem;
+  }
+
+  .architecture-flow h4 {
+    margin: 1.75rem 0 0.45rem;
+    color: white;
+    font-size: 0.95rem;
+  }
+
+  .architecture-flow p {
+    color: #a1a1aa;
+    font-size: 0.75rem;
+    line-height: 1.4;
+  }
+
+  .flow-arrow {
+    align-self: center;
+    color: #76c7ff;
+  }
+
+  .browser-layer {
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 1px dashed rgb(118 199 255 / 50%);
+    border-radius: 0.65rem;
+    background: rgb(0 169 255 / 8%);
+  }
+
+  .browser-layer strong {
+    display: block;
+    margin: 0.35rem 0;
+    color: white;
+  }
+
+  .browser-layer p {
+    color: #a1a1aa;
+    font-size: 0.75rem;
+  }
+
+  .architecture-figure figcaption {
+    margin-top: 1rem;
+    color: #71717a;
+    font-size: 0.72rem;
+    text-align: right;
+  }
+
+  .architecture-copy {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 1.5rem;
+  }
+
+  .browser-code-example {
+    margin-top: 1.5rem;
+  }
+
+  .feature-inventory {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .feature-inventory article {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 1rem;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 0.7rem;
+    background: #101010;
+  }
+
+  .feature-inventory article > span {
+    display: grid;
+    width: 1.5rem;
+    height: 1.5rem;
+    place-items: center;
+    border-radius: 999px;
+    background: rgb(118 199 255 / 14%);
+    color: #76c7ff;
+    font-size: 0.75rem;
+  }
+
+  .feature-inventory h4 {
+    color: white;
+    font-size: 0.95rem;
+  }
+
+  .feature-inventory p {
+    margin-top: 0.25rem !important;
+    color: #a1a1aa;
+    font-size: 0.78rem;
+    line-height: 1.4;
+  }
+
+  .interaction-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .interaction-grid article {
+    min-width: 0;
+    padding: 1.25rem;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.8rem;
+    background: linear-gradient(145deg, #131313, #0d0d0d);
+  }
+
+  .idea-number {
+    color: #76c7ff;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.7rem;
+  }
+
+  .interaction-grid h4 {
+    margin: 1.5rem 0 1rem;
+    color: white;
+    font-size: 1.1rem;
+  }
+
+  .key-sequence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  kbd {
+    min-width: 1.65rem;
+    padding: 0.25rem 0.4rem;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: 0.3rem;
+    background: rgb(255 255 255 / 6%);
+    box-shadow: inset 0 1px rgb(255 255 255 / 8%);
+    color: #f4f4f5;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.68rem;
+    text-align: center;
+  }
+
+  .interaction-grid p {
+    color: #a1a1aa;
+    font-size: 0.83rem;
+  }
+
+  .interaction-grid p strong {
+    color: #d4d4d8;
+  }
+
+  @media (max-width: 900px) {
+    .overview-copy,
+    .interaction-grid {
+      grid-template-columns: 1fr;
     }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
+
+    .architecture-flow {
+      grid-template-columns: 1fr;
     }
-    a:hover:after {
-      width: 100%;
-      left: 0;
+
+    .flow-arrow {
+      justify-self: center;
+      transform: rotate(90deg);
+    }
+
+    .architecture-flow h4 {
+      margin-top: 0.75rem;
     }
   }
 
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
+  @media (max-width: 700px) {
+    .overview-stats,
+    .code-example-grid,
+    .architecture-copy,
+    .feature-inventory {
+      grid-template-columns: 1fr;
+    }
+
+    .constraint-graphic {
+      grid-template-columns: 1fr;
+      padding-bottom: 4rem;
+    }
+
+    .constraint-graphic svg {
+      width: 80px;
+      justify-self: center;
+      transform: rotate(90deg);
+    }
+
+    .dom-detour {
+      right: 1rem;
+      bottom: 1rem;
+      left: 1rem;
+      text-align: center;
+    }
+
+    .timeline-phase {
+      gap: 0.85rem;
+    }
+
+    .timeline-phase > article {
+      padding: 1rem;
+    }
+
+    .interface-consequence {
+      grid-template-columns: 1fr;
+    }
+
+    .lifecycle-bridge {
+      grid-template-columns: 1fr;
+    }
+
+    .lifecycle-bridge p {
+      grid-column: 1;
+    }
+
+    .interface-consequence p {
+      grid-column: 1;
+    }
+
+    .phase-meta {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
   }
 
-  @media (max-width: 768px) {
-    code {
-      font-size: 0.75rem;
+  @media (max-width: 480px) {
+    .timeline::before {
+      left: 0.9rem;
+    }
+
+    .timeline-phase {
+      grid-template-columns: 1.8rem minmax(0, 1fr);
+    }
+
+    .timeline-marker {
+      width: 1.8rem;
+      height: 1.8rem;
+      font-size: 0.58rem;
     }
   }
 </style>

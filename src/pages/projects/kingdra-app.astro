@@ -1,396 +1,1585 @@
 ---
-import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import { Image } from "astro:assets";
+import CaptionedFigure from "../../components/CaptionedFigure.astro";
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import {
+  gridBasedSelection,
   pokedraft,
   teambuilderOld,
-  gridBasedSelection,
 } from "../../utils/images";
-import CodeBlock from "../../components/CodeBlock.astro";
-import CaptionedFigure from "../../components/CaptionedFigure.astro";
+
+const repositoryUrl = "https://github.com/liambsulliva/kingdra-teambuilder";
+
+const phases = [
+  {
+    id: "draft-prototype",
+    label: "Draft prototype",
+    shortDate: "May",
+    date: "May 6–16, 2024",
+    commits: 37,
+    color: "#38bdf8",
+    subject: "Draft-league rules become a one-day product",
+    features: [
+      "Point allowance",
+      "Tera captains and types",
+      "Local import and export",
+      "Performance fixes",
+    ],
+    pivotalCommits: [
+      {
+        hash: "1450b37",
+        subject: "implemented check for going over point allowance",
+      },
+      { hash: "acba8f4", subject: "implemented import/export" },
+      {
+        hash: "e689063",
+        subject: "removing localstorage because it's more trouble than worth",
+      },
+    ],
+  },
+  {
+    id: "full-stack-rebuild",
+    label: "Full-stack rebuild",
+    shortDate: "Jun 13–21",
+    date: "June 13–21, 2024",
+    commits: 65,
+    color: "#22c55e",
+    subject: "The specialized prototype is reset around a shared data model",
+    features: [
+      "Componentized interface",
+      "Infinite scrolling",
+      "Clerk authentication",
+      "MongoDB persistence",
+    ],
+    pivotalCommits: [
+      { hash: "705987d", subject: "reset config" },
+      { hash: "8fd4bb1", subject: "working infinite scroll" },
+      { hash: "eaff083", subject: "clerk authentication" },
+    ],
+  },
+  {
+    id: "competitive-core",
+    label: "Competitive core",
+    shortDate: "Jun 22–30",
+    date: "June 22–30, 2024",
+    commits: 76,
+    color: "#a78bfa",
+    subject: "A picker becomes a configurable competitive team builder",
+    features: [
+      "User-scoped CRUD",
+      "IV, EV, nature, and level math",
+      "Input validation",
+      "Showdown interchange",
+    ],
+    pivotalCommits: [
+      {
+        hash: "a00775d",
+        subject: "auth is user-specific and stores in db",
+      },
+      { hash: "5ebe557", subject: "pokemon stat formula" },
+      { hash: "e1d221a", subject: "global import/export" },
+    ],
+  },
+  {
+    id: "product-depth",
+    label: "Product depth",
+    shortDate: "Jul 5–9",
+    date: "July 5–9, 2024",
+    commits: 79,
+    color: "#f59e0b",
+    subject: "Metadata, feedback, and coverage deepen every selection",
+    features: [
+      "Type coverage",
+      "Move, item, and ability metadata",
+      "Autocomplete and tooltips",
+      "Toast error handling",
+    ],
+    pivotalCommits: [
+      { hash: "6aa0e4c", subject: "branding" },
+      { hash: "5dde87d", subject: "type coverages working" },
+      {
+        hash: "8955c19",
+        subject: "autocomplete + tooltips for abilities",
+      },
+    ],
+  },
+  {
+    id: "general-platform",
+    label: "General platform",
+    shortDate: "Jul 10–21",
+    date: "July 10–21, 2024",
+    commits: 107,
+    color: "#fb7185",
+    subject: "Casual and competitive modes converge in one platform",
+    features: [
+      "Multiple named teams",
+      "Casual and competitive modes",
+      "Smogon and encounter data",
+      "GraphQL enrichment",
+    ],
+    pivotalCommits: [
+      { hash: "4e7ee07", subject: "basic multi team support" },
+      { hash: "6aaf38b", subject: "smogon endpoint" },
+      {
+        hash: "61832c0",
+        subject: "graphql fetch works for PokemonInfo",
+      },
+    ],
+  },
+  {
+    id: "visual-identity",
+    label: "Visual identity",
+    shortDate: "Sep",
+    date: "September 5–18, 2024",
+    commits: 3,
+    color: "#2dd4bf",
+    subject: "A short typography pass settles the product voice",
+    features: [
+      "Poppins trial",
+      "Font deployment repair",
+      "Figtree adoption",
+      "Interface consistency",
+    ],
+    pivotalCommits: [
+      { hash: "bbc9b3e", subject: "set font default to poppins" },
+      { hash: "582217f", subject: "fix font deployment issues" },
+      { hash: "6f880e4", subject: "figtree looks a little better" },
+    ],
+  },
+  {
+    id: "mobile-pwa",
+    label: "Mobile and PWA",
+    shortDate: "Oct",
+    date: "October 21–22, 2024",
+    commits: 29,
+    color: "#60a5fa",
+    subject: "The desktop-first builder becomes installable and portable",
+    features: [
+      "Hamburger navigation",
+      "Add Pokémon modal",
+      "Compact team editor",
+      "Manifest and service worker",
+    ],
+    pivotalCommits: [
+      { hash: "0204344", subject: "hamburger menu... for now" },
+      { hash: "43d1f72", subject: "mobile transition complete" },
+      { hash: "73aa53c", subject: "add service worker (for real)" },
+    ],
+  },
+  {
+    id: "reliability",
+    label: "Reliability closeout",
+    shortDate: "Dec",
+    date: "December 31, 2024",
+    commits: 1,
+    color: "#f97316",
+    subject: "The final commit protects persistence ordering",
+    features: [
+      "GET-before-POST ordering",
+      "Database mutex",
+      "Stale-write prevention",
+      "Production stabilization",
+    ],
+    pivotalCommits: [
+      {
+        hash: "189101c",
+        subject: "create mutex to ensure GET from DB before POST",
+      },
+    ],
+  },
+];
+
+const totalCommits = phases.reduce((total, phase) => total + phase.commits, 0);
+const maxCommitCount = Math.max(...phases.map((phase) => phase.commits));
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
-  { text: "Context", href: "#context" },
-  { text: "Development", href: "#development" },
+  { text: "Origin", href: "#origin" },
+  { text: "Lifecycle", href: "#lifecycle" },
+  { text: "Architecture", href: "#architecture" },
+  { text: "Product Evolution", href: "#product-evolution" },
+  { text: "Outcome", href: "#outcome" },
 ];
+
+const placeholderLead =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere, nibh vitae commodo aliquet, justo erat feugiat arcu, vitae fermentum sapien sem sed erat.";
+const placeholderBody =
+  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.";
+const placeholderShort =
+  "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.";
 ---
 
 <CaseStudyLayout
-  title="Kingdra Pokemon Teambuilder"
-  subtitle="Full-Stack Pokemon Teambuilder - June 2024"
-  pageTitle="Kingdra Pokemon Teambuilder - Liam Sullivan"
+  title="Kingdra Pokémon Teambuilder"
+  subtitle="From Draft-League Prototype to Full-Stack PWA — May–December 2024"
+  pageTitle="Kingdra Pokémon Teambuilder Lifecycle - Liam Sullivan"
   sidebarItems={sidebarItems}
   projectRole={["Full-Stack Development", "UI + UX Design"]}
   team={["Solo"]}
   tools={["Next.js", "TypeScript", "Tailwind", "React", "MongoDB"]}
-  timeline={["Ongoing"]}
-  githubLink="https://github.com/liambsulliva/pokemon-teambuilder"
+  timeline={["May–December 2024"]}
+  githubLink={repositoryUrl}
   demoLink="https://pokedraft.liambsullivan.com"
-  sidebarClassName="fixed right-[calc((100vw-1150px)/2-7rem)] top-56 w-[1350px]"
   isCaseStudy={false}
 >
   <Image
     src={pokedraft}
-    alt="Kingdra Teambuilder"
+    alt="Kingdra Teambuilder interface showing a configured Pokémon team"
     class="mx-auto max-h-[700px] w-auto"
     loading="eager"
     slot="hero"
   />
 
-  <div class="case-study-layout">
-    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
-      <h3 class="text-2xl font-semibold text-white">Overview</h3>
-      <div>
-        <p>
-          Kingdra is a full-stack web application that seeks to solve a problem
-          I encountered while organizing a Pokemon draft league for my friends
-          (think fantasy football, but with Pokemon). There aren't many tools
-          out there that allow you to create and manage Pokemon teams, and those
-          that do are often poorly designed and lack the ability to set moves
-          and stats unless you're using <a
-            href="https://play.pokemonshowdown.com/"
-            target="_blank"
-            rel="noreferrer">Pokemon Showdown</a
-          >.
-        </p>
-        <br />
-        <p>
-          I also wanted to include a way to group in casual and competitive play
-          in the same place. If casual players find that they are starting to
-          develop an interest in competitive play, they can easily move their
-          teams over to a competitive format just by toggling the app's mode.
-        </p>
-        <br />
-        <p>
-          The app features infinite scrolling, real-time stat calculations, user
-          authentication, team management, and full import/export functionality
-          with Pokemon Showdown. It also relies on multiple APIs to function,
-          namely the <a
-            href="https://pokeapi.co/"
-            target="_blank"
-            rel="noreferrer">PokeAPI</a
-          > and the <a
-            href="https://pkmn.github.io/smogon/data/"
-            target="_blank"
-            rel="noreferrer">Smogon API</a
-          >.
-        </p>
+  <div class="case-study-layout kingdra-lifecycle">
+    <section class="overview-section" id="overview">
+      <div class="section-heading">
+        <span class="eyebrow">Repository lifecycle</span>
+        <h3>Overview</h3>
+      </div>
+      <div class="section-content">
+        <p class="placeholder-copy">{placeholderLead}</p>
+        <p class="placeholder-copy">{placeholderBody}</p>
+
+        <ul class="metric-grid" aria-label="Repository lifecycle metrics">
+          <li>
+            <strong>{totalCommits}</strong>
+            <span>product commits</span>
+          </li>
+          <li>
+            <strong>36</strong>
+            <span>active coding days</span>
+          </li>
+          <li>
+            <strong>186</strong>
+            <span>commits in the busiest month</span>
+          </li>
+          <li>
+            <strong>239</strong>
+            <span>calendar days from first to last commit</span>
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section id="context">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
-      <p>
-        The goal going in was to figure out Next.js and build my first real
-        full-stack app. It addressed a need I saw in the Pokemon community,
-        sure, but it was also partially me wanting to prove to myself that I
-        could figure out how to put together a web app up and down the stack.
-        Initially, I just used it as a specialized drafting tool for my friends.
-        It was even formatted around our draft league format, making it pretty
-        hyperspecialized to begin with.
-      </p>
-      <br />
-      <CaptionedFigure caption="The initial draft-focused layout">
-        <Image
-          src={teambuilderOld}
-          alt="Kingdra Teambuilder"
-          class="mx-auto max-h-[700px] w-auto"
-          loading="eager"
-        />
-      </CaptionedFigure>
-      <br />
-      <p>
-        As the project grew, I started to get feedback from my friends that they
-        could see this app skeleton being used as a general purpose tool for
-        Pokemon players. At that point, development really took off.
-      </p>
+    <section id="origin">
+      <div class="section-heading">
+        <span class="eyebrow">May 2024</span>
+        <h3>Draft Night Was the Constraint</h3>
+      </div>
+      <div class="origin-grid">
+        <article class="origin-card">
+          <span class="origin-index" aria-hidden="true">01</span>
+          <h4>Point-Budget Drafting</h4>
+          <p class="placeholder-copy">{placeholderShort}</p>
+        </article>
+        <article class="origin-card">
+          <span class="origin-index" aria-hidden="true">02</span>
+          <h4>Tera Captain Rules</h4>
+          <p class="placeholder-copy">{placeholderShort}</p>
+        </article>
+        <article class="origin-card">
+          <span class="origin-index" aria-hidden="true">03</span>
+          <h4>Local Team Exchange</h4>
+          <p class="placeholder-copy">{placeholderShort}</p>
+        </article>
+      </div>
+      <p class="placeholder-copy origin-copy">{placeholderBody}</p>
     </section>
-    <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
-      <p>
-        This project was my first time really diving into a meta-framework
-        (Next.js), and it shows. I had to figure out what API routes even were
-        and how they worked. There was also a lot of initial trial and error in
-        fetching data properly from all of the different APIs, since I struggled
-        with staggering fetches and posts in sequential order. Using a NoSQL
-        database (<a
-          href="https://www.mongodb.com/"
-          target="_blank"
-          rel="noreferrer">MongoDB</a
-        >) helped a lot, but I still needed to figure out how to handle data
-        properly with React hooks, which was something I wasn't super familiar
-        with at the time.
-      </p>
-      <br />
-      <p>
-        Initially, I had an idea to implement draggable Pokemon cards. You could
-        take Pokemon from the infinite scroll and drag them into a team slot.
-        Sadly, this created a UX problem. If you're far down on the page, it's a
-        pain to drag a Pokemon all the way back to the top! That idea was
-        scrapped, but it was the basis for the grid-based selection system we
-        have now.
-      </p>
-      <br />
-      <CaptionedFigure
-        caption="The current grid-based Pokémon selection system"
-      >
-        <Image
-          src={gridBasedSelection}
-          alt="Grid-Based Selection"
-          class="mx-auto max-h-[700px] w-auto"
-          loading="eager"
-        />
-      </CaptionedFigure>
-      <br />
-      <p>
-        Another goal was to implement stat calculations for each Pokemon. In
-        order to make this tool useful in the competitive scene, I had to make
-        sure EVs and IVs could fluidly adjust the final stat totals. The stat
-        calculation system implements the exact formulas used in the Pokemon
-        games, factoring in the <a
-          href="https://bulbapedia.bulbagarden.net/wiki/Nature"
-          target="_blank"
-          rel="noreferrer">nature multiplier</a
-        > when it is relevant:
-      </p>
-      <CodeBlock
-        code={`const calculateStatTotal = () => {
-  if (id === 0) {
-    //Is HP, calculate differently
-    return (
-      Math.floor(
-        ((2 * baseValue + iv + Math.floor(ev / 4) + 100) * level) / level
-      ) + 10
-    ); // 110 = Level 100 + 10
-  } else {
-    return Math.floor(
-      (Math.floor(((2 * baseValue + iv + Math.floor(ev / 4)) * level) / 100) +
-        5) *
-        getNatureMultiplier()
-    );
-  }
-};`}
-        language="typescript"
-      />
-      <p>
-        This function would run every time that the EVs or IVs were changed to
-        recalculate the stat total. The fluidity of these state changes made me
-        grateful to be using React, as these kinds of dynamic state changes are
-        significantly harder to do in vanilla JavaScript.
-      </p>
-      {
-        /* <p class="pb-3">
-        Several key challenges emerged during development that required creative
-        solutions:
-      </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81a.488.488 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">
-            Component Library Trade-offs
-          </h4>
-          <p>
-            While <a
-              href="https://flowbite.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Flowbite
-            </a> accelerated initial development, its constraints became apparent
-            during mobile adaptation. This required creative CSS solutions and highlighted
-            the importance of evaluating long-term flexibility when choosing dependencies.
-          </p>
+
+    <section id="lifecycle">
+      <div class="section-heading">
+        <span class="eyebrow">All 397 commits on main</span>
+        <h3>Eight Phases, One Product Arc</h3>
+      </div>
+      <p class="placeholder-copy section-intro">{placeholderLead}</p>
+
+      <div class="commit-pulse" aria-labelledby="commit-pulse-title">
+        <div class="graphic-header">
+          <div>
+            <span class="graphic-kicker">Commit pulse</span>
+            <h4 id="commit-pulse-title">Change volume by lifecycle phase</h4>
+          </div>
+          <span class="graphic-total">{totalCommits} total</span>
         </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="8rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">API Integration</h4>
-          <p>
-            External Pokemon APIs have limitations that required careful data
-            handling. Managing infinite scroll with 1000+ Pokemon required
-            debounced search, efficient state management, and strategic caching
-            for smooth performance.
-          </p>
+
+        <div class="commit-bars">
+          {
+            phases.map((phase) => (
+              <a
+                class="commit-bar"
+                href={`#phase-panel-${phase.id}`}
+                data-phase-target={phase.id}
+                aria-label={`${phase.label}: ${phase.commits} ${phase.commits === 1 ? "commit" : "commits"}`}
+                style={`--bar-size: ${(phase.commits / maxCommitCount) * 100}%; --phase-accent: ${phase.color};`}
+              >
+                <span class="commit-bar-count">{phase.commits}</span>
+                <span class="commit-bar-track" aria-hidden="true">
+                  <span class="commit-bar-fill" />
+                </span>
+                <span class="commit-bar-label">{phase.shortDate}</span>
+              </a>
+            ))
+          }
         </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Mobile Optimization</h4>
-          <p>
-            The mobile adaptation phase revealed the importance of considering
-            all device types from the start. Converting a desktop-optimized UI
-            to mobile required rethinking navigation, information hierarchy, and
-            interaction patterns. The PWA implementation significantly improved
-            the mobile experience.
-          </p>
+        <div class="graphic-note">
+          Each bar represents every commit assigned to that phase; July 10–21
+          sets the scale at 107 commits.
         </div>
       </div>
-    </p> */
-      }
-      <br />
-      <p>
-        There were also built in automatic speed calculations for the speed stat
-        depending on whether the Pokemon was holding a <a
-          href="https://bulbapedia.bulbagarden.net/wiki/Choice_Scarf"
+
+      <div class="phase-explorer" data-phase-explorer>
+        <div
+          class="phase-tabs"
+          role="tablist"
+          aria-label="Kingdra lifecycle phases"
+        >
+          {
+            phases.map((phase, index) => (
+              <button
+                id={`phase-tab-${phase.id}`}
+                class="phase-tab"
+                type="button"
+                role="tab"
+                aria-selected={index === 0 ? "true" : "false"}
+                aria-controls={`phase-panel-${phase.id}`}
+                data-phase-tab={phase.id}
+                tabindex={index === 0 ? 0 : -1}
+              >
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                {phase.label}
+              </button>
+            ))
+          }
+        </div>
+
+        <div class="phase-panels">
+          {
+            phases.map((phase, index) => (
+              <article
+                class="phase-panel"
+                id={`phase-panel-${phase.id}`}
+                role="tabpanel"
+                aria-labelledby={`phase-tab-${phase.id}`}
+                data-phase-panel={phase.id}
+                tabindex="0"
+                style={`--phase-accent: ${phase.color};`}
+              >
+                <div class="phase-panel-header">
+                  <div>
+                    <span class="phase-date">{phase.date}</span>
+                    <h4>{phase.label}</h4>
+                    <div class="phase-subject">{phase.subject}</div>
+                  </div>
+                  <div class="phase-count">
+                    <strong>{phase.commits}</strong>
+                    <span>{phase.commits === 1 ? "commit" : "commits"}</span>
+                  </div>
+                </div>
+
+                <p class="placeholder-copy">
+                  {index % 2 ? placeholderBody : placeholderLead}
+                </p>
+
+                <div class="phase-evidence">
+                  <div>
+                    <h5>Product subjects</h5>
+                    <ul class="subject-list">
+                      {phase.features.map((feature) => (
+                        <li>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h5>Pivotal commit subjects</h5>
+                    <ul class="commit-list">
+                      {phase.pivotalCommits.map((commit) => (
+                        <li>
+                          <a
+                            href={`${repositoryUrl}/commit/${commit.hash}`}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <code>{commit.hash}</code>
+                            <span>{commit.subject}</span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {phase.id === "mobile-pwa" && (
+                  <a class="detail-link" href="/ux/kingdra-case-study">
+                    Read the detailed mobile UX case study
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )}
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section id="architecture">
+      <div class="section-heading">
+        <span class="eyebrow">System map</span>
+        <h3>From External Data to Saved Team</h3>
+      </div>
+      <p class="placeholder-copy section-intro">{placeholderBody}</p>
+
+      <div
+        class="architecture-map"
+        role="img"
+        aria-label="Architecture flow from PokeAPI, Smogon, and GraphQL through Next.js API routes and React state to Clerk, MongoDB, and local PWA behavior"
+      >
+        <svg
+          class="architecture-lines"
+          viewBox="0 0 1000 320"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <defs>
+            <marker
+              id="architecture-arrow"
+              viewBox="0 0 10 10"
+              refX="9"
+              refY="5"
+              markerWidth="6"
+              markerHeight="6"
+              orient="auto-start-reverse"
+            >
+              <path d="M 0 0 L 10 5 L 0 10 z"></path>
+            </marker>
+          </defs>
+          <path d="M 220 60 C 330 60, 330 160, 445 160"></path>
+          <path d="M 220 160 L 445 160"></path>
+          <path d="M 220 260 C 330 260, 330 160, 445 160"></path>
+          <path d="M 555 160 L 675 160"></path>
+          <path d="M 785 160 C 850 160, 850 60, 900 60"></path>
+          <path d="M 785 160 L 900 160"></path>
+          <path d="M 785 160 C 850 160, 850 260, 900 260"></path>
+        </svg>
+
+        <div class="architecture-column architecture-sources">
+          <span class="architecture-label">Data sources</span>
+          <div class="architecture-node">PokeAPI</div>
+          <div class="architecture-node">Smogon Data</div>
+          <div class="architecture-node">GraphQL</div>
+        </div>
+        <div class="architecture-column architecture-core">
+          <span class="architecture-label">Application core</span>
+          <div class="architecture-node architecture-node-primary">
+            Next.js API Routes
+          </div>
+          <div class="architecture-node architecture-node-primary">
+            React State
+          </div>
+        </div>
+        <div class="architecture-column architecture-services">
+          <span class="architecture-label">Identity and storage</span>
+          <div class="architecture-node">Clerk Identity</div>
+          <div class="architecture-node">MongoDB Teams</div>
+          <div class="architecture-node">Local / PWA</div>
+        </div>
+      </div>
+
+      <ul
+        class="architecture-legend"
+        aria-label="Architecture responsibilities"
+      >
+        <li><span aria-hidden="true">01</span>Fetch and normalize</li>
+        <li><span aria-hidden="true">02</span>Calculate and validate</li>
+        <li><span aria-hidden="true">03</span>Identify and persist</li>
+      </ul>
+    </section>
+
+    <section id="product-evolution">
+      <div class="section-heading">
+        <span class="eyebrow">Interface evolution</span>
+        <h3>From Draft Board to Team Workspace</h3>
+      </div>
+      <p class="placeholder-copy section-intro">{placeholderLead}</p>
+
+      <div class="comparison" data-comparison>
+        <div
+          class="comparison-controls"
+          role="group"
+          aria-label="Choose an interface version"
+        >
+          <button
+            type="button"
+            data-comparison-button="prototype"
+            aria-pressed="true"
+          >
+            Draft prototype
+          </button>
+          <button
+            type="button"
+            data-comparison-button="workspace"
+            aria-pressed="false"
+          >
+            Team workspace
+          </button>
+        </div>
+
+        <div class="comparison-stage">
+          <div class="comparison-view" data-comparison-view="prototype">
+            <CaptionedFigure
+              caption="May 2024 — Point-budget draft interface"
+              spaced={false}
+            >
+              <Image
+                src={teambuilderOld}
+                alt="Early Kingdra draft-focused layout"
+                class="comparison-image"
+                loading="lazy"
+              />
+            </CaptionedFigure>
+          </div>
+          <div class="comparison-view" data-comparison-view="workspace">
+            <CaptionedFigure
+              caption="July 2024 — Grid-based general team selection"
+              spaced={false}
+            >
+              <Image
+                src={gridBasedSelection}
+                alt="Later Kingdra grid-based team selection layout"
+                class="comparison-image"
+                loading="lazy"
+              />
+            </CaptionedFigure>
+          </div>
+        </div>
+      </div>
+
+      <div class="mobile-bridge">
+        <div>
+          <span class="graphic-kicker">October 2024</span>
+          <h4>Mobile and PWA Release</h4>
+        </div>
+        <p class="placeholder-copy">{placeholderShort}</p>
+        <a class="detail-link" href="/ux/kingdra-case-study">
+          Explore the mobile design narrative
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="outcome">
+      <div class="section-heading">
+        <span class="eyebrow">December 2024</span>
+        <h3>The Product at Closeout</h3>
+      </div>
+      <p class="placeholder-copy section-intro">{placeholderBody}</p>
+
+      <ul class="outcome-grid" aria-label="Completed Kingdra capabilities">
+        <li>
+          <span class="outcome-number">01</span>
+          <h4>Build</h4>
+          <span class="outcome-detail">
+            Multiple named teams with complete competitive sets
+          </span>
+        </li>
+        <li>
+          <span class="outcome-number">02</span>
+          <h4>Calculate</h4>
+          <span class="outcome-detail">
+            Stats, natures, levels, type coverage, and speed modifiers
+          </span>
+        </li>
+        <li>
+          <span class="outcome-number">03</span>
+          <h4>Discover</h4>
+          <span class="outcome-detail">
+            Search, encounter data, forms, cries, and Smogon tiers
+          </span>
+        </li>
+        <li>
+          <span class="outcome-number">04</span>
+          <h4>Move</h4>
+          <span class="outcome-detail">
+            Showdown import/export, cloud persistence, and PWA access
+          </span>
+        </li>
+      </ul>
+
+      <div class="closing-commit">
+        <div>
+          <span class="graphic-kicker">Final commit</span>
+          <h4>Persistence Ordering</h4>
+        </div>
+        <a
+          href={`${repositoryUrl}/commit/189101c`}
           target="_blank"
-          rel="noreferrer">Choice Scarf</a
-        > or not. This is a feature that my friends and I found to be sorely missing
-        from other teambuilder apps, so I decided to bundle it in as a little tooltip
-        under the speed stat. Here's how it's implemented under the hood:
-      </p>
-      <CodeBlock
-        code={`const speedCalcs = (
-		<div>
-			<ul className='gap-1 p-2'>
-				<li className='flex items-center gap-2'>
-					<p className='text-gray-600'>
-						+1 Stage / Scarfed: <strong>{calculateStatTotal() * 1.5}</strong>
-					</p>
-				</li>
-				<li className='flex items-center gap-2'>
-					<p className='text-gray-600'>
-						+2 Stages: <strong>{calculateStatTotal() * 2}</strong>
-					</p>
-				</li>
-				<li className='flex items-center gap-2'>
-					<p className='text-gray-600'>
-						+3 Stages: <strong>{calculateStatTotal() * 2.5}</strong>
-					</p>
-				</li>
-			</ul>
-		</div>
-	);`}
-        language="typescript"
-      />
-      <p>
-        One of the hallmark features is the import and export system. Instead of
-        trying to fight the dominance of Pokemon Showdown in the scene, I
-        decided to just leverage its format to allow users to import and export
-        from the platform at will. There was a lot of data cleanup work that
-        went into pushing this data into JSON files. Here's a snippet from some
-        of the stat parsing.
-      </p>
-      <CodeBlock
-        code={`rest.forEach((line) => {
-  if (line.startsWith('EVs:')) {
-    const evs = line.substring(4).split('/');
-    evs.forEach((stat) => {
-      const [value, name] = stat.trim().split(' ');
-      const index = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'].indexOf(name);
-      if (index !== -1) {
-        ev[index] = parseInt(value);
-      }
-    });
-  } else if (line.startsWith('IVs:')) {
-    const ivs = line.substring(4).split('/');
-    ivs.forEach((stat) => {
-      const [value, name] = stat.trim().split(' ');
-      const index = ['HP', 'Atk', 'Def', 'SpA', 'SpD', 'Spe'].indexOf(name);
-      if (index !== -1) {
-        iv[index] = parseInt(value);
-      }
-    });
-  } else if (line.startsWith('Tera Type:')) {
-    tera_type = line.split(':')[1].trim();
-  } else if (line.endsWith('Nature')) {
-    nature = line.split(' ')[0];
-  } else if (line.startsWith('-')) {
-    const moveIndex = moves.findIndex((move) => move === '');
-    if (moveIndex !== -1) {
-      moves[moveIndex] = line.substring(1).trim();
-    }
-  }
-});`}
-        language="typescript"
-      />
-      <p>
-        Though there is still work to be done, I'm proud of where this project
-        ended up, considering it was a solo project. It was a great learning
-        experience to learn how to leverage multiple APIs in a single app to
-        build out a cohesive experience. Hope you find it useful!
-      </p>
+          rel="noreferrer"
+        >
+          <code>189101c</code>
+          <span>create mutex to ensure GET from DB before POST</span>
+        </a>
+      </div>
     </section>
   </div>
 </CaseStudyLayout>
 
+<script>
+  const explorer = document.querySelector<HTMLElement>("[data-phase-explorer]");
+
+  if (explorer) {
+    const tabs = Array.from(
+      explorer.querySelectorAll<HTMLButtonElement>("[data-phase-tab]"),
+    );
+    const panels = Array.from(
+      explorer.querySelectorAll<HTMLElement>("[data-phase-panel]"),
+    );
+    const pulseLinks = Array.from(
+      document.querySelectorAll<HTMLAnchorElement>("[data-phase-target]"),
+    );
+
+    const selectPhase = (phaseId: string, focusPanel = false) => {
+      tabs.forEach((tab) => {
+        const selected = tab.dataset.phaseTab === phaseId;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+
+      panels.forEach((panel) => {
+        const selected = panel.dataset.phasePanel === phaseId;
+        panel.hidden = !selected;
+        if (selected && focusPanel) panel.focus();
+      });
+
+      pulseLinks.forEach((link) => {
+        if (link.dataset.phaseTarget === phaseId) {
+          link.setAttribute("aria-current", "true");
+        } else {
+          link.removeAttribute("aria-current");
+        }
+      });
+    };
+
+    explorer.dataset.enhanced = "true";
+    selectPhase(tabs[0]?.dataset.phaseTab ?? "");
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        selectPhase(tab.dataset.phaseTab ?? "");
+      });
+
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex = index;
+
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+          nextIndex = (index + 1) % tabs.length;
+        } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+          nextIndex = (index - 1 + tabs.length) % tabs.length;
+        } else if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = tabs.length - 1;
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        const nextTab = tabs[nextIndex];
+        if (!nextTab) return;
+        selectPhase(nextTab.dataset.phaseTab ?? "");
+        nextTab.focus();
+      });
+    });
+
+    pulseLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        selectPhase(link.dataset.phaseTarget ?? "", true);
+      });
+    });
+  }
+
+  const comparison = document.querySelector<HTMLElement>("[data-comparison]");
+
+  if (comparison) {
+    const buttons = Array.from(
+      comparison.querySelectorAll<HTMLButtonElement>(
+        "[data-comparison-button]",
+      ),
+    );
+    const views = Array.from(
+      comparison.querySelectorAll<HTMLElement>("[data-comparison-view]"),
+    );
+
+    const selectComparison = (viewId: string) => {
+      buttons.forEach((button) => {
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.comparisonButton === viewId),
+        );
+      });
+      views.forEach((view) => {
+        view.hidden = view.dataset.comparisonView !== viewId;
+      });
+    };
+
+    comparison.dataset.enhanced = "true";
+    selectComparison("prototype");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        selectComparison(button.dataset.comparisonButton ?? "");
+      });
+    });
+  }
+</script>
+
 <style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
+  .kingdra-lifecycle {
+    --panel-border: rgba(255, 255, 255, 0.12);
+    --panel-background: rgba(255, 255, 255, 0.035);
+    --muted-text: #a1a1aa;
+  }
+
+  .kingdra-lifecycle section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .kingdra-lifecycle section:last-child {
+    border-bottom: 0;
+  }
+
+  .overview-section {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.55fr) minmax(0, 1.45fr);
+    gap: 4rem;
+    padding-top: 2.5rem !important;
+  }
+
+  .section-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .section-heading h3 {
+    margin: 0 !important;
+    color: white;
+    font-size: clamp(1.55rem, 3vw, 2.15rem);
+    font-weight: 650;
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+  }
+
+  .eyebrow,
+  .graphic-kicker,
+  .phase-date,
+  .architecture-label {
+    display: block;
+    margin: 0 0 0.55rem !important;
+    color: var(--header-color) !important;
+    font-size: 0.72rem !important;
+    font-style: normal !important;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    line-height: 1.2 !important;
+    text-transform: uppercase;
+  }
+
+  .section-content {
+    min-width: 0;
+  }
+
+  .placeholder-copy {
+    margin: 0 0 1rem !important;
+    color: var(--text-color) !important;
+    font-style: italic;
+    opacity: 0.82;
+  }
+
+  .placeholder-copy:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .section-intro {
+    max-width: 48rem;
+    margin-bottom: 1.75rem !important;
+  }
+
+  .metric-grid,
+  .origin-grid,
+  .subject-list,
+  .commit-list,
+  .architecture-legend,
+  .outcome-grid {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 2rem !important;
+  }
+
+  .metric-grid li {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin: 0 !important;
+    padding: 1rem !important;
+    border: 1px solid var(--panel-border);
+    border-radius: 0.8rem;
+    background: var(--panel-background);
+    list-style: none !important;
+  }
+
+  .metric-grid strong {
+    color: white;
+    font-size: clamp(1.55rem, 4vw, 2.25rem);
+    letter-spacing: -0.055em;
+    line-height: 1;
+  }
+
+  .metric-grid span {
+    color: var(--muted-text);
+    font-size: 0.72rem;
+    line-height: 1.3;
+  }
+
+  .origin-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .origin-card {
     position: relative;
+    min-height: 13rem;
+    overflow: hidden;
+    padding: 1.25rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 1rem;
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(56, 189, 248, 0.13),
+        transparent 45%
+      ),
+      var(--panel-background);
   }
 
-  @media (hover: hover) {
-    a {
-      text-decoration: none;
-    }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
-    }
-    a:hover:after {
-      width: 100%;
-      left: 0;
-    }
+  .origin-card h4 {
+    position: relative;
+    margin: 4rem 0 0.65rem;
+    color: white;
+    font-size: 1.05rem;
   }
 
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
+  .origin-card .placeholder-copy {
+    position: relative;
+    font-size: 0.88rem;
+  }
+
+  .origin-index {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.9rem;
+    color: rgba(255, 255, 255, 0.06);
+    font-size: 5rem;
+    font-weight: 800;
+    letter-spacing: -0.08em;
+    line-height: 1;
+  }
+
+  .origin-copy {
+    max-width: 44rem;
+    margin-top: 1.5rem !important;
+  }
+
+  .commit-pulse,
+  .phase-explorer,
+  .architecture-map,
+  .comparison,
+  .mobile-bridge,
+  .closing-commit {
+    border: 1px solid var(--panel-border);
+    border-radius: 1rem;
+    background: var(--panel-background);
+  }
+
+  .commit-pulse {
+    margin-bottom: 1.5rem;
+    padding: clamp(1rem, 3vw, 1.5rem);
+  }
+
+  .graphic-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .graphic-header h4 {
+    margin: 0;
+    color: white;
+    font-size: 1.1rem;
+  }
+
+  .graphic-total {
+    margin: 0 !important;
+    color: white !important;
+    font-size: 0.82rem;
+    font-weight: 650;
     white-space: nowrap;
   }
 
-  @media (max-width: 768px) {
-    code {
-      font-size: 0.75rem;
+  .commit-bars {
+    display: grid;
+    min-height: 14rem;
+    grid-template-columns: repeat(8, minmax(2.5rem, 1fr));
+    align-items: end;
+    gap: clamp(0.35rem, 1.4vw, 0.8rem);
+  }
+
+  .commit-bar {
+    display: grid;
+    height: 100%;
+    grid-template-rows: auto 1fr auto;
+    gap: 0.4rem;
+    color: var(--muted-text);
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .commit-bar-count {
+    align-self: end;
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+
+  .commit-bar-track {
+    display: flex;
+    width: 100%;
+    min-height: 8rem;
+    align-items: flex-end;
+    overflow: hidden;
+    border-radius: 0.45rem;
+    background: rgba(255, 255, 255, 0.055);
+  }
+
+  .commit-bar-fill {
+    display: block;
+    width: 100%;
+    height: max(0.5rem, var(--bar-size));
+    border-radius: 0.45rem;
+    background: var(--phase-accent);
+    opacity: 0.72;
+    transition:
+      opacity 180ms ease,
+      filter 180ms ease;
+  }
+
+  .commit-bar:hover .commit-bar-fill,
+  .commit-bar:focus-visible .commit-bar-fill,
+  .commit-bar[aria-current="true"] .commit-bar-fill {
+    filter: saturate(1.25);
+    opacity: 1;
+  }
+
+  .commit-bar:focus-visible {
+    border-radius: 0.45rem;
+    outline: 2px solid white;
+    outline-offset: 4px;
+  }
+
+  .commit-bar-label {
+    overflow: hidden;
+    font-size: 0.67rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .graphic-note {
+    margin: 1rem 0 0 !important;
+    color: var(--muted-text) !important;
+    font-size: 0.72rem;
+  }
+
+  .phase-explorer {
+    overflow: hidden;
+  }
+
+  .phase-tabs {
+    display: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1px;
+    padding: 1px;
+    background: var(--panel-border);
+  }
+
+  .phase-explorer[data-enhanced="true"] .phase-tabs {
+    display: grid;
+  }
+
+  .phase-tab {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 0.8rem;
+    border: 0;
+    background: #191919;
+    color: var(--muted-text);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.76rem;
+    text-align: left;
+  }
+
+  .phase-tab span {
+    color: #71717a;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.65rem;
+  }
+
+  .phase-tab:hover,
+  .phase-tab[aria-selected="true"] {
+    background: #232323;
+    color: white;
+  }
+
+  .phase-tab:focus-visible,
+  .comparison-controls button:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline: 2px solid var(--header-color);
+    outline-offset: -3px;
+  }
+
+  .phase-panels {
+    padding: clamp(1rem, 4vw, 2rem);
+  }
+
+  .phase-panel {
+    border-left: 3px solid var(--phase-accent);
+    padding-left: clamp(1rem, 3vw, 1.5rem);
+    scroll-margin-top: 2rem;
+  }
+
+  .phase-panel + .phase-panel {
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--panel-border);
+  }
+
+  .phase-explorer[data-enhanced="true"] .phase-panel + .phase-panel {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .phase-panel:focus-visible {
+    outline: 2px solid var(--phase-accent);
+    outline-offset: 0.4rem;
+  }
+
+  .phase-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .phase-panel-header h4 {
+    margin: 0 0 0.35rem;
+    color: white;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+  }
+
+  .phase-subject {
+    margin: 0 !important;
+    color: #d4d4d8 !important;
+    font-size: 0.9rem;
+  }
+
+  .phase-count {
+    display: flex;
+    min-width: 4.5rem;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .phase-count strong {
+    color: var(--phase-accent);
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .phase-count span {
+    color: var(--muted-text);
+    font-size: 0.7rem;
+  }
+
+  .phase-evidence {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .phase-evidence h5 {
+    margin: 0 0 0.65rem;
+    color: white;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .subject-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .subject-list li {
+    margin: 0 !important;
+    padding: 0.38rem 0.6rem !important;
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.035);
+    color: #d4d4d8 !important;
+    font-size: 0.72rem;
+    list-style: none !important;
+  }
+
+  .commit-list {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .commit-list li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+
+  .commit-list a,
+  .closing-commit a {
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+    padding: 0.55rem 0.65rem;
+    border-radius: 0.5rem;
+    color: #e4e4e7;
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: background 160ms ease;
+  }
+
+  .commit-list a:hover,
+  .commit-list a:focus-visible,
+  .closing-commit a:hover,
+  .closing-commit a:focus-visible {
+    background: rgba(255, 255, 255, 0.07);
+    outline: none;
+  }
+
+  .commit-list code,
+  .closing-commit code {
+    flex: 0 0 auto;
+    color: var(--phase-accent, var(--header-color));
+    font-family: "Martian Mono", monospace;
+    font-size: 0.68rem;
+  }
+
+  .detail-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.4rem;
+    color: var(--header-color);
+    font-size: 0.82rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .detail-link span {
+    transition: transform 160ms ease;
+  }
+
+  .detail-link:hover span,
+  .detail-link:focus-visible span {
+    transform: translateX(0.2rem);
+  }
+
+  .architecture-map {
+    position: relative;
+    display: grid;
+    min-height: 20rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: center;
+    gap: clamp(2rem, 8vw, 6rem);
+    overflow: hidden;
+    padding: clamp(1.25rem, 4vw, 2rem);
+  }
+
+  .architecture-map::before {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 2rem 2rem;
+    content: "";
+    pointer-events: none;
+  }
+
+  .architecture-lines {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .architecture-lines path {
+    fill: none;
+    marker-end: url("#architecture-arrow");
+    stroke: rgba(255, 255, 255, 0.25);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .architecture-lines marker path {
+    fill: rgba(255, 255, 255, 0.35);
+    stroke: none;
+  }
+
+  .architecture-column {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .architecture-core {
+    gap: 1.25rem;
+  }
+
+  .architecture-node {
+    padding: 0.75rem 0.8rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 0.6rem;
+    background: #191919;
+    color: #d4d4d8;
+    font-size: 0.75rem;
+    text-align: center;
+  }
+
+  .architecture-node-primary {
+    border-color: color-mix(in srgb, var(--header-color) 55%, transparent);
+    background: color-mix(in srgb, var(--header-color) 10%, #191919);
+    color: white;
+    font-weight: 650;
+  }
+
+  .architecture-legend {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.8rem !important;
+  }
+
+  .architecture-legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 !important;
+    padding: 0.55rem !important;
+    color: var(--muted-text) !important;
+    font-size: 0.72rem;
+    list-style: none !important;
+  }
+
+  .architecture-legend span {
+    color: var(--header-color);
+    font-family: "Martian Mono", monospace;
+  }
+
+  .comparison {
+    padding: clamp(0.75rem, 2vw, 1rem);
+  }
+
+  .comparison-controls {
+    display: none;
+    width: fit-content;
+    gap: 0.25rem;
+    margin: 0 auto 1rem;
+    padding: 0.25rem;
+    border: 1px solid var(--panel-border);
+    border-radius: 999px;
+    background: #151515;
+  }
+
+  .comparison[data-enhanced="true"] .comparison-controls {
+    display: flex;
+  }
+
+  .comparison-controls button {
+    padding: 0.6rem 0.9rem;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted-text);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.78rem;
+  }
+
+  .comparison-controls button[aria-pressed="true"] {
+    background: var(--header-color);
+    color: #101010;
+    font-weight: 700;
+  }
+
+  .comparison-stage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .comparison[data-enhanced="true"] .comparison-stage {
+    display: block;
+  }
+
+  .comparison-view {
+    overflow: hidden;
+    border-radius: 0.75rem;
+  }
+
+  .comparison-image {
+    width: 100%;
+    max-height: 36rem;
+    border-radius: 0.75rem;
+    object-fit: contain;
+  }
+
+  .mobile-bridge {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.6fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding: 1.25rem;
+  }
+
+  .mobile-bridge h4,
+  .closing-commit h4 {
+    margin: 0;
+    color: white;
+    font-size: 1rem;
+  }
+
+  .mobile-bridge .placeholder-copy {
+    margin: 0 !important;
+    font-size: 0.82rem;
+  }
+
+  .mobile-bridge .detail-link {
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .outcome-grid li {
+    position: relative;
+    min-height: 9rem;
+    margin: 0 !important;
+    padding: 1.1rem !important;
+    border: 1px solid var(--panel-border);
+    border-radius: 0.8rem;
+    background: var(--panel-background);
+    list-style: none !important;
+  }
+
+  .outcome-grid h4 {
+    margin: 2.4rem 0 0.35rem;
+    color: white;
+    font-size: 1rem;
+  }
+
+  .outcome-detail {
+    display: block;
+    margin: 0 !important;
+    color: var(--muted-text) !important;
+    font-size: 0.78rem;
+    line-height: 1.6;
+  }
+
+  .outcome-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: var(--header-color);
+    font-family: "Martian Mono", monospace;
+    font-size: 0.7rem;
+  }
+
+  .closing-commit {
+    display: grid;
+    grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  @media (max-width: 900px) {
+    .overview-section {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .metric-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .phase-tabs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .phase-evidence {
+      grid-template-columns: 1fr;
+    }
+
+    .architecture-map {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .architecture-lines {
+      display: none;
+    }
+
+    .architecture-column {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .architecture-column .architecture-label {
+      grid-column: 1 / -1;
+    }
+
+    .architecture-core {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mobile-bridge {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+
+    .mobile-bridge .detail-link {
+      white-space: normal;
     }
   }
 
+  @media (max-width: 700px) {
+    .origin-grid,
+    .comparison-stage,
+    .outcome-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .commit-bars {
+      min-height: 11rem;
+      grid-template-columns: repeat(8, minmax(1.2rem, 1fr));
+      gap: 0.25rem;
+    }
+
+    .commit-bar-track {
+      min-height: 6rem;
+    }
+
+    .commit-bar-label {
+      writing-mode: vertical-rl;
+    }
+
+    .phase-panel-header {
+      flex-direction: column;
+    }
+
+    .phase-count {
+      align-items: flex-start;
+    }
+
+    .architecture-column,
+    .architecture-core {
+      grid-template-columns: 1fr;
+    }
+
+    .architecture-column .architecture-label {
+      grid-column: auto;
+    }
+
+    .architecture-legend {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-stage {
+      gap: 1.5rem;
+    }
+
+    .closing-commit {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .metric-grid,
+    .phase-tabs {
+      grid-template-columns: 1fr;
+    }
+
+    .graphic-header {
+      flex-direction: column;
+    }
+
+    .phase-panels {
+      padding: 1rem;
+    }
+
+    .commit-list a,
+    .closing-commit a {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .comparison-controls {
+      width: 100%;
+    }
+
+    .comparison-controls button {
+      flex: 1;
+      padding-inline: 0.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .commit-bar-fill,
+    .detail-link span,
+    .commit-list a,
+    .closing-commit a {
+      transition: none;
+    }
+  }
 </style>
