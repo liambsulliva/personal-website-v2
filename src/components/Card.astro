@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Badge from "./Badge.astro";
+import { getToolUrl } from "../utils/tools";
 
 const {
   title,
@@ -21,12 +22,13 @@ const href = projectLink ?? demoBtn;
 const target = projectLink ? undefined : "_blank";
 ---
 
-<a
-  href={href}
-  aria-label={title}
-  target={target}
-  class="group flex cursor-pointer items-stretch gap-6"
->
+<div class="group card relative flex cursor-pointer items-stretch gap-6">
+  <a
+    href={href}
+    aria-label={title}
+    target={target}
+    class="card-overlay"
+  ></a>
   <div
     class="relative flex h-full w-full flex-col rounded-xl border border-[#333333] bg-[#151515] group-hover:bg-[#181818]"
   >
@@ -49,24 +51,24 @@ const target = projectLink ? undefined : "_blank";
       </div>
     </div>
 
-    <div class="mx-4 flex gap-2">
+    <div class="card-badges mx-4 flex gap-2">
       {
         Banner1Icon && (
-          <Badge text={banner1text}>
+          <Badge text={banner1text} href={getToolUrl(banner1text)}>
             <Banner1Icon />
           </Badge>
         )
       }
       {
         Banner2Icon && (
-          <Badge text={banner2text}>
+          <Badge text={banner2text} href={getToolUrl(banner2text)}>
             <Banner2Icon />
           </Badge>
         )
       }
       {
         Banner3Icon && (
-          <Badge text={banner3text}>
+          <Badge text={banner3text} href={getToolUrl(banner3text)}>
             <Banner3Icon />
           </Badge>
         )
@@ -104,23 +106,23 @@ const target = projectLink ? undefined : "_blank";
       </p>
     </div>
   </div>
-</a>
+</div>
 
 <style>
-  a {
+  .card {
     text-decoration: none;
     color: inherit;
     display: block;
-    position: relative;
   }
 
-  a::after {
-    content: "";
+  .card-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     z-index: 1;
+  }
+
+  .card-badges {
+    position: relative;
+    z-index: 2;
   }
 </style>
