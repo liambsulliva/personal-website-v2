@@ -8,11 +8,16 @@ import {
 } from "../../utils/images";
 import CodeBlock from "../../components/CodeBlock.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
+import CaseStudySectionHeading from "../../components/case-study/CaseStudySectionHeading.astro";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
   { text: "Context", href: "#context" },
-  { text: "Development", href: "#development" },
+  { text: "Foundation", href: "#foundation" },
+  { text: "Selection", href: "#selection" },
+  { text: "Calculations", href: "#calculations" },
+  { text: "Interoperability", href: "#interoperability" },
+  { text: "Outcome", href: "#outcome" },
 ];
 ---
 
@@ -38,49 +43,51 @@ const sidebarItems = [
     slot="hero"
   />
 
-  <div class="case-study-layout">
-    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
-      <h3 class="text-2xl font-semibold text-white">Overview</h3>
-      <div>
-        <p>
-          Kingdra is a full-stack web application that seeks to solve a problem
-          I encountered while organizing a Pokemon draft league for my friends
-          (think fantasy football, but with Pokemon). There aren't many tools
-          out there that allow you to create and manage Pokemon teams, and those
-          that do are often poorly designed and lack the ability to set moves
-          and stats unless you're using <a
-            href="https://play.pokemonshowdown.com/"
-            target="_blank"
-            rel="noreferrer">Pokemon Showdown</a
-          >.
-        </p>
-        <br />
-        <p>
-          I also wanted to include a way to group in casual and competitive play
-          in the same place. If casual players find that they are starting to
-          develop an interest in competitive play, they can easily move their
-          teams over to a competitive format just by toggling the app's mode.
-        </p>
-        <br />
-        <p>
-          The app features infinite scrolling, real-time stat calculations, user
-          authentication, team management, and full import/export functionality
-          with Pokemon Showdown. It also relies on multiple APIs to function,
-          namely the <a
-            href="https://pokeapi.co/"
-            target="_blank"
-            rel="noreferrer">PokeAPI</a
-          > and the <a
-            href="https://pkmn.github.io/smogon/data/"
-            target="_blank"
-            rel="noreferrer">Smogon API</a
-          >.
-        </p>
-      </div>
-    </section>
+  <section class="overview-section" id="overview">
+    <CaseStudySectionHeading
+      eyebrow="Overview"
+      title="A full-stack Pokemon teambuilder"
+    >
+      <p>
+        Kingdra is a full-stack web application that seeks to solve a problem I
+        encountered while organizing a Pokemon draft league for my friends
+        (think fantasy football, but with Pokemon). There aren't many tools out
+        there that allow you to create and manage Pokemon teams, and those that
+        do are often poorly designed and lack the ability to set moves and stats
+        unless you're using <a
+          href="https://play.pokemonshowdown.com/"
+          target="_blank"
+          rel="noreferrer">Pokemon Showdown</a
+        >.
+      </p>
+      <p>
+        I also wanted to include a way to group in casual and competitive play
+        in the same place. If casual players find that they are starting to
+        develop an interest in competitive play, they can easily move their
+        teams over to a competitive format just by toggling the app's mode.
+      </p>
+      <p>
+        The app features infinite scrolling, real-time stat calculations, user
+        authentication, team management, and full import/export functionality
+        with Pokemon Showdown. It also relies on multiple APIs to function,
+        namely the <a
+          href="https://pokeapi.co/"
+          target="_blank"
+          rel="noreferrer">PokeAPI</a
+        > and the <a
+          href="https://pkmn.github.io/smogon/data/"
+          target="_blank"
+          rel="noreferrer">Smogon API</a
+        >.
+      </p>
+    </CaseStudySectionHeading>
+  </section>
 
-    <section id="context">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Context</h3>
+  <section id="context">
+    <CaseStudySectionHeading
+      eyebrow="Context"
+      title="From draft league tool to general-purpose app"
+    >
       <p>
         The goal going in was to figure out Next.js and build my first real
         full-stack app. It addressed a need I saw in the Pokemon community,
@@ -90,25 +97,29 @@ const sidebarItems = [
         It was even formatted around our draft league format, making it pretty
         hyperspecialized to begin with.
       </p>
-      <br />
-      <CaptionedFigure caption="The initial draft-focused layout">
-        <Image
-          src={teambuilderOld}
-          alt="Kingdra Teambuilder"
-          class="mx-auto max-h-[700px] w-auto"
-          loading="eager"
-        />
-      </CaptionedFigure>
-      <br />
-      <p>
-        As the project grew, I started to get feedback from my friends that they
-        could see this app skeleton being used as a general purpose tool for
-        Pokemon players. At that point, development really took off.
-      </p>
-    </section>
-    <br />
-    <section id="development">
-      <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+    </CaseStudySectionHeading>
+
+    <CaptionedFigure caption="The initial draft-focused layout">
+      <Image
+        src={teambuilderOld}
+        alt="Kingdra Teambuilder"
+        class="mx-auto max-h-[700px] w-auto"
+        loading="eager"
+      />
+    </CaptionedFigure>
+
+    <p>
+      As the project grew, I started to get feedback from my friends that they
+      could see this app skeleton being used as a general purpose tool for
+      Pokemon players. At that point, development really took off.
+    </p>
+  </section>
+
+  <section id="foundation">
+    <CaseStudySectionHeading
+      eyebrow="Foundation"
+      title="Building the technical foundation"
+    >
       <p>
         This project was my first time really diving into a meta-framework
         (Next.js), and it shows. I had to figure out what API routes even were
@@ -123,7 +134,14 @@ const sidebarItems = [
         properly with React hooks, which was something I wasn't super familiar
         with at the time.
       </p>
-      <br />
+    </CaseStudySectionHeading>
+  </section>
+
+  <section id="selection">
+    <CaseStudySectionHeading
+      eyebrow="Selection"
+      title="From drag-and-drop to grid-based selection"
+    >
       <p>
         Initially, I had an idea to implement draggable Pokemon cards. You could
         take Pokemon from the infinite scroll and drag them into a team slot.
@@ -132,18 +150,23 @@ const sidebarItems = [
         scrapped, but it was the basis for the grid-based selection system we
         have now.
       </p>
-      <br />
-      <CaptionedFigure
-        caption="The current grid-based Pokémon selection system"
-      >
-        <Image
-          src={gridBasedSelection}
-          alt="Grid-Based Selection"
-          class="mx-auto max-h-[700px] w-auto"
-          loading="eager"
-        />
-      </CaptionedFigure>
-      <br />
+    </CaseStudySectionHeading>
+
+    <CaptionedFigure caption="The current grid-based Pokémon selection system">
+      <Image
+        src={gridBasedSelection}
+        alt="Grid-Based Selection"
+        class="mx-auto max-h-[700px] w-auto"
+        loading="eager"
+      />
+    </CaptionedFigure>
+  </section>
+
+  <section id="calculations">
+    <CaseStudySectionHeading
+      eyebrow="Calculations"
+      title="Real-time stat calculations"
+    >
       <p>
         Another goal was to implement stat calculations for each Pokemon. In
         order to make this tool useful in the competitive scene, I had to make
@@ -155,8 +178,10 @@ const sidebarItems = [
           rel="noreferrer">nature multiplier</a
         > when it is relevant:
       </p>
-      <CodeBlock
-        code={`const calculateStatTotal = () => {
+    </CaseStudySectionHeading>
+
+    <CodeBlock
+      code={`const calculateStatTotal = () => {
   if (id === 0) {
     //Is HP, calculate differently
     return (
@@ -172,104 +197,29 @@ const sidebarItems = [
     );
   }
 };`}
-        language="typescript"
-      />
-      <p>
-        This function would run every time that the EVs or IVs were changed to
-        recalculate the stat total. The fluidity of these state changes made me
-        grateful to be using React, as these kinds of dynamic state changes are
-        significantly harder to do in vanilla JavaScript.
-      </p>
-      {
-        /* <p class="pb-3">
-        Several key challenges emerged during development that required creative
-        solutions:
-      </p>
-      <div class="card-container">
-        <div class="card">
-          <svg
-            class="mx-auto my-4"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="7rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M19.14 12.94c.04-.3.06-.61.06-.94c0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81a.488.488 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6s3.6 1.62 3.6 3.6s-1.62 3.6-3.6 3.6"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">
-            Component Library Trade-offs
-          </h4>
-          <p>
-            While <a
-              href="https://flowbite.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Flowbite
-            </a> accelerated initial development, its constraints became apparent
-            during mobile adaptation. This required creative CSS solutions and highlighted
-            the importance of evaluating long-term flexibility when choosing dependencies.
-          </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="8rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2m-2 15l-5-5l1.41-1.41L10 14.17l7.59-7.59L19 8z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">API Integration</h4>
-          <p>
-            External Pokemon APIs have limitations that required careful data
-            handling. Managing infinite scroll with 1000+ Pokemon required
-            debounced search, efficient state management, and strategic caching
-            for smooth performance.
-          </p>
-        </div>
-        <div class="card">
-          <svg
-            class="mx-auto my-2"
-            xmlns="http://www.w3.org/2000/svg"
-            width="7rem"
-            height="8rem"
-            viewBox="0 0 24 24"
-            ><path
-              fill="white"
-              d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99M17 19H7V5h10z"
-            ></path></svg
-          >
-          <h4 class="text-xl font-medium text-white">Mobile Optimization</h4>
-          <p>
-            The mobile adaptation phase revealed the importance of considering
-            all device types from the start. Converting a desktop-optimized UI
-            to mobile required rethinking navigation, information hierarchy, and
-            interaction patterns. The PWA implementation significantly improved
-            the mobile experience.
-          </p>
-        </div>
-      </div>
-    </p> */
-      }
-      <br />
-      <p>
-        There were also built in automatic speed calculations for the speed stat
-        depending on whether the Pokemon was holding a <a
-          href="https://bulbapedia.bulbagarden.net/wiki/Choice_Scarf"
-          target="_blank"
-          rel="noreferrer">Choice Scarf</a
-        > or not. This is a feature that my friends and I found to be sorely missing
-        from other teambuilder apps, so I decided to bundle it in as a little tooltip
-        under the speed stat. Here's how it's implemented under the hood:
-      </p>
-      <CodeBlock
-        code={`const speedCalcs = (
+      language="typescript"
+    />
+
+    <p>
+      This function would run every time that the EVs or IVs were changed to
+      recalculate the stat total. The fluidity of these state changes made me
+      grateful to be using React, as these kinds of dynamic state changes are
+      significantly harder to do in vanilla JavaScript.
+    </p>
+
+    <p>
+      There were also built in automatic speed calculations for the speed stat
+      depending on whether the Pokemon was holding a <a
+        href="https://bulbapedia.bulbagarden.net/wiki/Choice_Scarf"
+        target="_blank"
+        rel="noreferrer">Choice Scarf</a
+      > or not. This is a feature that my friends and I found to be sorely missing
+      from other teambuilder apps, so I decided to bundle it in as a little tooltip
+      under the speed stat. Here's how it's implemented under the hood:
+    </p>
+
+    <CodeBlock
+      code={`const speedCalcs = (
 		<div>
 			<ul className='gap-1 p-2'>
 				<li className='flex items-center gap-2'>
@@ -290,8 +240,15 @@ const sidebarItems = [
 			</ul>
 		</div>
 	);`}
-        language="typescript"
-      />
+      language="typescript"
+    />
+  </section>
+
+  <section id="interoperability">
+    <CaseStudySectionHeading
+      eyebrow="Interoperability"
+      title="Pokemon Showdown import and export"
+    >
       <p>
         One of the hallmark features is the import and export system. Instead of
         trying to fight the dominance of Pokemon Showdown in the scene, I
@@ -300,8 +257,10 @@ const sidebarItems = [
         went into pushing this data into JSON files. Here's a snippet from some
         of the stat parsing.
       </p>
-      <CodeBlock
-        code={`rest.forEach((line) => {
+    </CaseStudySectionHeading>
+
+    <CodeBlock
+      code={`rest.forEach((line) => {
   if (line.startsWith('EVs:')) {
     const evs = line.substring(4).split('/');
     evs.forEach((stat) => {
@@ -331,66 +290,18 @@ const sidebarItems = [
     }
   }
 });`}
-        language="typescript"
-      />
+      language="typescript"
+    />
+  </section>
+
+  <section id="outcome">
+    <CaseStudySectionHeading eyebrow="Outcome" title="Where the project landed">
       <p>
         Though there is still work to be done, I'm proud of where this project
         ended up, considering it was a solo project. It was a great learning
         experience to learn how to leverage multiple APIs in a single app to
         build out a cohesive experience. Hope you find it useful!
       </p>
-    </section>
-  </div>
+    </CaseStudySectionHeading>
+  </section>
 </CaseStudyLayout>
-
-<style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
-    position: relative;
-  }
-
-  @media (hover: hover) {
-    a {
-      text-decoration: none;
-    }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
-    }
-    a:hover:after {
-      width: 100%;
-      left: 0;
-    }
-  }
-
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    code {
-      font-size: 0.75rem;
-    }
-  }
-
-</style>

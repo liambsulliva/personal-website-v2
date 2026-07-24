@@ -153,36 +153,34 @@ const { title } = Astro.props;
     padding: 1rem;
     margin: 1rem;
   }
+  /* Prose links: sky blue; underline always on touch, hover-only on desktop */
+  a:not([class]),
   .text-link {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
+    color: #76c7ff;
     font-weight: 600;
-    display: inline;
-    position: relative;
+    text-decoration: underline;
+    text-decoration-color: #76c7ff;
+    text-underline-offset: 2px;
   }
 
   @media (hover: hover) {
+    a:not([class]),
     .text-link {
       text-decoration: none;
     }
-    .text-link:after {
-      bottom: -2px;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
+
+    a:not([class]):hover,
+    .text-link:hover {
+      text-decoration: underline;
+      text-decoration-color: #76c7ff;
+      text-underline-offset: 2px;
     }
-    .text-link:hover:after {
-      width: 100%;
-      left: 0;
-    }
+  }
+
+  footer a:not([class]) {
+    color: inherit;
+    font-weight: inherit;
+    text-decoration: none;
   }
   p {
     font-size: 1rem;

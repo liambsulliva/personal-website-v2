@@ -30,8 +30,7 @@ const sidebarItems = [
     slot="hero"
   />
 
-  <div class="case-study-layout">
-    <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
+  <section class="pb-10 pt-10 md:flex md:gap-20" id="overview">
       <h3 class="text-2xl font-semibold text-white">Overview</h3>
       <div>
         <p>
@@ -41,7 +40,6 @@ const sidebarItems = [
           Computer Interaction (HCI), and Educational Psychology are a few of
           their key focus areas.
         </p>
-        <br />
         <p>
           The BRIDGE project that I worked with narrows this scope down to
           members of the deaf and hard of hearing community. Specifically,
@@ -63,7 +61,6 @@ const sidebarItems = [
         also use their own made-up signs, which ends up causing problems when
         different students use differing signage from one another.
       </p>
-      <br />
       <p>
         Since deaf students are so underrepresented in these fields, traditional
         support structures such as office hours and professorial guidance are
@@ -71,7 +68,6 @@ const sidebarItems = [
         audio-based cues in order to determine who is speaking, which makes the
         platform completely inaccessible for ASL learners.
       </p>
-      <br />
       <p>
         The hypothesis of this research project is that AI-driven technology can
         be leveraged to substantially improve collaboration and learning
@@ -79,7 +75,6 @@ const sidebarItems = [
         signers in a landscape where semantics are fragmented and commonly
         misunderstood.
       </p>
-      <br />
       <p>
         The project also incorporates Augmented Reality (AR) technology to
         support ASL learners in a tangible way that is difficult to replicate
@@ -89,7 +84,6 @@ const sidebarItems = [
         affords this kind of use, which makes it an excellent fit for this form
         of research.
       </p>
-      <br />
       <p>
         To gain a wholistic understanding of the community and their needs,
         experts in ASL learning, such as <a
@@ -102,7 +96,6 @@ const sidebarItems = [
         between signers remain relatively intuitive.
       </p>
     </section>
-    <br />
     <section id="development">
       <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
       <p>
@@ -114,7 +107,6 @@ const sidebarItems = [
         of a word they are learning from an external source, they are also given the
         means to upload their own images to be analyzed through OpenAI’s Vision API.
       </p>
-      <br />
       <p>
         Whether images are manually uploaded or AI-generated, users are
         incentivized to build up a library of images to use for their future
@@ -123,7 +115,6 @@ const sidebarItems = [
         and gradually fill gaps in the image library, and thus in their
         knowledge.
       </p>
-      <br />
       <p>
         To incentivize users to fill their library with words, there is a “word
         map” tab that clusters words by semantic similarity and physically links
@@ -133,7 +124,6 @@ const sidebarItems = [
         interface to zoom out and obtain a tangible view of their progress and
         understanding.
       </p>
-      <br />
       <p>
         All signage is stored in a globally accessible data repository that is
         called across the application (<code>signLibrary.ts</code>). Basic ASL
@@ -188,7 +178,6 @@ function extractContentWords(text: string): Set<string> {
         referenced to check for common phrases like “thank you”, “hello”, and
         “goodbye”.
       </p>
-      <br />
       <p>
         When a word is detected and a user approves an AI-generated sign, a POST
         request is sent through a SvelteKit API route (<code
@@ -226,56 +215,4 @@ console.log('[STEP] Raw OpenAI image result:', !!result && result.data && result
         pre-compressing their images.
       </p>
     </section>
-  </div>
 </CaseStudyLayout>
-
-<style>
-  a {
-    color: var(--header-color);
-    text-decoration: underline;
-    text-decoration-color: var(--header-color);
-    text-underline-offset: 2px;
-    font-weight: 600;
-    display: inline-block;
-    position: relative;
-  }
-
-  @media (hover: hover) {
-    a {
-      text-decoration: none;
-    }
-    a:after {
-      bottom: 0;
-      content: "";
-      height: 2px;
-      left: 50%;
-      position: absolute;
-      background: var(--header-color);
-      transition:
-        width 0.2s ease 0s,
-        left 0.2s ease 0s;
-      width: 0;
-    }
-    a:hover:after {
-      width: 100%;
-      left: 0;
-    }
-  }
-
-  code {
-    background-color: #1e1e1e;
-    color: #d4d4d4;
-    font-family: "Martian Mono", "Courier New", Courier, monospace;
-    font-size: 0.875rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 4px;
-    border: 1px solid #333;
-    white-space: nowrap;
-  }
-
-  @media (max-width: 768px) {
-    code {
-      font-size: 0.75rem;
-    }
-  }
-</style>

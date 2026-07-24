@@ -1,0 +1,49 @@
+---
+interface PipelineNode {
+  step: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  nodes: PipelineNode[];
+  ariaLabel?: string;
+  class?: string;
+}
+
+const { nodes, ariaLabel, class: className } = Astro.props;
+---
+
+<div
+  class:list={["constraint-graphic", className]}
+  role={ariaLabel ? "img" : undefined}
+  aria-label={ariaLabel}
+>
+  <div class="constraint-pipeline">
+    {
+      nodes.flatMap((node, index) => {
+        const items = [];
+        if (index > 0) {
+          items.push(
+            <svg
+              class="constraint-arrow"
+              viewBox="0 0 48 24"
+              aria-hidden="true"
+            >
+              <path d="M2 12h36M30 4l10 8-10 8" />
+            </svg>,
+          );
+        }
+        items.push(
+          <div class="constraint-node">
+            <span>{node.step}</span>
+            <strong set:html={node.title} />
+            <p set:html={node.body} />
+          </div>,
+        );
+        return items;
+      })
+    }
+  </div>
+  <slot />
+</div>

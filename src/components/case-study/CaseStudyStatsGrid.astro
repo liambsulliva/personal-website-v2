@@ -1,0 +1,34 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  stats: Stat[];
+  note?: string;
+  ariaLabel?: string;
+  class?: string;
+}
+
+const {
+  stats,
+  note,
+  ariaLabel = "Project summary",
+  class: className,
+} = Astro.props;
+---
+
+<div class:list={["overview-stats-block", className]}>
+  <div class="overview-stats" aria-label={ariaLabel}>
+    {
+      stats.map((stat) => (
+        <article>
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </article>
+      ))
+    }
+  </div>
+  {note && <p class="overview-stats-note">{note}</p>}
+</div>

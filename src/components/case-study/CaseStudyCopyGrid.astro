@@ -1,0 +1,27 @@
+---
+interface CopyItem {
+  label: string;
+  body: string;
+}
+
+interface Props {
+  items: CopyItem[];
+  columns?: 2 | 3;
+  class?: string;
+}
+
+const { items, columns = 3, class: className } = Astro.props;
+const gridClass = columns === 2 ? "architecture-copy" : "overview-copy";
+---
+
+<div class:list={[gridClass, className]}>
+  {
+    items.map((item) => (
+      <p>
+        <strong>{item.label}</strong>
+        {item.body}
+      </p>
+    ))
+  }
+  <slot />
+</div>

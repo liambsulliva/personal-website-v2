@@ -1,0 +1,27 @@
+---
+interface Feature {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  features: Feature[];
+  class?: string;
+}
+
+const { features, class: className } = Astro.props;
+---
+
+<div class:list={["feature-inventory", className]}>
+  {
+    features.map((feature) => (
+      <article>
+        <span aria-hidden="true">✓</span>
+        <div>
+          <h4>{feature.title}</h4>
+          <p set:html={feature.description} />
+        </div>
+      </article>
+    ))
+  }
+</div>

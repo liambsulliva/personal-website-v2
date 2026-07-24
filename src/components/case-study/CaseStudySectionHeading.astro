@@ -1,0 +1,15 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  class?: string;
+}
+
+const { eyebrow, title, class: className } = Astro.props;
+---
+
+<div class:list={["section-heading", className]}>
+  <p class="eyebrow">{eyebrow}</p>
+  <h3>{title}</h3>
+  <slot />
+</div>

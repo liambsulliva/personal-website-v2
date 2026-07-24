@@ -21,6 +21,7 @@ import BrandingPhotoAlbum from "../../components/projects/BrandingPhotoAlbum";
 import FigmaEmbed from "../../components/FigmaEmbed.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
 import Callout from "../../components/Callout.astro";
+import CaseStudySectionHeading from "../../components/case-study/CaseStudySectionHeading.astro";
 import CaseStudyCardGrid from "../../components/ux/CaseStudyCardGrid.astro";
 import CaseStudyCard from "../../components/ux/CaseStudyCard.astro";
 import WindowChrome from "../../components/projects/WindowChrome/WindowChrome";
@@ -61,12 +62,12 @@ const brandingPhotos = [
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
-  { text: "Concept", href: "#concept" },
+  { text: "Pitch", href: "#proposal" },
   { text: "Branding", href: "#branding" },
   { text: "Prototyping", href: "#prototyping" },
   { text: "Development", href: "#development" },
-  { text: "Testing", href: "#testing" },
-  { text: "Summary", href: "#summary" },
+  { text: "Workshop", href: "#workshop" },
+  { text: "Reflections", href: "#reflections" },
 ];
 ---
 
@@ -81,6 +82,7 @@ const sidebarItems = [
   timeline={["3 Months"]}
   githubLink="https://github.com/liambsulliva/dnid-capstone"
   demoLink="https://uxwiki.liambsullivan.com"
+  contentClass="overflow-x-hidden break-words"
 >
   <Image
     src={invisibleHandOfUx}
@@ -89,114 +91,108 @@ const sidebarItems = [
     loading="eager"
     slot="hero"
   />
-  <div
-    class="case-study-layout min-w-0 max-w-full overflow-x-hidden break-words"
-  >
-    <section
-      class="flex min-w-0 max-w-full flex-col gap-6 pb-10 pt-10 md:flex-row md:gap-20"
-      id="overview"
+  <section class="overview-section" id="overview">
+    <CaseStudySectionHeading
+      eyebrow="Overview"
+      title="A learning wiki that shows UX patterns instead of naming them"
     >
-      <h3 class="shrink-0 text-2xl font-semibold text-white md:max-w-[12rem]">
-        Overview
-      </h3>
-      <div class="min-w-0 flex-1">
-        <p>
-          The Invisible Hand of UX is built for the rest of us. The people that
-          are tired of designer jargon and just want to know why their apps feel
-          "off". It uses curated demos to illustrate the considerations that go
-          into the apps we use every day. Where possible, this project seeks to <i
-            >show, not tell</i
-          >.
-        </p>
-        <br />
-        <p>
-          In a sense, the project is a meta-exploration of trends in User
-          Interfaces (UIs). It lets users see their own behavior reflected in
-          the pages themselves. It leverages interactivity to introduce concepts
-          that users have almost certainly seen before and establish a causal
-          link between that term and the end it achieves.
-        </p>
-      </div>
-    </section>
+      <p>
+        The Invisible Hand of UX is built for the rest of us. The people that
+        are tired of designer jargon and just want to know why their apps feel
+        "off". It uses curated demos to illustrate the considerations that go
+        into the apps we use every day. Where possible, this project seeks to <i
+          >show, not tell</i
+        >.
+      </p>
+      <p>
+        In a sense, the project is a meta-exploration of trends in User
+        Interfaces (UIs). It lets users see their own behavior reflected in the
+        pages themselves. It leverages interactivity to introduce concepts that
+        users have almost certainly seen before and establish a causal link
+        between that term and the end it achieves.
+      </p>
+    </CaseStudySectionHeading>
+  </section>
 
-    <section id="concept" class="min-w-0 max-w-full pb-10">
-      <div class="w-full min-w-0 max-w-full flex-1">
-        <h3 class="!mb-3 text-2xl font-semibold text-white">Concept</h3>
-        <CaptionedFigure caption="The Original Pitch Deck.">
-          <PdfSlideCarousel
-            client:visible
-            src="/pitch-deck.pdf"
-            aspectRatio={16 / 9}
-          />
-        </CaptionedFigure>
-        <div>
-          <p>
-            In my work for the <a
-              href="https://www.instagram.com/designclubpitt/"
-              target="_blank">Design Club @ Pitt</a
-            >, I noticed that while members were able to see the value in the
-            concepts I taught on principle, they struggled with properly
-            internalizing those terms and applying them to their own work.
-          </p>
-          <br />
-          <p>
-            This isn't their fault. For a field that predicates itself on
-            inclusion, the UX world contains an awful lot of jargon. New
-            designers that would otherwise be interested in the field are left
-            turned away by the needless complexity of the terminology that UX
-            professionals use to describe their work. This makes it difficult
-            for newbies to "see" the patterns they learn in the tools they use
-            every day.
-          </p>
-          <br />
-          <p>
-            New designers see a complicated term, their eyes glaze over, and
-            they forget about it before they can notice it incorporated into
-            corporate work.
-          </p>
-          <Callout label="THE SOLUTION?">
-            Build interactivity into the learning process.
-          </Callout>
-          <p>
-            Students LOVE getting their hands dirty. They learn better that way,
-            too. A <a
-              href="https://www.purdue.edu/uns/x/2009a/090128DarkStudy.html"
-              target="_blank">study conducted at Purdue University</a
-            > found that 8th graders who built a water purification device saw much
-            higher test scores than those who followed a traditional lecture format.
-            The proof is in the pudding. Hands-on learning is a powerful lever to
-            engage students and help them internalize concepts.
-          </p>
-          <br />
-          <p>
-            Now, not every term is a good fit for a demo. Even if it were, it
-            would be far too time-consuming to create a demo for every single
-            one. But, by curating a wide swarth of demos that are both relevant
-            and engaging, I was able to set this project apart from a
-            traditional UX wiki and keep readers engaged.
-          </p>
-          <br />
-          <p>
-            By playing with the demos, readers are able to see the patterns in
-            action and connect the term
-            <i>directly</i> to the feeling of using it, rather than just reading about
-            it in an abstract context. They can use this resource to notice patterns
-            in the apps they use every day.
-          </p>
-        </div>
-        <br />
+  <section id="proposal" class="min-w-0 max-w-full">
+    <CaseStudySectionHeading
+      eyebrow="Proposal"
+      title="Hands-on demos over UX jargon"
+    />
+    <div class="w-full min-w-0 max-w-full flex-1">
+      <CaptionedFigure caption="The Original Pitch Deck.">
+        <PdfSlideCarousel
+          client:visible
+          src="/pitch-deck.pdf"
+          aspectRatio={16 / 9}
+        />
+      </CaptionedFigure>
+      <div>
         <p>
-          I planned to cover <i>50 unique terms</i>. If that sounds ambitious,
-          it's because it is. I wanted to make sure I was comprehensively
-          covering the field and not just cherry-picking a few terms to make the
-          project feel more manageable. Keep this in mind as we move forward
-          because it will come up later.
+          In my work for the <a
+            href="https://www.instagram.com/designclubpitt/"
+            target="_blank">Design Club @ Pitt</a
+          >, I noticed that while members were able to see the value in the
+          concepts I taught on principle, they struggled with properly
+          internalizing those terms and applying them to their own work.
+        </p>
+        <p>
+          This isn't their fault. For a field that predicates itself on
+          inclusion, the UX world contains an awful lot of jargon. New designers
+          that would otherwise be interested in the field are left turned away
+          by the needless complexity of the terminology that UX professionals
+          use to describe their work. This makes it difficult for newbies to
+          "see" the patterns they learn in the tools they use every day.
+        </p>
+        <p>
+          New designers see a complicated term, their eyes glaze over, and they
+          forget about it before they can notice it incorporated into corporate
+          work.
         </p>
       </div>
-    </section>
-  </div>
+    </div>
+    <Callout label="THE SOLUTION?">
+      Build interactivity into the learning process.
+    </Callout>
+    <div class="w-full min-w-0 max-w-full flex-1">
+      <p>
+        Students LOVE getting their hands dirty. They learn better that way,
+        too. A <a
+          href="https://www.purdue.edu/uns/x/2009a/090128DarkStudy.html"
+          target="_blank">study conducted at Purdue University</a
+        > found that 8th graders who built a water purification device saw much higher
+        test scores than those who followed a traditional lecture format. The proof
+        is in the pudding. Hands-on learning is a powerful lever to engage students
+        and help them internalize concepts.
+      </p>
+      <p>
+        Now, not every term is a good fit for a demo. Even if it were, it would
+        be far too time-consuming to create a demo for every single one. But, by
+        curating a wide swarth of demos that are both relevant and engaging, I
+        was able to set this project apart from a traditional UX wiki and keep
+        readers engaged.
+      </p>
+      <p>
+        By playing with the demos, readers are able to see the patterns in
+        action and connect the term
+        <i>directly</i> to the feeling of using it, rather than just reading about
+        it in an abstract context. They can use this resource to notice patterns in
+        the apps they use every day.
+      </p>
+    </div>
+    <p>
+      I planned to cover <i>50 unique terms</i>. If that sounds ambitious, it's
+      because it is. I wanted to make sure I was comprehensively covering the
+      field and not just cherry-picking a few terms to make the project feel
+      more manageable. Keep this in mind as we move forward because it will come
+      up later.
+    </p>
+  </section>
   <section id="branding">
-    <h3 class="!mb-3 text-2xl font-semibold text-white">Branding</h3>
+    <CaseStudySectionHeading
+      eyebrow="Branding"
+      title='What makes the hand "invisible"?'
+    />
     <div>
       <p>
         The name "Invisible Hand of UX" stems from the concept of an <a
@@ -208,14 +204,12 @@ const sidebarItems = [
         gun symbolism. Initially, the logos were relatively static and monochrome.
         But the mickey mouse style hand infused it with a bit of charm.
       </p>
-      <br />
       <p>
         This had the pleasant side effect of shifting the project's focus from
         that of a pure UX learning tool to one that explores the intersection of
         design and behavioral economics. Many of the examples on the site are
         inspired by pricing ladders and checkout displays.
       </p>
-      <br />
       <p>
         I wanted to imply that the interface is the one "in charge" of the
         user's experience. That the website itself will poke and prod at you
@@ -224,11 +218,9 @@ const sidebarItems = [
         heuristic traps it throws at you. This is where the "shooting through
         the text" concept came from.
       </p>
-      <br />
       <CaptionedFigure caption="The branding evolution.">
         <BrandingPhotoAlbum client:visible photos={brandingPhotos} />
       </CaptionedFigure>
-      <br />
       <p>
         I implemented the blue color palette after looking over the aesthetic of
         denim brands. <a href="https://www.oldnavy.com/" target="_blank"
@@ -239,13 +231,13 @@ const sidebarItems = [
         monochrome and boring to look at. The contrast between those colors and the
         inclusion of the mickey hand gives the project a balance of depth and playfulness.
       </p>
-      <br />
-      <p></p>
     </div>
   </section>
-  <br />
   <section id="prototyping">
-    <h3 class="!mb-3 text-2xl font-semibold text-white">Prototyping</h3>
+    <CaseStudySectionHeading
+      eyebrow="Prototyping"
+      title="A layout that lets the demos take center stage"
+    />
     <CaptionedFigure caption="Initial layout prototyping, courtesy of Figma.">
       <FigmaEmbed
         url={prototypingFigmaUrl}
@@ -258,7 +250,6 @@ const sidebarItems = [
       a distinct "face" to it, while presenting as an empty canvas to overlay
       demos on top of.
     </p>
-    <br />
     <p>
       <a href="https://docusaurus.io/" target="_blank">Docusaurus</a> did a ton of
       this work for me. Since it's built for documentation (it was used for <a
@@ -268,12 +259,10 @@ const sidebarItems = [
       looking to present into neat categories. It took a lot of the layout work
       off my plate so I could jump into development as soon as possible.
     </p>
-    <br />
     <p>
       Eventually, I settled on 5 distinct categories to organize the terms I was
       presenting.
     </p>
-    <br />
     <CaseStudyCardGrid variant="wiki" class="wiki-category-cards">
       <CaseStudyCard title="Anchoring" icon={ArrowConvergeIcon}>
         <p>
@@ -305,7 +294,6 @@ const sidebarItems = [
         </p>
       </CaseStudyCard>
     </CaseStudyCardGrid>
-    <br />
     <p>
       These 5 categories neatly mapped on to the terms I wanted to cover (more
       or less). Given the theme of the aggressive branding, I wanted to focus on
@@ -315,12 +303,12 @@ const sidebarItems = [
       meta-textual, the demos should be the focal point, not the scaffolding
       around it.
     </p>
-    <br />
-    <p></p>
   </section>
-  <br />
   <section id="development">
-    <h3 class="!mb-3 text-2xl font-semibold text-white">Development</h3>
+    <CaseStudySectionHeading
+      eyebrow="Development"
+      title="Animation tokens, window chrome, and interactive demos"
+    />
     <p>
       The bulk of my time was spent refining the animations and demos. That
       wasn't necessarily purposeful. This being for an English capstone, I
@@ -330,14 +318,14 @@ const sidebarItems = [
       done to make it feel right. And as good as these models are, it surprised
       me how often its visuals felt <i>stiff</i>.
     </p>
-    <br />
     <p>
       There are far too many demos to go through each of them one-by-one, so
       I'll just highlight some of the high-level decisons I made regarding their
       implementation because there is plenty of ground to cover there.
     </p>
-    <br />
-    <h4 class="!mb-3 text-xl font-semibold text-white">Animations</h4>
+    <div class="subsection-heading">
+      <h4>Animations</h4>
+    </div>
     <p>
       First off, the animations. In order to make the animations feel
       <i>springy</i>, I needed to use math to give the animations a bit of
@@ -369,7 +357,6 @@ const sidebarItems = [
 }`}
       language="css"
     />
-    <br />
     <p>
       There are a couple pieces to this. To start, the <code>@keyframes</code> bit
       defines the initial animation. It consists of a rotation that starts at 0 degrees,
@@ -379,7 +366,6 @@ const sidebarItems = [
       > bit is important to ensure that the rotation pivot is set at the bottom left
       corner of the icon.
     </p>
-    <br />
     <p>
       The part that makes it actually <i>springy</i> is in the <code
         >cubic-bezier(x1, y1, x2, y2)</code
@@ -390,23 +376,21 @@ const sidebarItems = [
       the animation starts settling down, and the <code>y2</code> determines where
       it ends up. Try it for yourself here!
     </p>
-    <br />
     <BezierPlayground client:visible />
-    <br />
-    <h4 class="!mb-3 text-xl font-semibold text-white">Colors</h4>
+    <div class="subsection-heading">
+      <h4>Colors</h4>
+    </div>
     <p>
       Managing colors on a large scale like this was more of a technical
       challenge than I had anticipated. Since this application has a light and a
       dark mode, colors needed to be conditionally defined, such that they would
       render correctly in both modes with the correct contrasts.
     </p>
-    <br />
     <p>
       Working in two distinct formats (Markdown and React Components) presented
       more of a challenge than I had originally expected. I had to find a way to
       make my colors cascade down to work in both formats. Here's how I did it:
     </p>
-    <br />
     <CodeBlock
       code={`/* custom.css */
 :root {
@@ -436,7 +420,6 @@ const sidebarItems = [
 };`}
       language="css"
     />
-    <br />
     <p>
       Global CSS variables! Defining my colors in a central location allowed me
       to quickly throw in my branded colors based on a luminosity scale. All I
@@ -446,22 +429,21 @@ const sidebarItems = [
       > block allowed me to overwrite these existing variables automatically when
       the user's theme was set to dark, whether by the system default or manually.
     </p>
-    <br />
     <p>
       Introducing the colors in this way pushed them out of my way and made it a
       non-issue to quickly insert blues and grays into my landing page, term
       pages, and demos as I needed them. Building this system from the top down
       was a huge boon for my productivity.
     </p>
-    <br />
-    <h4 class="!mb-3 text-xl font-semibold text-white">Demos</h4>
+    <div class="subsection-heading">
+      <h4>Demos</h4>
+    </div>
     <p>
       The demos ranged a lot in complexity, but the biggest principle I needed
       to adhere to was re-using generic components (buttons, windows, etc.) as
       much as possible. This A: saved me AI tokens and B: made the development
       process a little speedier.
     </p>
-    <br />
     <CaptionedFigure
       caption="The same macOS-style chrome wrapped almost every demo."
       class="mx-auto max-w-2xl"
@@ -470,7 +452,6 @@ const sidebarItems = [
         <h3 class="text-lg font-semibold text-white">Hello World!</h3>
       </WindowChrome>
     </CaptionedFigure>
-    <br />
     <p>
       The most obvious re-used component was the macOS style window chrome that
       wraps around a ton of the demo content. If there is a need to separate
@@ -478,7 +459,6 @@ const sidebarItems = [
       it in this generic window. It saved me a ton of time that would have
       otherwise been spent on creating new window frames for each demo.
     </p>
-    <br />
     <p>
       I also noticed that a lot of the terms I described could be pretty
       eloquently explained through the use of a pricing ladder, especially in <a
@@ -488,31 +468,26 @@ const sidebarItems = [
       ton of time and effort that could be spent making the other demos as good
       as they possibly could.
     </p>
-    <br />
     <p>
       But before I knew it, I was midway through the semester, and leveraging
       code re-use and agentic programming simply wasn't cutting it. I needed to
       adapt my approach.
     </p>
-    <br />
     <Callout label="THE PIVOT">
       Cut down the terms to a more manageable number.
     </Callout>
-    <br />
     <p>
       I cut the number of terms covered from 50 to a range between 25 and 30.
       This was a tough decision. I really wanted to make this project
       comprehensive, but I was beginning to realize that by focusing on the size
       of the number, I was sacrificing the quality of the content I <i>was</i> covering.
     </p>
-    <br />
     <p>
       This ended up having a number of positive side effects. By focusing on a
       smaller number of terms, I was able to give more terms interactive demos,
       rather than falling back to static images. This bolstered the project's
       core purpose of <i>showing</i>, rather than <i>telling</i>.
     </p>
-    <br />
     <CaptionedFigure
       caption="Animated previews nested in each landing page card."
     >
@@ -522,7 +497,6 @@ const sidebarItems = [
         class="w-full rounded-xl"
       />
     </CaptionedFigure>
-    <br />
     <p>
       Reducing the number of terms I covered also allowed me to incorporate
       animated <a
@@ -533,7 +507,6 @@ const sidebarItems = [
       the landing page, rather than displaying static images on a grid. It breathed
       new life into a page that initially felt stale and lackluster.
     </p>
-    <br />
     <CaptionedFigure caption="A cross-linked term.">
       <Image
         src={crossLinkedTerms}
@@ -541,28 +514,27 @@ const sidebarItems = [
         class="w-full rounded-xl"
       />
     </CaptionedFigure>
-    <br />
     <p>
       Most importantly, focusing on quality over quantity in my term coverage
       allowed me to go into much greater depth on each one. I was able to
       cross-reference terms with one another and provide much more context
       around where each term fits into the greater UX design sphere.
     </p>
-    <br />
     <p>
       I'm glad I made this pivot. It saved me a ton of headaches, and led to
       this project feeling much more cohesive and polished in its conclusion.
     </p>
   </section>
-  <br />
-  <section id="testing">
-    <h3 class="!mb-3 text-2xl font-semibold text-white">Testing</h3>
+  <section id="workshop">
+    <CaseStudySectionHeading
+      eyebrow="Workshop"
+      title="Classmate feedback reshaped the landing page"
+    />
     <p>
       This is where it gets fun. A LOT of the design decisions I made were
       informed by the user feedback I recieved throughout development. The
       landing page navigation illustrates this perfectly.
     </p>
-    <br />
     <CaptionedFigure
       caption="The initial landing page design was split into two screens."
     >
@@ -583,7 +555,6 @@ const sidebarItems = [
         />
       </div>
     </CaptionedFigure>
-    <br />
     <p>
       Initially, the landing page was completely separated from the home page.
       In truth, this was done to re-use the button that Docusaurus had provided
@@ -591,7 +562,6 @@ const sidebarItems = [
       interaction proved that I had a few blind spots. Classmates of mine that
       used the button noticed a few key issues:
     </p>
-    <br />
     <CaseStudyCardGrid>
       <CaseStudyCard
         title="Barrier to Content"
@@ -633,11 +603,9 @@ const sidebarItems = [
         </p>
       </CaseStudyCard>
     </CaseStudyCardGrid>
-    <br />
     <p>
       Clearly that button wasn't going to fly. I needed to try something else.
     </p>
-    <br />
     <CaptionedFigure caption="The landing page merged with the home page.">
       <Image
         src={landingGrid}
@@ -646,7 +614,6 @@ const sidebarItems = [
         loading="eager"
       />
     </CaptionedFigure>
-    <br />
     <p>
       I decided to merge the landing page with the home page and place it on its
       own separate page, rather than existing as a "document" in the home page.
@@ -655,7 +622,6 @@ const sidebarItems = [
       see it immediately, and it didn't detract from the logo design as much as
       I would have guessed.
     </p>
-    <br />
     <CaptionedFigure
       caption="Eventually, the grid morphed into a more traditional layout with sections."
     >
@@ -674,8 +640,6 @@ const sidebarItems = [
       category now has a full header and description to reinforce the categorical
       structure of the page.
     </p>
-    <br />
-    <br />
     <div class="mb-6 flex flex-col gap-8 md:flex-row">
       <CaptionedFigure
         caption="A tooltip to the light/dark mode toggle."
@@ -699,8 +663,11 @@ const sidebarItems = [
       </div>
     </div>
   </section>
-  <section id="summary">
-    <h3 class="!mb-3 text-2xl font-semibold text-white">Summary</h3>
+  <section id="reflections">
+    <CaseStudySectionHeading
+      eyebrow="Reflections"
+      title="What this project leaves behind"
+    />
     <p>
       In the end, I was able to create a wiki that functioned both as a learning
       tool and as an extensive technical showcase. It serves as the perfect cap
@@ -709,7 +676,6 @@ const sidebarItems = [
       open communication around the topic and encouraging collaboration through
       user feedback.
     </p>
-    <br />
     <p>
       An "Edit this page" button gives <i>anyone</i> the ability to contribute to
       the site as they wish. The hope is that this project will be picked up by the
@@ -717,55 +683,4 @@ const sidebarItems = [
       it's applied in the real world, and this project has illuminated that fact.
     </p>
   </section>
-
-  <style>
-    a {
-      color: var(--header-color);
-      text-decoration: underline;
-      text-decoration-color: var(--header-color);
-      text-underline-offset: 2px;
-      font-weight: 600;
-      display: inline-block;
-      position: relative;
-    }
-
-    @media (hover: hover) {
-      a {
-        text-decoration: none;
-      }
-      a:after {
-        bottom: 0;
-        content: "";
-        height: 2px;
-        left: 50%;
-        position: absolute;
-        background: var(--header-color);
-        transition:
-          width 0.2s ease 0s,
-          left 0.2s ease 0s;
-        width: 0;
-      }
-      a:hover:after {
-        width: 100%;
-        left: 0;
-      }
-    }
-
-    code {
-      background-color: #1e1e1e;
-      color: #d4d4d4;
-      font-family: "Martian Mono", "Courier New", Courier, monospace;
-      font-size: 0.875rem;
-      padding: 0.125rem 0.375rem;
-      border-radius: 4px;
-      border: 1px solid #333;
-      white-space: nowrap;
-    }
-
-    @media (max-width: 768px) {
-      code {
-        font-size: 0.75rem;
-      }
-    }
-  </style>
 </CaseStudyLayout>

@@ -1,0 +1,59 @@
+---
+interface TimelinePhase {
+  date?: string;
+  label: string;
+  title: string;
+  commitCount?: string;
+  whatIBuilt: string;
+  consequence: string;
+  whyItMattered: string;
+  subjects?: string[];
+}
+
+interface Props {
+  phases: TimelinePhase[];
+  class?: string;
+}
+
+const { phases, class: className } = Astro.props;
+---
+
+<ol class:list={["timeline", className]}>
+  {
+    phases.map((phase, index) => (
+      <li class="timeline-phase">
+        <div class="timeline-marker" aria-hidden="true">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+        </div>
+        <article>
+          {(phase.date || phase.commitCount) && (
+            <div class="phase-meta">
+              {phase.date && <span>{phase.date}</span>}
+              {phase.commitCount && <span>{phase.commitCount}</span>}
+            </div>
+          )}
+          <p class="phase-label">{phase.label}</p>
+          <h4>{phase.title}</h4>
+          <p>
+            <strong>What I built.</strong> {phase.whatIBuilt}
+          </p>
+          {phase.subjects && phase.subjects.length > 0 && (
+            <div
+              class="commit-subjects"
+              aria-label={`${phase.label} commit subjects`}
+            >
+              {phase.subjects.map((subject) => (
+                <code>{subject}</code>
+              ))}
+            </div>
+          )}
+          <div class="interface-consequence">
+            <span>Why it mattered</span>
+            <strong>{phase.consequence}</strong>
+            <p set:html={phase.whyItMattered} />
+          </div>
+        </article>
+      </li>
+    ))
+  }
+</ol>
