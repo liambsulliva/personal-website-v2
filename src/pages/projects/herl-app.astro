@@ -4,7 +4,7 @@ import Book from "../../components/projects/Book.svelte";
 import CodeBlock from "../../components/CodeBlock.astro";
 import CaseStudyCardGrid from "../../components/ux/CaseStudyCardGrid.astro";
 import CaseStudyCard from "../../components/ux/CaseStudyCard.astro";
-import CaseStudySectionHeading from "../../components/case-study/CaseStudySectionHeading.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
 import {
   VerifiedIcon,
   ResizeIcon,
@@ -50,7 +50,7 @@ const sidebarItems = [
   <Book client:load slot="hero" />
 
   <section class="overview-section" id="overview">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Overview"
       title="An interactive scrapbook to document HERL's history"
     >
@@ -68,11 +68,11 @@ const sidebarItems = [
         maintains the look and feel of a physical book without their physical
         limitations.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
   </section>
 
   <section id="context">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Context"
       title="Loose requirements leave room to invent"
     >
@@ -104,11 +104,11 @@ const sidebarItems = [
         thrilled.
       </p>
       <p>So here is a condensed timeline of this cool project, week by week.</p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
   </section>
 
   <section id="foundation">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Week 1-2"
       title="The foundation and graphical requirements"
     />
@@ -211,7 +211,7 @@ const sidebarItems = [
   </section>
 
   <section id="density">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Week 3-4"
       title="Content and responsive design"
     />
@@ -269,7 +269,7 @@ const sidebarItems = [
   </section>
 
   <section id="polish">
-    <CaseStudySectionHeading eyebrow="Week 5-6" title="Tweaking performance" />
+    <SectionHeading eyebrow="Week 5-6" title="Tweaking performance" />
     <p>
       Week 5 introduced a bunch of quality-of-life features. A lightbox view for
       enlarging photos on smaller screens, description shortening with
@@ -344,7 +344,7 @@ const truncate = (description: string, maxLength: number) => {
   </section>
 
   <section id="pivot">
-    <CaseStudySectionHeading eyebrow="Week 8-9" title="Narrowing the scope" />
+    <SectionHeading eyebrow="Week 8-9" title="Narrowing the scope" />
     <p>
       Week 7 was a mental health break. I just needed some time off after going
       full-tilt throughout the whole semester. After which, I made the critical
@@ -416,7 +416,7 @@ async function preloadPageImages(pageNum: number) {
   </section>
 
   <section id="optimization">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Week 10-11"
       title="Some final optimizations"
     />

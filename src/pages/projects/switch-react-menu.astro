@@ -3,13 +3,13 @@ import { Image } from "astro:assets";
 import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
 import CodeBlock from "../../components/CodeBlock.astro";
-import CaseStudySectionHeading from "../../components/case-study/CaseStudySectionHeading.astro";
-import CaseStudyCopyGrid from "../../components/case-study/CaseStudyCopyGrid.astro";
-import CaseStudyStatsGrid from "../../components/case-study/CaseStudyStatsGrid.astro";
-import CaseStudyPipeline from "../../components/case-study/CaseStudyPipeline.astro";
-import CaseStudyTimeline from "../../components/case-study/CaseStudyTimeline.astro";
-import CaseStudyFeatureInventory from "../../components/case-study/CaseStudyFeatureInventory.astro";
-import CaseStudyInteractionGrid from "../../components/case-study/CaseStudyInteractionGrid.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import CopyGrid from "../../components/CopyGrid.astro";
+import StatsGrid from "../../components/StatsGrid.astro";
+import Pipeline from "../../components/Pipeline.astro";
+import Timeline from "../../components/Timeline.astro";
+import FeatureInventory from "../../components/FeatureInventory.astro";
+import InteractionGrid from "../../components/InteractionGrid.astro";
 import SwitchMenuPreview from "../../components/projects/SwitchMenuPreview.svelte";
 import { switchReactMenuMockup } from "../../utils/images";
 
@@ -222,7 +222,7 @@ const interactionIdeas = [
   <SwitchMenuPreview client:load slot="hero" />
 
   <section class="overview-section" id="overview">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Overview"
       title="A minimalist home menu for Nintendo Switch"
     >
@@ -239,14 +239,14 @@ const interactionIdeas = [
         concept of running a React app on a console was interesting enough to be
         worth exploring.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
-    <CaseStudyCopyGrid items={overviewCopy} />
-    <CaseStudyStatsGrid stats={overviewStats} note="(as of June 2026)" />
+    <CopyGrid items={overviewCopy} />
+    <StatsGrid stats={overviewStats} note="(as of June 2026)" />
   </section>
 
   <section id="context">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Context"
       title="The React I remember, but without strings attached"
     >
@@ -274,9 +274,9 @@ const interactionIdeas = [
         ecosystem plays well with UI development. Ultimately, nx.js ended up
         being amazing for those reasons.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
-    <CaseStudyPipeline
+    <Pipeline
       nodes={pipelineNodes}
       ariaLabel="React tree rendered by react-tela directly to a Canvas2D screen surface, with no browser DOM"
     >
@@ -320,11 +320,11 @@ const interactionIdeas = [
           />
         </article>
       </div>
-    </CaseStudyPipeline>
+    </Pipeline>
   </section>
 
   <section id="timeline">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Project timeline"
       title="Four bursts across 92 commits"
     >
@@ -332,13 +332,13 @@ const interactionIdeas = [
         This timeline groups the four biggest sprints of the project with the
         features that were shipped in each.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
-    <CaseStudyTimeline phases={phases} />
+    <Timeline phases={phases} />
   </section>
 
   <section id="development">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Development"
       title="One interface pipeline, two execution environments"
     >
@@ -354,7 +354,7 @@ const interactionIdeas = [
         through a server-side RAWG proxy, so the API key never ships to the
         browser.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
     <figure
       class="architecture-figure"
@@ -405,11 +405,11 @@ const interactionIdeas = [
       </div>
     </figure>
 
-    <CaseStudyCopyGrid items={architectureCopy} columns={2} />
+    <CopyGrid items={architectureCopy} columns={2} />
   </section>
 
   <section id="final-build">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Final Build"
       title="What the project supports today"
     >
@@ -420,9 +420,9 @@ const interactionIdeas = [
         or tag. While the rich details panel is the highlighted feature, it can
         be freely disabled if the user prefers a more minimal approach.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
-    <CaseStudyFeatureInventory features={completedFeatures} />
+    <FeatureInventory features={completedFeatures} />
     <CaptionedFigure
       caption="The rich-details view allows users to see more information about the given game they're playing, courtesy of RAWG."
       class="product-figure"
@@ -435,6 +435,6 @@ const interactionIdeas = [
       />
     </CaptionedFigure>
 
-    <CaseStudyInteractionGrid items={interactionIdeas} />
+    <InteractionGrid items={interactionIdeas} />
   </section>
 </CaseStudyLayout>

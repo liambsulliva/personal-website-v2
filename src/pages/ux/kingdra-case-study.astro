@@ -6,9 +6,9 @@ import BlockQuote from "../../components/BlockQuote.astro";
 import Callout from "../../components/Callout.astro";
 import CaseStudyCardGrid from "../../components/ux/CaseStudyCardGrid.astro";
 import CaseStudyCard from "../../components/ux/CaseStudyCard.astro";
-import CaseStudySectionHeading from "../../components/case-study/CaseStudySectionHeading.astro";
-import CaseStudyBeforeAfter from "../../components/case-study/CaseStudyBeforeAfter.astro";
-import CaseStudyProsConsCard from "../../components/case-study/CaseStudyProsConsCard.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import BeforeAfter from "../../components/BeforeAfter.astro";
+import ProsConsCard from "../../components/ProsConsCard.astro";
 import { Image } from "astro:assets";
 import {
   BooksIcon,
@@ -78,7 +78,7 @@ const sidebarItems = [
   />
 
   <section class="overview-section" id="overview">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Overview"
       title="Rebuilding Kingdra for phones first"
     >
@@ -98,13 +98,13 @@ const sidebarItems = [
         elements and significantly reduced time to select Pokémon for a given
         team.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
   </section>
 
   <section id="context">
     <div class="split-context">
       <div class="split-context__main">
-        <CaseStudySectionHeading
+        <SectionHeading
           eyebrow="Context"
           title="Desktop-first development left mobile users stranded"
         />
@@ -166,7 +166,7 @@ const sidebarItems = [
   </section>
 
   <section id="roadblocks">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Roadblocks"
       title="Libraries, S-curves, and missing depth"
     />
@@ -217,7 +217,7 @@ const sidebarItems = [
   </section>
 
   <section id="considerations">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Considerations"
       title="Hover, feedback, and hierarchy on a small screen"
     />
@@ -272,7 +272,7 @@ const sidebarItems = [
   </section>
 
   <section id="navigation">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Navigation"
       title="Two prototype directions that never fully landed"
     />
@@ -281,7 +281,7 @@ const sidebarItems = [
       which I fully loved.
     </p>
     <div class="prototype-option-grid">
-      <CaseStudyProsConsCard
+      <ProsConsCard
         title="Bottom Tab Bar"
         image={menubar1}
         imageAlt="Bottom Tab Bar"
@@ -292,7 +292,7 @@ const sidebarItems = [
           "Can't see added Pokémon without switching tabs, not enough features to justify multiple tabs",
         ]}
       />
-      <CaseStudyProsConsCard
+      <ProsConsCard
         title="Icons Up Top"
         image={iconbar}
         imageAlt="Icons along the top navigation"
@@ -307,7 +307,7 @@ const sidebarItems = [
   </section>
 
   <section id="adaptations">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Adaptations"
       title="Concrete UI moves that reduced scroll and friction"
     />
@@ -320,7 +320,7 @@ const sidebarItems = [
         title="Hamburger Menu"
         titleClass="text-xl font-medium text-white"
       >
-        <CaseStudyBeforeAfter
+        <BeforeAfter
           slot="lead"
           before={hamburgerBefore}
           after={hamburgerAfter}
@@ -338,7 +338,7 @@ const sidebarItems = [
         title="Margins"
         titleClass="text-xl font-medium text-white"
       >
-        <CaseStudyBeforeAfter
+        <BeforeAfter
           slot="lead"
           before={marginsBefore}
           after={marginsAfter}
@@ -356,7 +356,7 @@ const sidebarItems = [
         title="Convert Tabs to Dropdowns"
         titleClass="text-xl font-medium text-white"
       >
-        <CaseStudyBeforeAfter
+        <BeforeAfter
           slot="lead"
           before={tabsBefore}
           after={tabsAfter}
@@ -375,7 +375,7 @@ const sidebarItems = [
         title="PWA Migration"
         titleClass="text-xl font-medium text-white"
       >
-        <CaseStudyBeforeAfter
+        <BeforeAfter
           slot="lead"
           before={pwaBefore}
           after={pwaAfter}
@@ -393,7 +393,7 @@ const sidebarItems = [
         title={`"Add Pokemon" Button + Modal`}
         titleClass="text-xl font-medium text-white"
       >
-        <CaseStudyBeforeAfter
+        <BeforeAfter
           slot="lead"
           before={modalBefore}
           after={modalAfter}
@@ -411,7 +411,7 @@ const sidebarItems = [
         title="Horizontal Pokemon Slots"
         titleClass="text-xl font-medium text-white"
       >
-        <CaseStudyBeforeAfter
+        <BeforeAfter
           slot="lead"
           before={horizontalBefore}
           after={horizontalAfter}
@@ -428,7 +428,7 @@ const sidebarItems = [
   </section>
 
   <section id="flow">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Flow"
       title="How the rebuilt mobile experience comes together"
     />
@@ -476,7 +476,7 @@ const sidebarItems = [
   </section>
 
   <section id="retrospective">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Retrospective"
       title="Lessons from converting a desktop tool to mobile"
     />

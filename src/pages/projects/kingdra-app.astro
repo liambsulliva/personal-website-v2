@@ -8,7 +8,7 @@ import {
 } from "../../utils/images";
 import CodeBlock from "../../components/CodeBlock.astro";
 import CaptionedFigure from "../../components/CaptionedFigure.astro";
-import CaseStudySectionHeading from "../../components/case-study/CaseStudySectionHeading.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
 
 const sidebarItems = [
   { text: "Overview", href: "#overview" },
@@ -44,7 +44,7 @@ const sidebarItems = [
   />
 
   <section class="overview-section" id="overview">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Overview"
       title="A full-stack Pokemon teambuilder"
     >
@@ -80,11 +80,11 @@ const sidebarItems = [
           rel="noreferrer">Smogon API</a
         >.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
   </section>
 
   <section id="context">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Context"
       title="From draft league tool to general-purpose app"
     >
@@ -97,7 +97,7 @@ const sidebarItems = [
         It was even formatted around our draft league format, making it pretty
         hyperspecialized to begin with.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
     <CaptionedFigure caption="The initial draft-focused layout">
       <Image
@@ -116,7 +116,7 @@ const sidebarItems = [
   </section>
 
   <section id="foundation">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Foundation"
       title="Building the technical foundation"
     >
@@ -134,11 +134,11 @@ const sidebarItems = [
         properly with React hooks, which was something I wasn't super familiar
         with at the time.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
   </section>
 
   <section id="selection">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Selection"
       title="From drag-and-drop to grid-based selection"
     >
@@ -150,7 +150,7 @@ const sidebarItems = [
         scrapped, but it was the basis for the grid-based selection system we
         have now.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
     <CaptionedFigure caption="The current grid-based Pokémon selection system">
       <Image
@@ -163,7 +163,7 @@ const sidebarItems = [
   </section>
 
   <section id="calculations">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Calculations"
       title="Real-time stat calculations"
     >
@@ -178,7 +178,7 @@ const sidebarItems = [
           rel="noreferrer">nature multiplier</a
         > when it is relevant:
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
     <CodeBlock
       code={`const calculateStatTotal = () => {
@@ -245,7 +245,7 @@ const sidebarItems = [
   </section>
 
   <section id="interoperability">
-    <CaseStudySectionHeading
+    <SectionHeading
       eyebrow="Interoperability"
       title="Pokemon Showdown import and export"
     >
@@ -257,7 +257,7 @@ const sidebarItems = [
         went into pushing this data into JSON files. Here's a snippet from some
         of the stat parsing.
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
 
     <CodeBlock
       code={`rest.forEach((line) => {
@@ -295,13 +295,13 @@ const sidebarItems = [
   </section>
 
   <section id="outcome">
-    <CaseStudySectionHeading eyebrow="Outcome" title="Where the project landed">
+    <SectionHeading eyebrow="Outcome" title="Where the project landed">
       <p>
         Though there is still work to be done, I'm proud of where this project
         ended up, considering it was a solo project. It was a great learning
         experience to learn how to leverage multiple APIs in a single app to
         build out a cohesive experience. Hope you find it useful!
       </p>
-    </CaseStudySectionHeading>
+    </SectionHeading>
   </section>
 </CaseStudyLayout>
