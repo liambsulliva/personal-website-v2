@@ -23,7 +23,11 @@ const phases = [
     label: "First build",
     title: "A launcher over the holiday break",
     commitCount: "26 commits",
-    consequence: "Responsive controller-first browsing",
+    whatIBuilt:
+      "The initial base of the project that pulls from the Switch's app catalog to draw icons to the screen and launch apps via A-press. It displays a row of apps in pages, using the L and R shoulder buttons to skip between pages.",
+    consequence: "Controller-based browsing and app launching",
+    whyItMattered:
+      "Without the basic rendering loop and app launching functionality, there would be no project to build upon.",
     subjects: [
       "skeleton nxjs base",
       "app launching functionality",
@@ -37,14 +41,17 @@ const phases = [
     label: "Off-console iteration",
     title: "Move iteration off the console",
     commitCount: "21 commits",
-    consequence: "Testability without Switch hardware",
+    whatIBuilt:
+      "This sprint focused on implementing the Vite pipeline, allowing for the React component tree to be fully device-agnostic and render in the browser. It also added a set of comprehensive settings to mutate the UI's appearance and behavior.",
+    consequence: "Testing without Switch hardware",
+    whyItMattered:
+      "Testing in the browser proved to be a huge time saving measure, as I could patch the UI in real-time without having to build and deploy to the console every time I wanted to test a change.",
     subjects: [
       "implement vite pipeline with browser preview",
       "implement pagination dots",
       "implement last played tracking",
       "implement compact view",
       "implement custom sort mode",
-      "first release",
     ],
   },
   {
@@ -52,7 +59,11 @@ const phases = [
     label: "Growing the surface",
     title: "Turn a launcher into a navigable home surface",
     commitCount: "40 commits",
-    consequence: "Discoverability and reliable offline metadata",
+    whatIBuilt:
+      "This turned the launcher from a basic interface with Switch home menu feature parity into a fully-featured home surface with search, tags, and a photo album. This iteration used a local database compiled at build metadata for each game to display metadata for each game in a rich detail view.",
+    consequence: "Providing context and aesthetic appeal",
+    whyItMattered:
+      "This iteration allowed the project to differentiate itself from the original menu and give it functionality more akin to a PlayStation home menu. The gradients and colors were a nice touch, and the rich detail panel was a nice touch to add some visual flair to the project without adding too much technical overhead.",
     subjects: [
       "implement showing page #s feature",
       "add album page",
@@ -68,7 +79,11 @@ const phases = [
     label: "Cleanup",
     title: "Stabilize on console hardware",
     commitCount: "4 commits",
+    whatIBuilt:
+      "This sprint focused on cleaning up documentation, squashing bugs, and migrating the static database to dynamic RAWG fetching. By this time, I had worked out how to use fetch and a simple proxy to get game metadata without having to deal with a pre-generated database.",
     consequence: "15.2 MB catalog removed; measured romfs ≈91% smaller",
+    whyItMattered:
+      "Migrating the database to dynamic fetching massively reduces the bundle size and allows the project to include future titles that may not have been available at the time of the initial build.",
     subjects: [
       "Expand README.md",
       "replace mockup img referenced in README",
@@ -211,7 +226,7 @@ const interactionIdeas = [
     <section id="context">
       <div class="section-heading">
         <p class="eyebrow">Context</p>
-        <h3>The React I remember, but with no strings attached</h3>
+        <h3>The React I remember, but without strings attached</h3>
         <p>
           In the Winter of 2024, I found myself with a full break from school
           for the holidays and a lot of time to kill. It made sense to start
@@ -347,10 +362,7 @@ const interactionIdeas = [
                   <p class="phase-label">{phase.label}</p>
                   <h4>{phase.title}</h4>
                   <p>
-                    <strong>What I built.</strong> Lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit. Sed feugiat, massa quis posuere
-                    faucibus, libero justo varius nibh, id fermentum magna
-                    sapien sed arcu.
+                    <strong>What I built.</strong> {phase.whatIBuilt}
                   </p>
                   <div
                     class="commit-subjects"
@@ -363,11 +375,7 @@ const interactionIdeas = [
                   <div class="interface-consequence">
                     <span>Why it mattered</span>
                     <strong>{phase.consequence}</strong>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Vivamus placerat magna vitae arcu dictum, non tempor
-                      tellus interdum.
-                    </p>
+                    <p>{phase.whyItMattered}</p>
                   </div>
                 </article>
               </li>
@@ -435,9 +443,9 @@ const interactionIdeas = [
                 <strong><code>src/browser/main.tsx</code></strong>
                 <p>
                   The browser uses polyfilling to emulate Switch-like
-                  functionality. Maps gamepad inputs to the keyboard and mouse
-                  inputs to touch. Renders in a scaled 1280 x 720 window to
-                  match the Switch's aspect ratio.
+                  functionality, mapping gamepad inputs to the keyboard and
+                  mouse inputs to touch. The browser view renders in a scaled
+                  1280 x 720 window to match the Switch's aspect ratio.
                 </p>
               </div>
             </div>
@@ -502,9 +510,12 @@ const interactionIdeas = [
           <p class="eyebrow">Final Build</p>
           <h3>What the project supports today</h3>
           <p>
-            <strong>Shipped, not future work.</strong> Lorem ipsum dolor sit amet,
-            consectetur adipiscing elit. Aliquam erat volutpat. Vestibulum ante ipsum
-            primis in faucibus orci luctus et ultrices posuere cubilia curae.
+            The project leads with a modular presentation, giving the user
+            options to switch between different views. Users can display their
+            games in a row, a grid, or a list. They can also search for games by
+            title, genre, or tag. While the rich details panel is the
+            highlighted feature, it can be freely disabled if the user prefers a
+            more minimal approach.
           </p>
         </div>
 
