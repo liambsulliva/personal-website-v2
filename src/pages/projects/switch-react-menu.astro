@@ -63,7 +63,7 @@ const phases = [
       "This turned the launcher from a basic interface with Switch home menu feature parity into a fully-featured home surface with search, tags, and a photo album. This iteration used a local database compiled at build metadata for each game to display metadata for each game in a rich detail view.",
     consequence: "Providing context and aesthetic appeal",
     whyItMattered:
-      "This iteration allowed the project to differentiate itself from the original menu and give it functionality more akin to a PlayStation home menu. The gradients and colors were a nice touch, and the rich detail panel was a nice touch to add some visual flair to the project without adding too much technical overhead.",
+      "This iteration allowed the project to differentiate itself from the original menu and give it functionality more akin to a <a href='https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/21960886/Screen_Shot_2020_10_15_at_9.16.51_AM.png?quality=90&strip=all&crop=0%2C0%2C100%2C100&w=1440' target='_blank' rel='noopener noreferrer'>PlayStation</a> home menu. The gradients and colors were a nice touch, and the rich detail panel was a nice touch to add some visual flair to the project without adding too much technical overhead.",
     subjects: [
       "implement showing page #s feature",
       "add album page",
@@ -131,18 +131,25 @@ const interactionIdeas = [
     title: "Keyboard as gamepad",
     keys: ["←", "→", "Q", "E", "Enter"],
     subject: "Rehearse console navigation in the browser preview.",
+    detail:
+      "By mapping keyboard keys to gamepad controls in the browser, developers can simulate authentic console navigation without having to touch bare-metal hardware.",
   },
   {
     number: "02",
-    title: "Search as a spatial mode",
+    title: "Searching and sorting",
     keys: ["↑", "↓", "#tag", "X"],
-    subject: "Keep focus, keyboard occupancy, and results in one canvas scene.",
+    subject:
+      "Full-text filtering, tag chips, and autocomplete, with a custom sort mode in the settings.",
+    detail:
+      "The search bar allows users to filter down games based on key characteristics like title, genre, and tag.",
   },
   {
     number: "03",
     title: "Progressive game detail",
     keys: ["↓", "A", "Edit"],
-    subject: "Reveal metadata without replacing the launch-first home surface.",
+    subject: "Access game metadata right from the menu itself.",
+    detail:
+      "The rich detail panel gives the menu some color, while giving users more information about the game(s) they're playing.",
   },
 ] as const;
 ---
@@ -299,7 +306,7 @@ const interactionIdeas = [
           <article>
             <div class="example-heading">
               <span>Data model</span>
-              <h4>Iterate the Switch app catalog</h4>
+              <h4>Iterating through the Switch's app catalog</h4>
             </div>
             <p class="example-lede">
               The launcher reads the Switch's app catalog and filters out any
@@ -316,7 +323,7 @@ const interactionIdeas = [
           <article>
             <div class="example-heading">
               <span>Bitmap icons</span>
-              <h4>Decode box art for the canvas</h4>
+              <h4>Decoding individual box art for the canvas</h4>
             </div>
             <p class="example-lede">
               The launcher then decodes the box art for each app and stores it
@@ -375,7 +382,7 @@ const interactionIdeas = [
                   <div class="interface-consequence">
                     <span>Why it mattered</span>
                     <strong>{phase.consequence}</strong>
-                    <p>{phase.whyItMattered}</p>
+                    <p set:html={phase.whyItMattered} />
                   </div>
                 </article>
               </li>
@@ -540,7 +547,7 @@ const interactionIdeas = [
           <Image
             src={switchReactMenuMockup}
             alt="Nintendo Switch mockup showing the completed rich-details interface"
-            class="w-full max-w-[1024px]"
+            class="mx-auto w-full"
             loading="lazy"
           />
         </CaptionedFigure>
@@ -557,9 +564,7 @@ const interactionIdeas = [
                   ))}
                 </div>
                 <p>
-                  <strong>{idea.subject}</strong> Lorem ipsum dolor sit amet,
-                  consectetur adipiscing elit. Nunc ullamcorper augue a justo
-                  commodo, vitae posuere nibh fermentum.
+                  <strong>{idea.subject}</strong> {idea.detail}
                 </p>
               </article>
             ))
@@ -751,6 +756,12 @@ const interactionIdeas = [
     }
 
     .constraint-node a {
+      color: #76c7ff;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .timeline-phase :global(a) {
       color: #76c7ff;
       text-decoration: underline;
       text-underline-offset: 2px;
@@ -959,8 +970,16 @@ const interactionIdeas = [
     }
 
     .product-figure {
+      width: 100%;
       margin-top: 2.5rem;
       text-align: left;
+    }
+
+    .product-figure :global(img) {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-inline: auto;
     }
 
     .product-figure :global(p) {
