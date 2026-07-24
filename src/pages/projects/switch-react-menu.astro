@@ -14,12 +14,12 @@ const sidebarItems = [
   { text: "Context", href: "#context" },
   { text: "Timeline", href: "#timeline" },
   { text: "Development", href: "#development" },
-  { text: "Shipped features", href: "#shipped-features" },
+  { text: "Final Build", href: "#final-build" },
 ];
 
 const phases = [
   {
-    date: "Dec 28–31, 2024",
+    date: "December 2024",
     label: "First build",
     title: "A launcher over the holiday break",
     commitCount: "26 commits",
@@ -33,7 +33,7 @@ const phases = [
     ],
   },
   {
-    date: "May 6–7, 2026",
+    date: "May 2026",
     label: "Off-console iteration",
     title: "Move iteration off the console",
     commitCount: "21 commits",
@@ -48,7 +48,7 @@ const phases = [
     ],
   },
   {
-    date: "May 9–14, 2026",
+    date: "May 2026",
     label: "Growing the surface",
     title: "Turn a launcher into a navigable home surface",
     commitCount: "40 commits",
@@ -64,7 +64,7 @@ const phases = [
     ],
   },
   {
-    date: "June 8–9, 2026",
+    date: "June 2026",
     label: "Cleanup",
     title: "Stabilize on console hardware",
     commitCount: "4 commits",
@@ -101,11 +101,12 @@ const completedFeatures = [
   },
   {
     title: "Web shortcut",
-    subject: "System browser handoff through Switch.WebApplet",
+    subject:
+      "System browser handoff through the Switch's native web browser shortcut",
   },
   {
     title: "Browser preview",
-    subject: "Vite, nx.js polyfills, keyboard gamepad, and mouse touch",
+    subject: "Vite, nx.js port, keyboard gamepad, and mouse touch",
   },
 ] as const;
 
@@ -133,7 +134,7 @@ const interactionIdeas = [
 
 <CaseStudyLayout
   title="Switch React Menu"
-  subtitle="Started over winter break 2024 · Picked back up in May 2026 · Tidied up in June 2026"
+  subtitle="A Minimalist Home Menu for Nintendo Switch - December 2024"
   pageTitle="Switch React Menu - Liam Sullivan"
   sidebarItems={sidebarItems}
   projectRole={["Mobile Development", "UI + UX Design"]}
@@ -210,7 +211,7 @@ const interactionIdeas = [
     <section id="context">
       <div class="section-heading">
         <p class="eyebrow">Context</p>
-        <h3>A React interface, but no browser DOM</h3>
+        <h3>The React I remember, but with no strings attached</h3>
         <p>
           In the Winter of 2024, I found myself with a full break from school
           for the holidays and a lot of time to kill. It made sense to start
@@ -249,12 +250,11 @@ const interactionIdeas = [
             <p>
               Components like <code>Rect</code>, <code>Text</code>, and <code
                 >Image</code
-              > act as the building blocks of the UI.
-              <a
+              > from <a
                 href="https://github.com/TooTallNate/react-tela"
                 target="_blank"
                 rel="noopener noreferrer">react-tela</a
-              >
+              > act as the building blocks of the UI.
             </p>
           </div>
           <svg class="constraint-arrow" viewBox="0 0 48 24" aria-hidden="true">
@@ -271,14 +271,11 @@ const interactionIdeas = [
           <svg class="constraint-arrow" viewBox="0 0 48 24" aria-hidden="true">
             <path d="M2 12h36M30 4l10 8-10 8"></path>
           </svg>
-          <div class="constraint-node accent-node">
+          <div class="constraint-node">
             <span>03 - Screen</span>
             <strong>Canvas2D</strong>
             <p>
-              <code
-                >The <code>render</code> function paints straight onto the Switch's
-                screen.
-              </code>
+              The <code>render</code> function paints straight onto the Switch's screen.
             </p>
           </div>
         </div>
@@ -330,9 +327,8 @@ const interactionIdeas = [
           <p class="eyebrow">Project timeline</p>
           <h3>Four bursts across 92 commits</h3>
           <p>
-            <strong>Reading the record.</strong> Lorem ipsum dolor sit amet, consectetur
-            adipiscing elit. Morbi volutpat, nibh et tincidunt tristique, sem mi sollicitudin
-            velit, sed consequat risus eros vitae augue.
+            This timeline groups the four biggest sprints of the project with
+            the features that were shipped in each.
           </p>
         </div>
 
@@ -403,16 +399,16 @@ const interactionIdeas = [
           aria-label="Shared React and react-tela layer branching into Switch and browser runtimes"
         >
           <div class="runtime-stack">
-            <div class="constraint-node accent-node stack-host">
-              <span>00 - React DOM layer</span>
-              <strong>Shared React + react-tela substrate</strong>
+            <div class="constraint-node stack-host">
+              <span>00 - React</span>
+              <strong>The React Framework</strong>
               <p>
-                The shared source both runtimes branch from: one <code>App</code
-                >
-                tree and Canvas2D paint calls (<code>Rect</code>,
-                <code>Text</code>, <code>Image</code>). On Switch that substrate
-                targets nx.js <code>screen</code>; in preview, a DOM
-                <code>&lt;canvas&gt;</code> is polyfilled into the same contract.
+                The React framework was the foundation of this project. It
+                allowed for me to declare how I wanted the UI to look, without
+                having much regard for what platform it was built for. This
+                platform agnostic approach allowed me to focus on the core
+                features I wanted to build, without worrying about the nitty
+                gritty details.
               </p>
             </div>
 
@@ -424,24 +420,24 @@ const interactionIdeas = [
             </div>
 
             <div class="runtime-guests">
-              <div class="constraint-node switch-guest">
-                <span>01 - Switch guest</span>
+              <div class="constraint-node">
+                <span>01 - react-tela</span>
                 <strong><code>src/main.tsx</code></strong>
                 <p>
-                  Load fonts via <code>Switch.readFile</code>, then
-                  <code>render(&lt;App /&gt;, screen)</code> onto the nx.js Canvas2D
-                  framebuffer with a real
-                  <code>Switch.Application</code> catalog.
+                  This version of React allows the project to adapt its UI to
+                  paint to the Switch's screen through the Canvas2D API, taking
+                  full advantage of the Switch’s rendering pipeline and
+                  performance characteristics.
                 </p>
               </div>
-              <div class="constraint-node browser-guest">
-                <span>02 - Browser guest</span>
+              <div class="constraint-node">
+                <span>02 - React-DOM</span>
                 <strong><code>src/browser/main.tsx</code></strong>
                 <p>
-                  Install nx.js polyfills on
-                  <code>&lt;canvas id="screen"&gt;</code>, mock
-                  <code>Switch.*</code>, map keyboard→gamepad and mouse→touch,
-                  then render the same App onto a 1280×720 Canvas2D buffer.
+                  The browser uses polyfilling to emulate Switch-like
+                  functionality. Maps gamepad inputs to the keyboard and mouse
+                  inputs to touch. Renders in a scaled 1280 x 720 window to
+                  match the Switch's aspect ratio.
                 </p>
               </div>
             </div>
@@ -501,9 +497,9 @@ const interactionIdeas = [
         }
       </section>
 
-      <section id="shipped-features">
+      <section id="final-build">
         <div class="section-heading">
-          <p class="eyebrow">Shipped features</p>
+          <p class="eyebrow">Final Build</p>
           <h3>What the project supports today</h3>
           <p>
             <strong>Shipped, not future work.</strong> Lorem ipsum dolor sit amet,
@@ -527,7 +523,7 @@ const interactionIdeas = [
         </div>
         <br />
         <CaptionedFigure
-          caption="The completed rich-details view keeps launching and metadata editing inside the controller-first navigation model."
+          caption="The rich-details view allows users to see more information about the given game they're playing, courtesy of RAWG."
           class="product-figure"
         >
           <Image
