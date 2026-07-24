@@ -224,7 +224,7 @@ const sidebarItems = [
       rendered. Week 4 brought the actual content being added to the page, with
       all milestones laid out year by year.
     </p>
-    <p>
+    <p class="pb-3">
       The main challenges during this phase involved balancing content density
       with readability:
     </p>
@@ -298,7 +298,7 @@ const truncate = (description: string, maxLength: number) => {
 </button>`}
       language="svelte"
     />
-    <p>
+    <p class="pb-3">
       The lightbox required me to use <code>npm i --legacy-peer-deps</code> to work
       around compatibility issues. This allowed package conflicts to run completely
       unchecked, meaning that I had to keep an eye on the console for potential errors
@@ -354,7 +354,7 @@ const truncate = (description: string, maxLength: number) => {
       while maintaining landscape orientation, with strategic downsizing at
       breakpoints for smaller devices.
     </p>
-    <p>
+    <p class="pb-3">
       This pivot enabled massive improvements. Each year now got its own page,
       blowing up the book to 30+ pages. Scrolling was entirely removed, creating
       a more seamless presentation that fits better with the book metaphor.
@@ -429,7 +429,7 @@ async function preloadPageImages(pageNum: number) {
       custom events to either open the book directly to a target page or
       navigate to the target page if already open.
     </p>
-    <p>
+    <p class="pb-3">
       The bookmark system directly addressed the UX concerns of having 30+ pages
       to flip through. Users could now jump around the book as needed, using
       major milestones as landmarks in HERL's timeline. The final week added
@@ -505,3 +505,17 @@ function updatePosition() {
     </p>
   </section>
 </CaseStudyLayout>
+<style>
+  /* Override CaseStudyLayout's zeroed paragraph margins */
+  section > p {
+    margin-bottom: 1rem;
+  }
+
+  .section-heading :global(p:not(.eyebrow)) {
+    margin-top: 1rem;
+  }
+
+  section > :global(.case-study-card-grid) {
+    margin-block: 0.25rem 1.25rem;
+  }
+</style>

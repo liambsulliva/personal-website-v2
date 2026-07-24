@@ -985,9 +985,9 @@ kbd {
     flex-direction: column;
   }
 
+  /* Phone mockup breaks on small/iOS screens (caption-only); hide the whole aside */
   .split-context__aside {
-    padding-top: 0;
-    align-self: center;
+    display: none;
   }
 }
 
@@ -998,7 +998,11 @@ kbd {
   }
 
   .flow-step-grid img {
-    /* Full phone frame visible while scrolling the stack */
-    max-height: calc(100svh - 12rem);
+    /* Consistent phone-frame height — do not fill/stick to the viewport */
+    width: auto;
+    max-width: min(100%, 17.5rem);
+    height: 28rem;
+    max-height: 28rem;
+    object-fit: contain;
   }
 }

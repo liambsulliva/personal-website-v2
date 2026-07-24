@@ -42,16 +42,6 @@ const { contentImage, phoneImage } = Astro.props;
 </div>
 
 <style>
-  /* Broken on Safari... disable for now */
-  @supports (hanging-punctuation: first) and (font: -apple-system-body) and
-    (-webkit-appearance: none) {
-    .mockup-container,
-    .mockup-content,
-    .mockup-phone {
-      display: none;
-    }
-  }
-
   .mockup-container {
     position: relative;
     width: 100%;
