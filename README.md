@@ -89,9 +89,10 @@ CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 
-# Dashboard Authentication (hashed with a 12-round bcrypt hash)
-AUTH_USER_HASH=your_bcrypt_hashed_username
-AUTH_PASSWORD_HASH=your_bcrypt_hashed_password
+# Dashboard Authentication (hashed with a 12-round bcrypt hash).
+# Quote the values — bcrypt hashes contain `$` and must not be shell-expanded.
+AUTH_USER_HASH='$2b$12$...'
+AUTH_PASSWORD_HASH='$2b$12$...'
 
 # Switch React Menu server-side proxy
 RAWG_API_KEY=your_rawg_api_key

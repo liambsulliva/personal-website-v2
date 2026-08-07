@@ -1,10 +1,8 @@
 import type { MiddlewareHandler } from "astro";
 import {
-  clearDashboardChallengeCookie,
   createDashboardAuthChallenge,
   createDashboardAuthError,
   dashboardNoStoreHeaders,
-  getDashboardChallengeCookie,
   requireDashboardApiRequest,
   verifyDashboardAuth,
 } from "./lib/dashboardAuth";
@@ -83,15 +81,11 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
     return response;
   }
 
-  if (!getDashboardChallengeCookie(context.request)) {
-    return createDashboardAuthChallenge(context.request);
-  }
-
   const authFailure = await verifyDashboardAuth(context.request);
 
   if (authFailure) {
     return authFailure.status === 401
-      ? createDashboardAuthChallenge(context.request, authFailure.reason)
+      ? createDashboardAuthChallenge(authFailure.reason)
       : createDashboardAuthError(authFailure);
   }
 
@@ -99,10 +93,6 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   Object.entries(dashboardNoStoreHeaders).forEach(([header, value]) => {
     response.headers.set(header, value);
   });
-  response.headers.append(
-    "Set-Cookie",
-    clearDashboardChallengeCookie(context.request),
-  );
 
   return response;
 };

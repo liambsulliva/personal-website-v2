@@ -1,6 +1,5 @@
 import bcrypt from "bcryptjs";
 
-const AUTH_CHALLENGE_COOKIE = "dashboard_auth_challenge";
 const DASHBOARD_REALM = "Dashboard";
 const DASHBOARD_REQUEST_HEADER = "x-dashboard-request";
 const DASHBOARD_REQUEST_VALUE = "true";
@@ -16,65 +15,30 @@ export const dashboardNoStoreHeaders = {
   Pragma: "no-cache",
 } as const;
 
-const createCookie = (
-  name: string,
-  value: string,
-  request: Request,
-  maxAge: number,
-) => {
-  const cookie = [
-    `${name}=${value}`,
-    "Path=/dashboard",
-    "HttpOnly",
-    "SameSite=Strict",
-    `Max-Age=${maxAge}`,
-  ];
-
-  if (new URL(request.url).protocol === "https:") {
-    cookie.push("Secure");
+const getAuthSecret = (name: "AUTH_USER_HASH" | "AUTH_PASSWORD_HASH") => {
+  const runtimeValue = process.env[name];
+  if (typeof runtimeValue === "string" && runtimeValue.length > 0) {
+    return runtimeValue;
   }
 
-  return cookie.join("; ");
+  const buildValue =
+    name === "AUTH_USER_HASH"
+      ? import.meta.env.AUTH_USER_HASH
+      : import.meta.env.AUTH_PASSWORD_HASH;
+
+  return typeof buildValue === "string" && buildValue.length > 0
+    ? buildValue
+    : undefined;
 };
-
-export const getDashboardChallengeCookie = (request: Request) => {
-  const cookieHeader = request.headers.get("cookie");
-
-  if (!cookieHeader) {
-    return null;
-  }
-
-  const cookies = cookieHeader.split(";").map((cookie) => cookie.trim());
-  const challengeCookie = cookies.find((cookie) =>
-    cookie.startsWith(`${AUTH_CHALLENGE_COOKIE}=`),
-  );
-
-  return challengeCookie
-    ? decodeURIComponent(challengeCookie.split("=").slice(1).join("="))
-    : null;
-};
-
-export const createDashboardChallengeCookie = (request: Request) =>
-  createCookie(
-    AUTH_CHALLENGE_COOKIE,
-    crypto.randomUUID(),
-    request,
-    60,
-  );
-
-export const clearDashboardChallengeCookie = (request: Request) =>
-  createCookie(AUTH_CHALLENGE_COOKIE, "", request, 0);
 
 export const createDashboardAuthChallenge = (
-  request: Request,
   message = "Authentication required",
 ) =>
   new Response(message, {
     status: 401,
     headers: {
       ...dashboardNoStoreHeaders,
-      "Set-Cookie": createDashboardChallengeCookie(request),
-      "WWW-Authenticate": `Basic realm="${DASHBOARD_REALM}-${crypto.randomUUID()}", charset="UTF-8"`,
+      "WWW-Authenticate": `Basic realm="${DASHBOARD_REALM}", charset="UTF-8"`,
     },
   });
 
@@ -125,8 +89,8 @@ export const verifyDashboardAuth = async (
     return { reason: "Authentication required", status: 401 };
   }
 
-  const usernameHash = import.meta.env.AUTH_USER_HASH;
-  const passwordHash = import.meta.env.AUTH_PASSWORD_HASH;
+  const usernameHash = getAuthSecret("AUTH_USER_HASH");
+  const passwordHash = getAuthSecret("AUTH_PASSWORD_HASH");
 
   if (!usernameHash || !passwordHash) {
     return { reason: "Server not configured", status: 500 };
@@ -167,7 +131,10 @@ export const requireDashboardApiRequest = async (request: Request) => {
     return createDashboardAuthError(authFailure);
   }
 
-  if (!hasDashboardRequestHeader(request) || !isSameOriginDashboardRequest(request)) {
+  if (
+    !hasDashboardRequestHeader(request) ||
+    !isSameOriginDashboardRequest(request)
+  ) {
     return new Response("Forbidden", {
       status: 403,
       headers: dashboardNoStoreHeaders,
