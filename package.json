@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": "20.x"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "astro dev",
@@ -36,7 +36,7 @@
     "yet-another-react-lightbox": "^3.19.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.8",
+    "@types/node": "^24.13.3",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.6"

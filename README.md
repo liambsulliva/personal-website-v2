@@ -104,7 +104,7 @@ the Astro `/api/rawg/*` proxy and never receives the key.
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal. This project targets Node 20.x:
+All commands are run from the root of the project, from a terminal. This project targets Node 24.x:
 
 - `npm install`: Install all dependencies
 - `npm run dev`: Starts the development server and watches for changes
