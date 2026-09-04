@@ -45,7 +45,9 @@ const target = projectLink ? undefined : "_blank";
           class="relative h-full w-full object-contain opacity-0 transition-opacity duration-300"
           src={img}
           alt={title}
-          loading="eager"
+          widths={[480, 720, 1040, 1600]}
+          sizes="(max-width: 850px) calc(100vw - 3rem), (max-width: 1000px) calc(50vw - 3rem), 520px"
+          loading="lazy"
           onload="this.style.opacity='1'"
         />
       </div>

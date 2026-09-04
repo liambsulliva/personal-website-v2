@@ -9,7 +9,7 @@ import Loader from "../components/gallery/Loader.tsx";
   <div class="button-container">
     <DiceIcon />
     <div id="loader-overlay" class="loader-overlay">
-      <Loader client:only="react" size="3rem" showOfflineMessage={false} />
+      <Loader client:visible size="3rem" showOfflineMessage={false} />
     </div>
   </div>
   <CloudinaryCarousel client:visible />

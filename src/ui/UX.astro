@@ -21,6 +21,8 @@ import { mockup as Mockup } from "../utils/images";
         <Image
           src={Mockup}
           alt=""
+          widths={[640, 960, 1280, 1920, 2560]}
+          sizes="(max-width: 1000px) calc(100vw - 2rem), 1100px"
           class="relative h-full w-full object-cover opacity-0 transition-opacity duration-300"
           onload="this.style.opacity='1'; document.getElementById('shimmer').style.display='none';"
         />
