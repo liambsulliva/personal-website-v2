@@ -4,18 +4,19 @@ import { Image } from "astro:assets";
 interface Props {
   contentImage: ImageMetadata;
   phoneImage: ImageMetadata;
+  contentAlt?: string;
 }
 
-const { contentImage, phoneImage } = Astro.props;
+const { contentImage, phoneImage, contentAlt = "Mobile view" } = Astro.props;
 ---
 
 <div class="mockup-container">
   <div class="mockup-content">
-    <Image src={contentImage} alt={"Mobile View"} width={300} height={533} />
+    <Image src={contentImage} alt={contentAlt} width={300} height={533} />
   </div>
   <Image
     src={phoneImage}
-    alt={"iPhone"}
+    alt=""
     class="mockup-phone"
     width={300}
     height={533}
@@ -28,7 +29,8 @@ const { contentImage, phoneImage } = Astro.props;
       width="20"
       height="20"
       viewBox="0 0 24 24"
-      ><g fill="#e0e0e0"
+      aria-hidden="true"
+    ><g fill="#e0e0e0"
         ><path
           d="m9.172 16.818l-1.415 1.414L12 22.475l4.243-4.243l-1.415-1.414L12 19.647zm5.656-9.636l1.415-1.414L12 1.525L7.757 5.768l1.415 1.414L12 4.354z"
         ></path><path

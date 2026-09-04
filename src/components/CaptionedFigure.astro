@@ -11,7 +11,7 @@ interface Props {
 const { caption, class: className, spaced = true } = Astro.props;
 ---
 
-<div class:list={[{ "mb-6": spaced }, className]}>
+<figure class:list={[{ "mb-6": spaced }, className]}>
   <slot />
-  <p class="mt-4 text-end text-sm italic text-zinc-400">{caption}</p>
-</div>
+  <figcaption class="mt-4 text-end text-sm italic text-zinc-400">{caption}</figcaption>
+</figure>

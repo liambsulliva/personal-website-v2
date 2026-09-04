@@ -23,73 +23,75 @@ const sidebarItems = [
 <Layout title="Liam Sullivan">
   <main>
     <SideBar navItems={sidebarItems} className="right-18 fixed top-72" />
-    <div class="header-desktop flex w-full justify-center">
-      <h1 class="condensed">
-        Hi! My name is <span class="text-gradient">Liam</span>
-      </h1>
-    </div>
-    <div class="header-mobile flex w-full justify-center">
-      <h1 class="condensed">
-        I'm <span class="text-gradient">Liam</span>
-      </h1>
-    </div>
-    <DescriptionTyper
-      untyped="I want to make the web "
-      typed={[
-        "delightful",
-        "seamless",
-        "accessible",
-        "lightweight",
-        "intuitive",
-        "snappy",
-        "engaging",
-        "reliable",
-        "whimsical",
-        "expressive",
-      ]}
-    />
+    <header class="flex w-full flex-col items-center">
+      <div class="header-desktop flex w-full justify-center">
+        <h1 class="condensed">
+          Hi! My name is <span class="text-gradient">Liam</span>
+        </h1>
+      </div>
+      <div class="header-mobile flex w-full justify-center">
+        <h1 class="condensed">
+          I'm <span class="text-gradient">Liam</span>
+        </h1>
+      </div>
+      <DescriptionTyper
+        untyped="I want to make the web "
+        typed={[
+          "delightful",
+          "seamless",
+          "accessible",
+          "lightweight",
+          "intuitive",
+          "snappy",
+          "engaging",
+          "reliable",
+          "whimsical",
+          "expressive",
+        ]}
+      />
+    </header>
     <div class="section-divider">
-      <div class="first-section">
-        <p class="section-labels" style="text-transform: uppercase;">About</p>
+      <section class="first-section" aria-labelledby="about-heading">
+        <p id="about-heading" class="section-labels" style="text-transform: uppercase;">About</p>
         <div id="background" class="card">
           <Background />
         </div>
-      </div>
+      </section>
 
-      <div>
-        <p class="section-labels" style="text-transform: uppercase;">
+      <section aria-labelledby="projects-heading">
+        <p id="projects-heading" class="section-labels" style="text-transform: uppercase;">
           Projects
         </p>
         <div id="projects" class="fade-in">
           <Projects />
         </div>
-      </div>
-      <div>
-        <p class="section-labels" style="text-transform: uppercase;">UX</p>
+      </section>
+      <section aria-labelledby="ux-heading">
+        <p id="ux-heading" class="section-labels" style="text-transform: uppercase;">UX</p>
         <div id="ux" class="fade-in">
           <UX />
         </div>
-      </div>
-      <div>
-        <p class="section-labels" style="text-transform: uppercase;">
+      </section>
+      <section aria-labelledby="photography-heading">
+        <p id="photography-heading" class="section-labels" style="text-transform: uppercase;">
           Photography
         </p>
         <div id="photography" class="card mb-6">
           <Photography />
         </div>
         <ArrowLink href="/photography/" label={"Portfolio"} />
-      </div>
-      <div>
-        <p class="section-labels" style="text-transform: uppercase;">
+      </section>
+      <section aria-labelledby="extracurriculars-heading">
+        <p id="extracurriculars-heading" class="section-labels" style="text-transform: uppercase;">
           Extracurriculars
         </p>
         <div id="extracurriculars" class="fade-in">
           <Extracurriculars />
         </div>
-      </div>
+      </section>
     </div>
-    <Footer />
   </main>
+  <Footer />
 
   <style>
     main {

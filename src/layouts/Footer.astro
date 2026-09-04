@@ -3,44 +3,45 @@ import { Image } from "astro:assets";
 import { footerIcon as Icon } from "../utils/images";
 ---
 
-<span class="divide-y"></span>
 <footer>
   <div class="flex items-center gap-3 max-sm:flex-col">
-    <Image id="astro-image" class="h-8" src={Icon} alt="Icon" />
-    <h3 class="text-[14px] font-medium text-[#ccc] max-sm:hidden">
+    <Image class="h-8" src={Icon} alt="Liam Sullivan logo" />
+    <p class="m-0 text-[14px] font-medium text-[#ccc] max-sm:hidden">
       Built with Love by Liam Sullivan
-    </h3>
+    </p>
   </div>
-  <ul class="flex gap-8 max-sm:grid max-sm:grid-cols-2">
-    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
-      <a
-        href="mailto:liambsullivan@gmail.com"
-        rel="noopener noreferrer"
-        target="_blank">Email</a
-      >
-    </li>
-    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
-      <a
-        href="https://flowcv.com/resume/ida15ih5ad"
-        rel="noopener noreferrer"
-        target="_blank">Resumé</a
-      >
-    </li>
-    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
-      <a
-        href="https://linkedin.com/in/liambsulliva"
-        rel="noopener noreferrer"
-        target="_blank">LinkedIn</a
-      >
-    </li>
-    <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
-      <a
-        href="https://github.com/liambsulliva"
-        rel="noopener noreferrer"
-        target="_blank">GitHub</a
-      >
-    </li>
-  </ul>
+  <nav aria-label="Contact and social links">
+    <ul class="flex gap-8 max-sm:grid max-sm:grid-cols-2">
+      <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+        <a
+          href="mailto:liambsullivan@gmail.com"
+          rel="noopener noreferrer"
+          target="_blank">Email</a
+        >
+      </li>
+      <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+        <a
+          href="https://flowcv.com/resume/ida15ih5ad"
+          rel="noopener noreferrer"
+          target="_blank">Resumé</a
+        >
+      </li>
+      <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+        <a
+          href="https://linkedin.com/in/liambsulliva"
+          rel="noopener noreferrer"
+          target="_blank">LinkedIn</a
+        >
+      </li>
+      <li class="text-[14px] font-semibold text-[#d0d0d0] hover:text-white">
+        <a
+          href="https://github.com/liambsulliva"
+          rel="noopener noreferrer"
+          target="_blank">GitHub</a
+        >
+      </li>
+    </ul>
+  </nav>
 </footer>
 
 <style>

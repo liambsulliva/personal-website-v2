@@ -17,10 +17,10 @@ const Component = href ? "a" : "div";
   rel={href ? "noopener noreferrer" : undefined}
   aria-label={href ? `Learn more about ${text}` : undefined}
 >
-  <div class="badge-icon">
+  <span class="badge-icon" aria-hidden="true">
     <slot />
-  </div>
-  <div class="badge-text">
+  </span>
+  <span class="badge-text">
     {text}
-  </div>
+  </span>
 </Component>

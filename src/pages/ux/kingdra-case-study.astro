@@ -71,7 +71,7 @@ const sidebarItems = [
 >
   <Image
     src={UXBanner}
-    alt="Kingdra Teambuilder"
+    alt="Kingdra Teambuilder mobile redesign banner"
     class="mx-auto max-h-[700px] w-auto"
     loading="eager"
     slot="hero"
@@ -159,7 +159,11 @@ const sidebarItems = [
         <CaptionedFigure
           caption="The initial mobile UI. Look at how long it takes to scroll!"
         >
-          <PhoneMockup contentImage={MobileView} phoneImage={iPhone} />
+          <PhoneMockup
+            contentImage={MobileView}
+            phoneImage={iPhone}
+            contentAlt="The original Kingdra mobile UI, showing a long scroll of Pokémon"
+          />
         </CaptionedFigure>
       </div>
     </div>
@@ -435,7 +439,7 @@ const sidebarItems = [
     <p>So how does this all come together?</p>
     <div class="flow-step-grid">
       <figure>
-        <Image src={flow1} alt="Flow Image 1" />
+        <Image src={flow1} alt="Vertical team landing page with import and export controls" />
         <figcaption>
           A vertical landing page layout lets users easily browse their Pokemon
           team. Teams can be imported from or exported to <a
@@ -447,7 +451,7 @@ const sidebarItems = [
       </figure>
 
       <figure>
-        <Image src={flow2} alt="Flow Image 2" />
+        <Image src={flow2} alt="Hamburger menu showing game modes, team options, and account settings" />
         <figcaption>
           The hamburger menu provides quick access to game modes, team options,
           and account settings. The login button transforms into a user icon
@@ -456,7 +460,7 @@ const sidebarItems = [
       </figure>
 
       <figure>
-        <Image src={flow3} alt="Flow Image 3" />
+        <Image src={flow3} alt="Pokémon details modal showing stats and moves" />
         <figcaption>
           Pokemon details appear in a space-efficient modal. Competitive mode
           shows stats and moves, while casual mode displays encounter locations
@@ -465,7 +469,7 @@ const sidebarItems = [
       </figure>
 
       <figure>
-        <Image src={flow4} alt="Flow Image 4" />
+        <Image src={flow4} alt="Full-screen Add Pokémon modal with search and filters" />
         <figcaption>
           The "Add Pokemon" button opens a full-screen modal with filtering
           options by tier, generation, and name search. Multiple Pokemon can be

@@ -15,7 +15,7 @@ export default function WindowChrome({
   return (
     <div className={`${styles.window}${className ? ` ${className}` : ""}`}>
       <div className={styles.chrome}>
-        <div className={styles.dots}>
+        <div className={styles.dots} aria-hidden="true">
           <span className={styles.dot} data-color="close" />
           <span className={styles.dot} data-color="minimize" />
           <span className={styles.dot} data-color="maximize" />

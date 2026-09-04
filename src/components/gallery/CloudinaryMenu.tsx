@@ -98,6 +98,7 @@ export default function CloudinaryMenu({ onTagChange }: CloudinaryMenuProps) {
               strokeLinecap="round"
               strokeLinejoin="round"
               className="text-white"
+              aria-hidden="true"
             >
               <path d="M15 18l-6-6 6-6" />
             </svg>
@@ -145,6 +146,7 @@ export default function CloudinaryMenu({ onTagChange }: CloudinaryMenuProps) {
               strokeLinecap="round"
               strokeLinejoin="round"
               className="text-white"
+              aria-hidden="true"
             >
               <path d="M9 18l6-6-6-6" />
             </svg>

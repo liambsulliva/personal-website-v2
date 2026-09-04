@@ -22,7 +22,7 @@ const { items, class: className } = Astro.props;
         <span class="idea-number">{idea.number}</span>
         <h4>{idea.title}</h4>
         {idea.keys && idea.keys.length > 0 && (
-          <div class="key-sequence" aria-label={`${idea.title} controls`}>
+          <div class="key-sequence" role="group" aria-label={`${idea.title} controls`}>
             {idea.keys.map((key) => (
               <kbd>{key}</kbd>
             ))}

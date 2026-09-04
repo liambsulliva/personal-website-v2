@@ -177,10 +177,20 @@ const { title } = Astro.props;
     }
   }
 
+  /* Footer chrome: inherit surrounding grayscale, never the prose blue */
   footer a:not([class]) {
     color: inherit;
     font-weight: inherit;
     text-decoration: none;
+    text-decoration-color: currentColor;
+  }
+
+  @media (hover: hover) {
+    footer a:not([class]):hover {
+      text-decoration: underline;
+      text-decoration-color: currentColor;
+      text-underline-offset: 2px;
+    }
   }
   p {
     font-size: 1rem;

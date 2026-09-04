@@ -3,10 +3,9 @@ import { Image } from "astro:assets";
 import { mockup as Mockup } from "../utils/images";
 ---
 
-<ul class="main-list">
+<article class="main-list">
   <a
     href="/ux/kingdra-case-study"
-    aria-label="Kingdra Case Study"
     class="group flex cursor-pointer items-stretch gap-6"
   >
     <div
@@ -16,11 +15,12 @@ import { mockup as Mockup } from "../utils/images";
         <div
           id="shimmer"
           class="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]"
+          aria-hidden="true"
         >
         </div>
         <Image
           src={Mockup}
-          alt="UX Banner"
+          alt=""
           class="relative h-full w-full object-cover opacity-0 transition-opacity duration-300"
           onload="this.style.opacity='1'; document.getElementById('shimmer').style.display='none';"
         />
@@ -36,7 +36,7 @@ import { mockup as Mockup } from "../utils/images";
       </div>
     </div>
   </a>
-</ul>
+</article>
 
 <style>
   .main-list-header {

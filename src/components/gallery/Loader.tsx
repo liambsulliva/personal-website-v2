@@ -31,7 +31,7 @@ export default function EosIconsThreeDotsLoading({
   }, []);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center" role="status">
       {showOfflineMessage && isOffline && (
         <p className="m-4">You seem to have lost connection. Try refreshing?</p>
       )}
@@ -43,6 +43,7 @@ export default function EosIconsThreeDotsLoading({
           height={size}
           viewBox="0 0 24 24"
           {...props}
+          aria-hidden="true"
         >
           <circle cx={18} cy={12} r={0} fill="#e0e0e0">
             <animate

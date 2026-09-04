@@ -12,7 +12,7 @@ const paddingClass =
   padding === "sm" ? "!p-3" : padding === "lg" ? "!p-6" : "!p-4";
 ---
 
-<div
+<blockquote
   class:list={[
     "mb-6 border-l-2 border-[#454545] bg-[var(--card-color)]",
     paddingClass,
@@ -20,4 +20,4 @@ const paddingClass =
   ]}
 >
   <slot />
-</div>
+</blockquote>

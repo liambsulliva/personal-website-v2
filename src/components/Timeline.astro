@@ -40,6 +40,7 @@ const { phases, class: className } = Astro.props;
           {phase.subjects && phase.subjects.length > 0 && (
             <div
               class="commit-subjects"
+              role="group"
               aria-label={`${phase.label} commit subjects`}
             >
               {phase.subjects.map((subject) => (

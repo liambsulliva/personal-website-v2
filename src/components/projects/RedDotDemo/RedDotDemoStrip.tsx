@@ -28,7 +28,6 @@ export default function RedDotDemoStrip({
     >
       <span
         className="mb-4 text-base font-semibold tracking-wider text-white/80 drop-shadow-[0_1.5px_6px_rgba(0,0,0,0.13)]"
-        aria-hidden="true"
       >
         Here's the Red Dot Effect. Click em!
       </span>

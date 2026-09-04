@@ -216,7 +216,7 @@ const LocalFetcher = ({
               )}
               <div className="flex flex-grow flex-col p-5">
                 <h2 className="m-0 text-left text-base font-bold text-white">
-                  <div className="flex w-full items-center">
+                  <span className="flex w-full items-center">
                     <span className="truncate">{card.title}</span>
                     {card.externalLink && (
                       <svg
@@ -225,6 +225,7 @@ const LocalFetcher = ({
                         height="0.75rem"
                         viewBox="0 0 24 24"
                         className="ml-2 shrink-0"
+                        aria-hidden="true"
                       >
                         <path
                           fill="none"
@@ -236,7 +237,7 @@ const LocalFetcher = ({
                         />
                       </svg>
                     )}
-                  </div>
+                  </span>
                 </h2>
                 <p className="m-0 text-[#d0d0d0]">
                   {card.type} • {card.date}

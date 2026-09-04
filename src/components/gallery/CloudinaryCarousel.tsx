@@ -134,7 +134,7 @@ const CloudinaryCarousel: React.FC = () => {
 
           <img
             src={photo}
-            aria-label={`Image ${index + 1}`}
+            alt={`Photo ${index + 1}`}
             loading={index === 0 ? "eager" : "lazy"}
             className="absolute inset-0 h-full w-full object-cover"
             onLoad={() => handleImageLoad(index)}
