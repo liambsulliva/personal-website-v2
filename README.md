@@ -52,10 +52,16 @@ numbered annotation, the part buttons, or the geometry itself. Press **Escape**
 or **Back to the whole camera** to leave a close-up; **Exit** returns home.
 The focusable canvas also supports arrow keys and `+` / `-`.
 
-This original procedural diagram uses Three.js in an Astro-bundled browser
-script. It requires no external model files or texture downloads. The lens and
-iris are illustrative; the SD side door and bottom battery compartment follow
-the α7 III's layout. The aperture slider changes the iris opening. Field notes
+This procedural model uses Three.js in an Astro-bundled browser script, with
+no external model files or texture downloads. The body controls and FE 28–70mm
+F3.5–5.6 OSS lens follow [Sony's illustrated guide](https://helpguide.sony.net/ilc/1720/v1/en/print.pdf)
+(Names of parts, pp. 22–30) and [body dimensions](https://www.sony.com/electronics/support/e-mount-body-ilce-7-series/ilce-7m3/specifications).
+The Nikon F and Canon EOS 5D STL files in `src/components/camera/` are local
+modeling references and are not bundled or loaded by the page. Knurled dials
+and lens ribs are instanced; stationary opaque trim is batched. The lens is
+shown at 28mm; its seven-blade iris uses f/3.5–22, with an enlarged opening
+for the educational close-up. The side card door and bottom battery hatch
+open separately in the storage view. Field notes
 remain available if WebGL 2 is unavailable. Reduced-motion preferences are
 respected, rendering pauses when idle/hidden, and GPU resources are disposed
 when the component disconnects.

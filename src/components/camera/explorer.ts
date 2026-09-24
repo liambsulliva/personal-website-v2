@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
-import { createCameraModel, type CameraPart } from "./model";
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+import { CAMERA_F_STOPS, createCameraModel, type CameraPart } from "./model";
 
 const labels: Record<CameraPart, string> = {
   aperture: "Aperture",
   storage: "Battery & SD cards",
   cap: "Lens cap",
 };
-const fStops = [2.8, 4, 5.6, 8, 11, 16];
+const fStops = CAMERA_F_STOPS;
 const isPart = (value: string | undefined): value is CameraPart =>
   value === "aperture" || value === "storage" || value === "cap";
 
@@ -117,12 +118,18 @@ export function initializeExplorer(host: HTMLElement): () => void {
   }
 
   const scene = new THREE.Scene();
+  // Local studio reflections give the coated glass and metal rims their shape.
+  const studio = new RoomEnvironment();
+  const pmrem = new THREE.PMREMGenerator(renderer);
+  let environment = pmrem.fromScene(studio, 0.04);
+  scene.environment = environment.texture;
+  scene.environmentIntensity = 0.45;
   // Transparent clear preserves the exact shared Layout background color.
   renderer.setClearColor(0x0f0f0f, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.65;
+  renderer.toneMappingExposure = 1.35;
   const canvas = renderer.domElement;
   canvas.tabIndex = 0;
   canvas.setAttribute("role", "img");
@@ -177,12 +184,12 @@ export function initializeExplorer(host: HTMLElement): () => void {
 
   let width = 1;
   let height = 1;
-  const overviewTarget = new THREE.Vector3(0, -0.12, 0.5);
+  const overviewTarget = new THREE.Vector3(0.45, -0.12, 0.95);
   const overviewDirection = new THREE.Vector3(-0.46, 0.28, 0.84).normalize();
   const overviewPosition = () =>
     overviewTarget
       .clone()
-      .addScaledVector(overviewDirection, Math.max(7.4, 8.4 / camera.aspect));
+      .addScaledVector(overviewDirection, Math.max(8.6, 10.2 / camera.aspect));
   const savedPosition = new THREE.Vector3();
   const savedTarget = new THREE.Vector3();
   let hasSavedView = false;
@@ -291,17 +298,17 @@ export function initializeExplorer(host: HTMLElement): () => void {
     let position: THREE.Vector3;
     const narrowScale = Math.max(1, 1 / camera.aspect);
     if (part === "aperture") {
-      target = new THREE.Vector3(0.27, -0.06, 1.65);
+      target = new THREE.Vector3(0.27, -0.06, 2.56);
       position = target
         .clone()
-        .add(new THREE.Vector3(0.16, 0.12, 3.1 * narrowScale));
+        .add(new THREE.Vector3(0.16, 0.12, 3.65 * narrowScale));
     } else if (part === "storage") {
       target = new THREE.Vector3(-1.2, -0.35, 0.2);
       position = target
         .clone()
-        .add(new THREE.Vector3(-4.2, -1.1, 3).multiplyScalar(narrowScale));
+        .add(new THREE.Vector3(-4.9, -1.1, 1.65).multiplyScalar(narrowScale));
     } else if (part === "cap") {
-      target = new THREE.Vector3(1.95, -1.15, 1.8);
+      target = new THREE.Vector3(2.08, -1.15, 2.61);
       position = target
         .clone()
         .add(new THREE.Vector3(-0.55, 0.18, 2.75 * narrowScale));
@@ -479,6 +486,9 @@ export function initializeExplorer(host: HTMLElement): () => void {
   canvas.addEventListener(
     "webglcontextrestored",
     () => {
+      environment.dispose();
+      environment = pmrem.fromScene(studio, 0.04);
+      scene.environment = environment.texture;
       contextLost = false;
       status.hidden = true;
       hotspots.hidden = false;
@@ -503,6 +513,9 @@ export function initializeExplorer(host: HTMLElement): () => void {
     model.dispose();
     ground.geometry.dispose();
     groundMaterial.dispose();
+    environment.dispose();
+    studio.dispose();
+    pmrem.dispose();
     renderer.dispose();
     canvas.remove();
   };
