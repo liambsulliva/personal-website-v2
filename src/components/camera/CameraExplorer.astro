@@ -1,0 +1,776 @@
+---
+import BackLink from "../BackLink.astro";
+
+const parts = [
+  { id: "aperture", number: "01", label: "Aperture" },
+  { id: "storage", number: "02", label: "Battery & SD cards" },
+  { id: "cap", number: "03", label: "Lens cap" },
+];
+---
+
+<camera-explorer>
+  <main class="camera-page">
+    <header class="page-header">
+      <a href="/" class="wordmark"
+        >Liam Sullivan <span>/ a little detour</span></a
+      >
+      <BackLink label="Exit" href="/" />
+    </header>
+
+    <section class="introduction" aria-labelledby="camera-title">
+      <p class="eyebrow">
+        <span class="status-dot"></span> You found the easter egg
+      </p>
+      <h1 id="camera-title">A closer look.</h1>
+      <p class="intro-copy">
+        A few small parts. A whole different way of seeing.
+      </p>
+    </section>
+
+    <div class="explorer-layout">
+      <section
+        class="stage"
+        aria-label="Interactive Sony α7 III camera diagram"
+      >
+        <div class="stage-caption">
+          <span>SONY α7 III</span><span>INTERACTIVE STUDY / 001</span>
+        </div>
+        <div class="viewport" data-viewport>
+          <div class="scene-status" data-status role="status">
+            Preparing your camera…
+          </div>
+          <div class="hotspots" data-hotspots hidden>
+            {
+              parts.map((part) => (
+                <button
+                  type="button"
+                  class={`hotspot hotspot-${part.id}`}
+                  data-part={part.id}
+                  data-hotspot={part.id}
+                  aria-label={`Explore ${part.label}`}
+                  aria-pressed="false"
+                >
+                  <>
+                    <span class="hotspot-number">{part.number}</span>
+                    <span class="hotspot-label">{part.label}</span>
+                  </>
+                </button>
+              ))
+            }
+          </div>
+        </div>
+        <div class="stage-footer">
+          <p id="orbit-instructions">
+            <svg
+              width="15"
+              height="15"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+              ><path
+                d="M7 7a7 7 0 0 1 12 5M17 17A7 7 0 0 1 5 12M7 3v4H3m14 14v-4h4"
+                stroke="currentColor"
+                stroke-width="1.5"></path></svg
+            ><span data-orbit-hint>Drag to rotate · Scroll to zoom</span>
+          </p>
+          <button type="button" class="text-button" data-reset
+            >Reset view <span aria-hidden="true">↺</span></button
+          >
+        </div>
+      </section>
+
+      <aside class="field-notes" aria-label="Camera field notes">
+        <div class="notes-header">
+          <span class="eyebrow">Field notes</span><span
+            class="note-index"
+            data-note-index>00 / 03</span
+          >
+        </div>
+        <div data-panel="overview">
+          <p class="small-label">Meet the camera</p>
+          <h2>A tool for <br />paying attention.</h2>
+          <p>
+            A camera turns light into a photograph. The interesting part is how
+            much control you have along the way.
+          </p>
+          <p>
+            This is a hands-on look at the Sony α7 III. Turn it around, then
+            pick a numbered part to see what’s happening inside.
+          </p>
+          <dl class="camera-specs">
+            <div><dt>Camera</dt><dd>Sony α7 III</dd></div><div>
+              <dt>System</dt><dd>Full-frame · Mirrorless</dd>
+            </div><div><dt>Mount</dt><dd>Sony E-mount</dd></div>
+          </dl>
+          <div class="note-tip">
+            <span aria-hidden="true">↖</span><p>
+              Follow your curiosity.<br /><span
+                >Choose a part below or on the camera.</span
+              >
+            </p>
+          </div>
+        </div>
+        <div data-panel="aperture" hidden>
+          <p class="small-label">01 / Inside the lens</p>
+          <h2>Let there <br />be light.</h2>
+          <p>
+            The aperture is an adjustable opening inside the lens. Its
+            overlapping blades control how much light passes through.
+          </p>
+          <p>
+            A lower f-number means a wider opening and a shallower depth of
+            field. A higher f-number gives a smaller opening and more depth of
+            field, all else equal.
+          </p>
+          <div class="aperture-control">
+            <label for="aperture-range"
+              >Try the aperture <output
+                for="aperture-range"
+                data-aperture-output>f/2.8</output
+              ></label
+            >
+            <input
+              id="aperture-range"
+              type="range"
+              min="0"
+              max="5"
+              step="1"
+              value="0"
+              aria-valuetext="f/2.8"
+            />
+            <div class="range-labels">
+              <span>Wider / more light</span><span>Smaller / less light</span>
+            </div>
+          </div>
+          <p class="technical-note">
+            The front glass fades away in this view to reveal a simplified iris.
+            The lens and aperture range are illustrative.
+          </p>
+        </div>
+        <div data-panel="storage" hidden>
+          <p class="small-label">02 / Power & memory</p>
+          <h2>Keep the <br />moment.</h2>
+          <p>
+            The side door protects two memory-card slots. You can configure the
+            camera to record to both cards for a backup, or switch cards when
+            one fills up.
+          </p>
+          <dl class="camera-specs">
+            <div><dt>Slot 1 · lower</dt><dd>SD · UHS-I / UHS-II</dd></div><div>
+              <dt>Slot 2 · upper</dt><dd>SD · UHS-I</dd>
+            </div><div><dt>Battery · underneath</dt><dd>NP-FZ100</dd></div>
+          </dl>
+          <p>
+            The battery has its own door on the bottom of the grip. The opened
+            diagram shows the two separate compartments.
+          </p>
+          <p class="technical-note">
+            Turn the camera off and wait for the access lamp to go out before
+            removing a memory card.
+          </p>
+        </div>
+        <div data-panel="cap" hidden>
+          <p class="small-label">03 / Between photographs</p>
+          <h2>A little <br />protection.</h2>
+          <p>
+            Simple, but useful: the lens cap protects the front glass from dust,
+            fingerprints, and scratches while the camera is packed away.
+          </p>
+          <p>
+            Pinch the two center tabs to release it from the lens rim. A
+            center-pinch design is easy to reach even with a lens hood attached.
+          </p>
+          <div class="note-tip">
+            <span aria-hidden="true">↗</span><p>
+              Match the lens, not the body.<br /><span
+                >Cap size follows the lens’s filter diameter, marked with a ⌀
+                symbol.</span
+              >
+            </p>
+          </div>
+          <p class="technical-note">
+            The cap is shown detached so you can explore the glass and iris
+            behind it.
+          </p>
+        </div>
+        <button type="button" class="back-to-camera" data-back hidden
+          ><kbd>Esc</kbd> Back to the whole camera <span aria-hidden="true"
+            >↗</span
+          ></button
+        >
+      </aside>
+    </div>
+
+    <nav class="part-navigation" aria-label="Explore camera parts">
+      {
+        parts.map((part) => (
+          <button type="button" data-part={part.id} aria-pressed="false">
+            <>
+              <span class="part-number">{part.number}</span>
+              <span>{part.label}</span>
+              <span class="part-arrow" aria-hidden="true">
+                ↗
+              </span>
+            </>
+          </button>
+        ))
+      }
+    </nav>
+
+    <footer class="page-footer">
+      <p>Made for the joy of looking closer.</p><p>
+        Simplified 3D study <span>·</span>
+        <a
+          class="guide-link"
+          href="https://helpguide.sony.net/ilc/1720/v1/en/index.html"
+          target="_blank"
+          rel="noreferrer">Sony α7 III guide ↗</a
+        >
+      </p>
+    </footer>
+    <p class="sr-only" data-announcement aria-live="polite" aria-atomic="true">
+    </p>
+    <noscript
+      ><p class="noscript-note">
+        Enable JavaScript to rotate the 3D camera and explore its parts.
+      </p></noscript
+    >
+  </main>
+</camera-explorer>
+
+<script>
+  import { initializeExplorer } from "./explorer";
+
+  class CameraExplorerElement extends HTMLElement {
+    private cleanup?: () => void;
+    connectedCallback() {
+      this.cleanup = initializeExplorer(this);
+    }
+    disconnectedCallback() {
+      this.cleanup?.();
+    }
+  }
+  if (!customElements.get("camera-explorer")) {
+    customElements.define("camera-explorer", CameraExplorerElement);
+  }
+</script>
+
+<style>
+  camera-explorer {
+    display: block;
+    color: var(--text-color);
+    --camera-accent: #e9a06c;
+  }
+  .camera-page {
+    width: min(1500px, 100%);
+    min-height: 100svh;
+    margin: auto;
+    padding: 0 3.5rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .page-header {
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .wordmark {
+    color: #eee;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .wordmark span {
+    color: #777;
+    font-weight: 400;
+    margin-left: 12px;
+  }
+  .introduction {
+    padding: 2.25rem 0 2.5rem;
+  }
+  .eyebrow,
+  .stage-caption,
+  .note-index,
+  .small-label,
+  .part-number,
+  .hotspot-number,
+  .range-labels,
+  .technical-note,
+  .page-footer {
+    font-family: "Martian Mono Variable", monospace;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--camera-accent);
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 4.5vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: -0.065em;
+    line-height: 1.1;
+    text-align: left;
+    margin: 15px 0 14px;
+  }
+  .intro-copy {
+    font-size: 15px;
+    color: #969696;
+    margin: 0;
+  }
+  .explorer-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    flex: 1;
+    min-height: 450px;
+    border-top: 1px solid #303030;
+    border-bottom: 1px solid #303030;
+  }
+  .stage {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    position: relative;
+  }
+  .stage-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 22px 28px 0 0;
+    color: #737373;
+    font-size: 8px;
+    letter-spacing: 0.08em;
+    pointer-events: none;
+  }
+  .stage-caption span:first-child {
+    color: #b6b6b6;
+  }
+  .viewport {
+    position: relative;
+    flex: 1;
+    min-height: 380px;
+    overflow: hidden;
+  }
+  .viewport :global(canvas) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    touch-action: none;
+    cursor: grab;
+  }
+  .viewport :global(canvas:active) {
+    cursor: grabbing;
+  }
+  .viewport :global(canvas:focus-visible) {
+    outline-offset: -3px;
+  }
+  .scene-status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #aaa;
+    font-size: 13px;
+    text-align: center;
+    width: min(320px, 90%);
+    z-index: 2;
+  }
+  .hotspots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hotspot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    pointer-events: auto;
+    white-space: nowrap;
+    color: #ddd;
+    border: 0;
+    background: transparent;
+    padding: 8px;
+    border-radius: 30px;
+    cursor: pointer;
+    will-change: transform;
+  }
+  .hotspot-number {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 27px;
+    height: 27px;
+    border: 1px solid #bd835c;
+    background: #171411e8;
+    border-radius: 50%;
+    font-size: 9px;
+    color: #f4b88d;
+    box-shadow: 0 0 0 4px #e9a06c08;
+  }
+  .hotspot-label {
+    padding: 4px 6px;
+    border-radius: 3px;
+    font-size: 10px;
+    background: #0f0f0fd9;
+  }
+  .hotspot:hover .hotspot-number,
+  .hotspot[aria-pressed="true"] .hotspot-number {
+    background: var(--camera-accent);
+    color: #151515;
+  }
+  .stage-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px 22px 0;
+    gap: 8px;
+  }
+  .stage-footer p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #888;
+    margin: 0;
+  }
+  .text-button {
+    background: none;
+    border: 0;
+    color: #aaa;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 8px 0 8px 8px;
+  }
+  .text-button span {
+    margin-left: 8px;
+  }
+  .text-button:hover {
+    color: white;
+  }
+  .field-notes {
+    border-left: 1px solid #303030;
+    padding: 24px 0 24px 30px;
+  }
+  .notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 34px;
+  }
+  .notes-header .eyebrow {
+    color: #8d8d8d;
+    font-size: 8px;
+  }
+  .note-index {
+    color: #737373;
+    font-size: 8px;
+  }
+  .small-label {
+    color: var(--camera-accent);
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.045em;
+    margin: 0 0 13px;
+  }
+  h2 {
+    font-size: 31px;
+    text-align: left;
+    margin: 0 0 20px;
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 1.15;
+  }
+  .field-notes p:not(.eyebrow, .small-label, .technical-note) {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #a0a0a0;
+    margin: 0 0 14px;
+  }
+  .camera-specs {
+    margin: 23px 0;
+    font-size: 10px;
+  }
+  .camera-specs div {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid #272727;
+  }
+  .camera-specs dt {
+    color: #838383;
+  }
+  .camera-specs dd {
+    margin: 0;
+    color: #ccc;
+    text-align: right;
+  }
+  .note-tip {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .note-tip > span {
+    color: var(--camera-accent);
+    font-size: 20px;
+  }
+  .field-notes .note-tip p {
+    color: #ccc;
+    font-size: 11px;
+  }
+  .note-tip p span {
+    color: #858585;
+  }
+  .technical-note {
+    color: #858585;
+    font-size: 8px;
+    line-height: 1.8;
+    margin: 20px 0 0;
+  }
+  .aperture-control {
+    margin: 24px 0;
+  }
+  .aperture-control label {
+    display: flex;
+    justify-content: space-between;
+    color: #ccc;
+    font-size: 11px;
+  }
+  output {
+    color: var(--camera-accent);
+    font-family: monospace;
+  }
+  input[type="range"] {
+    display: block;
+    accent-color: var(--camera-accent);
+    width: 100%;
+    margin: 20px 0 13px;
+    cursor: pointer;
+  }
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #858585;
+    font-size: 7px;
+  }
+  .back-to-camera {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid #303030;
+    background: transparent;
+    color: #ccc;
+    margin-top: 24px;
+    padding: 18px 0 0;
+    font-size: 10px;
+    cursor: pointer;
+    text-align: left;
+  }
+  .back-to-camera > span {
+    margin-left: auto;
+    color: var(--camera-accent);
+  }
+  kbd {
+    font:
+      9px "Martian Mono Variable",
+      monospace;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 4px 5px;
+    color: #aaa;
+  }
+  .part-navigation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid #303030;
+  }
+  .part-navigation button {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 25px 26px;
+    background: none;
+    border: 0;
+    color: #bababa;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    transition:
+      background 180ms,
+      color 180ms;
+  }
+  .part-navigation button + button {
+    border-left: 1px solid #303030;
+  }
+  .part-number {
+    color: #777;
+    font-size: 9px;
+  }
+  .part-arrow {
+    margin-left: auto;
+    color: #777;
+  }
+  .part-navigation button:hover,
+  .part-navigation button[aria-pressed="true"] {
+    background: #191612;
+    color: #f3bc93;
+  }
+  .part-navigation button[aria-pressed="true"] .part-number,
+  .part-navigation button[aria-pressed="true"] .part-arrow {
+    color: var(--camera-accent);
+  }
+  .page-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 25px 0;
+  }
+  .page-footer p {
+    margin: 0;
+    color: #797979;
+    font-size: 8px;
+    line-height: 1.7;
+  }
+  .page-footer span {
+    margin: 0 10px;
+  }
+  .guide-link {
+    color: #999;
+    text-decoration: none;
+  }
+  .guide-link:hover {
+    color: #ccc;
+    text-decoration: underline;
+  }
+  .noscript-note {
+    padding: 1rem;
+    text-align: center;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  @media (min-width: 1500px) {
+    .viewport {
+      min-height: 480px;
+    }
+  }
+  @media (max-width: 1000px) {
+    .camera-page {
+      padding: 0 2rem;
+    }
+    .explorer-layout {
+      grid-template-columns: minmax(0, 1fr) 270px;
+    }
+    .field-notes {
+      padding-left: 24px;
+    }
+    .hotspot-label {
+      display: none;
+    }
+    .stage-caption {
+      font-size: 7px;
+    }
+  }
+  @media (max-width: 700px) {
+    .camera-page {
+      padding: 0 1.25rem;
+    }
+    .page-header {
+      height: 72px;
+    }
+    .wordmark {
+      font-size: 12px;
+    }
+    .wordmark span {
+      font-size: 10px;
+      margin-left: 5px;
+    }
+    .introduction {
+      padding: 1.5rem 0 2rem;
+    }
+    .intro-copy {
+      font-size: 12px;
+    }
+    .explorer-layout {
+      grid-template-columns: 1fr;
+    }
+    .stage-caption {
+      padding-right: 0;
+    }
+    .viewport {
+      flex: none;
+      height: 350px;
+      min-height: 0;
+    }
+    .stage-footer {
+      padding-right: 0;
+      padding-bottom: 18px;
+    }
+    .stage-footer p,
+    .text-button {
+      font-size: 10px;
+    }
+    .field-notes {
+      border-left: 0;
+      border-top: 1px solid #303030;
+      padding: 22px 0;
+    }
+    .notes-header {
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-size: 28px;
+    }
+    h2 br {
+      display: none;
+    }
+    .field-notes p:not(.eyebrow, .small-label, .technical-note) {
+      max-width: 540px;
+    }
+    .part-navigation {
+      order: 0;
+    }
+    .part-navigation button {
+      gap: 8px;
+      padding: 20px 10px;
+      font-size: 10px;
+      flex-wrap: wrap;
+    }
+    .part-number {
+      font-size: 8px;
+    }
+    .part-arrow {
+      display: none;
+    }
+    .page-footer {
+      flex-direction: column;
+      gap: 8px;
+      padding: 22px 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .part-navigation button {
+      transition: none;
+    }
+  }
+</style>

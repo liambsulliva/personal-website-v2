@@ -29,6 +29,7 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 - Lightbox Gallery Viewer
 - PDF Slide Carousel for Presentations
 - Interactive Project Demos and UX Case Studies
+- Hidden interactive Sony α7 III camera study with Three.js
 - Server-Side API Routes for Cloudinary Integration
 
 ## 🗂️ Content Sections
@@ -41,6 +42,26 @@ The site is organized around several content-focused sections:
 - **Photography** - Cloudinary-backed portfolio gallery with dynamic tag filtering and lightbox viewing
 - **Other Work** - Archive grids for layouts, graphic design, presentations, cooking links, and Berlin blog posts
 - **Dashboard** - Protected upload and management tools for Cloudinary photography assets
+
+## 📷 Camera easter egg
+
+The small camera button fixed to the homepage's bottom-right corner opens
+`/camera/`. Drag (or swipe) the model to orbit, and scroll (or pinch) to zoom.
+Select the aperture, battery/SD compartments, or detached lens cap using a
+numbered annotation, the part buttons, or the geometry itself. Press **Escape**
+or **Back to the whole camera** to leave a close-up; **Exit** returns home.
+The focusable canvas also supports arrow keys and `+` / `-`.
+
+This original procedural diagram uses Three.js in an Astro-bundled browser
+script. It requires no external model files or texture downloads. The lens and
+iris are illustrative; the SD side door and bottom battery compartment follow
+the α7 III's layout. The aperture slider changes the iris opening. Field notes
+remain available if WebGL 2 is unavailable. Reduced-motion preferences are
+respected, rendering pauses when idle/hidden, and GPU resources are disposed
+when the component disconnects.
+
+Implementation lives in `src/components/camera/`; run `npm run test:camera` for
+geometry, picking, aperture, compartment, and resource-cleanup checks.
 
 ## 🔐 Authentication
 
