@@ -48,28 +48,9 @@ import landingGif from "../images/projects/landing-gif.gif";
 import crossLinkedTerms from "../images/projects/cross-linked-terms.gif";
 import modeTooltip from "../images/projects/mode-tooltip.gif";
 
-// Editorial - Layouts images
-import portraitTutorial from "../images/editorial/layouts/portrait-tutorial.png";
-import wiiManual from "../images/editorial/layouts/wii-manual.png";
-import mockPittPost from "../images/editorial/layouts/mock-pitt-post.png";
-import beerAndWineEdition from "../images/editorial/layouts/beer-and-wine-edition.png";
-import marchMadnessEdition from "../images/editorial/layouts/march-madness-edition.png";
-// Editorial - Presentations images
-import clubmeeting1 from "../images/editorial/presentations/clubmeeting1.png";
-import clubmeeting2 from "../images/editorial/presentations/clubmeeting2.png";
+// Editorial - Presentations images (homepage extracurriculars)
 import clubmeeting3 from "../images/editorial/presentations/clubmeeting3.png";
-import clubmeeting4 from "../images/editorial/presentations/clubmeeting4.png";
-import clubmeeting5 from "../images/editorial/presentations/clubmeeting5.png";
 import clubmeeting6 from "../images/editorial/presentations/clubmeeting6.png";
-
-// Editorial - Cooking images
-import pickledOnions from "../images/editorial/cooking/pickled-onions.jpg";
-import heartsOfPalm from "../images/editorial/cooking/hearts-of-palm.jpg";
-import tofu from "../images/editorial/cooking/tofu.jpg";
-
-// Editorial - Graphic Design images
-import fromPopToPersonal from "../images/editorial/graphic-design/From-Pop-to-Personal.png";
-import musicBlog from "../images/editorial/graphic-design/music-blog.png";
 
 // UI images
 import footerIcon from "../images/ui/footer.svg";
@@ -124,119 +105,11 @@ export {
   crossLinkedTerms,
   modeTooltip,
 
-  // Editorial - Layouts
-  portraitTutorial,
-  wiiManual,
-  mockPittPost,
-  beerAndWineEdition,
-  marchMadnessEdition,
-
   // Editorial - Presentations
-  clubmeeting1,
-  clubmeeting2,
   clubmeeting3,
-  clubmeeting4,
-  clubmeeting5,
   clubmeeting6,
-
-  // Editorial - Cooking
-  pickledOnions,
-  heartsOfPalm,
-  tofu,
-
-  // Editorial - Graphic Design
-  fromPopToPersonal,
-  musicBlog,
 
   // UI
   footerIcon,
   blankIphoneMockup,
-};
-
-// String paths for React/TSX components
-export const imagePaths = {
-  caseStudies: {
-    kingdra: {
-      flow1: "/images/case-studies/kingdra/flow-1.webp",
-      flow2: "/images/case-studies/kingdra/flow-2.webp",
-      flow3: "/images/case-studies/kingdra/flow-3.webp",
-      flow4: "/images/case-studies/kingdra/flow-4.webp",
-      hamburgerBefore: "/images/case-studies/kingdra/hamburger-before.png",
-      hamburgerAfter: "/images/case-studies/kingdra/hamburger-after.png",
-      horizontalSlotsBefore:
-        "/images/case-studies/kingdra/horizontalslots-before.png",
-      horizontalSlotsAfter:
-        "/images/case-studies/kingdra/horizontalslots-after.png",
-      marginsBefore: "/images/case-studies/kingdra/margins-before.png",
-      marginsAfter: "/images/case-studies/kingdra/margins-after.png",
-      modalBefore: "/images/case-studies/kingdra/modal-before.png",
-      modalAfter: "/images/case-studies/kingdra/modal-after.png",
-      pwaBefore: "/images/case-studies/kingdra/pwa-before.jpg",
-      pwaAfter: "/images/case-studies/kingdra/pwa-after.jpg",
-      tabsBefore: "/images/case-studies/kingdra/tabs-before.png",
-      tabsAfter: "/images/case-studies/kingdra/tabs-after.png",
-      menubar1: "/images/case-studies/kingdra/menubar1.png",
-      menubar2: "/images/case-studies/kingdra/menubar2.png",
-      menubar3: "/images/case-studies/kingdra/menubar3.png",
-      iconbar: "/images/case-studies/kingdra/iconbar.png",
-      mobileView: "/images/case-studies/kingdra/kingdra-mobile-view.png",
-      teambuilder: "/images/case-studies/kingdra/kingdra-teambuilder.gif",
-      uxBanner: "/images/case-studies/kingdra/ux-banner.png",
-    },
-    herl: {
-      coverFront: "/images/case-studies/herl/Cover-Front.webp",
-      coverBack: "/images/case-studies/herl/Cover-Back.webp",
-    },
-  },
-  projects: {
-    pokedraft: "/images/projects/pokedraft.png",
-    switchReactMenuScreen: "/images/projects/switch-react-menu-screen.jpg",
-    switchReactMenuMockup: "/images/projects/switch-react-menu-mockup.png",
-    bridgeapp: "/images/projects/bridgeapp.jpg",
-    herlthroughtheyears: "/images/projects/herlthroughtheyears.png",
-    invisibleHandOfUx: "/images/projects/invisible-hand-of-ux.png",
-    bannerColor: "/images/projects/banner-color.png",
-    bannerRaster: "/images/projects/banner-raster.png",
-    printLogoRaster: "/images/projects/print-logo-raster.png",
-    mockup: "/images/projects/mockup.png",
-    teambuilderOld: "/images/projects/teambuilder-old.jpg",
-    gridBasedSelection: "/images/projects/grid-based-selection.jpg",
-    landingGrid: "/images/projects/landing-grid.jpg",
-    landingSections: "/images/projects/landing-sections.jpg",
-    landingGif: "/images/projects/landing-gif.gif",
-    crossLinkedTerms: "/images/projects/cross-linked-terms.png",
-    modeTooltip: "/images/projects/mode-tooltip.png",
-  },
-  editorial: {
-    layouts: {
-      portraitTutorial: "/images/editorial/layouts/portrait-tutorial.png",
-      wiiManual: "/images/editorial/layouts/wii-manual.png",
-      mockPittPost: "/images/editorial/layouts/mock-pitt-post.png",
-      beerAndWineEdition: "/images/editorial/layouts/beer-and-wine-edition.png",
-      marchMadnessEdition:
-        "/images/editorial/layouts/march-madness-edition.png",
-    },
-    presentations: {
-      clubmeeting1: "/images/editorial/presentations/clubmeeting1.png",
-      clubmeeting2: "/images/editorial/presentations/clubmeeting2.png",
-      clubmeeting3: "/images/editorial/presentations/clubmeeting3.png",
-      clubmeeting4: "/images/editorial/presentations/clubmeeting4.png",
-      clubmeeting5: "/images/editorial/presentations/clubmeeting5.png",
-      clubmeeting6: "/images/editorial/presentations/clubmeeting6.png",
-    },
-    cooking: {
-      pickledOnions: "/images/editorial/cooking/pickled-onions.jpg",
-      heartsOfPalm: "/images/editorial/cooking/hearts-of-palm.jpg",
-      tofu: "/images/editorial/cooking/tofu.jpg",
-    },
-    graphicDesign: {
-      fromPopToPersonal:
-        "/images/editorial/graphic-design/From-Pop-to-Personal.png",
-      musicBlog: "/images/editorial/graphic-design/music-blog.png",
-    },
-  },
-  ui: {
-    footerIcon: "/images/ui/footer.svg",
-    blankIphoneMockup: "/images/ui/blank-iphone-mockup.png",
-  },
 };

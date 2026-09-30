@@ -2,8 +2,43 @@
 import Layout from "../layouts/Layout.astro";
 import BackLink from "../components/BackLink.astro";
 import WordpressFetcher from "../components/editorial/WordpressFetcher.tsx";
-import LocalFetcher from "../components/editorial/LocalFetcher.tsx";
+import OtherWorkGrid from "../components/editorial/OtherWorkGrid.astro";
 import Footer from "../layouts/Footer.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+const entries = await getCollection("otherWork");
+
+const bySection = new Map<string, CollectionEntry<"otherWork">[]>();
+for (const entry of entries) {
+  const section = entry.id.split("/")[0] ?? "personal";
+  const group = bySection.get(section) ?? [];
+  group.push(entry);
+  bySection.set(section, group);
+}
+
+for (const group of bySection.values()) {
+  group.sort((a, b) => {
+    const dateDiff = a.data.date.getTime() - b.data.date.getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return a.data.order - b.data.order;
+  });
+}
+
+const sections: {
+  id: string;
+  label: string;
+  maxCols?: 2 | 3;
+}[] = [
+  { id: "layouts", label: "Layouts", maxCols: 2 },
+  { id: "graphic-design", label: "Graphic Design" },
+  { id: "presentations", label: "Design Club" },
+  { id: "cooking", label: "Cooking" },
+  { id: "personal", label: "Personal" },
+];
+
+const visibleSections = sections.filter(
+  (section) => (bySection.get(section.id)?.length ?? 0) > 0,
+);
 ---
 
 <style>
@@ -33,23 +68,34 @@ import Footer from "../layouts/Footer.astro";
   <main class="content">
     <BackLink label={"Back"} href="/" />
     <h1 class="my-20 text-5xl font-bold">Other Work</h1>
-    <section class="mx-auto mb-16 flex flex-col" aria-labelledby="layouts-heading">
-      <p id="layouts-heading" class="text-md mb-2 font-bold uppercase">Layouts</p>
-      <LocalFetcher category={"layouts"} maxCols={2} client:load />
-    </section>
-    <section class="mx-auto mb-16 flex flex-col" aria-labelledby="graphic-design-heading">
-      <p id="graphic-design-heading" class="text-md mb-2 font-bold uppercase">Graphic Design</p>
-      <LocalFetcher category={"graphic-design"} client:load />
-    </section>
-    <section class="mx-auto mb-16 flex flex-col" aria-labelledby="design-club-heading">
-      <p id="design-club-heading" class="text-md mb-2 font-bold uppercase">Design Club</p>
-      <LocalFetcher category={"presentations"} client:load />
-    </section>
-    <section class="mx-auto flex flex-col pb-28" aria-labelledby="cooking-heading">
-      <p id="cooking-heading" class="text-md mb-2 font-bold uppercase">Cooking</p>
-      <LocalFetcher category={"cooking"} client:load />
-    </section>
-    <section class="mx-auto flex flex-col pb-28" aria-labelledby="berlin-heading">
+    {
+      visibleSections.map((section, index) => {
+        const headingId = `${section.id}-heading`;
+        const isLastLocal = index === visibleSections.length - 1;
+
+        return (
+          <section
+            class:list={[
+              "mx-auto flex flex-col",
+              isLastLocal ? "pb-28" : "mb-16",
+            ]}
+            aria-labelledby={headingId}
+          >
+            <p id={headingId} class="text-md mb-2 font-bold uppercase">
+              {section.label}
+            </p>
+            <OtherWorkGrid
+              entries={bySection.get(section.id) ?? []}
+              maxCols={section.maxCols}
+            />
+          </section>
+        );
+      })
+    }
+    <section
+      class="mx-auto flex flex-col pb-28"
+      aria-labelledby="berlin-heading"
+    >
       <p id="berlin-heading" class="text-md mb-2 font-bold uppercase">Berlin</p>
       <WordpressFetcher client:load />
     </section>

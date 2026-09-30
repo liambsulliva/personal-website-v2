@@ -1,0 +1,104 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  entries: CollectionEntry<"otherWork">[];
+  maxCols?: 2 | 3;
+}
+
+const { entries, maxCols = 3 } = Astro.props;
+
+const gridClassByMaxCols: Record<2 | 3, string> = {
+  2: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2",
+  3: "grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3",
+};
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+---
+
+<div class="mx-auto w-[calc(100vw-4rem)] max-w-[1200px]">
+  <div class={gridClassByMaxCols[maxCols]}>
+    {
+      entries.map((entry) => {
+        const { title, type, date, link, externalLink, image, description } =
+          entry.data;
+        const formattedDate = formatDate(date);
+
+        return (
+          <a href={link} rel="noreferrer" target="_blank" class="h-full">
+            <div class="flex h-full flex-col overflow-hidden rounded-xl border border-[#333] bg-[#181818] hover:bg-[#202020]">
+              {image && (
+                <div class="relative aspect-[2/1] w-full">
+                  <div class="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
+                  <img
+                    src={image}
+                    alt={title}
+                    class="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300"
+                    loading="lazy"
+                    onload="this.style.opacity = '1'"
+                  />
+                </div>
+              )}
+              <div
+                class:list={[
+                  "flex flex-grow flex-col p-5 text-left",
+                  !image && "py-6",
+                ]}
+              >
+                <div class:list={[!image && "flex flex-col gap-1"]}>
+                  <h2
+                    class:list={[
+                      "m-0 text-left font-bold text-white",
+                      image ? "text-base" : "text-lg",
+                    ]}
+                  >
+                    <span class="flex w-full items-center">
+                      <span class="truncate">{title}</span>
+                      {externalLink && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="0.75rem"
+                          height="0.75rem"
+                          viewBox="0 0 24 24"
+                          class="ml-2 shrink-0"
+                          aria-hidden="true"
+                        >
+                          <path
+                            fill="none"
+                            stroke="#d0d0d0"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2.5"
+                            d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+                          />
+                        </svg>
+                      )}
+                    </span>
+                  </h2>
+                  {!image && description && (
+                    <p class="m-0 line-clamp-2 text-base font-normal text-[#e0e0e0]">
+                      {description}
+                    </p>
+                  )}
+                </div>
+                <p
+                  class:list={[
+                    "m-0 text-base font-normal text-[#d0d0d0]",
+                    !image && "mt-4",
+                  ]}
+                >
+                  {type} • {formattedDate}
+                </p>
+              </div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</div>
