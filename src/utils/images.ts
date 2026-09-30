@@ -48,10 +48,6 @@ import landingGif from "../images/projects/landing-gif.gif";
 import crossLinkedTerms from "../images/projects/cross-linked-terms.gif";
 import modeTooltip from "../images/projects/mode-tooltip.gif";
 
-// Editorial - Presentations images (homepage extracurriculars)
-import clubmeeting3 from "../images/editorial/presentations/clubmeeting3.png";
-import clubmeeting6 from "../images/editorial/presentations/clubmeeting6.png";
-
 // UI images
 import footerIcon from "../images/ui/footer.svg";
 import blankIphoneMockup from "../images/ui/blank-iphone-mockup.png";
@@ -104,10 +100,6 @@ export {
   landingGif,
   crossLinkedTerms,
   modeTooltip,
-
-  // Editorial - Presentations
-  clubmeeting3,
-  clubmeeting6,
 
   // UI
   footerIcon,

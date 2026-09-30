@@ -1,30 +1,45 @@
 ---
+import { getCollection } from "astro:content";
 import Card from "../components/Card.astro";
-import { clubmeeting3, clubmeeting6 } from "../utils/images";
 import ArrowLink from "../components/ArrowLink.astro";
 import { PittIcon } from "../utils/icons";
+import {
+  formatDirectoryLabel,
+  imageFromPublicPath,
+  sectionIdFromEntry,
+} from "../utils/other-work";
+
+const featured = (await getCollection("otherWork"))
+  .filter((entry) => entry.data.featured)
+  .sort((a, b) => {
+    const dateDiff = a.data.date.getTime() - b.data.date.getTime();
+    if (dateDiff !== 0) return dateDiff;
+    return a.data.order - b.data.order;
+  });
 ---
 
 <div class="content">
   <div class="grid">
-    <Card
-      title="Color Theory"
-      description="An in-depth presentation exploring how colors influence user interactions with interfaces, covering traditional color theory, RGB color systems, color conventions in UI design, and best practices for accessibility and branding."
-      img={clubmeeting3}
-      banner1icon={PittIcon}
-      banner1text="Design Club"
-      demoBtn="/presentation/clubmeeting3.pdf"
-      externalLink={false}
-    />
-    <Card
-      title="Storyboarding"
-      description="A presentation framing storyboards and wireframes as essential UX tools, breaking down how to visualize user journeys, create wireframes for structure and hierarchy, and build effective storyboards that put the user first."
-      banner1icon={PittIcon}
-      banner1text="Design Club"
-      img={clubmeeting6}
-      demoBtn="/presentation/clubmeeting6.pdf"
-      externalLink={false}
-    />
+    {
+      featured.map((entry) => {
+        const img = imageFromPublicPath(entry.data.image);
+        if (!img) return null;
+
+        return (
+          <Card
+            title={entry.data.featuredTitle ?? entry.data.title}
+            description={
+              entry.data.featuredDescription ?? entry.data.description
+            }
+            img={img}
+            banner1icon={PittIcon}
+            banner1text={formatDirectoryLabel(sectionIdFromEntry(entry))}
+            demoBtn={entry.data.link}
+            externalLink={entry.data.externalLink}
+          />
+        );
+      })
+    }
   </div>
 </div>
 <ArrowLink href="/other-work/" label="Other Work" />

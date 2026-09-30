@@ -5,12 +5,16 @@ import WordpressFetcher from "../components/editorial/WordpressFetcher.tsx";
 import OtherWorkGrid from "../components/editorial/OtherWorkGrid.astro";
 import Footer from "../layouts/Footer.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import {
+  formatDirectoryLabel,
+  sectionIdFromEntry,
+} from "../utils/other-work";
 
 const entries = await getCollection("otherWork");
 
 const bySection = new Map<string, CollectionEntry<"otherWork">[]>();
 for (const entry of entries) {
-  const section = entry.id.split("/")[0] ?? "personal";
+  const section = sectionIdFromEntry(entry);
   const group = bySection.get(section) ?? [];
   group.push(entry);
   bySection.set(section, group);
@@ -24,21 +28,24 @@ for (const group of bySection.values()) {
   });
 }
 
-const sections: {
-  id: string;
-  label: string;
-  maxCols?: 2 | 3;
-}[] = [
-  { id: "layouts", label: "Layouts", maxCols: 2 },
-  { id: "graphic-design", label: "Graphic Design" },
-  { id: "presentations", label: "Design Club" },
-  { id: "cooking", label: "Cooking" },
-  { id: "personal", label: "Personal" },
+const sectionOrder = [
+  "layouts",
+  "graphic-design",
+  "design-club",
+  "cooking",
+  "personal",
 ];
 
-const visibleSections = sections.filter(
-  (section) => (bySection.get(section.id)?.length ?? 0) > 0,
-);
+const visibleSections = [
+  ...sectionOrder.filter((id) => bySection.has(id)),
+  ...[...bySection.keys()]
+    .filter((id) => !sectionOrder.includes(id))
+    .sort((a, b) => a.localeCompare(b)),
+].map((id) => ({
+  id,
+  label: formatDirectoryLabel(id),
+  maxCols: (id === "layouts" ? 2 : 3) as 2 | 3,
+}));
 ---
 
 <style>

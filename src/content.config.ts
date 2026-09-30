@@ -11,6 +11,9 @@ const otherWork = defineCollection({
     externalLink: z.boolean().default(false),
     image: z.string().optional(),
     description: z.string().optional(),
+    featured: z.boolean().default(false),
+    featuredTitle: z.string().optional(),
+    featuredDescription: z.string().optional(),
     order: z.number().default(0),
   }),
 });
