@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { footerIcon } from "../../utils/images";
 
 interface Props {
   entries: CollectionEntry<"otherWork">[];
@@ -25,14 +27,13 @@ const formatDate = (date: Date) =>
   <div class={gridClassByMaxCols[maxCols]}>
     {
       entries.map((entry) => {
-        const { title, type, date, link, externalLink, image, description } =
-          entry.data;
+        const { title, type, date, link, externalLink, image } = entry.data;
         const formattedDate = formatDate(date);
 
         return (
           <a href={link} rel="noreferrer" target="_blank" class="h-full">
-            <div class="flex h-full flex-col overflow-hidden rounded-xl border border-[#333] bg-[#181818] hover:bg-[#202020]">
-              {image && (
+            <div class="group flex h-full flex-col overflow-hidden rounded-xl border border-[#333] bg-[#181818] hover:bg-[#202020]">
+              {image ? (
                 <div class="relative aspect-[2/1] w-full">
                   <div class="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
                   <img
@@ -43,55 +44,42 @@ const formatDate = (date: Date) =>
                     onload="this.style.opacity = '1'"
                   />
                 </div>
-              )}
-              <div
-                class:list={[
-                  "flex flex-grow flex-col p-5 text-left",
-                  !image && "py-6",
-                ]}
-              >
-                <div class:list={[!image && "flex flex-col gap-1"]}>
-                  <h2
-                    class:list={[
-                      "m-0 text-left font-bold text-white",
-                      image ? "text-base" : "text-lg",
-                    ]}
-                  >
-                    <span class="flex w-full items-center">
-                      <span class="truncate">{title}</span>
-                      {externalLink && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="0.75rem"
-                          height="0.75rem"
-                          viewBox="0 0 24 24"
-                          class="ml-2 shrink-0"
-                          aria-hidden="true"
-                        >
-                          <path
-                            fill="none"
-                            stroke="#d0d0d0"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2.5"
-                            d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
-                          />
-                        </svg>
-                      )}
-                    </span>
-                  </h2>
-                  {!image && description && (
-                    <p class="m-0 line-clamp-2 text-base font-normal text-[#e0e0e0]">
-                      {description}
-                    </p>
-                  )}
+              ) : (
+                <div class="relative flex aspect-[2/1] w-full items-center justify-center bg-[#0f0f0f] group-hover:bg-[#171717]">
+                  <Image
+                    src={footerIcon}
+                    alt=""
+                    class="h-12 w-12 select-none"
+                    aria-hidden="true"
+                  />
                 </div>
-                <p
-                  class:list={[
-                    "m-0 text-base font-normal text-[#d0d0d0]",
-                    !image && "mt-4",
-                  ]}
-                >
+              )}
+              <div class="flex flex-grow flex-col p-5 text-left">
+                <h2 class="m-0 text-left text-base font-bold text-white">
+                  <span class="flex w-full items-center">
+                    <span class="truncate">{title}</span>
+                    {externalLink && (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="0.75rem"
+                        height="0.75rem"
+                        viewBox="0 0 24 24"
+                        class="ml-2 shrink-0"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill="none"
+                          stroke="#d0d0d0"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2.5"
+                          d="M13.5 10.5L21 3m-5 0h5v5m0 6v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"
+                        />
+                      </svg>
+                    )}
+                  </span>
+                </h2>
+                <p class="m-0 text-base font-normal text-[#d0d0d0]">
                   {type} • {formattedDate}
                 </p>
               </div>
