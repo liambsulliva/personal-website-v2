@@ -28,7 +28,7 @@ function dimensionsForWidth(
 const CloudinaryFetcher: React.FC = () => {
   const [index, setIndex] = useState(-1);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
   const [selectedTag, setSelectedTag] = useState<string>("");
@@ -167,8 +167,7 @@ const CloudinaryFetcher: React.FC = () => {
   }, [isLoading, hasMore, nextCursor, fetchPhotos]);
 
   const handleTagChange = (tag: string) => {
-    //console.log("=== Tag Changed ===");
-    //console.log("New Tag:", tag);
+    setIsLoading(true);
     setSelectedTag(tag);
     setPhotos([]);
     setNextCursor(null);

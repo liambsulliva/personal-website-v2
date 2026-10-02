@@ -10,7 +10,7 @@ interface WordpressPost {
 
 const WordpressFetcher = () => {
   const [wordpressData, setWordpressData] = useState<WordpressPost[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchWordpressData = useCallback(async () => {
     setIsLoading(true);
