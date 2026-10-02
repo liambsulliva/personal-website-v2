@@ -49,13 +49,9 @@ export const GET: APIRoute = async () => {
       try {
         data = responseText ? JSON.parse(responseText) : { tags: [] };
       } catch (parseError) {
-        console.error("Failed to parse Cloudinary response:", parseError);
-        console.error("Response text was:", responseText);
+        console.error("Cloudinary tags returned invalid JSON", parseError);
         return new Response(
-          JSON.stringify({
-            error: "Invalid response from Cloudinary",
-            details: responseText,
-          }),
+          JSON.stringify({ error: "Invalid response from Cloudinary" }),
           { status: 500, headers: { "Content-Type": "application/json" } },
         );
       }
@@ -79,19 +75,15 @@ export const GET: APIRoute = async () => {
 
     return new Response(JSON.stringify({ tags: allTags }), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=86400",
+      },
     });
   } catch (error) {
-    console.error("API Route Error:", error);
-    if (error instanceof Error) {
-      console.error("Error message:", error.message);
-      console.error("Error stack:", error.stack);
-    }
+    console.error("Cloudinary tags request failed", error);
     return new Response(
-      JSON.stringify({
-        error: "Failed to fetch tags from Cloudinary",
-        details: String(error),
-      }),
+      JSON.stringify({ error: "Failed to fetch tags from Cloudinary" }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
   }

@@ -18,6 +18,10 @@ const RANDOM_SORT_FIELDS = [
 
 const LANDSCAPE_EXPRESSION = "aspect_ratio > 1";
 
+const JSON_HEADERS = { "Content-Type": "application/json" };
+const PUBLIC_CACHE_CONTROL =
+  "public, s-maxage=300, stale-while-revalidate=86400";
+
 const getRandomItem = <T>(items: readonly T[]) =>
   items[Math.floor(Math.random() * items.length)];
 
@@ -45,168 +49,161 @@ const combineCloudinaryExpressions = (
   ...filters: Array<string | undefined>
 ) => [expression, ...filters].filter(Boolean).join(" AND ");
 
-export const POST: APIRoute = async ({ request }) => {
-  //console.log("=== API Route: /api/cloudinary/search ===");
+type CloudinarySearchResponse = {
+  resources?: Array<Record<string, unknown>>;
+  next_cursor?: string;
+};
 
+const toPublicSearchResponse = (data: CloudinarySearchResponse) => ({
+  resources: (data.resources ?? []).map(
+    ({ public_id, secure_url, width, height }) => ({
+      public_id,
+      secure_url,
+      width,
+      height,
+    }),
+  ),
+  next_cursor: data.next_cursor,
+});
+
+const jsonError = (error: string, status: number) =>
+  new Response(JSON.stringify({ error }), { status, headers: JSON_HEADERS });
+
+const searchFromBody = async (
+  body: unknown,
+  {
+    allowDashboard,
+    request,
+    cacheable,
+  }: {
+    allowDashboard: boolean;
+    request: Request;
+    cacheable: boolean;
+  },
+) => {
   const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = import.meta.env.CLOUDINARY_API_KEY;
   const apiSecret = import.meta.env.CLOUDINARY_API_SECRET;
 
-  //console.log("Cloud Name:", cloudName);
-  //console.log("API Key:", apiKey ? `${apiKey.substring(0, 4)}...` : "MISSING");
-  //console.log(
-  //  "API Secret:",
-  //  apiSecret ? `${apiSecret.substring(0, 4)}...` : "MISSING",
-  //);
-
   if (!cloudName || !apiKey || !apiSecret) {
-    //console.error("Missing Cloudinary credentials");
-    return new Response(
-      JSON.stringify({ error: "Missing Cloudinary credentials" }),
-      { status: 500, headers: { "Content-Type": "application/json" } },
-    );
+    return jsonError("Missing Cloudinary credentials", 500);
   }
 
-  let body;
-  try {
-    const text = await request.text();
-    //console.log("Raw request body:", text);
-    body = text ? JSON.parse(text) : {};
-    //console.log("Parsed request body:", body);
+  const isDashboardSearch =
+    allowDashboard &&
+    body &&
+    typeof body === "object" &&
+    (body as { dashboard?: unknown }).dashboard === true;
+  const publicSearchBody = sanitizePublicCloudinarySearch(body);
 
-    const isDashboardSearch =
-      body && typeof body === "object"
-        ? (body as { dashboard?: unknown }).dashboard === true
-        : false;
-    const publicSearchBody = sanitizePublicCloudinarySearch(body);
+  if (!publicSearchBody && !isDashboardSearch) {
+    return jsonError("Unsupported Cloudinary search request", 403);
+  }
 
-    if (!publicSearchBody && !isDashboardSearch) {
-      return new Response(
-        JSON.stringify({ error: "Unsupported Cloudinary search request" }),
-        { status: 403, headers: { "Content-Type": "application/json" } },
-      );
+  if (isDashboardSearch) {
+    const authFailure = await requireDashboardApiRequest(request);
+
+    if (authFailure) {
+      return authFailure;
     }
+  }
 
-    if (isDashboardSearch) {
-      const authFailure = await requireDashboardApiRequest(request);
+  const {
+    dashboard: _dashboard,
+    randomize,
+    excludeIds,
+    ...cloudinaryBody
+  } = isDashboardSearch
+    ? (body as Record<string, unknown>)
+    : (publicSearchBody as Record<string, unknown>);
 
-      if (authFailure) {
-        return authFailure;
-      }
-    }
-
-    const {
-      dashboard: _dashboard,
-      randomize,
-      excludeIds,
-      ...cloudinaryBody
-    } = isDashboardSearch
-      ? (body as Record<string, unknown>)
-      : (publicSearchBody as Record<string, unknown>);
-
-    const auth = btoa(`${apiKey}:${apiSecret}`);
-    const url = `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`;
-
-    // Handle randomization with a bounded Cloudinary search instead of fetching every asset.
-    if (randomize) {
-      const expression =
-        typeof cloudinaryBody.expression === "string"
-          ? cloudinaryBody.expression
-          : "resource_type:image";
-
-      const randomSortField = getRandomItem(RANDOM_SORT_FIELDS);
-      const randomSortDirection = Math.random() > 0.5 ? "desc" : "asc";
-      const randomizedSearchBody = {
+  const searchBody = randomize
+    ? {
         ...cloudinaryBody,
         expression: combineCloudinaryExpressions(
-          expression,
+          typeof cloudinaryBody.expression === "string"
+            ? cloudinaryBody.expression
+            : "resource_type:image",
           LANDSCAPE_EXPRESSION,
           buildExcludedPublicIdsExpression(excludeIds),
         ),
-        sort_by: [{ [randomSortField]: randomSortDirection }],
-      };
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${auth}`,
-        },
-        body: JSON.stringify(randomizedSearchBody),
-      });
-
-      const responseText = await response.text();
-      let data;
-      try {
-        data = responseText ? JSON.parse(responseText) : {};
-      } catch (parseError) {
-        return new Response(
-          JSON.stringify({
-            error: "Invalid response from Cloudinary",
-            details: responseText,
-          }),
-          { status: 500, headers: { "Content-Type": "application/json" } },
-        );
+        sort_by: [
+          {
+            [getRandomItem(RANDOM_SORT_FIELDS)]:
+              Math.random() > 0.5 ? "desc" : "asc",
+          },
+        ],
       }
+    : cloudinaryBody;
 
-      return new Response(JSON.stringify(data), {
-        status: response.status,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    // Regular (non-randomized) requests - always fetch fresh data for fetcher/featured carousel
-
-    //console.log("Fetching fresh data from:", url);
-
-    const response = await fetch(url, {
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/resources/search`,
+    {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Basic ${auth}`,
+        ...JSON_HEADERS,
+        Authorization: `Basic ${btoa(`${apiKey}:${apiSecret}`)}`,
       },
-      body: JSON.stringify(cloudinaryBody),
-    });
+      body: JSON.stringify(searchBody),
+    },
+  );
 
-    //console.log("Cloudinary response status:", response.status);
-    //console.log("Cloudinary response ok:", response.ok);
+  const responseText = await response.text();
+  let data: CloudinarySearchResponse;
+  try {
+    data = responseText ? JSON.parse(responseText) : {};
+  } catch (parseError) {
+    console.error("Cloudinary search returned invalid JSON", parseError);
+    return jsonError("Invalid response from Cloudinary", 500);
+  }
 
-    const responseText = await response.text();
-    //console.log("Cloudinary raw response:", responseText);
+  const payload =
+    response.ok && !isDashboardSearch ? toPublicSearchResponse(data) : data;
 
-    let data;
-    try {
-      data = responseText ? JSON.parse(responseText) : {};
-    } catch (parseError) {
-      //console.error("Failed to parse Cloudinary response:", parseError);
-      //console.error("Response text was:", responseText);
-      return new Response(
-        JSON.stringify({
-          error: "Invalid response from Cloudinary",
-          details: responseText,
-        }),
-        { status: 500, headers: { "Content-Type": "application/json" } },
-      );
-    }
+  return new Response(JSON.stringify(payload), {
+    status: response.status,
+    headers: {
+      ...JSON_HEADERS,
+      ...(response.ok && cacheable && !randomize
+        ? { "Cache-Control": PUBLIC_CACHE_CONTROL }
+        : { "Cache-Control": "no-store" }),
+    },
+  });
+};
 
-    //console.log("Cloudinary response data:", data);
+export const GET: APIRoute = async ({ request }) => {
+  try {
+    const url = new URL(request.url);
+    const nextCursor = url.searchParams.get("next_cursor");
+    const rawMaxResults = url.searchParams.get("max_results");
+    const maxResults = rawMaxResults === null ? 20 : Number(rawMaxResults);
 
-    return new Response(JSON.stringify(data), {
-      status: response.status,
-      headers: { "Content-Type": "application/json" },
+    return await searchFromBody(
+      {
+        expression: url.searchParams.get("expression"),
+        max_results: Number.isFinite(maxResults) ? maxResults : 20,
+        ...(nextCursor ? { next_cursor: nextCursor } : {}),
+      },
+      { allowDashboard: false, request, cacheable: true },
+    );
+  } catch (error) {
+    console.error("Cloudinary search failed", error);
+    return jsonError("Failed to fetch from Cloudinary", 500);
+  }
+};
+
+export const POST: APIRoute = async ({ request }) => {
+  try {
+    const text = await request.text();
+    const body: unknown = text ? JSON.parse(text) : {};
+
+    return await searchFromBody(body, {
+      allowDashboard: true,
+      request,
+      cacheable: false,
     });
   } catch (error) {
-    //console.error("API Route Error:", error);
-    if (error instanceof Error) {
-      //console.error("Error message:", error.message);
-      //console.error("Error stack:", error.stack);
-    }
-    return new Response(
-      JSON.stringify({
-        error: "Failed to fetch from Cloudinary",
-        details: String(error),
-      }),
-      { status: 500, headers: { "Content-Type": "application/json" } },
-    );
+    console.error("Cloudinary search failed", error);
+    return jsonError("Failed to fetch from Cloudinary", 500);
   }
 };

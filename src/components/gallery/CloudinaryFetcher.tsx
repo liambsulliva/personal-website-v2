@@ -1,189 +1,240 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import type { Photo as AlbumPhoto } from "react-photo-album";
 import PhotoAlbum from "react-photo-album";
 import Lightbox from "yet-another-react-lightbox";
+import type {
+  ImageSource,
+  RenderSlideProps,
+  SlideImage,
+} from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Loader from "./Loader";
 import "yet-another-react-lightbox/styles.css";
 import CloudinaryMenu from "./CloudinaryMenu";
+import ProgressiveImage from "./ProgressiveImage";
+import {
+  PLACEHOLDER_WIDTH,
+  cappedWidths,
+  cloudinaryTransform,
+  toSrcSet,
+  widthSteps,
+} from "../../lib/cloudinaryImage";
+import { publicCloudinarySearchUrl } from "../../lib/cloudinarySearchPolicy";
 
-type GalleryPhoto = AlbumPhoto & { lightboxSrc: string };
+type GalleryPhoto = AlbumPhoto & {
+  previewSrcSet: string;
+  lightboxSrcSet: ImageSource[];
+};
 
-function cloudinaryTransform(secureUrl: string, transformation: string): string {
-  return secureUrl.replace("/upload/", `/upload/${transformation}/`);
+interface CloudinaryResource {
+  secure_url: string;
+  width: number;
+  height: number;
 }
 
-function dimensionsForWidth(
+const PAGE_SIZE = 20;
+
+const PREVIEW_TRANSFORM = "c_limit,f_auto,q_auto";
+const LIGHTBOX_TRANSFORM = "c_limit,f_auto,q_auto:best";
+const PREVIEW_WIDTHS = widthSteps(PLACEHOLDER_WIDTH, 1280);
+const PREVIEW_MAX_WIDTH = PREVIEW_WIDTHS[PREVIEW_WIDTHS.length - 1];
+const LIGHTBOX_WIDTHS = [...PREVIEW_WIDTHS, ...widthSteps(1440, 3840)];
+
+const LIGHTBOX_MIN_ZOOM_HEADROOM = 2;
+
+const ALBUM_SIZES = {
+  size: "calc(100vw - 64px)",
+  sizes: [{ viewport: "(max-width: 767px)", size: "calc(100vw - 24px)" }],
+};
+
+function scaledSource(
+  src: string,
+  width: number,
   naturalWidth: number,
   naturalHeight: number,
-  targetWidth: number,
-): { width: number; height: number } {
-  const w = Math.min(naturalWidth, targetWidth);
+): ImageSource {
   return {
-    width: w,
-    height: Math.round((w / naturalWidth) * naturalHeight),
+    src,
+    width,
+    height: Math.round((width / naturalWidth) * naturalHeight),
   };
+}
+
+function toGalleryPhoto(resource: CloudinaryResource): GalleryPhoto {
+  const { secure_url: baseUrl, width: rw, height: rh } = resource;
+
+  const imageUrl = (width: number, transform: string) =>
+    width >= rw
+      ? cloudinaryTransform(baseUrl, transform)
+      : cloudinaryTransform(baseUrl, `${transform},w_${width}`);
+
+  const previewWidths = cappedWidths(
+    PREVIEW_WIDTHS,
+    Math.min(rw, PREVIEW_MAX_WIDTH),
+  );
+  const lightboxSrcSet = cappedWidths(LIGHTBOX_WIDTHS, rw).map((width) =>
+    scaledSource(
+      imageUrl(
+        width,
+        width > PREVIEW_MAX_WIDTH ? LIGHTBOX_TRANSFORM : PREVIEW_TRANSFORM,
+      ),
+      width,
+      rw,
+      rh,
+    ),
+  );
+
+  return {
+    src: imageUrl(previewWidths[0], PREVIEW_TRANSFORM),
+    width: rw,
+    height: rh,
+    previewSrcSet: toSrcSet(
+      previewWidths.map((width) => ({
+        src: imageUrl(width, PREVIEW_TRANSFORM),
+        width,
+      })),
+    ),
+    lightboxSrcSet,
+  };
+}
+
+function LightboxSlide({
+  slide,
+  offset,
+  rect,
+  zoom = 1,
+}: RenderSlideProps & { slide: SlideImage }) {
+  const naturalWidth = slide.width ?? rect.width;
+  const naturalHeight = slide.height ?? rect.height;
+  const fit = Math.min(
+    rect.width / naturalWidth,
+    rect.height / naturalHeight,
+    1,
+  );
+  const displayWidth = Math.round(naturalWidth * fit);
+  const displayHeight = Math.round(naturalHeight * fit);
+
+  const requestedZoom =
+    offset === 0
+      ? 2 ** Math.ceil(Math.log2(Math.max(zoom, LIGHTBOX_MIN_ZOOM_HEADROOM)))
+      : 1;
+  // Only ever grow, so zooming back out doesn't make the browser pick (and
+  // fetch) a smaller candidate than the one already on screen.
+  const [sizesZoom, setSizesZoom] = useState(requestedZoom);
+  if (requestedZoom > sizesZoom) {
+    setSizesZoom(requestedZoom);
+  }
+
+  return (
+    <div
+      className="relative"
+      style={{ width: displayWidth, height: displayHeight }}
+    >
+      <ProgressiveImage
+        placeholderSrc={slide.src}
+        srcSet={toSrcSet(slide.srcSet ?? [])}
+        sizes={`${displayWidth * sizesZoom}px`}
+        alt={slide.alt ?? ""}
+        upgrade={Math.abs(offset) <= 1}
+        loading="eager"
+        draggable={false}
+      />
+    </div>
+  );
 }
 
 const CloudinaryFetcher: React.FC = () => {
   const [index, setIndex] = useState(-1);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
-  const [hasMore, setHasMore] = useState(true);
-  const [selectedTag, setSelectedTag] = useState<string>("");
-  const [errors, setErrors] = useState<string[]>([]);
+  const [selectedTag, setSelectedTag] = useState("");
+  const requestRef = useRef<AbortController | null>(null);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
-  const fetchPhotos = useCallback(
-    async (cursor: string | null = null) => {
-      setIsLoading(true);
-      //console.log("=== CloudinaryFetcher: Starting fetch ===");
-      //console.log("Selected Tag:", selectedTag || "(none)");
-      //console.log("Cursor:", cursor || "(none)");
+  const loadPage = useCallback(async (tag: string, cursor: string | null) => {
+    requestRef.current?.abort();
+    const controller = new AbortController();
+    requestRef.current = controller;
+    setIsLoading(true);
+    setError(false);
 
-      try {
-        const maxResults = 20;
+    try {
+      const response = await fetch(
+        publicCloudinarySearchUrl({
+          expression: tag
+            ? `resource_type:image AND tags=${tag}`
+            : "resource_type:image",
+          max_results: PAGE_SIZE,
+          next_cursor: cursor,
+        }),
+        { signal: controller.signal },
+      );
 
-        // Build search expression
-        let expression = "resource_type:image";
-        if (selectedTag && selectedTag !== "") {
-          expression += ` AND tags=${selectedTag}`;
-        }
+      if (!response.ok) {
+        throw new Error(`Search responded with ${response.status}`);
+      }
 
-        //console.log("Search Expression:", expression);
+      const data: { resources?: CloudinaryResource[]; next_cursor?: string } =
+        await response.json();
+      const page = (data.resources ?? []).map(toGalleryPhoto);
 
-        const requestBody: any = {
-          expression,
-          max_results: maxResults,
-          with_field: ["tags", "context"],
-        };
-
-        if (cursor) {
-          requestBody.next_cursor = cursor;
-        }
-
-        const url = "/api/cloudinary/search";
-        //console.log("Request URL:", url);
-        //console.log("Request Body:", JSON.stringify(requestBody, null, 2));
-
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        });
-
-        //console.log("Response Status:", response.status);
-        //console.log("Response OK:", response.ok);
-
-        const data = await response.json();
-        //console.log("Response Data:", data);
-
-        if (!data.resources || data.resources.length === 0) {
-          console.warn("No resources found in response");
-          //console.log("Data structure:", Object.keys(data));
-          setHasMore(false);
-          setIsLoading(false);
-          return;
-        }
-
-        //console.log(`Found ${data.resources.length} resources`);
-
-        // Album: small transforms + automatic lower quality. Lightbox: original `secure_url` (loaded when opened).
-        const fetchedPhotos: GalleryPhoto[] = data.resources.map(
-          (resource: { secure_url: string; width: number; height: number }) => {
-            const baseUrl = resource.secure_url;
-            const { width: rw, height: rh } = resource;
-
-            const albumTransform = "c_limit,f_auto,q_auto:low";
-            const widths = [320, 640, 960] as const;
-            const srcSet = widths.map((w) => {
-              const { width, height } = dimensionsForWidth(rw, rh, w);
-              return {
-                src: cloudinaryTransform(
-                  baseUrl,
-                  `${albumTransform},w_${w}`,
-                ),
-                width,
-                height,
-              };
-            });
-
-            return {
-              src: cloudinaryTransform(
-                baseUrl,
-                `${albumTransform},w_640`,
-              ),
-              width: rw,
-              height: rh,
-              srcSet,
-              lightboxSrc: baseUrl,
-            };
-          },
-        );
-
-        //console.log(`Processed ${fetchedPhotos.length} photos`);
-        //console.log("Next Cursor:", data.next_cursor || "(none)");
-
-        setPhotos((prevData) => [...prevData, ...fetchedPhotos]);
-        setNextCursor(data.next_cursor || null);
-        setHasMore(!!data.next_cursor);
-        //console.log("=== CloudinaryFetcher: Fetch complete ===");
-      } catch (error) {
-        console.error("!!! CloudinaryFetcher ERROR !!!", error);
-        if (error instanceof Error) {
-          console.error("Error message:", error.message);
-          console.error("Error stack:", error.stack);
-        }
-        setErrors((prev) => [...prev, `Error fetching photos: ${error}`]);
-        setHasMore(false);
-      } finally {
+      setPhotos((prev) => (cursor ? [...prev, ...page] : page));
+      setNextCursor(data.next_cursor ?? null);
+    } catch (err) {
+      if (controller.signal.aborted) return;
+      console.error("CloudinaryFetcher: failed to load photos", err);
+      setError(true);
+    } finally {
+      if (requestRef.current === controller) {
+        requestRef.current = null;
         setIsLoading(false);
       }
-    },
-    [selectedTag],
-  );
+    }
+  }, []);
 
   useEffect(() => {
-    fetchPhotos();
-  }, [fetchPhotos]);
+    loadPage(selectedTag, null);
+    return () => requestRef.current?.abort();
+  }, [selectedTag, loadPage]);
 
+  // Re-created after every page, so the observer's initial callback loads the
+  // next page when the grid still doesn't fill the viewport.
   useEffect(() => {
-    const handleScroll = () => {
-      if (!isLoading && hasMore) {
-        const scrollHeight = document.documentElement.scrollHeight;
-        const scrollTop = document.documentElement.scrollTop;
-        const clientHeight = document.documentElement.clientHeight;
+    const sentinel = sentinelRef.current;
+    if (!sentinel || isLoading || error || nextCursor === null) return;
 
-        if (scrollTop + clientHeight >= scrollHeight - 200) {
-          fetchPhotos(nextCursor);
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isLoading, hasMore, nextCursor, fetchPhotos]);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) loadPage(selectedTag, nextCursor);
+      },
+      { rootMargin: "800px 0px" },
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [isLoading, error, nextCursor, selectedTag, loadPage]);
 
   const handleTagChange = (tag: string) => {
-    setIsLoading(true);
+    if (tag === selectedTag) return;
     setSelectedTag(tag);
     setPhotos([]);
     setNextCursor(null);
-    setHasMore(true);
   };
-
-  if (errors.length > 0) {
-    console.warn("Encountered errors:", errors);
-  }
 
   const lightboxSlides = useMemo(
     () =>
-      photos.map(({ lightboxSrc, width, height }) => ({
-        src: lightboxSrc,
+      photos.map(({ src, width, height, lightboxSrcSet }) => ({
+        src,
         width,
         height,
+        srcSet: lightboxSrcSet,
       })),
     [photos],
   );
@@ -195,39 +246,62 @@ const CloudinaryFetcher: React.FC = () => {
         <PhotoAlbum
           photos={photos}
           layout="masonry"
-          renderPhoto={({ imageProps: { alt, style, ...restImageProps } }) => (
-            <div style={{ position: "relative", ...style }}>
-              <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-[#303030] via-[#383838] to-[#303030]" />
-              <img
-                alt={alt}
-                {...restImageProps}
-                className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-300"
-                loading="lazy"
-                onLoad={(e) => {
-                  (e.target as HTMLImageElement).style.opacity = "1";
-                }}
+          renderPhoto={({
+            photo,
+            layout,
+            imageProps: { alt, style, sizes },
+          }) => (
+            <button
+              type="button"
+              aria-label={`Open photo ${layout.index + 1}`}
+              style={{ position: "relative", ...style }}
+              onClick={() => setIndex(layout.index)}
+            >
+              <ProgressiveImage
+                placeholderSrc={photo.src}
+                srcSet={photo.previewSrcSet}
+                sizes={sizes}
+                alt={alt ?? ""}
               />
-            </div>
+            </button>
           )}
           columns={(containerWidth) => {
             if (containerWidth < 400) return 2;
             if (containerWidth < 800) return 3;
             return 4;
           }}
-          onClick={({ index: current }) => setIndex(current)}
+          sizes={ALBUM_SIZES}
           defaultContainerWidth={360}
         />
-      ) : !isLoading ? (
+      ) : !isLoading && !error ? (
         <div className="flex h-32 w-full items-center justify-center text-white">
           <p>No photos found</p>
         </div>
       ) : null}
+      <div ref={sentinelRef} aria-hidden />
+      {error && (
+        <div className="flex flex-col items-center gap-4 py-8 text-white">
+          <p>Couldn't load photos.</p>
+          <button
+            type="button"
+            onClick={() => loadPage(selectedTag, nextCursor)}
+            className="rounded-[15px] border border-[#353535] bg-[#181818] px-4 py-2 transition-all duration-100 hover:bg-[#252525] active:scale-95"
+          >
+            Try again
+          </button>
+        </div>
+      )}
       <Lightbox
         plugins={[Zoom]}
         index={index}
         slides={lightboxSlides}
         open={index >= 0}
         close={() => setIndex(-1)}
+        render={{
+          slide: (props) => (
+            <LightboxSlide {...props} slide={props.slide as SlideImage} />
+          ),
+        }}
       />
       {isLoading && <Loader />}
     </div>
