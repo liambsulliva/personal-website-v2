@@ -2,7 +2,6 @@
 export const prerender = false;
 
 import type { APIRoute } from "astro";
-import { requireDashboardApiRequest } from "../../../lib/dashboardAuth";
 import { sanitizePublicCloudinarySearch } from "../../../lib/cloudinarySearchPolicy";
 
 const RANDOM_SORT_FIELDS = [
@@ -71,15 +70,7 @@ const jsonError = (error: string, status: number) =>
 
 const searchFromBody = async (
   body: unknown,
-  {
-    allowDashboard,
-    request,
-    cacheable,
-  }: {
-    allowDashboard: boolean;
-    request: Request;
-    cacheable: boolean;
-  },
+  { cacheable }: { cacheable: boolean },
 ) => {
   const cloudName = import.meta.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = import.meta.env.CLOUDINARY_API_KEY;
@@ -89,33 +80,13 @@ const searchFromBody = async (
     return jsonError("Missing Cloudinary credentials", 500);
   }
 
-  const isDashboardSearch =
-    allowDashboard &&
-    body &&
-    typeof body === "object" &&
-    (body as { dashboard?: unknown }).dashboard === true;
   const publicSearchBody = sanitizePublicCloudinarySearch(body);
 
-  if (!publicSearchBody && !isDashboardSearch) {
+  if (!publicSearchBody) {
     return jsonError("Unsupported Cloudinary search request", 403);
   }
 
-  if (isDashboardSearch) {
-    const authFailure = await requireDashboardApiRequest(request);
-
-    if (authFailure) {
-      return authFailure;
-    }
-  }
-
-  const {
-    dashboard: _dashboard,
-    randomize,
-    excludeIds,
-    ...cloudinaryBody
-  } = isDashboardSearch
-    ? (body as Record<string, unknown>)
-    : (publicSearchBody as Record<string, unknown>);
+  const { randomize, excludeIds, ...cloudinaryBody } = publicSearchBody;
 
   const searchBody = randomize
     ? {
@@ -157,8 +128,7 @@ const searchFromBody = async (
     return jsonError("Invalid response from Cloudinary", 500);
   }
 
-  const payload =
-    response.ok && !isDashboardSearch ? toPublicSearchResponse(data) : data;
+  const payload = response.ok ? toPublicSearchResponse(data) : data;
 
   return new Response(JSON.stringify(payload), {
     status: response.status,
@@ -184,7 +154,7 @@ export const GET: APIRoute = async ({ request }) => {
         max_results: Number.isFinite(maxResults) ? maxResults : 20,
         ...(nextCursor ? { next_cursor: nextCursor } : {}),
       },
-      { allowDashboard: false, request, cacheable: true },
+      { cacheable: true },
     );
   } catch (error) {
     console.error("Cloudinary search failed", error);
@@ -197,11 +167,7 @@ export const POST: APIRoute = async ({ request }) => {
     const text = await request.text();
     const body: unknown = text ? JSON.parse(text) : {};
 
-    return await searchFromBody(body, {
-      allowDashboard: true,
-      request,
-      cacheable: false,
-    });
+    return await searchFromBody(body, { cacheable: false });
   } catch (error) {
     console.error("Cloudinary search failed", error);
     return jsonError("Failed to fetch from Cloudinary", 500);

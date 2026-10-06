@@ -18,9 +18,6 @@ Looking for the last version? See the previous [v1](https://v1.liambsullivan.com
 - Typed Hero Description Animation
 - Sidebar Anchor Navigation
 - Cloudinary Photo Backend & Image Management
-- Authenticated Administrator Dashboard
-- Drag-and-Drop Image Uploads with Batch Progress (admin only)
-- Admin Dashboard with Image Browser and Tag Editing
 - Tag-Filtered Photography Gallery with Infinite Scroll
 - Archive Section (Layouts, Graphic Design, Presentations, Blog Content)
 - WordPress-Powered Berlin Blog Feed
@@ -40,29 +37,19 @@ The site is organized around several content-focused sections:
 - **UX** - Case study content documenting featured UX projects
 - **Photography** - Cloudinary-backed portfolio gallery with dynamic tag filtering and lightbox viewing
 - **Other Work** - Archive grids for layouts, graphic design, presentations, cooking links, and Berlin blog posts
-- **Dashboard** - Protected upload and management tools for Cloudinary photography assets
 
-## 🔐 Authentication
+## 🗃️ Content Management
 
-The dashboard is protected server-side with HTTP Basic Authentication using bcrypt-hashed credentials. Access is required to:
-
-- Upload photography images
-- Manage image tags and metadata
-- Mark photos as "featured" for the homepage carousel
-- Delete Cloudinary assets from the management dashboard
+The `/dashboard` route that used to live here has been retired. Photo uploads, tagging, and deletes are now handled by [cms-dashboard](https://github.com/liambsulliva/cms-dashboard), which talks to Cloudinary directly. This site only reads from Cloudinary.
 
 ## 🌐 API Routes
 
 The application includes several server-side API routes to be used for Cloudinary-related queries:
 
 - **`POST /api/cloudinary/search`** - Filter images by tag, fetch paginated results, and serve bounded randomized carousel searches
-- **`POST /api/cloudinary/upload`** - Upload images with signed authentication, batch support, and tag management
-- **`DELETE /api/cloudinary/delete`** - Delete dashboard-managed images from Cloudinary by public ID
 - **`GET /api/cloudinary/tags`** - Retrieve all available image tags from Cloudinary
-- **`POST /api/cloudinary/add-tag`** - Add a tag to an existing Cloudinary image from the dashboard
-- **`DELETE /api/cloudinary/remove-tag`** - Remove a tag from an existing Cloudinary image from the dashboard
 
-All API routes require Cloudinary credentials to be configured through environment variables, as mentioned below. Upload, delete, and tag mutation routes are dashboard-protected.
+All API routes require Cloudinary credentials to be configured through environment variables, as mentioned below. These routes are read-only.
 
 ## ⚙️ Stack
 
@@ -77,7 +64,6 @@ All API routes require Cloudinary credentials to be configured through environme
 - [**PDF.js**](https://mozilla.github.io/pdf.js/) - PDF rendering for slide-based presentation carousels.
 - [**Shiki**](https://shiki.style/) - Syntax highlighting for code samples.
 - [**Cloudinary**](https://cloudinary.com/) - Cloud-based image and video management platform.
-- [**bcryptjs**](https://github.com/dcodeIO/bcrypt.js) - Password hashing for authentication.
 
 ## 🔧 Environment Variables
 
@@ -88,11 +74,6 @@ Create a `.env` file in the root directory with the following variables.
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-
-# Dashboard Authentication (hashed with a 12-round bcrypt hash).
-# Quote the values — bcrypt hashes contain `$` and must not be shell-expanded.
-AUTH_USER_HASH='$2b$12$...'
-AUTH_PASSWORD_HASH='$2b$12$...'
 
 # Switch React Menu server-side proxy
 RAWG_API_KEY=your_rawg_api_key

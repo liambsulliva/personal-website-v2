@@ -1,31 +1,9 @@
 import type { MiddlewareHandler } from "astro";
 import {
-  createDashboardAuthChallenge,
-  createDashboardAuthError,
-  dashboardNoStoreHeaders,
-  requireDashboardApiRequest,
-  verifyDashboardAuth,
-} from "./lib/dashboardAuth";
-import {
   isSwitchMenuDocumentPath,
   isSwitchMenuEmbedRequest,
   switchMenuSecurityHeaders,
 } from "./lib/switchMenuEmbed";
-
-const PROTECTED_PREFIXES = [
-  "/dashboard",
-  "/api/cloudinary/add-tag",
-  "/api/cloudinary/delete",
-  "/api/cloudinary/remove-tag",
-  "/api/cloudinary/upload",
-];
-
-const PROTECTED_API_PREFIXES = [
-  "/api/cloudinary/add-tag",
-  "/api/cloudinary/delete",
-  "/api/cloudinary/remove-tag",
-  "/api/cloudinary/upload",
-];
 
 function guardSwitchMenuDocument(
   request: Request,
@@ -49,50 +27,11 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   );
   if (switchMenuGuard) return switchMenuGuard;
 
-  const isProtected = PROTECTED_PREFIXES.some(
-    (p) => url.pathname === p || url.pathname.startsWith(p + "/"),
-  );
-  if (!isProtected) {
-    const response = await next();
-    if (isSwitchMenuDocumentPath(url.pathname)) {
-      Object.entries(switchMenuSecurityHeaders()).forEach(([header, value]) => {
-        response.headers.set(header, value);
-      });
-    }
-    return response;
-  }
-
-  const isProtectedApi = PROTECTED_API_PREFIXES.some(
-    (p) => url.pathname === p || url.pathname.startsWith(p + "/"),
-  );
-
-  if (isProtectedApi) {
-    const apiFailure = await requireDashboardApiRequest(context.request);
-
-    if (apiFailure) {
-      return apiFailure;
-    }
-
-    const response = await next();
-    Object.entries(dashboardNoStoreHeaders).forEach(([header, value]) => {
+  const response = await next();
+  if (isSwitchMenuDocumentPath(url.pathname)) {
+    Object.entries(switchMenuSecurityHeaders()).forEach(([header, value]) => {
       response.headers.set(header, value);
     });
-
-    return response;
   }
-
-  const authFailure = await verifyDashboardAuth(context.request);
-
-  if (authFailure) {
-    return authFailure.status === 401
-      ? createDashboardAuthChallenge(authFailure.reason)
-      : createDashboardAuthError(authFailure);
-  }
-
-  const response = await next();
-  Object.entries(dashboardNoStoreHeaders).forEach(([header, value]) => {
-    response.headers.set(header, value);
-  });
-
   return response;
 };
